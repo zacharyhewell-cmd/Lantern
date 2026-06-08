@@ -1,0 +1,22 @@
+{
+  "name": "lantern",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "light": "node src/cli/listener-control.js light",
+    "extinguish": "node src/cli/listener-control.js extinguish",
+    "listen": "node src/cli/listen.js",
+    "listen-once": "node src/cli/listen-once.js",
+    "lookup": "node src/cli/lookup-shopify-order.js",
+    "server": "node src/cli/server.js",
+    "start": "node src/cli/server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0"
+  }
+}
