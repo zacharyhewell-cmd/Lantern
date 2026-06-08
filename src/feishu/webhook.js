@@ -71,35 +71,50 @@ export function createFeishuWebhookProcessor({
   return async function processFeishuWebhook(payload) {
     const verification = verificationResponse(payload, verificationToken);
     if (verification) {
+      logger.info?.(`Feishu webhook verification request: status=${verification.status}`);
       return verification;
+    }
+
+    if (payload?.encrypt) {
+      logger.error?.("Feishu webhook received encrypted payload; encrypted callbacks are not enabled in Lantern yet");
+      return { status: 400, body: { error: "encrypted callbacks are not supported" } };
     }
 
     const event = extractMessageEvent(payload);
     if (verificationToken && event.token && event.token !== verificationToken) {
+      logger.error?.("Feishu webhook rejected event: invalid verification token");
       return { status: 403, body: { error: "invalid event token" } };
     }
 
     if (event.eventType && !["im.message.receive_v1", "message"].includes(event.eventType)) {
+      logger.info?.(`Feishu webhook ignored event: event_type=${event.eventType}`);
       return { status: 200, body: { ok: true, ignored: "event_type" } };
     }
 
     if (allowedChatId && event.chatId !== allowedChatId) {
+      logger.info?.(`Feishu webhook ignored event: chat=${event.chatId || "missing"}`);
       return { status: 200, body: { ok: true, ignored: "chat" } };
     }
 
     if (event.messageType && event.messageType !== "text") {
+      logger.info?.(`Feishu webhook ignored event: message_type=${event.messageType}`);
       return { status: 200, body: { ok: true, ignored: "message_type" } };
     }
 
     if (!event.messageId || !isLanternTrigger(event.content)) {
+      logger.info?.(
+        `Feishu webhook ignored event: trigger message_id=${event.messageId ? "present" : "missing"}`,
+      );
       return { status: 200, body: { ok: true, ignored: "trigger" } };
     }
 
     const dedupeKey = event.eventId || event.messageId;
     if (processedIds.has(dedupeKey)) {
+      logger.info?.(`Feishu webhook ignored event: duplicate=${dedupeKey}`);
       return { status: 200, body: { ok: true, duplicate: true } };
     }
     processedIds.add(dedupeKey);
+    logger.info?.(`Feishu webhook accepted Lantern request: event=${dedupeKey}`);
 
     const afterResponse = (async () => {
       const reply = await buildReply(event.content);
