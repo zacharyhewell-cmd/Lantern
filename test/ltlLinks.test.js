@@ -9,6 +9,13 @@ test("links recognized ABF Freight shipments to ArcBest tracking", () => {
   );
 });
 
+test("links 4PX shipments to direct 4PX tracking", () => {
+  assert.equal(
+    ltlTrackingUrl({ carrier: "4PX", trackingNumber: "4PX3002887715470CN" }),
+    "https://track.4px.com/#/result/0/4PX3002887715470CN",
+  );
+});
+
 test("omits LTL tracking links for unknown carriers", () => {
   assert.equal(
     ltlTrackingUrl({ carrier: "Regional LTL", trackingNumber: "123" }),

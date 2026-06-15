@@ -16,6 +16,10 @@ function normalizeKnownCarrierName(company) {
     return "FedEx";
   }
 
+  if (includesAny(company, ["4px", "递四方"])) {
+    return "4PX";
+  }
+
   if (includesAny(company, ["tforce", "t-force"])) {
     return "TForce Freight";
   }
@@ -47,12 +51,14 @@ function carrierFromUrl(url) {
   try {
     const hostname = new URL(url).hostname.toLowerCase();
     if (hostname.includes("fedex.")) return "FedEx";
+    if (hostname.includes("4px.")) return "4PX";
     if (hostname.includes("ups.")) return "UPS";
     if (hostname.includes("usps.")) return "USPS";
     if (hostname.includes("dhl.")) return "DHL";
   } catch {
     const fallback = String(url).toLowerCase();
     if (fallback.includes("fedex")) return "FedEx";
+    if (fallback.includes("4px")) return "4PX";
     if (fallback.includes("ups")) return "UPS";
     if (fallback.includes("usps")) return "USPS";
     if (fallback.includes("dhl")) return "DHL";
@@ -65,6 +71,10 @@ function carrierFromTrackingNumber(number) {
   const value = String(number || "").replace(/\s+/g, "").toUpperCase();
   if (!value) {
     return null;
+  }
+
+  if (/^4PX[0-9A-Z]+$/.test(value)) {
+    return "4PX";
   }
 
   // FedEx commonly uses 12, 15, 20, and 22 digit numeric tracking numbers.

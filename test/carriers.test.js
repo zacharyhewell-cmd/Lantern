@@ -34,6 +34,22 @@ test("recognizes Surpath FedEx channel codes", () => {
   }), "FedEx");
 });
 
+test("recognizes 4PX tracking numbers before USPS last-mile patterns", () => {
+  assert.equal(detectCarrier({
+    company: "other",
+    trackingNumber: "4PX3002887715470CN",
+    trackingUrl: "",
+  }), "4PX");
+});
+
+test("recognizes 4PX tracking URLs", () => {
+  assert.equal(detectCarrier({
+    company: "other",
+    trackingNumber: "4PX3002887715470CN",
+    trackingUrl: "https://track.4px.com/#/result/0/4PX3002887715470CN",
+  }), "4PX");
+});
+
 test("preserves TForce Freight when Surpath includes old UPS Freight wording", () => {
   assert.equal(detectCarrier({
     company: "TForce Freight (UPS Freight)",

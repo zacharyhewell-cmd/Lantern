@@ -4,6 +4,11 @@ function includesAny(value, needles) {
 }
 
 export function ltlTrackingUrl({ carrier, trackingNumber }) {
+  if (includesAny(carrier, ["4px", "4 px"])) {
+    const number = trackingNumber ? encodeURIComponent(trackingNumber) : "";
+    return `https://track.4px.com/#/result/0/${number}`;
+  }
+
   if (includesAny(carrier, ["abf", "arcbest"])) {
     const number = trackingNumber ? encodeURIComponent(trackingNumber) : "";
     return `https://view.arcb.com/nlo/tools/tracking/${number}`;
