@@ -56,10 +56,10 @@ test("normalizes multi-fulfillment tracking", () => {
 
   const reply = formatTrackingReply(summary);
   assert.doesNotMatch(reply, /Shopify fulfillment:/);
-  assert.match(reply, /Status 1: In Transit/);
+  assert.match(reply, /Status 1: Waiting for pickup/);
   assert.match(reply, /Estimated delivery: May 25, 2026/);
   assert.doesNotMatch(reply, /Estimated delivery: .*PM/);
-  assert.match(reply, /Status 2: Waiting for pickup/);
+  assert.match(reply, /Status 2: In Transit/);
   assert.match(reply, /Tracking: Not available yet/);
   assert.match(reply, /Unfulfilled items:\n1x Accessory/);
 });

@@ -111,3 +111,49 @@ test("uses friendly SKU aliases and ignores final revision letter", () => {
   assert.doesNotMatch(reply, /VB010001/);
   assert.doesNotMatch(reply, /VT200004A/);
 });
+
+test("orders reply sections by fulfillment lifecycle", () => {
+  const reply = formatTrackingReply({
+    found: true,
+    orderName: "WS-#12345",
+    shipments: [
+      {
+        status: "Delivered",
+        deliveredAt: "2026-06-01T12:00:00Z",
+        tracking: [{ carrier: "FedEx", trackingNumber: "delivered" }],
+        items: [{ quantity: 1, sku: "DELIVERED" }],
+      },
+      {
+        status: "In Transit",
+        tracking: [{ carrier: "FedEx", trackingNumber: "transit" }],
+        items: [{ quantity: 1, sku: "TRANSIT" }],
+      },
+      {
+        status: "Waiting for pickup",
+        tracking: [{ carrier: "FedEx", trackingNumber: "waiting" }],
+        items: [{ quantity: 1, sku: "WAITING" }],
+      },
+      {
+        status: "Fulfilled - LtL processing",
+        tracking: [],
+        items: [{ quantity: 1, sku: "LTL-PROCESSING" }],
+      },
+    ],
+    unfulfilledItems: [{ quantity: 1, sku: "UNFULFILLED" }],
+    warnings: [],
+  });
+
+  assert.match(reply, /Unfulfilled items:\n1x UNFULFILLED/);
+
+  const unfulfilledIndex = reply.indexOf("Unfulfilled items:");
+  const waitingIndex = reply.indexOf("Status 1: Waiting for pickup");
+  const ltlProcessingIndex = reply.indexOf("Status 2: Fulfilled - LtL processing");
+  const transitIndex = reply.indexOf("Status 3: In Transit");
+  const deliveredIndex = reply.indexOf("Status 4: Delivered");
+
+  assert.ok(unfulfilledIndex > -1);
+  assert.ok(unfulfilledIndex < waitingIndex);
+  assert.ok(waitingIndex < ltlProcessingIndex);
+  assert.ok(ltlProcessingIndex < transitIndex);
+  assert.ok(transitIndex < deliveredIndex);
+});

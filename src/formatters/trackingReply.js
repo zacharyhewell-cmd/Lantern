@@ -112,6 +112,28 @@ function formatItems(items) {
     .join(", ");
 }
 
+const SHIPMENT_STATUS_RANK = new Map([
+  ["Unfulfilled", 0],
+  ["Fulfilled - LtL processing", 1],
+  ["Waiting for pickup", 1],
+  ["In Transit", 2],
+  ["Delivered", 3],
+]);
+
+function shipmentStatusRank(shipment) {
+  return SHIPMENT_STATUS_RANK.get(shipment.status) ?? 2;
+}
+
+function sortShipmentsForReply(shipments = []) {
+  return shipments
+    .map((shipment, index) => ({ shipment, index }))
+    .sort((left, right) => (
+      shipmentStatusRank(left.shipment) - shipmentStatusRank(right.shipment) ||
+      left.index - right.index
+    ))
+    .map(({ shipment }) => shipment);
+}
+
 export function formatTrackingReply(summary) {
   if (!summary.found) {
     return `I could not find order ${summary.requestedOrder} in Shopify.`;
@@ -125,19 +147,20 @@ export function formatTrackingReply(summary) {
     lines.push(`Canceled: ${formatDateTime(summary.cancelledAt)}`);
   }
 
-  if (summary.shipments.length) {
-    lines.push("");
-    lines.push(
-      summary.shipments
-        .map((shipment, index) => formatShipment(shipment, index, summary.shipments.length))
-        .join("\n\n"),
-    );
-  }
-
   if (summary.unfulfilledItems?.length) {
     lines.push("");
     lines.push("Unfulfilled items:");
     lines.push(formatItems(summary.unfulfilledItems));
+  }
+
+  const sortedShipments = sortShipmentsForReply(summary.shipments);
+  if (sortedShipments.length) {
+    lines.push("");
+    lines.push(
+      sortedShipments
+        .map((shipment, index) => formatShipment(shipment, index, sortedShipments.length))
+        .join("\n\n"),
+    );
   }
 
   if (summary.warnings.length) {
