@@ -113,3 +113,60 @@ test("replies in-thread and dedupes Feishu retry events", async () => {
     { idempotencyKey: "evt-3" },
   ]]);
 });
+
+test("accepts any configured allowed chat ID", async () => {
+  const replies = [];
+  const processor = createFeishuWebhookProcessor({
+    allowedChatIds: ["oc_test", "oc_shipping"],
+    replyClient: {
+      async replyInThread(...args) {
+        replies.push(args);
+      },
+    },
+    buildReply: async (content) => `reply for ${content}`,
+  });
+
+  const result = await processor({
+    header: { event_id: "evt-4", event_type: "im.message.receive_v1" },
+    event: {
+      message: {
+        chat_id: "oc_shipping",
+        message_id: "om_shipping",
+        message_type: "text",
+        content: "{\"text\":\"Lantern 32146\"}",
+      },
+    },
+  });
+
+  assert.equal(result.status, 200);
+  await result.afterResponse;
+  assert.deepEqual(replies, [[
+    "om_shipping",
+    "reply for Lantern 32146",
+    { idempotencyKey: "evt-4" },
+  ]]);
+});
+
+test("still rejects chats outside the allowed chat ID set", async () => {
+  const processor = createFeishuWebhookProcessor({
+    allowedChatIds: ["oc_test", "oc_shipping"],
+    replyClient: {
+      async replyInThread() {},
+    },
+    buildReply: async () => "should not be called",
+  });
+
+  const result = await processor({
+    header: { event_id: "evt-5", event_type: "im.message.receive_v1" },
+    event: {
+      message: {
+        chat_id: "oc_other",
+        message_id: "om_other",
+        message_type: "text",
+        content: "{\"text\":\"Lantern 32146\"}",
+      },
+    },
+  });
+
+  assert.deepEqual(result, { status: 200, body: { ok: true, ignored: "chat" } });
+});

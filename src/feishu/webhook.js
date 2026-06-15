@@ -58,6 +58,7 @@ export function verificationResponse(payload, verificationToken) {
 
 export function createFeishuWebhookProcessor({
   allowedChatId,
+  allowedChatIds,
   verificationToken,
   replyClient,
   buildReply = buildLanternReply,
@@ -67,6 +68,11 @@ export function createFeishuWebhookProcessor({
   if (!replyClient?.replyInThread) {
     throw new Error("Missing Feishu reply client");
   }
+
+  const allowedChats = new Set([
+    allowedChatId,
+    ...(allowedChatIds || []),
+  ].filter(Boolean));
 
   return async function processFeishuWebhook(payload) {
     const verification = verificationResponse(payload, verificationToken);
@@ -91,7 +97,7 @@ export function createFeishuWebhookProcessor({
       return { status: 200, body: { ok: true, ignored: "event_type" } };
     }
 
-    if (allowedChatId && event.chatId !== allowedChatId) {
+    if (allowedChats.size && !allowedChats.has(event.chatId)) {
       logger.info?.(`Feishu webhook ignored event: chat=${event.chatId || "missing"}`);
       return { status: 200, body: { ok: true, ignored: "chat" } };
     }

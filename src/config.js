@@ -69,11 +69,21 @@ export function getSurpathConfig() {
 }
 
 export function getFeishuConfig() {
+  const allowedChatIds = [
+    process.env.FEISHU_LANTERN_CHAT_ID,
+    process.env.FEISHU_ALLOWED_CHAT_IDS,
+  ]
+    .filter(Boolean)
+    .flatMap((value) => value.split(","))
+    .map((value) => value.trim())
+    .filter(Boolean);
+
   return {
     appId: requireEnv("FEISHU_APP_ID"),
     appSecret: requireEnv("FEISHU_APP_SECRET"),
     verificationToken: process.env.FEISHU_VERIFICATION_TOKEN || "",
     lanternChatId: process.env.FEISHU_LANTERN_CHAT_ID || "",
+    allowedChatIds,
     apiBaseUrl: process.env.FEISHU_API_BASE_URL || "https://open.feishu.cn",
   };
 }

@@ -26,7 +26,7 @@ export function createLanternServer({
   feishuConfig = getFeishuConfig(),
   replyClient = new FeishuOpenApiClient(feishuConfig),
   processor = createFeishuWebhookProcessor({
-    allowedChatId: feishuConfig.lanternChatId,
+    allowedChatIds: feishuConfig.allowedChatIds,
     verificationToken: feishuConfig.verificationToken,
     replyClient,
   }),
