@@ -8,6 +8,59 @@ function assertConfigured(config) {
   }
 }
 
+const MARKDOWN_LINK_PATTERN = /\[([^\]\n]+)]\((https?:\/\/[^)\s]+)\)/g;
+
+function parseRichTextLine(line) {
+  if (!line) {
+    return [{ tag: "text", text: " " }];
+  }
+
+  const elements = [];
+  let lastIndex = 0;
+
+  for (const match of line.matchAll(MARKDOWN_LINK_PATTERN)) {
+    if (match.index > lastIndex) {
+      elements.push({ tag: "text", text: line.slice(lastIndex, match.index) });
+    }
+
+    elements.push({ tag: "a", text: match[1], href: match[2] });
+    lastIndex = match.index + match[0].length;
+  }
+
+  if (lastIndex < line.length) {
+    elements.push({ tag: "text", text: line.slice(lastIndex) });
+  }
+
+  return elements.length ? elements : [{ tag: "text", text: line }];
+}
+
+function buildReplyMessageBody(text, idempotencyKey) {
+  const body = {
+    content: JSON.stringify({ text }),
+    msg_type: "text",
+    reply_in_thread: true,
+  };
+
+  MARKDOWN_LINK_PATTERN.lastIndex = 0;
+  if (MARKDOWN_LINK_PATTERN.test(text)) {
+    MARKDOWN_LINK_PATTERN.lastIndex = 0;
+    const content = String(text).split("\n").map(parseRichTextLine);
+    body.content = JSON.stringify({
+      zh_cn: { title: "", content },
+      en_us: { title: "", content },
+    });
+    body.msg_type = "post";
+  }
+  MARKDOWN_LINK_PATTERN.lastIndex = 0;
+
+  const uuid = compact(idempotencyKey);
+  if (uuid) {
+    body.uuid = uuid;
+  }
+
+  return body;
+}
+
 export class FeishuOpenApiClient {
   constructor(config, fetchImpl = globalThis.fetch) {
     this.config = {
@@ -46,15 +99,7 @@ export class FeishuOpenApiClient {
 
   async replyInThread(messageId, text, { idempotencyKey } = {}) {
     const token = await this.getTenantAccessToken();
-    const body = {
-      content: JSON.stringify({ text }),
-      msg_type: "text",
-      reply_in_thread: true,
-    };
-    const uuid = compact(idempotencyKey);
-    if (uuid) {
-      body.uuid = uuid;
-    }
+    const body = buildReplyMessageBody(text, idempotencyKey);
 
     const response = await this.fetch(
       `${this.config.apiBaseUrl}/open-apis/im/v1/messages/${encodeURIComponent(messageId)}/reply`,

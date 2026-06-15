@@ -74,7 +74,8 @@ test("formats Surpath latest update when FedEx enrichment is unavailable", () =>
   assert.match(reply, /Status: Delivered/);
   assert.match(reply, /Items: 1x F1 Plus Electric Blue/);
   assert.match(reply, /Latest update: Delivered, Eugene, OR, US, Jan 20, 2026, 8:34 AM/);
-  assert.match(reply, /Link: https:\/\/view\.arcb\.com\/nlo\/tools\/tracking/);
+  assert.match(reply, /Tracking: \[729560]\(https:\/\/view\.arcb\.com\/nlo\/tools\/tracking/);
+  assert.doesNotMatch(reply, /^Link:/m);
   assert.doesNotMatch(reply, /BOL:/);
 });
 

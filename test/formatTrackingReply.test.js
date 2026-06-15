@@ -157,3 +157,34 @@ test("orders reply sections by fulfillment lifecycle", () => {
   assert.ok(ltlProcessingIndex < transitIndex);
   assert.ok(transitIndex < deliveredIndex);
 });
+
+test("links tracking number inline and puts latest update last inside shipment", () => {
+  const reply = formatTrackingReply({
+    found: true,
+    orderName: "WS-#12345",
+    shipments: [{
+      status: "In Transit",
+      tracking: [{
+        carrier: "FedEx",
+        trackingNumber: "872018610504",
+        trackingUrl: "https://www.fedex.com/fedextrack/?trknbr=872018610504",
+        latestUpdate: {
+          description: "On the way",
+          location: "BARRINGTON, NJ, US",
+          time: "2026-05-26T18:07:34Z",
+        },
+      }],
+      items: [{ quantity: 1, sku: "VTK10003B" }],
+    }],
+    unfulfilledItems: [],
+    warnings: [],
+  });
+
+  assert.match(reply, /Tracking: \[872018610504]\(https:\/\/www\.fedex\.com\/fedextrack\/\?trknbr=872018610504\)/);
+  assert.doesNotMatch(reply, /^Link:/m);
+
+  const trackingIndex = reply.indexOf("Tracking:");
+  const latestUpdateIndex = reply.indexOf("Latest update:");
+  assert.ok(trackingIndex > -1);
+  assert.ok(trackingIndex < latestUpdateIndex);
+});

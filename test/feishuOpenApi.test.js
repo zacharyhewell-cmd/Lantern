@@ -46,3 +46,42 @@ test("requests tenant token and sends threaded text reply", async () => {
     uuid: "evt-1",
   });
 });
+
+test("sends markdown tracking links as Feishu rich text", async () => {
+  const requests = [];
+  const fetchImpl = async (url, options) => {
+    requests.push({ url, options });
+    if (url.endsWith("/open-apis/auth/v3/tenant_access_token/internal")) {
+      return {
+        ok: true,
+        async json() {
+          return { code: 0, tenant_access_token: "tenant-token", expire: 7200 };
+        },
+      };
+    }
+
+    return {
+      ok: true,
+      async json() {
+        return { code: 0, data: { message_id: "om_reply" } };
+      },
+    };
+  };
+
+  const client = new FeishuOpenApiClient({
+    apiBaseUrl: "https://open.feishu.test",
+    appId: "app-id",
+    appSecret: "app-secret",
+  }, fetchImpl);
+
+  await client.replyInThread("om_root", "Tracking: [123](https://example.com/123)", { idempotencyKey: "evt-2" });
+
+  const body = JSON.parse(requests[1].options.body);
+  assert.equal(body.msg_type, "post");
+  assert.equal(body.reply_in_thread, true);
+  assert.equal(body.uuid, "evt-2");
+  assert.deepEqual(JSON.parse(body.content).en_us.content, [[
+    { tag: "text", text: "Tracking: " },
+    { tag: "a", text: "123", href: "https://example.com/123" },
+  ]]);
+});

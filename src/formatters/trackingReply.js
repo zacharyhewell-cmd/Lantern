@@ -58,6 +58,38 @@ function formatCarrier(tracking) {
     : tracking.carrier;
 }
 
+function formatTrackingNumber(tracking) {
+  if (!tracking.trackingNumber) {
+    return null;
+  }
+
+  if (tracking.trackingUrl) {
+    return `[${tracking.trackingNumber}](${tracking.trackingUrl})`;
+  }
+
+  return tracking.trackingNumber;
+}
+
+function formatTrackingLatestUpdate(tracking) {
+  if (tracking.fedEx?.latestEvent) {
+    return `Latest update: ${formatLatestUpdate({
+      description: tracking.fedEx.latestEvent.description,
+      location: tracking.fedEx.latestEvent.location,
+      time: tracking.fedEx.latestEvent.scanTime,
+    })}`;
+  }
+
+  if (tracking.fedEx?.status) {
+    return `Latest update: ${tracking.fedEx.status}`;
+  }
+
+  if (tracking.latestUpdate?.description) {
+    return `Latest update: ${formatLatestUpdate(tracking.latestUpdate)}`;
+  }
+
+  return null;
+}
+
 function formatShipment(shipment, index, total) {
   const lines = [];
   const label = total > 1 ? `Status ${index + 1}` : "Status";
@@ -77,23 +109,14 @@ function formatShipment(shipment, index, total) {
     let hasTrackingNumber = false;
     for (const tracking of shipment.tracking) {
       lines.push(`Carrier: ${formatCarrier(tracking)}`);
-      if (tracking.fedEx?.latestEvent) {
-        lines.push(`Latest update: ${formatLatestUpdate({
-          description: tracking.fedEx.latestEvent.description,
-          location: tracking.fedEx.latestEvent.location,
-          time: tracking.fedEx.latestEvent.scanTime,
-        })}`);
-      } else if (tracking.fedEx?.status) {
-        lines.push(`Latest update: ${tracking.fedEx.status}`);
-      } else if (tracking.latestUpdate?.description) {
-        lines.push(`Latest update: ${formatLatestUpdate(tracking.latestUpdate)}`);
-      }
-      if (tracking.trackingNumber) {
+      const trackingNumber = formatTrackingNumber(tracking);
+      if (trackingNumber) {
         hasTrackingNumber = true;
-        lines.push(`Tracking: ${tracking.trackingNumber}`);
+        lines.push(`Tracking: ${trackingNumber}`);
       }
-      if (tracking.trackingUrl) {
-        lines.push(`Link: ${tracking.trackingUrl}`);
+      const latestUpdate = formatTrackingLatestUpdate(tracking);
+      if (latestUpdate) {
+        lines.push(latestUpdate);
       }
     }
     if (!hasTrackingNumber) {

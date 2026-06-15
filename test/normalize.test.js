@@ -92,9 +92,9 @@ test("splits multiple tracking numbers into separate report shipments", () => {
 
   const reply = formatTrackingReply(summary);
   assert.match(reply, /Status 1: In Transit/);
-  assert.match(reply, /Tracking: 111111111111/);
+  assert.match(reply, /Tracking: \[111111111111]\(https:\/\/fedex\.com\/1\)/);
   assert.match(reply, /Status 2: In Transit/);
-  assert.match(reply, /Tracking: 222222222222/);
+  assert.match(reply, /Tracking: \[222222222222]\(https:\/\/fedex\.com\/2\)/);
 });
 
 test("summarizes no fulfillments as unfulfilled", () => {
