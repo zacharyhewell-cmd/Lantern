@@ -122,6 +122,70 @@ test("summarizes no fulfillments as unfulfilled", () => {
   assert.match(formatTrackingReply(summary), /Unfulfilled items:\n1x Bike/);
 });
 
+test("uses 4PX tracking link and China shipping status over Shopify USPS handoff", () => {
+  const summary = normalizeShopifyTracking([
+    {
+      id: "gid://shopify/Order/7",
+      name: "WS-#12345",
+      lineItems: {
+        nodes: [{ id: "li1", name: "Accessory", sku: "ACC-1", quantity: 1, fulfillableQuantity: 0 }],
+      },
+      fulfillments: [
+        {
+          id: "f1",
+          status: "SUCCESS",
+          trackingInfo: [{
+            company: "USPS",
+            number: "4PX3002887715470CN",
+            url: "https://tools.usps.com/go/TrackConfirmAction?tLabels=4PX3002887715470CN",
+          }],
+          fulfillmentLineItems: { nodes: [{ quantity: 1, lineItem: { id: "li1", name: "Accessory", sku: "ACC-1" } }] },
+        },
+      ],
+    },
+  ], orderIdentifier);
+
+  assert.equal(summary.shipments[0].status, "Shipping from China - see tracking");
+  assert.equal(summary.shipments[0].tracking[0].carrier, "4PX");
+  assert.equal(
+    summary.shipments[0].tracking[0].trackingUrl,
+    "https://track.4px.com/#/result/0/4PX3002887715470CN",
+  );
+
+  const reply = formatTrackingReply(summary);
+  assert.match(reply, /Status: Shipping from China - see tracking/);
+  assert.match(reply, /Carrier: 4PX/);
+  assert.match(reply, /Tracking: \[4PX3002887715470CN]\(https:\/\/track\.4px\.com\/#\/result\/0\/4PX3002887715470CN\)/);
+  assert.doesNotMatch(reply, /usps\.com/);
+});
+
+test("keeps delivered status for delivered 4PX Shopify shipments", () => {
+  const summary = normalizeShopifyTracking([
+    {
+      id: "gid://shopify/Order/8",
+      name: "WS-#12345",
+      lineItems: {
+        nodes: [{ id: "li1", name: "Accessory", sku: "ACC-1", quantity: 1, fulfillableQuantity: 0 }],
+      },
+      fulfillments: [
+        {
+          id: "f1",
+          status: "SUCCESS",
+          deliveredAt: "2026-06-15T12:00:00Z",
+          trackingInfo: [{
+            company: "USPS",
+            number: "4PX3002887715470CN",
+            url: "https://tools.usps.com/go/TrackConfirmAction?tLabels=4PX3002887715470CN",
+          }],
+          fulfillmentLineItems: { nodes: [{ quantity: 1, lineItem: { id: "li1", name: "Accessory", sku: "ACC-1" } }] },
+        },
+      ],
+    },
+  ], orderIdentifier);
+
+  assert.equal(summary.shipments[0].status, "Delivered");
+});
+
 test("does not report removed Shopify line items as unfulfilled", () => {
   const summary = normalizeShopifyTracking([
     {

@@ -94,6 +94,11 @@ function carrierFromTrackingNumber(number) {
 }
 
 export function detectCarrier({ company, trackingNumber, trackingUrl }) {
+  const numberCarrier = carrierFromTrackingNumber(trackingNumber);
+  if (numberCarrier === "4PX") {
+    return numberCarrier;
+  }
+
   const knownCompany = normalizeKnownCarrierName(company);
   if (knownCompany) {
     return knownCompany;
@@ -106,7 +111,6 @@ export function detectCarrier({ company, trackingNumber, trackingUrl }) {
 
   const companyIsVague = !company || isInternalCarrierCode(company) || includesAny(company, ["other", "unknown"]);
   if (companyIsVague) {
-    const numberCarrier = carrierFromTrackingNumber(trackingNumber);
     if (numberCarrier) {
       return numberCarrier;
     }

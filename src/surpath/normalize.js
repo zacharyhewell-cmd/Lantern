@@ -96,7 +96,10 @@ function normalizeShipment(records) {
   if (latestUpdate) {
     latestUpdate.time = toIsoDate(newest.lastTrackTime);
   }
-  const status = chooseShipmentStatus(records, carrier);
+  const normalizedStatus = chooseShipmentStatus(records, carrier);
+  const status = carrier === "4PX" && trackingNumber && normalizedStatus !== "Delivered"
+    ? "Shipping from China - see tracking"
+    : normalizedStatus;
   const tracking = {
     carrier,
     carrierConfidence: trackingNumber ? "confirmed" : "likely",

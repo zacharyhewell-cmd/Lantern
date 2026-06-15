@@ -50,6 +50,14 @@ test("recognizes 4PX tracking URLs", () => {
   }), "4PX");
 });
 
+test("uses 4PX tracking number over USPS company and URL", () => {
+  assert.equal(detectCarrier({
+    company: "USPS",
+    trackingNumber: "4PX3002887715470CN",
+    trackingUrl: "https://tools.usps.com/go/TrackConfirmAction?tLabels=4PX3002887715470CN",
+  }), "4PX");
+});
+
 test("preserves TForce Freight when Surpath includes old UPS Freight wording", () => {
   assert.equal(detectCarrier({
     company: "TForce Freight (UPS Freight)",

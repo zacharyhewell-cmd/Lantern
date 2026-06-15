@@ -139,6 +139,7 @@ const SHIPMENT_STATUS_RANK = new Map([
   ["Unfulfilled", 0],
   ["Fulfilled - LtL processing", 1],
   ["Waiting for pickup", 1],
+  ["Shipping from China - see tracking", 1],
   ["In Transit", 2],
   ["Delivered", 3],
 ]);

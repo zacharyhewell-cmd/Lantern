@@ -155,3 +155,23 @@ test("keeps FedEx status format standardized without raw Surpath status suffix",
   assert.match(reply, /Status: In Transit\n/);
   assert.doesNotMatch(reply, /Status: In Transit - 派送中/);
 });
+
+test("uses China shipping status for non-delivered 4PX Surpath shipments", () => {
+  const reply = formatTrackingReply(normalizeSurpathRows([
+    {
+      expressNumber: "4PX3002887715470CN",
+      carrierName: "4PX",
+      status: "派送中",
+      sku: "SD050818A-VL06",
+      name: "Keys VL06",
+      quantity: 1,
+    },
+  ], {
+    orderName: "WS-#32146",
+    requestedOrder: "32146",
+  }));
+
+  assert.match(reply, /Status: Shipping from China - see tracking - 派送中/);
+  assert.match(reply, /Carrier: 4PX/);
+  assert.match(reply, /Tracking: \[4PX3002887715470CN]\(https:\/\/track\.4px\.com\/#\/result\/0\/4PX3002887715470CN\)/);
+});

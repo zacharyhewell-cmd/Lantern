@@ -1,4 +1,5 @@
 import { detectCarrier } from "../tracking/carriers.js";
+import { ltlTrackingUrl } from "../tracking/ltlLinks.js";
 
 function compact(value) {
   return value == null || value === "" ? null : value;
@@ -6,15 +7,22 @@ function compact(value) {
 
 function normalizeTrackingInfo(trackingInfo = []) {
   return trackingInfo
-    .map((tracking) => ({
-      trackingNumber: compact(tracking.number),
-      trackingUrl: compact(tracking.url),
-      carrier: detectCarrier({
+    .map((tracking) => {
+      const trackingNumber = compact(tracking.number);
+      const carrier = detectCarrier({
         company: compact(tracking.company),
-        trackingNumber: compact(tracking.number),
+        trackingNumber,
         trackingUrl: compact(tracking.url),
-      }),
-    }))
+      });
+
+      return {
+        trackingNumber,
+        trackingUrl: carrier === "4PX"
+          ? ltlTrackingUrl({ carrier, trackingNumber })
+          : compact(tracking.url),
+        carrier,
+      };
+    })
     .filter((tracking) => tracking.trackingNumber || tracking.trackingUrl);
 }
 
@@ -35,6 +43,8 @@ function normalizeShipment(fulfillment) {
   const rawStatus = fulfillment.status || "UNKNOWN";
   const customerStatus = fulfillment.deliveredAt
     ? "Delivered"
+    : tracking.some((item) => item.carrier === "4PX")
+      ? "Shipping from China - see tracking"
     : tracking.length > 0
       ? "In Transit"
       : "Waiting for pickup";
