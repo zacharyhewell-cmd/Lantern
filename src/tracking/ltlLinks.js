@@ -31,7 +31,7 @@ export function ltlTrackingUrl({ carrier, trackingNumber }) {
     return `https://tools.averitt.com/servlet/rsoLTLtrack?Type=PN&Number=${number}`;
   }
 
-  if (includesAny(carrier, ["crosscountry freight solutions", "cross country freight", "ccfs"])) {
+  if (includesAny(carrier, ["crosscountry freight solutions", "crosscountry freight", "cross country freight", "ccfs"])) {
     const number = trackingNumber ? encodeURIComponent(trackingNumber) : "";
     return `https://auth.ccfs.com/track/detail/${number}`;
   }

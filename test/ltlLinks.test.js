@@ -58,6 +58,13 @@ test("links recognized CrossCountry Freight Solutions shipments to direct tracki
   );
 });
 
+test("links CrossCountry Freight aliases to direct tracking", () => {
+  assert.equal(
+    ltlTrackingUrl({ carrier: "CrossCountry Freight", trackingNumber: "T2290848" }),
+    "https://auth.ccfs.com/track/detail/T2290848",
+  );
+});
+
 test("links recognized Lee Jennings Target Express shipments to direct tracking", () => {
   assert.equal(
     ltlTrackingUrl({ carrier: "Lee Jennings Target Express", trackingNumber: "274038" }),
