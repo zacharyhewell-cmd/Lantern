@@ -7,6 +7,7 @@ test("extracts WS order IDs from Lantern messages", () => {
     raw: "WS-#12345",
     number: "12345",
     canonical: "WS-#12345",
+    orderCanonical: "WS-#12345",
     candidates: ["WS-#12345", "WS-12345", "#12345", "12345"],
   });
 });
@@ -15,11 +16,24 @@ test("extracts lowercase WS order IDs and normalizes candidates", () => {
   assert.equal(extractOrderIdentifier("Lantern tracking ws-99954").canonical, "WS-#99954");
 });
 
+test("extracts Shopify fulfillment-level WS IDs", () => {
+  assert.deepEqual(extractOrderIdentifier("Lantern WS-#29209-F2"), {
+    raw: "WS-#29209-F2",
+    number: "29209",
+    canonical: "WS-#29209-F2",
+    orderCanonical: "WS-#29209",
+    fulfillmentSuffix: "F2",
+    fulfillmentName: "WS-#29209-F2",
+    candidates: ["WS-#29209", "WS-29209", "#29209", "29209"],
+  });
+});
+
 test("extracts plain numeric order IDs", () => {
   assert.deepEqual(normalizeOrderIdentifier("12345"), {
     raw: "12345",
     number: "12345",
     canonical: "12345",
+    orderCanonical: "WS-#12345",
     candidates: ["#12345", "WS-#12345", "WS-12345", "12345"],
   });
 });

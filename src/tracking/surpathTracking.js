@@ -371,16 +371,25 @@ export async function buildSurpathTrackingReply({
   }
 
   try {
-    let surpathRows = await findDirectSurpathRows(surpathClient, orderIdentifier);
-    if (!surpathRows.length) {
+    let surpathRows = [];
+    if (orderIdentifier.fulfillmentName) {
       shopifySummary = await loadShopifySummary(shopifyConfig, orderIdentifier);
       surpathRows = [
         ...await findSurpathRowsByTracking(surpathClient, trackingNumbersFromSummary(shopifySummary)),
         ...await findSurpathRowsByNoTrackingShopifyShipments(surpathClient, shopifySummary),
-        ...await findSurpathRowsByUnfulfilledItems(surpathClient, shopifySummary),
       ];
     } else {
-      shopifySummary = await tryLoadShopifySummary(shopifyConfig, orderIdentifier);
+      surpathRows = await findDirectSurpathRows(surpathClient, orderIdentifier);
+      if (!surpathRows.length) {
+        shopifySummary = await loadShopifySummary(shopifyConfig, orderIdentifier);
+        surpathRows = [
+          ...await findSurpathRowsByTracking(surpathClient, trackingNumbersFromSummary(shopifySummary)),
+          ...await findSurpathRowsByNoTrackingShopifyShipments(surpathClient, shopifySummary),
+          ...await findSurpathRowsByUnfulfilledItems(surpathClient, shopifySummary),
+        ];
+      } else {
+        shopifySummary = await tryLoadShopifySummary(shopifyConfig, orderIdentifier);
+      }
     }
     surpathRows = enrichSurpathRowsWithShopifyItemNames(dedupeRows(surpathRows), shopifySummary);
 

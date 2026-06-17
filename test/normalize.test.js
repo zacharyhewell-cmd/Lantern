@@ -97,6 +97,44 @@ test("splits multiple tracking numbers into separate report shipments", () => {
   assert.match(reply, /Tracking: \[222222222222]\(https:\/\/fedex\.com\/2\)/);
 });
 
+test("filters Shopify shipments to requested fulfillment suffix", () => {
+  const summary = normalizeShopifyTracking([
+    {
+      id: "gid://shopify/Order/9",
+      name: "WS-#29209",
+      lineItems: {
+        nodes: [
+          { id: "li1", name: "Bike 1", sku: "BIKE-1", quantity: 1, fulfillableQuantity: 0 },
+          { id: "li2", name: "Bike 2", sku: "BIKE-2", quantity: 1, fulfillableQuantity: 0 },
+        ],
+      },
+      fulfillments: [
+        {
+          id: "f1",
+          name: "WS-#29209-F1",
+          status: "SUCCESS",
+          trackingInfo: [{ company: "other", number: "111", url: "" }],
+          fulfillmentLineItems: { nodes: [{ quantity: 1, lineItem: { id: "li1", name: "Bike 1", sku: "BIKE-1" } }] },
+        },
+        {
+          id: "f2",
+          name: "WS-#29209-F2",
+          status: "SUCCESS",
+          trackingInfo: [{ company: "other", number: "222", url: "" }],
+          fulfillmentLineItems: { nodes: [{ quantity: 1, lineItem: { id: "li2", name: "Bike 2", sku: "BIKE-2" } }] },
+        },
+      ],
+    },
+  ], normalizeOrderIdentifier("WS-#29209-F2"));
+
+  assert.equal(summary.orderName, "WS-#29209");
+  assert.equal(summary.requestedOrder, "WS-#29209-F2");
+  assert.equal(summary.shipments.length, 1);
+  assert.equal(summary.shipments[0].fulfillmentName, "WS-#29209-F2");
+  assert.equal(summary.shipments[0].tracking[0].trackingNumber, "222");
+  assert.deepEqual(summary.unfulfilledItems, []);
+});
+
 test("summarizes no fulfillments as unfulfilled", () => {
   const summary = normalizeShopifyTracking([
     {

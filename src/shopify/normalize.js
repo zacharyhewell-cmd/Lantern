@@ -79,6 +79,14 @@ function splitShipmentByTracking(shipment) {
   }));
 }
 
+function matchesRequestedFulfillment(shipment, orderIdentifier) {
+  if (!orderIdentifier?.fulfillmentName) {
+    return true;
+  }
+
+  return String(shipment.fulfillmentName || "").toUpperCase() === orderIdentifier.fulfillmentName.toUpperCase();
+}
+
 function chooseBestOrder(orders, orderIdentifier) {
   if (!orders.length) {
     return null;
@@ -218,17 +226,22 @@ export function normalizeShopifyTracking(orders, orderIdentifier) {
 
   const order = chooseBestOrder(orders, orderIdentifier);
   const orderItems = normalizeOrderItems(order.lineItems);
-  const shipments = enrichShipmentItems(
+  const allShipments = enrichShipmentItems(
     (order.fulfillments || []).map(normalizeShipment).flatMap(splitShipmentByTracking),
     orderItems,
   );
-  const unfulfilledItems = normalizeUnfulfilledItems(orderItems, shipments);
+  const shipments = allShipments.filter((shipment) => matchesRequestedFulfillment(shipment, orderIdentifier));
+  const unfulfilledItems = orderIdentifier.fulfillmentName
+    ? []
+    : normalizeUnfulfilledItems(orderItems, allShipments);
 
   if (order.cancelledAt) {
     warnings.push("Order is canceled in Shopify.");
   }
 
-  if (!shipments.length) {
+  if (orderIdentifier.fulfillmentName && !shipments.length) {
+    warnings.push(`No Shopify fulfillment matched ${orderIdentifier.fulfillmentName}.`);
+  } else if (!shipments.length) {
     warnings.push("No fulfillments found in Shopify yet.");
   } else if (shipments.every((shipment) => !shipment.hasTracking)) {
     warnings.push("Fulfillments exist, but Shopify has no tracking number yet.");
