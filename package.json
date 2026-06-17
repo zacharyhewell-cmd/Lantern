@@ -9,6 +9,7 @@
     "listen": "node src/cli/listen.js",
     "listen-once": "node src/cli/listen-once.js",
     "lookup": "node src/cli/lookup-shopify-order.js",
+    "watchtower:outbound-delay": "node src/cli/watchtower-outbound-delay.js",
     "server": "node src/cli/server.js",
     "start": "node src/cli/server.js",
     "test": "node --test"
