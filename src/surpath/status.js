@@ -18,6 +18,10 @@ export function normalizeSurpathStatus(status) {
     return STATUS_MAP.get(normalized);
   }
 
+  if (normalized.includes("已出库-待上网")) {
+    return "Waiting for pickup";
+  }
+
   if (
     includesAny(normalized, [
       "delivered",

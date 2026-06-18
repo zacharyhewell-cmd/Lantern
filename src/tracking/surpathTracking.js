@@ -47,6 +47,34 @@ function dedupeRows(rows) {
   });
 }
 
+const SURPATH_LOOKUP_PAGE_SIZE = 100;
+const SURPATH_LOOKUP_MAX_PAGES = 10;
+
+async function queryAllOutboundOrders(surpathClient, params, {
+  pageSize = SURPATH_LOOKUP_PAGE_SIZE,
+  maxPages = SURPATH_LOOKUP_MAX_PAGES,
+} = {}) {
+  const rows = [];
+  let totalSize = null;
+
+  for (let currentPage = 1; currentPage <= maxPages; currentPage += 1) {
+    const response = await surpathClient.queryOutboundOrders({
+      ...params,
+      currentPage,
+      pageSize,
+    });
+    const pageRows = response?.data || [];
+    rows.push(...pageRows);
+    totalSize = Number(response?.totalSize ?? response?.total ?? totalSize);
+
+    if (!pageRows.length || pageRows.length < pageSize || (totalSize && rows.length >= totalSize)) {
+      break;
+    }
+  }
+
+  return { data: rows, totalSize };
+}
+
 export function exactRowsForOrderIdentifier(response, orderIdentifier) {
   const candidates = new Set(
     orderIdentifier.candidates
@@ -210,7 +238,7 @@ export function exactRowsForUnfulfilledItems(response, unfulfilledItems, shippin
   });
 }
 
-async function findDirectSurpathRows(surpathClient, orderIdentifier) {
+export async function findDirectSurpathRows(surpathClient, orderIdentifier) {
   const directCandidates = orderIdentifier.candidates
     .filter((candidate) => !/^\d+$/.test(candidate) && !/^#\d+$/.test(candidate));
 
@@ -218,10 +246,8 @@ async function findDirectSurpathRows(surpathClient, orderIdentifier) {
     return [];
   }
 
-  const response = await surpathClient.queryOutboundOrders({
+  const response = await queryAllOutboundOrders(surpathClient, {
     platformCodeList: directCandidates,
-    currentPage: 1,
-    pageSize: 20,
   });
 
   return exactRowsForOrderIdentifier(response, orderIdentifier);
@@ -232,10 +258,10 @@ async function findSurpathRowsByTracking(surpathClient, trackingNumbers) {
     return [];
   }
 
-  const response = await surpathClient.queryOutboundOrders({
+  const response = await queryAllOutboundOrders(surpathClient, {
     platformCodeList: trackingNumbers,
-    currentPage: 1,
-    pageSize: Math.max(20, trackingNumbers.length * 5),
+  }, {
+    pageSize: Math.max(SURPATH_LOOKUP_PAGE_SIZE, trackingNumbers.length * 5),
   });
 
   return trackingNumbers.flatMap((trackingNumber) => exactRowsForTracking(response, trackingNumber));

@@ -5,6 +5,7 @@ import {
   exactRowsForOrderIdentifier,
   exactRowsForNoTrackingShipment,
   exactRowsForUnfulfilledItems,
+  findDirectSurpathRows,
   mergeShopifyGaps,
 } from "../src/tracking/surpathTracking.js";
 import { normalizeOrderIdentifier } from "../src/orderIds.js";
@@ -56,6 +57,32 @@ test("matches direct Surpath rows by Shopify WS number in customerPlatformCode",
   }, normalizeOrderIdentifier("32303"));
 
   assert.deepEqual(rows.map((row) => row.sku), ["MKT_Triker_Bundle", "MIBDT201A"]);
+});
+
+test("loads every direct Surpath page for large orders", async () => {
+  const allRows = Array.from({ length: 121 }, (_, index) => surpathRow({
+    id: String(index + 1),
+    customerPlatformCode: "WS-#31783",
+    platformCode: `OT${index + 1}`,
+    sku: `SKU-${index + 1}`,
+  }));
+  const calls = [];
+  const surpathClient = {
+    async queryOutboundOrders(params) {
+      calls.push(params);
+      const start = (params.currentPage - 1) * params.pageSize;
+      return {
+        totalSize: allRows.length,
+        data: allRows.slice(start, start + params.pageSize),
+      };
+    },
+  };
+
+  const rows = await findDirectSurpathRows(surpathClient, normalizeOrderIdentifier("31783"));
+
+  assert.equal(rows.length, 121);
+  assert.deepEqual(calls.map((call) => call.currentPage), [1, 2]);
+  assert.deepEqual(calls.map((call) => call.pageSize), [100, 100]);
 });
 
 test("matches unfulfilled Surpath LTL group when all rows fit Shopify quantities", () => {

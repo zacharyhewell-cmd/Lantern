@@ -23,7 +23,7 @@ const ORDER_TRACKING_QUERY = `#graphql
           countryCode
           phone
         }
-        lineItems(first: 100) {
+        lineItems(first: 250) {
           nodes {
             id
             name
@@ -35,7 +35,7 @@ const ORDER_TRACKING_QUERY = `#graphql
             fulfillableQuantity
           }
         }
-        fulfillments(first: 20) {
+        fulfillments(first: 250) {
           id
           name
           status

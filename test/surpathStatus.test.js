@@ -12,6 +12,7 @@ test("maps known Surpath delivered and Chinese pending statuses", () => {
   assert.equal(normalizeSurpathStatus("已妥投"), "Delivered");
   assert.equal(normalizeSurpathStatus("待出库"), "Unfulfilled");
   assert.equal(normalizeSurpathStatus("派送中"), "In Transit");
+  assert.equal(normalizeSurpathStatus("已出库-待上网"), "Waiting for pickup");
 });
 
 test("guesses common LTL carrier status language", () => {
