@@ -3,7 +3,7 @@ export function extractOrderIdentifier(text) {
     return null;
   }
 
-  const match = text.match(/\bWS-#?\d+-F\d+\b|\bWS-#?\d+\b|\b\d+\b/i);
+  const match = text.match(/\bWS-#?\d+-F\d+\b|\b\d+-F\d+\b|\bWS-#?\d+\b|\b\d+\b/i);
   return match ? normalizeOrderIdentifier(match[0]) : null;
 }
 
@@ -13,7 +13,7 @@ export function normalizeOrderIdentifier(identifier) {
   }
 
   const value = identifier.trim();
-  const fulfillmentMatch = value.match(/^WS-#?(\d+)-F(\d+)$/i);
+  const fulfillmentMatch = value.match(/^(?:WS-#?)?(\d+)-F(\d+)$/i);
   if (fulfillmentMatch) {
     return {
       raw: value,

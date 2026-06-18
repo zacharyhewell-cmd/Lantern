@@ -28,6 +28,18 @@ test("extracts Shopify fulfillment-level WS IDs", () => {
   });
 });
 
+test("extracts Shopify fulfillment-level numeric IDs", () => {
+  assert.deepEqual(extractOrderIdentifier("Lantern 29209-F2"), {
+    raw: "29209-F2",
+    number: "29209",
+    canonical: "WS-#29209-F2",
+    orderCanonical: "WS-#29209",
+    fulfillmentSuffix: "F2",
+    fulfillmentName: "WS-#29209-F2",
+    candidates: ["WS-#29209", "WS-29209", "#29209", "29209"],
+  });
+});
+
 test("extracts plain numeric order IDs", () => {
   assert.deepEqual(normalizeOrderIdentifier("12345"), {
     raw: "12345",
