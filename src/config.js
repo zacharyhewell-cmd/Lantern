@@ -72,6 +72,7 @@ export function getFeishuConfig() {
   const allowedChatIds = [
     process.env.FEISHU_LANTERN_CHAT_ID,
     process.env.FEISHU_ALLOWED_CHAT_IDS,
+    process.env.WATCHTOWER_FEISHU_CHAT_ID,
   ]
     .filter(Boolean)
     .flatMap((value) => value.split(","))

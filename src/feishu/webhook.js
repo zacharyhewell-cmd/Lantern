@@ -1,5 +1,7 @@
 import { buildLanternReply, isLanternTrigger } from "../lantern/reply.js";
 
+const WATCHTOWER_REFRESH_PATTERN = /^\s*watchtower\s+refresh\s*$/i;
+
 function parseContent(content) {
   if (content == null) {
     return "";
@@ -56,12 +58,17 @@ export function verificationResponse(payload, verificationToken) {
   };
 }
 
+export function isWatchtowerRefreshTrigger(content) {
+  return WATCHTOWER_REFRESH_PATTERN.test(String(content || ""));
+}
+
 export function createFeishuWebhookProcessor({
   allowedChatId,
   allowedChatIds,
   verificationToken,
   replyClient,
   buildReply = buildLanternReply,
+  watchtowerRefreshHandler,
   processedIds = new Set(),
   logger = console,
 } = {}) {
@@ -107,7 +114,10 @@ export function createFeishuWebhookProcessor({
       return { status: 200, body: { ok: true, ignored: "message_type" } };
     }
 
-    if (!event.messageId || !isLanternTrigger(event.content)) {
+    const isLanternRequest = isLanternTrigger(event.content);
+    const isWatchtowerRefreshRequest = isWatchtowerRefreshTrigger(event.content);
+
+    if (!event.messageId || (!isLanternRequest && !isWatchtowerRefreshRequest)) {
       logger.info?.(
         `Feishu webhook ignored event: trigger message_id=${event.messageId ? "present" : "missing"}`,
       );
@@ -120,9 +130,29 @@ export function createFeishuWebhookProcessor({
       return { status: 200, body: { ok: true, duplicate: true } };
     }
     processedIds.add(dedupeKey);
-    logger.info?.(`Feishu webhook accepted Lantern request: event=${dedupeKey}`);
+    logger.info?.(`Feishu webhook accepted ${isWatchtowerRefreshRequest ? "Watchtower refresh" : "Lantern"} request: event=${dedupeKey}`);
 
     const afterResponse = (async () => {
+      if (isWatchtowerRefreshRequest) {
+        if (!watchtowerRefreshHandler) {
+          await replyClient.replyInThread(event.messageId, "Watchtower refresh is not configured on this Lantern service yet.", {
+            idempotencyKey: `${dedupeKey}-watchtower-unconfigured`,
+          });
+          return;
+        }
+
+        await replyClient.replyInThread(event.messageId, "Watchtower refresh started. I will post the updated report when it is ready.", {
+          idempotencyKey: `${dedupeKey}-watchtower-started`,
+        });
+        const result = await watchtowerRefreshHandler(event, dedupeKey);
+        await replyClient.replyInThread(
+          event.messageId,
+          `Watchtower refresh complete. Source rows scanned: ${result.source?.rows ?? "unknown"}.`,
+          { idempotencyKey: `${dedupeKey}-watchtower-complete` },
+        );
+        return;
+      }
+
       const reply = await buildReply(event.content);
       if (reply) {
         await replyClient.replyInThread(event.messageId, reply, {

@@ -42,12 +42,20 @@ export function createLanternServer({
   watchtowerConfig = getWatchtowerConfig(),
   replyClient = new FeishuOpenApiClient(feishuConfig),
   watchtowerRunner = runWatchtowerOutboundDelayReport,
-  processor = createFeishuWebhookProcessor({
+  processor,
+} = {}) {
+  const webhookProcessor = processor || createFeishuWebhookProcessor({
     allowedChatIds: feishuConfig.allowedChatIds,
     verificationToken: feishuConfig.verificationToken,
     replyClient,
-  }),
-} = {}) {
+    watchtowerRefreshHandler: async () => runAndPostWatchtowerReport({
+      watchtowerConfig,
+      replyClient,
+      watchtowerRunner,
+      runDate: isoDate(),
+    }),
+  });
+
   return createServer(async (request, response) => {
     try {
       const pathname = requestPath(request);
@@ -59,7 +67,7 @@ export function createLanternServer({
 
       if (request.method === "POST" && pathname === serverConfig.feishuWebhookPath) {
         const payload = await readJsonBody(request);
-        const result = await processor(payload);
+        const result = await webhookProcessor(payload);
         sendJson(response, result.status, result.body);
         result.afterResponse?.catch?.((error) => {
           console.error(`Lantern webhook background task failed: ${error.message}`);

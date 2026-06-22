@@ -153,6 +153,14 @@ When called, Lantern scans Surpath, creates the Watchtower workbook, posts a sho
 
 For the simplest hosted schedule, set `WATCHTOWER_SCHEDULE_ENABLED=true` on Render. The web service checks once per minute and runs Watchtower Monday-Friday at 10:30 PM Pacific by default.
 
+To request a manual refresh from Feishu, post this exact phrase in an allowed bot channel:
+
+```text
+Watchtower refresh
+```
+
+Lantern replies in-thread to acknowledge the refresh, then reposts the report to `WATCHTOWER_FEISHU_CHAT_ID` when the workbook is ready. The `WATCHTOWER_FEISHU_CHAT_ID` channel is automatically treated as an allowed Watchtower trigger channel.
+
 You can also use an external scheduler that sends an authenticated `POST` request to:
 
 ```text
