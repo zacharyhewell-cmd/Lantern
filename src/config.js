@@ -44,6 +44,11 @@ function readCodexSurpathMcpUrl() {
   }
 }
 
+function sheetTokenFromUrl(url) {
+  const match = String(url || "").match(/\/sheets\/([A-Za-z0-9]+)/);
+  return match?.[1] || "";
+}
+
 export function getShopifyConfig() {
   return {
     shopDomain: requireEnv("SHOPIFY_SHOP_DOMAIN"),
@@ -97,10 +102,13 @@ export function getServerConfig() {
 }
 
 export function getWatchtowerConfig() {
+  const sheetUrl = process.env.WATCHTOWER_SHEET_URL || "";
   return {
     runPath: process.env.WATCHTOWER_RUN_PATH || "/watchtower/run",
     runSecret: process.env.WATCHTOWER_RUN_SECRET || "",
     chatId: process.env.WATCHTOWER_FEISHU_CHAT_ID || "",
+    sheetUrl,
+    sheetToken: process.env.WATCHTOWER_SHEET_TOKEN || sheetTokenFromUrl(sheetUrl),
     outputDir: process.env.WATCHTOWER_OUTPUT_DIR || "outputs/watchtower",
     createTimeLookbackDays: Number(process.env.WATCHTOWER_CREATE_TIME_LOOKBACK_DAYS || 30),
     preshipThresholdHours: Number(process.env.WATCHTOWER_PRESHIP_THRESHOLD_HOURS || 48),

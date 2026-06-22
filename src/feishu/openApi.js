@@ -212,4 +212,87 @@ export class FeishuOpenApiClient {
 
     return { ...result, fileKey };
   }
+
+  async requestJson(method, apiPath, { body } = {}) {
+    const token = await this.getTenantAccessToken();
+    const response = await this.fetch(`${this.config.apiBaseUrl}${apiPath}`, {
+      method,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: body == null ? undefined : JSON.stringify(body),
+    });
+    const result = await response.json();
+    if (!response.ok || result.code !== 0) {
+      throw new Error(`Feishu API request failed: ${result.msg || result.message || response.status}`);
+    }
+
+    return result;
+  }
+
+  async getSpreadsheet(spreadsheetToken) {
+    return this.requestJson("GET", `/open-apis/sheets/v3/spreadsheets/${encodeURIComponent(spreadsheetToken)}`);
+  }
+
+  async batchUpdateSheets(spreadsheetToken, requests) {
+    return this.requestJson(
+      "POST",
+      `/open-apis/sheets/v2/spreadsheets/${encodeURIComponent(spreadsheetToken)}/sheets_batch_update`,
+      { body: { requests } },
+    );
+  }
+
+  async readSheetRange(spreadsheetToken, range) {
+    return this.requestJson(
+      "GET",
+      `/open-apis/sheets/v2/spreadsheets/${encodeURIComponent(spreadsheetToken)}/values/${encodeURIComponent(range)}`,
+    );
+  }
+
+  async writeSheetRange(spreadsheetToken, range, values) {
+    return this.requestJson(
+      "PUT",
+      `/open-apis/sheets/v2/spreadsheets/${encodeURIComponent(spreadsheetToken)}/values`,
+      {
+        body: {
+          valueRange: {
+            range,
+            values,
+          },
+        },
+      },
+    );
+  }
+
+  async setSheetDropdown(spreadsheetToken, range, values) {
+    return this.requestJson(
+      "POST",
+      `/open-apis/sheets/v2/spreadsheets/${encodeURIComponent(spreadsheetToken)}/dataValidation`,
+      {
+        body: {
+          dataValidation: {
+            conditionValues: values,
+          },
+          dataValidationType: "list",
+          range,
+        },
+      },
+    );
+  }
+
+  async setSheetStyle(spreadsheetToken, range, style) {
+    return this.requestJson(
+      "PUT",
+      `/open-apis/sheets/v2/spreadsheets/${encodeURIComponent(spreadsheetToken)}/style`,
+      {
+        body: {
+          appendStyle: {
+            range,
+            style,
+          },
+        },
+      },
+    );
+  }
 }

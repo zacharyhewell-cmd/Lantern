@@ -110,9 +110,16 @@ export function summarizeActionsByOt(entries = []) {
       actionCount: 0,
       lastActionDate: "",
     };
+    if (!existing.actionDates) {
+      Object.defineProperty(existing, "actionDates", {
+        value: new Set(),
+        enumerable: false,
+      });
+    }
 
     existing.actionTaken = true;
     existing.actionCount += 1;
+    existing.actionDates.add(entry.actionDate);
     existing.lastActionDate = existing.lastActionDate && existing.lastActionDate > entry.actionDate
       ? existing.lastActionDate
       : entry.actionDate;

@@ -2,6 +2,7 @@ import path from "node:path";
 import { getSurpathConfig } from "../config.js";
 import { SurpathMcpClient } from "../surpath/client.js";
 import { writeWatchtowerSpreadsheetReport } from "./spreadsheetReport.js";
+import { writeWatchtowerLiveSheetReport } from "./liveSheetReport.js";
 
 function dateOnly(date) {
   return date.toISOString().slice(0, 10);
@@ -63,6 +64,9 @@ export async function runWatchtowerOutboundDelayReport({
   pageSize,
   maxPages,
   client,
+  feishuClient,
+  spreadsheetToken,
+  spreadsheetUrl,
 } = {}) {
   const { rows, source } = await fetchWatchtowerOutboundRows({
     client,
@@ -71,12 +75,22 @@ export async function runWatchtowerOutboundDelayReport({
     pageSize,
     maxPages,
   });
-  const report = await writeWatchtowerSpreadsheetReport(rows, {
-    outputPath,
-    actionLogPath,
-    preshipThresholdHours,
-    inTransitThresholdHours,
-  });
+  const report = spreadsheetToken
+    ? await writeWatchtowerLiveSheetReport(rows, {
+      client: feishuClient,
+      spreadsheetToken,
+      spreadsheetUrl,
+      reportDate: outputDate,
+      preshipThresholdHours,
+      inTransitThresholdHours,
+    })
+    : await writeWatchtowerSpreadsheetReport(rows, {
+      outputPath,
+      actionLogPath,
+      reportDate: outputDate,
+      preshipThresholdHours,
+      inTransitThresholdHours,
+    });
 
   return {
     ...report,

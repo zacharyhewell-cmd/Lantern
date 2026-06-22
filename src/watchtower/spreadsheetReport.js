@@ -13,8 +13,8 @@ import {
   groupWatchtowerFindings,
 } from "./outboundDelay.js";
 
-const STALE_THRESHOLD_DAYS = 2;
-const WATCHTOWER_SHEETS = ["preship FedEx", "preship LtL Other", "In Transit FedEx", "In Transit LtL Other"];
+export const STALE_THRESHOLD_DAYS = 2;
+export const WATCHTOWER_SHEETS = ["preship FedEx", "preship LtL Other", "In Transit FedEx", "In Transit LtL Other"];
 
 async function readActionLog(actionLogPath) {
   try {
@@ -98,10 +98,11 @@ function otNumber(finding) {
   return finding.platformCodes?.[0] || finding.shipmentCode || "";
 }
 
-function actionCells(finding, actionsByOt) {
+function actionCells(finding, actionsByOt, reportDate) {
   const action = actionsByOt.get(otNumber(finding).toUpperCase());
+  const actionTakenToday = Boolean(reportDate && action?.actionDates?.has(reportDate));
   return [
-    Boolean(action?.actionTaken),
+    actionTakenToday,
     action?.actionCount || 0,
     action?.lastActionDate || "",
   ];
@@ -148,11 +149,11 @@ function daysSince(value) {
   return (Date.now() - time) / (24 * 60 * 60 * 1000);
 }
 
-function preshipRows(findings, groupName, actionsByOt) {
+function preshipRows(findings, groupName, actionsByOt, reportDate) {
   return flattenGroupedFindings(findings, groupName).map((finding) => [
     finding.orderNumber,
     otNumber(finding),
-    ...actionCells(finding, actionsByOt),
+    ...actionCells(finding, actionsByOt, reportDate),
     round(finding.elapsedHours),
     round(finding.businessElapsedHours),
     finding.warehouseCode || "",
@@ -163,13 +164,13 @@ function preshipRows(findings, groupName, actionsByOt) {
   ]);
 }
 
-function inTransitRows(findings, groupName, actionsByOt) {
+function inTransitRows(findings, groupName, actionsByOt, reportDate) {
   return flattenGroupedFindings(findings, groupName).map((finding) => {
     const staleDays = daysSince(finding.lastTrackTime);
     return [
       finding.orderNumber,
       otNumber(finding),
-      ...actionCells(finding, actionsByOt),
+      ...actionCells(finding, actionsByOt, reportDate),
       finding.trackingNumber || "",
       round(finding.elapsedDays),
       staleDays == null ? "" : round(staleDays),
@@ -180,6 +181,51 @@ function inTransitRows(findings, groupName, actionsByOt) {
       statusLabel(finding.status),
     ];
   });
+}
+
+export function buildWatchtowerSheetReport(rows, {
+  actionEntries = [],
+  reportDate = new Date().toISOString().slice(0, 10),
+  preshipThresholdHours = 48,
+  inTransitThresholdHours = 120,
+} = {}) {
+  const preshipFindings = findOutboundDelayFindings(rows, { thresholdHours: preshipThresholdHours });
+  const inTransitFindings = findInTransitDelayFindings(rows, { thresholdHours: inTransitThresholdHours });
+  const actionsByOt = summarizeActionsByOt(actionEntries);
+  const sheets = [
+    {
+      name: "preship FedEx",
+      headers: ["WS#", "OT number", "Action taken?", "Action count", "Last action date", "Hrs late", "Business hrs late", "Origin warehouse code", "Business timezone", "Product SKU", "Carrier", "Status"],
+      rows: preshipRows(preshipFindings, "fedex", actionsByOt, reportDate),
+      options: { checkboxColumnIndex: 2, numberColumns: [3, 5, 6], widths: [14, 22, 15, 13, 16, 10, 17, 20, 24, 42, 16, 24] },
+    },
+    {
+      name: "preship LtL Other",
+      headers: ["WS#", "OT number", "Action taken?", "Action count", "Last action date", "Hrs late", "Business hrs late", "Origin warehouse code", "Business timezone", "Product SKU", "Carrier", "Status"],
+      rows: preshipRows(preshipFindings, "ltl", actionsByOt, reportDate),
+      options: { checkboxColumnIndex: 2, numberColumns: [3, 5, 6], widths: [14, 22, 15, 13, 16, 10, 17, 20, 24, 42, 22, 24] },
+    },
+    {
+      name: "In Transit FedEx",
+      headers: ["WS#", "OT number", "Action taken?", "Action count", "Last action date", "Tracking", "In Transit Time", "Stale Timer", "Origin warehouse code", "Destination State", "Product SKU", "Carrier", "Status"],
+      rows: inTransitRows(inTransitFindings, "fedex", actionsByOt, reportDate),
+      options: { checkboxColumnIndex: 2, numberColumns: [3, 6, 7], staleColumnIndex: 7, widths: [14, 22, 15, 13, 16, 18, 16, 13, 20, 18, 42, 16, 24] },
+    },
+    {
+      name: "In Transit LtL Other",
+      headers: ["WS#", "OT number", "Action taken?", "Action count", "Last action date", "Tracking", "In Transit Time", "Stale Timer", "Origin warehouse code", "Destination State", "Product SKU", "Carrier", "Status"],
+      rows: inTransitRows(inTransitFindings, "ltl", actionsByOt, reportDate),
+      options: { checkboxColumnIndex: 2, numberColumns: [3, 6, 7], staleColumnIndex: 7, widths: [14, 22, 15, 13, 16, 18, 16, 13, 20, 18, 42, 22, 24] },
+    },
+  ];
+
+  return {
+    findings: {
+      preship: preshipFindings.length,
+      inTransit: inTransitFindings.length,
+    },
+    sheets,
+  };
 }
 
 function applyDuplicateHighlights(sheet, rowCount) {
@@ -301,18 +347,22 @@ export async function writeWatchtowerSpreadsheetReport(rows, {
   inspectPath = `${outputPath}.inspect.ndjson`,
   preshipThresholdHours = 48,
   inTransitThresholdHours = 120,
+  reportDate = reportDateFromPath(outputPath),
 } = {}) {
   if (!outputPath) {
     throw new Error("Missing required outputPath");
   }
 
-  const preshipFindings = findOutboundDelayFindings(rows, { thresholdHours: preshipThresholdHours });
-  const inTransitFindings = findInTransitDelayFindings(rows, { thresholdHours: inTransitThresholdHours });
   const actionEntries = mergeActionEntries([
     ...await readActionLog(actionLogPath),
     ...await checkedActionsFromExistingWorkbook(outputPath),
   ]);
-  const actionsByOt = summarizeActionsByOt(actionEntries);
+  const report = buildWatchtowerSheetReport(rows, {
+    actionEntries,
+    reportDate,
+    preshipThresholdHours,
+    inTransitThresholdHours,
+  });
   const workbook = new ExcelJS.Workbook();
   workbook.creator = "Lantern Watchtower";
   workbook.created = new Date();
@@ -325,34 +375,13 @@ export async function writeWatchtowerSpreadsheetReport(rows, {
   }
 
   const summaries = [
-    writeSheet(
+    ...report.sheets.map((sheet) => writeSheet(
       workbook,
-      "preship FedEx",
-      ["WS#", "OT number", "Action taken?", "Action count", "Last action date", "Hrs late", "Business hrs late", "Origin warehouse code", "Business timezone", "Product SKU", "Carrier", "Status"],
-      preshipRows(preshipFindings, "fedex", actionsByOt),
-      { checkboxColumnIndex: 2, numberColumns: [3, 5, 6], widths: [14, 22, 15, 13, 16, 10, 17, 20, 24, 42, 16, 24] },
-    ),
-    writeSheet(
-      workbook,
-      "preship LtL Other",
-      ["WS#", "OT number", "Action taken?", "Action count", "Last action date", "Hrs late", "Business hrs late", "Origin warehouse code", "Business timezone", "Product SKU", "Carrier", "Status"],
-      preshipRows(preshipFindings, "ltl", actionsByOt),
-      { checkboxColumnIndex: 2, numberColumns: [3, 5, 6], widths: [14, 22, 15, 13, 16, 10, 17, 20, 24, 42, 22, 24] },
-    ),
-    writeSheet(
-      workbook,
-      "In Transit FedEx",
-      ["WS#", "OT number", "Action taken?", "Action count", "Last action date", "Tracking", "In Transit Time", "Stale Timer", "Origin warehouse code", "Destination State", "Product SKU", "Carrier", "Status"],
-      inTransitRows(inTransitFindings, "fedex", actionsByOt),
-      { checkboxColumnIndex: 2, numberColumns: [3, 6, 7], staleColumnIndex: 7, widths: [14, 22, 15, 13, 16, 18, 16, 13, 20, 18, 42, 16, 24] },
-    ),
-    writeSheet(
-      workbook,
-      "In Transit LtL Other",
-      ["WS#", "OT number", "Action taken?", "Action count", "Last action date", "Tracking", "In Transit Time", "Stale Timer", "Origin warehouse code", "Destination State", "Product SKU", "Carrier", "Status"],
-      inTransitRows(inTransitFindings, "ltl", actionsByOt),
-      { checkboxColumnIndex: 2, numberColumns: [3, 6, 7], staleColumnIndex: 7, widths: [14, 22, 15, 13, 16, 18, 16, 13, 20, 18, 42, 22, 24] },
-    ),
+      sheet.name,
+      sheet.headers,
+      sheet.rows,
+      sheet.options,
+    )),
   ];
 
   if (inspectPath) {
@@ -369,10 +398,7 @@ export async function writeWatchtowerSpreadsheetReport(rows, {
     outputPath,
     inspectPath,
     actionLogPath,
-    findings: {
-      preship: preshipFindings.length,
-      inTransit: inTransitFindings.length,
-    },
+    findings: report.findings,
     sheets: summaries.map((summary) => ({
       name: summary.sheet.name,
       rows: summary.rows,

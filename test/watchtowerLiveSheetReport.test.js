@@ -1,0 +1,116 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { writeWatchtowerLiveSheetReport } from "../src/watchtower/liveSheetReport.js";
+
+function row(overrides = {}) {
+  return {
+    customerPlatformCode: "WS-#33000",
+    platformCode: "OT1",
+    expressNumber: "873097980414",
+    expressFromCode: "US_FEDEX_GROUND",
+    status: "待出库",
+    createTime: Date.UTC(2026, 5, 1, 12),
+    actualOutboundDate: null,
+    warehouseCode: "LA-A",
+    sku: "SKU-1",
+    quantity: 1,
+    ...overrides,
+  };
+}
+
+function fakeSheetClient() {
+  const ranges = new Map();
+  const calls = [];
+  const sheets = [
+    { id: "pfx", title: "preship FedEx" },
+    { id: "plt", title: "preship LtL Other" },
+    { id: "ifx", title: "In Transit FedEx" },
+    { id: "ilt", title: "In Transit LtL Other" },
+    { id: "log", title: "_Watchtower Actions" },
+  ];
+
+  return {
+    calls,
+    ranges,
+    async getSpreadsheet() {
+      return {
+        data: {
+          spreadsheet: {
+            sheets: sheets.map((sheet) => ({
+              properties: {
+                sheet_id: sheet.id,
+                title: sheet.title,
+              },
+            })),
+          },
+        },
+      };
+    },
+    async batchUpdateSheets(_token, requests) {
+      calls.push(["batchUpdateSheets", requests]);
+    },
+    async readSheetRange(_token, range) {
+      calls.push(["readSheetRange", range]);
+      return { data: { valueRange: { values: ranges.get(range) || [] } } };
+    },
+    async writeSheetRange(_token, range, values) {
+      calls.push(["writeSheetRange", range, values]);
+      ranges.set(range, values);
+    },
+    async setSheetDropdown(_token, range, values) {
+      calls.push(["setSheetDropdown", range, values]);
+    },
+    async setSheetStyle(_token, range, style) {
+      calls.push(["setSheetStyle", range, style]);
+    },
+  };
+}
+
+test("live sheet report captures checked actions and rewrites the shared report", async () => {
+  const client = fakeSheetClient();
+  client.ranges.set("pfx!A1:M2000", [
+    ["WS#", "OT number", "Action taken?"],
+    ["WS-#33000", "OT1", "TRUE"],
+  ]);
+  client.ranges.set("log!A1:B20000", [
+    ["OT number", "Action date"],
+    ["OT1", "2026-06-21"],
+  ]);
+
+  const result = await writeWatchtowerLiveSheetReport([row()], {
+    client,
+    spreadsheetToken: "sht_test",
+    spreadsheetUrl: "https://example.feishu.cn/sheets/sht_test",
+    reportDate: "2026-06-22",
+    preshipThresholdHours: 48,
+  });
+
+  assert.equal(result.spreadsheetUrl, "https://example.feishu.cn/sheets/sht_test");
+  assert.equal(result.actionLog.entries, 2);
+  assert.match(result.actionLogCsv, /OT1,2026-06-21/);
+  assert.match(result.actionLogCsv, /OT1,2026-06-22/);
+
+  const preshipWrite = client.calls.find((call) => call[0] === "writeSheetRange" && call[1].startsWith("pfx!A1:"));
+  assert.ok(preshipWrite);
+  assert.deepEqual(preshipWrite[2][0].slice(0, 5), [
+    "WS#",
+    "OT number",
+    "Action taken?",
+    "Action count",
+    "Last action date",
+  ]);
+  assert.deepEqual(preshipWrite[2][1].slice(0, 5), [
+    "WS-#33000",
+    "OT1",
+    "TRUE",
+    2,
+    "2026-06-22",
+  ]);
+
+  const logWrite = client.calls.find((call) => call[0] === "writeSheetRange" && call[1].startsWith("log!A1:"));
+  assert.deepEqual(logWrite[2], [
+    ["OT number", "Action date"],
+    ["OT1", "2026-06-21"],
+    ["OT1", "2026-06-22"],
+  ]);
+});

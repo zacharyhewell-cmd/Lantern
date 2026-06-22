@@ -44,6 +44,10 @@ services:
         sync: false
       - key: WATCHTOWER_FEISHU_CHAT_ID
         sync: false
+      - key: WATCHTOWER_SHEET_URL
+        sync: false
+      - key: WATCHTOWER_SHEET_TOKEN
+        sync: false
       - key: SHOPIFY_CLIENT_ID
         sync: false
       - key: SHOPIFY_CLIENT_SECRET

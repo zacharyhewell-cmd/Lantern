@@ -132,6 +132,8 @@ Watchtower environment values:
 
 - `WATCHTOWER_RUN_SECRET`, required for hosted Watchtower runs; use a long random value
 - `WATCHTOWER_FEISHU_CHAT_ID`, Feishu chat ID for the report destination, for example `US Logistics Team`
+- `WATCHTOWER_SHEET_URL`, optional live Feishu Sheet URL for the shared report
+- `WATCHTOWER_SHEET_TOKEN`, optional live Feishu Sheet token; not needed if `WATCHTOWER_SHEET_URL` is set
 - `WATCHTOWER_RUN_PATH`, default `/watchtower/run`
 - `WATCHTOWER_CREATE_TIME_LOOKBACK_DAYS`, default `30`
 - `WATCHTOWER_PRESHIP_THRESHOLD_HOURS`, default `48`
@@ -149,7 +151,15 @@ POST /watchtower/run
 Authorization: Bearer <WATCHTOWER_RUN_SECRET>
 ```
 
-When called, Lantern scans Surpath, creates the Watchtower workbook, posts a short summary to `WATCHTOWER_FEISHU_CHAT_ID`, and uploads the `.xlsx` report as a Feishu file message.
+When called, Lantern scans Surpath and updates Watchtower. If `WATCHTOWER_SHEET_URL` or `WATCHTOWER_SHEET_TOKEN` is configured, Lantern updates that live Feishu Sheet and posts its link to `WATCHTOWER_FEISHU_CHAT_ID`. Otherwise, it creates and uploads the `.xlsx` report as a file message.
+
+For the live Sheet path:
+
+- Create a blank Feishu Sheet.
+- Share it with the logistics team and the Lantern bot.
+- Set `WATCHTOWER_SHEET_URL` in Render to the Sheet URL.
+- Lantern will create and maintain the visible report tabs plus a hidden `_Watchtower Actions` tab.
+- The `Action taken?` column uses a live `TRUE/FALSE` selector; checked rows are recorded once per OT per report date on the next refresh.
 
 For the simplest hosted schedule, set `WATCHTOWER_SCHEDULE_ENABLED=true` on Render. The web service checks once per minute and runs Watchtower Monday-Friday at 10:30 PM Pacific by default.
 
@@ -159,7 +169,7 @@ To request a manual refresh from Feishu, post this exact phrase in an allowed bo
 Watchtower refresh
 ```
 
-Lantern replies in-thread to acknowledge the refresh, then reposts the report to `WATCHTOWER_FEISHU_CHAT_ID` when the workbook is ready. The `WATCHTOWER_FEISHU_CHAT_ID` channel is automatically treated as an allowed Watchtower trigger channel.
+Lantern replies in-thread to acknowledge the refresh, then reposts the live Sheet link or `.xlsx` report to `WATCHTOWER_FEISHU_CHAT_ID` when the report is ready. The `WATCHTOWER_FEISHU_CHAT_ID` channel is automatically treated as an allowed Watchtower trigger channel.
 
 You can also use an external scheduler that sends an authenticated `POST` request to:
 
