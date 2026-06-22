@@ -29,6 +29,20 @@ function retryDelayFromRateLimit(error) {
   return delay;
 }
 
+function retryDelayFromTransientError(error) {
+  const message = String(error?.message || "");
+  const causeCode = error?.cause?.code || "";
+  if (
+    message.includes("fetch failed") ||
+    message.includes("Connect Timeout") ||
+    causeCode === "UND_ERR_CONNECT_TIMEOUT"
+  ) {
+    return 5000;
+  }
+
+  return null;
+}
+
 function summarizeQuery(params) {
   return JSON.stringify({
     platformCodeCount: params.platformCodeList?.length || 0,
@@ -48,7 +62,7 @@ async function callToolWithRateLimitRetry(client, request, attempts = 3) {
       return await client.callTool(request);
     } catch (error) {
       lastError = error;
-      const delay = retryDelayFromRateLimit(error);
+      const delay = retryDelayFromRateLimit(error) ?? retryDelayFromTransientError(error);
       if (delay == null || attempt === attempts - 1) {
         console.error(`[surpath] queryOutboundOrders failed attempt=${attempt + 1}: ${error.message}`);
         throw error;

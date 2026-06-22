@@ -32,7 +32,9 @@ function formatItems(items) {
 function formatShipment(finding) {
   const lines = [
     `  Shipment: ${finding.shipmentCode}`,
-    `  Delay: ${formatHours(finding.elapsedHours)} from Surpath create to outbound`,
+    finding.missingOutboundDate
+      ? `  Delay: ${formatHours(finding.elapsedHours)} since Surpath create, no outbound date`
+      : `  Delay: ${formatHours(finding.elapsedHours)} from Surpath create to outbound`,
     `  Carrier: ${finding.carrier}`,
     `  Status: ${finding.status || "unknown"}`,
     `  Created: ${formatDateTime(finding.createTime)}`,
@@ -69,7 +71,7 @@ function formatSection(title, orders) {
   ].join("\n\n");
 }
 
-export function formatWatchtowerOutboundDelayReport(findings, { thresholdHours = 72 } = {}) {
+export function formatWatchtowerOutboundDelayReport(findings, { thresholdHours = 48 } = {}) {
   const grouped = groupWatchtowerFindings(findings);
   const total = (findings || []).length;
 
@@ -82,4 +84,3 @@ export function formatWatchtowerOutboundDelayReport(findings, { thresholdHours =
     formatSection("LTL / other carriers", grouped.ltl),
   ].join("\n");
 }
-

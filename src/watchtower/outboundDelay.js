@@ -1,5 +1,6 @@
 import { detectCarrier } from "../tracking/carriers.js";
 import { normalizeSurpathStatus } from "../surpath/status.js";
+import { businessHoursBetween, businessTimeZoneForWarehouse } from "./businessTime.js";
 
 const WS_ORDER_PATTERN = /^WS-#\d+$/i;
 const HOUR_MS = 60 * 60 * 1000;
@@ -50,6 +51,11 @@ function isDelivered(row) {
   return Boolean(row.deliveredDate) || normalizeSurpathStatus(row.status) === "Delivered";
 }
 
+function isCanceled(row) {
+  const status = String(row.status || "").trim().toLowerCase();
+  return status.includes("canceled") || status.includes("cancelled") || status.includes("已取消");
+}
+
 function carrierForRows(rows) {
   const row = rows[0] || {};
   return detectCarrier({
@@ -75,48 +81,120 @@ function summarizeItems(rows) {
     .filter((item) => item.quantity > 0);
 }
 
-function findingFromRows(rows, thresholdHours) {
+function warehouseCode(rows) {
+  for (const row of rows) {
+    const code = compact(row.warehouseCode) || compact(row.warehouse) || compact(row.warehouseName);
+    if (code) {
+      return code;
+    }
+  }
+
+  return null;
+}
+
+function destinationState(rows) {
+  for (const row of rows) {
+    const state = compact(row.state) || compact(row.provinceCode) || compact(row.province);
+    if (state) {
+      return state;
+    }
+  }
+
+  return null;
+}
+
+function uniqueValues(rows, field) {
+  return [...new Set(rows.map((row) => compact(row[field])).filter(Boolean))];
+}
+
+function latestTime(rows, field) {
+  const values = rows.map((row) => parseTime(row[field])).filter((value) => value != null);
+  return values.length ? Math.max(...values) : null;
+}
+
+function baseFinding(rows, { rule, elapsedHours, businessElapsedHours, businessTimeZone, actualOutboundDate, missingOutboundDate }) {
   const first = rows[0];
-  const createTimes = rows.map((row) => parseTime(row.createTime)).filter((value) => value != null);
-  const outboundTimes = rows.map((row) => parseTime(row.actualOutboundDate)).filter((value) => value != null);
-  if (!createTimes.length || !outboundTimes.length) {
-    return null;
-  }
-
-  const createTime = Math.min(...createTimes);
-  const actualOutboundDate = Math.max(...outboundTimes);
-  const elapsedHours = (actualOutboundDate - createTime) / HOUR_MS;
-  if (elapsedHours <= thresholdHours) {
-    return null;
-  }
-
   const carrier = carrierForRows(rows);
   const code = shipmentCode(first);
+  const createTimes = rows.map((row) => parseTime(row.createTime)).filter((value) => value != null);
+  const createTime = createTimes.length ? Math.min(...createTimes) : null;
 
   return {
-    rule: "outbound_delay",
+    rule,
     orderNumber: wsOrderNumber(first),
     shipmentCode: code,
+    platformCodes: uniqueValues(rows, "platformCode"),
+    referenceCodes: uniqueValues(rows, "referenceCode"),
     trackingNumber: compact(first.expressNumber) || compact(first.bolCode),
     wmsOutboundCode: compact(first.wmsOutboundCode),
     carrier,
     carrierGroup: carrierGroup(carrier),
     status: compact(first.status),
     statusCode: first.statusCode ?? null,
+    warehouseCode: warehouseCode(rows),
+    businessTimeZone,
+    destinationState: destinationState(rows),
     createTime: formatIso(createTime),
     actualOutboundDate: formatIso(actualOutboundDate),
+    lastTrackTime: formatIso(latestTime(rows, "lastTrackTime")),
+    missingOutboundDate,
     elapsedHours,
+    businessElapsedHours,
     elapsedDays: elapsedHours / 24,
     items: summarizeItems(rows),
   };
 }
 
-export function findOutboundDelayFindings(rows, { thresholdHours = 72 } = {}) {
+function outboundDelayFindingFromRows(rows, thresholdHours, now = Date.now()) {
+  const createTimes = rows.map((row) => parseTime(row.createTime)).filter((value) => value != null);
+  const outboundTimes = rows.map((row) => parseTime(row.actualOutboundDate)).filter((value) => value != null);
+  if (!createTimes.length || outboundTimes.length) {
+    return null;
+  }
+
+  const createTime = Math.min(...createTimes);
+  const elapsedHours = (now - createTime) / HOUR_MS;
+  if (elapsedHours <= thresholdHours) {
+    return null;
+  }
+  const timeZone = businessTimeZoneForWarehouse(warehouseCode(rows));
+
+  return baseFinding(rows, {
+    rule: "preship_delay",
+    elapsedHours,
+    businessElapsedHours: businessHoursBetween(createTime, now, { timeZone }),
+    businessTimeZone: timeZone,
+    actualOutboundDate: null,
+    missingOutboundDate: true,
+  });
+}
+
+function inTransitDelayFindingFromRows(rows, thresholdHours, now = Date.now()) {
+  const outboundTimes = rows.map((row) => parseTime(row.actualOutboundDate)).filter((value) => value != null);
+  if (!outboundTimes.length) {
+    return null;
+  }
+
+  const actualOutboundDate = Math.min(...outboundTimes);
+  const elapsedHours = (now - actualOutboundDate) / HOUR_MS;
+  if (elapsedHours <= thresholdHours) {
+    return null;
+  }
+
+  return baseFinding(rows, {
+    rule: "in_transit_delay",
+    elapsedHours,
+    actualOutboundDate,
+    missingOutboundDate: false,
+  });
+}
+
+function groupedFindings(rows, findingFactory) {
   const groups = new Map();
 
   for (const row of rows || []) {
     const orderNumber = wsOrderNumber(row);
-    if (!orderNumber || isDelivered(row)) {
+    if (!orderNumber || isDelivered(row) || isCanceled(row)) {
       continue;
     }
 
@@ -129,9 +207,17 @@ export function findOutboundDelayFindings(rows, { thresholdHours = 72 } = {}) {
   }
 
   return [...groups.values()]
-    .map((records) => findingFromRows(records, thresholdHours))
+    .map(findingFactory)
     .filter(Boolean)
     .sort((left, right) => right.elapsedHours - left.elapsedHours);
+}
+
+export function findOutboundDelayFindings(rows, { thresholdHours = 48, now = Date.now() } = {}) {
+  return groupedFindings(rows, (records) => outboundDelayFindingFromRows(records, thresholdHours, now));
+}
+
+export function findInTransitDelayFindings(rows, { thresholdHours = 120, now = Date.now() } = {}) {
+  return groupedFindings(rows, (records) => inTransitDelayFindingFromRows(records, thresholdHours, now));
 }
 
 export function groupWatchtowerFindings(findings) {
@@ -160,4 +246,3 @@ export function groupWatchtowerFindings(findings) {
     ]),
   );
 }
-
