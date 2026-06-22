@@ -128,6 +128,39 @@ Optional environment values:
 - `SHOPIFY_API_VERSION`, default `2026-01`
 - `FEDEX_API_BASE_URL`, default `https://apis.fedex.com`
 
+Watchtower environment values:
+
+- `WATCHTOWER_RUN_SECRET`, required for hosted Watchtower runs; use a long random value
+- `WATCHTOWER_FEISHU_CHAT_ID`, Feishu chat ID for the report destination, for example `US Logistics Team`
+- `WATCHTOWER_RUN_PATH`, default `/watchtower/run`
+- `WATCHTOWER_CREATE_TIME_LOOKBACK_DAYS`, default `30`
+- `WATCHTOWER_PRESHIP_THRESHOLD_HOURS`, default `48`
+- `WATCHTOWER_IN_TRANSIT_THRESHOLD_HOURS`, default `120`
+- `WATCHTOWER_OUTPUT_DIR`, default `outputs/watchtower`
+- `WATCHTOWER_SCHEDULE_ENABLED`, set to `true` to run Watchtower automatically from the hosted Lantern service
+- `WATCHTOWER_SCHEDULE_TIME_ZONE`, default `America/Los_Angeles`
+- `WATCHTOWER_SCHEDULE_HOUR`, default `22`
+- `WATCHTOWER_SCHEDULE_MINUTE`, default `30`
+
+The hosted Watchtower endpoint is:
+
+```text
+POST /watchtower/run
+Authorization: Bearer <WATCHTOWER_RUN_SECRET>
+```
+
+When called, Lantern scans Surpath, creates the Watchtower workbook, posts a short summary to `WATCHTOWER_FEISHU_CHAT_ID`, and uploads the `.xlsx` report as a Feishu file message.
+
+For the simplest hosted schedule, set `WATCHTOWER_SCHEDULE_ENABLED=true` on Render. The web service checks once per minute and runs Watchtower Monday-Friday at 10:30 PM Pacific by default.
+
+You can also use an external scheduler that sends an authenticated `POST` request to:
+
+```text
+https://<render-service-name>.onrender.com/watchtower/run
+```
+
+Set any external schedule to Monday-Friday at 10:30 PM America/Los_Angeles. The endpoint itself is protected by `WATCHTOWER_RUN_SECRET`; do not put that value in chat or committed files.
+
 ### Feishu App Setup
 
 For the first hosted deployment:

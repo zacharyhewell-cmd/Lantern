@@ -1,5 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import fs from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
 import { FeishuOpenApiClient } from "../src/feishu/openApi.js";
 
 test("requests tenant token and sends threaded text reply", async () => {
@@ -84,4 +87,58 @@ test("sends markdown tracking links as Feishu rich text", async () => {
     { tag: "text", text: "Tracking: " },
     { tag: "a", text: "123", href: "https://example.com/123" },
   ]]);
+});
+
+test("uploads and sends a Feishu file message", async () => {
+  const requests = [];
+  const fetchImpl = async (url, options) => {
+    requests.push({ url, options });
+    if (url.endsWith("/open-apis/auth/v3/tenant_access_token/internal")) {
+      return {
+        ok: true,
+        async json() {
+          return { code: 0, tenant_access_token: "tenant-token", expire: 7200 };
+        },
+      };
+    }
+
+    if (url.endsWith("/open-apis/im/v1/files")) {
+      return {
+        ok: true,
+        async json() {
+          return { code: 0, data: { file_key: "file_key_1" } };
+        },
+      };
+    }
+
+    return {
+      ok: true,
+      async json() {
+        return { code: 0, data: { message_id: "om_file" } };
+      },
+    };
+  };
+
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "lantern-feishu-"));
+  const filePath = path.join(dir, "report.xlsx");
+  await fs.writeFile(filePath, "report");
+
+  const client = new FeishuOpenApiClient({
+    apiBaseUrl: "https://open.feishu.test",
+    appId: "app-id",
+    appSecret: "app-secret",
+  }, fetchImpl);
+
+  const result = await client.sendFileMessage("oc_chat", filePath, { idempotencyKey: "file-1" });
+
+  assert.equal(result.fileKey, "file_key_1");
+  assert.equal(requests[1].url, "https://open.feishu.test/open-apis/im/v1/files");
+  assert.equal(requests[1].options.headers.Authorization, "Bearer tenant-token");
+  assert.equal(requests[2].url, "https://open.feishu.test/open-apis/im/v1/messages?receive_id_type=chat_id");
+  assert.deepEqual(JSON.parse(requests[2].options.body), {
+    content: "{\"file_key\":\"file_key_1\"}",
+    msg_type: "file",
+    receive_id: "oc_chat",
+    uuid: "file-1",
+  });
 });

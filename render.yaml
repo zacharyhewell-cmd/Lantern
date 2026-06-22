@@ -12,6 +12,22 @@ services:
         value: 20
       - key: FEISHU_WEBHOOK_PATH
         value: /feishu/events
+      - key: WATCHTOWER_RUN_PATH
+        value: /watchtower/run
+      - key: WATCHTOWER_CREATE_TIME_LOOKBACK_DAYS
+        value: 30
+      - key: WATCHTOWER_PRESHIP_THRESHOLD_HOURS
+        value: 48
+      - key: WATCHTOWER_IN_TRANSIT_THRESHOLD_HOURS
+        value: 120
+      - key: WATCHTOWER_SCHEDULE_ENABLED
+        value: "false"
+      - key: WATCHTOWER_SCHEDULE_TIME_ZONE
+        value: America/Los_Angeles
+      - key: WATCHTOWER_SCHEDULE_HOUR
+        value: 22
+      - key: WATCHTOWER_SCHEDULE_MINUTE
+        value: 30
       - key: SHOPIFY_SHOP_DOMAIN
         value: velotric-dealers-shop.myshopify.com
       - key: SHOPIFY_API_VERSION
@@ -23,6 +39,10 @@ services:
       - key: FEISHU_APP_SECRET
         sync: false
       - key: FEISHU_VERIFICATION_TOKEN
+        sync: false
+      - key: WATCHTOWER_RUN_SECRET
+        sync: false
+      - key: WATCHTOWER_FEISHU_CHAT_ID
         sync: false
       - key: SHOPIFY_CLIENT_ID
         sync: false

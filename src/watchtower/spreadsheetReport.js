@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { pathToFileURL } from "node:url";
+import ExcelJS from "exceljs";
 import {
   mergeActionEntries,
   parseActionLog,
@@ -15,37 +15,6 @@ import {
 
 const STALE_THRESHOLD_DAYS = 2;
 const WATCHTOWER_SHEETS = ["preship FedEx", "preship LtL Other", "In Transit FedEx", "In Transit LtL Other"];
-
-let artifactTool;
-
-async function loadArtifactTool() {
-  if (artifactTool) {
-    return artifactTool;
-  }
-
-  try {
-    artifactTool = await import("@oai/artifact-tool");
-    return artifactTool;
-  } catch (error) {
-    const nodePath = process.env.NODE_PATH || "";
-    const candidates = nodePath
-      .split(path.delimiter)
-      .filter(Boolean)
-      .map((root) => path.join(root, "@oai", "artifact-tool", "dist", "artifact_tool.mjs"));
-
-    for (const candidate of candidates) {
-      try {
-        await fs.access(candidate);
-        artifactTool = await import(pathToFileURL(candidate).href);
-        return artifactTool;
-      } catch {
-        // Try the next NODE_PATH entry.
-      }
-    }
-
-    throw error;
-  }
-}
 
 async function readActionLog(actionLogPath) {
   try {
@@ -76,34 +45,32 @@ async function checkedActionsFromExistingWorkbook(filePath) {
     return [];
   }
 
-  const { FileBlob, SpreadsheetFile } = await loadArtifactTool();
-  const workbook = await SpreadsheetFile.importXlsx(await FileBlob.load(filePath));
+  const workbook = new ExcelJS.Workbook();
+  await workbook.xlsx.readFile(filePath);
   const actionDate = reportDateFromPath(filePath);
   const entries = [];
 
   for (const sheetName of WATCHTOWER_SHEETS) {
-    let sheet;
-    try {
-      sheet = workbook.worksheets.getItem(sheetName);
-    } catch {
+    const sheet = workbook.getWorksheet(sheetName);
+    if (!sheet) {
       continue;
     }
 
-    const values = sheet.getUsedRange().values || [];
-    if (values.length < 2) {
+    if (sheet.rowCount < 2) {
       continue;
     }
 
-    const headers = values[0].map((value) => String(value || "").trim());
+    const headers = sheet.getRow(1).values.slice(1).map((value) => String(value || "").trim());
     const otIndex = headers.indexOf("OT number");
     const actionIndex = headers.indexOf("Action taken?");
     if (otIndex < 0 || actionIndex < 0) {
       continue;
     }
 
-    for (const row of values.slice(1)) {
-      if (isChecked(row[actionIndex])) {
-        entries.push({ otNumber: row[otIndex], actionDate });
+    for (let rowIndex = 2; rowIndex <= sheet.rowCount; rowIndex += 1) {
+      const row = sheet.getRow(rowIndex);
+      if (isChecked(row.getCell(actionIndex + 1).value)) {
+        entries.push({ otNumber: row.getCell(otIndex + 1).value, actionDate });
       }
     }
   }
@@ -215,34 +182,33 @@ function inTransitRows(findings, groupName, actionsByOt) {
   });
 }
 
-function colName(index) {
-  let value = "";
-  let current = index + 1;
-  while (current > 0) {
-    const mod = (current - 1) % 26;
-    value = String.fromCharCode(65 + mod) + value;
-    current = Math.floor((current - mod) / 26);
-  }
-  return value;
-}
-
 function applyDuplicateHighlights(sheet, rowCount) {
   if (rowCount <= 1) {
     return;
   }
 
-  const values = sheet.getRangeByIndexes(1, 0, rowCount - 1, 1).values.flat();
+  const values = [];
+  for (let rowIndex = 2; rowIndex <= rowCount; rowIndex += 1) {
+    values.push(sheet.getRow(rowIndex).getCell(1).value);
+  }
+
   let lastValue = null;
   let runStart = 0;
   let colorIndex = 0;
-  const colors = ["#FFF2CC", "#DDEBF7"];
+  const colors = ["FFFFF2CC", "FFDDEBF7"];
 
   function paintRun(endExclusive) {
     if (endExclusive - runStart <= 1) {
       return;
     }
     const color = colors[colorIndex % colors.length];
-    sheet.getRangeByIndexes(runStart + 1, 0, endExclusive - runStart, 1).format.fill.color = color;
+    for (let rowIndex = runStart + 2; rowIndex < endExclusive + 2; rowIndex += 1) {
+      sheet.getRow(rowIndex).getCell(1).fill = {
+        type: "pattern",
+        pattern: "solid",
+        fgColor: { argb: color },
+      };
+    }
     colorIndex += 1;
   }
 
@@ -262,35 +228,43 @@ function applyDuplicateHighlights(sheet, rowCount) {
 }
 
 function writeSheet(workbook, name, headers, dataRows, options = {}) {
-  const sheet = workbook.worksheets.add(name);
-  sheet.showGridLines = false;
-  const matrix = [headers, ...dataRows];
-  const lastCol = colName(headers.length - 1);
-  sheet.getRange(`A1:${lastCol}${matrix.length}`).values = matrix;
+  const sheet = workbook.addWorksheet(name, {
+    views: [{ state: "frozen", ySplit: 1 }],
+    properties: { showGridLines: false },
+  });
+  sheet.columns = headers.map((header, index) => ({
+    header,
+    key: `c${index}`,
+    width: options.widths?.[index] || 16,
+  }));
+  dataRows.forEach((row) => sheet.addRow(row));
 
-  const header = sheet.getRange(`A1:${lastCol}1`);
-  header.format.fill.color = "#1F4E78";
-  header.format.font.color = "#FFFFFF";
-  header.format.font.bold = true;
-  header.format.wrapText = true;
+  const headerRow = sheet.getRow(1);
+  headerRow.eachCell((cell) => {
+    cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF1F4E78" } };
+    cell.font = { name: "Aptos", size: 11, bold: true, color: { argb: "FFFFFFFF" } };
+    cell.alignment = { wrapText: true, vertical: "middle" };
+  });
 
-  const used = sheet.getRange(`A1:${lastCol}${matrix.length}`);
-  used.format.font.name = "Aptos";
-  used.format.font.size = 11;
-  used.format.borders = {
-    insideHorizontal: { style: "thin", color: "#E7E6E6" },
-    bottom: { style: "thin", color: "#BFBFBF" },
-  };
-  used.format.wrapText = true;
-  sheet.freezePanes.freezeRows(1);
+  sheet.eachRow((row) => {
+    row.eachCell((cell) => {
+      cell.font = cell.font || { name: "Aptos", size: 11 };
+      cell.alignment = { wrapText: true, vertical: "top" };
+      cell.border = {
+        bottom: { style: "thin", color: { argb: "FFBFBFBF" } },
+      };
+    });
+  });
 
   if (dataRows.length) {
-    applyDuplicateHighlights(sheet, matrix.length);
+    applyDuplicateHighlights(sheet, sheet.rowCount);
   }
 
   if (options.numberColumns) {
     for (const columnIndex of options.numberColumns) {
-      sheet.getRangeByIndexes(1, columnIndex, Math.max(dataRows.length, 1), 1).format.numberFormat = [["0.0"]];
+      for (let rowIndex = 2; rowIndex <= sheet.rowCount; rowIndex += 1) {
+        sheet.getRow(rowIndex).getCell(columnIndex + 1).numFmt = "0.0";
+      }
     }
   }
 
@@ -299,25 +273,26 @@ function writeSheet(workbook, name, headers, dataRows, options = {}) {
     dataRows.forEach((row, index) => {
       const value = Number(row[staleColumnIndex]);
       if (Number.isFinite(value) && value > STALE_THRESHOLD_DAYS) {
-        sheet.getCell(index + 1, staleColumnIndex).format.fill.color = "#F4CCCC";
+        sheet.getRow(index + 2).getCell(staleColumnIndex + 1).fill = {
+          type: "pattern",
+          pattern: "solid",
+          fgColor: { argb: "FFF4CCCC" },
+        };
       }
     });
   }
 
   if (options.checkboxColumnIndex != null && dataRows.length) {
-    const range = sheet.getRangeByIndexes(1, options.checkboxColumnIndex, dataRows.length, 1);
-    range.dataValidation = {
-      allowBlank: false,
-      list: { inCellDropDown: true, source: ["TRUE", "FALSE"] },
-    };
+    for (let rowIndex = 2; rowIndex <= sheet.rowCount; rowIndex += 1) {
+      sheet.getRow(rowIndex).getCell(options.checkboxColumnIndex + 1).dataValidation = {
+        type: "list",
+        allowBlank: false,
+        formulae: ["\"TRUE,FALSE\""],
+      };
+    }
   }
 
-  const widths = options.widths || [];
-  widths.forEach((width, index) => {
-    sheet.getRangeByIndexes(0, index, matrix.length, 1).format.columnWidth = width;
-  });
-
-  return { sheet, rows: matrix.length };
+  return { sheet, rows: sheet.rowCount };
 }
 
 export async function writeWatchtowerSpreadsheetReport(rows, {
@@ -338,7 +313,10 @@ export async function writeWatchtowerSpreadsheetReport(rows, {
     ...await checkedActionsFromExistingWorkbook(outputPath),
   ]);
   const actionsByOt = summarizeActionsByOt(actionEntries);
-  const { SpreadsheetFile, Workbook } = await loadArtifactTool();
+  const workbook = new ExcelJS.Workbook();
+  workbook.creator = "Lantern Watchtower";
+  workbook.created = new Date();
+  workbook.modified = new Date();
 
   await fs.mkdir(path.dirname(outputPath), { recursive: true });
   if (actionLogPath) {
@@ -346,7 +324,6 @@ export async function writeWatchtowerSpreadsheetReport(rows, {
     await fs.writeFile(actionLogPath, serializeActionLog(actionEntries));
   }
 
-  const workbook = Workbook.create();
   const summaries = [
     writeSheet(
       workbook,
@@ -378,18 +355,15 @@ export async function writeWatchtowerSpreadsheetReport(rows, {
     ),
   ];
 
-  const inspect = await workbook.inspect({
-    kind: "workbook,sheet,table",
-    tableMaxRows: 3,
-    tableMaxCols: 10,
-    maxChars: 20000,
-  });
   if (inspectPath) {
-    await fs.writeFile(inspectPath, inspect.ndjson);
+    await fs.writeFile(inspectPath, summaries.map((summary) => JSON.stringify({
+      sheet: summary.sheet.name,
+      rows: summary.rows,
+      columns: summary.sheet.columnCount,
+    })).join("\n"));
   }
 
-  const exported = await SpreadsheetFile.exportXlsx(workbook);
-  await exported.save(outputPath);
+  await workbook.xlsx.writeFile(outputPath);
 
   return {
     outputPath,

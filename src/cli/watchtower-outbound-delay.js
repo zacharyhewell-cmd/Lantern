@@ -2,6 +2,7 @@ import { getSurpathConfig } from "../config.js";
 import { SurpathMcpClient } from "../surpath/client.js";
 import { findOutboundDelayFindings } from "../watchtower/outboundDelay.js";
 import { formatWatchtowerOutboundDelayReport } from "../formatters/watchtowerReport.js";
+import { fetchWatchtowerOutboundRows, runWatchtowerOutboundDelayReport } from "../watchtower/runOutboundDelayReport.js";
 import path from "node:path";
 
 function argValue(name, fallback) {
@@ -32,44 +33,28 @@ const outputPath = argValue("--output", path.join(outputDir, `watchtower-outboun
 const actionLogPath = argValue("--action-log", path.join(outputDir, "watchtower-actions.csv"));
 
 const client = new SurpathMcpClient(getSurpathConfig());
-const rows = [];
 
-try {
-  for (let currentPage = 1; currentPage <= maxPages; currentPage += 1) {
-    const response = await client.queryOutboundOrders({
-      createTimeStart,
-      createTimeEnd,
-      currentPage,
-      pageSize,
-    });
-    rows.push(...(response.data || []));
-
-    const totalSize = Number(response.totalSize || 0);
-    if (!response.data?.length || rows.length >= totalSize) {
-      break;
-    }
-  }
-
-  if (format === "xlsx") {
-    const { writeWatchtowerSpreadsheetReport } = await import("../watchtower/spreadsheetReport.js");
-    const result = await writeWatchtowerSpreadsheetReport(rows, {
-      outputPath,
-      actionLogPath,
-      preshipThresholdHours: thresholdHours,
-      inTransitThresholdHours,
-    });
-    console.log(JSON.stringify({
-      ...result,
-      source: {
-        createTimeStart,
-        createTimeEnd,
-        rows: rows.length,
-      },
-    }, null, 2));
-  } else {
-    const findings = findOutboundDelayFindings(rows, { thresholdHours });
-    console.log(formatWatchtowerOutboundDelayReport(findings, { thresholdHours }));
-  }
-} finally {
-  await client.close();
+if (format === "xlsx") {
+  const result = await runWatchtowerOutboundDelayReport({
+    client,
+    outputPath,
+    actionLogPath,
+    preshipThresholdHours: thresholdHours,
+    inTransitThresholdHours,
+    createTimeStart,
+    createTimeEnd,
+    pageSize,
+    maxPages,
+  });
+  console.log(JSON.stringify(result, null, 2));
+} else {
+  const { rows } = await fetchWatchtowerOutboundRows({
+    client,
+    createTimeStart,
+    createTimeEnd,
+    pageSize,
+    maxPages,
+  });
+  const findings = findOutboundDelayFindings(rows, { thresholdHours });
+  console.log(formatWatchtowerOutboundDelayReport(findings, { thresholdHours }));
 }

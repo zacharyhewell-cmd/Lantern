@@ -1,3 +1,6 @@
+import fs from "node:fs/promises";
+import path from "node:path";
+
 function compact(value) {
   return value == null || value === "" ? null : value;
 }
@@ -118,5 +121,95 @@ export class FeishuOpenApiClient {
     }
 
     return result;
+  }
+
+  async sendTextMessage(chatId, text, { idempotencyKey } = {}) {
+    const token = await this.getTenantAccessToken();
+    const body = {
+      content: JSON.stringify({ text }),
+      msg_type: "text",
+      receive_id: chatId,
+    };
+    const uuid = compact(idempotencyKey);
+    if (uuid) {
+      body.uuid = uuid;
+    }
+
+    const response = await this.fetch(
+      `${this.config.apiBaseUrl}/open-apis/im/v1/messages?receive_id_type=chat_id`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      },
+    );
+    const result = await response.json();
+    if (!response.ok || result.code !== 0) {
+      throw new Error(`Feishu message send failed: ${result.msg || result.message || response.status}`);
+    }
+
+    return result;
+  }
+
+  async uploadFile(filePath, { fileType = "stream", fileName = path.basename(filePath) } = {}) {
+    const token = await this.getTenantAccessToken();
+    const bytes = await fs.readFile(filePath);
+    const form = new FormData();
+    form.append("file_type", fileType);
+    form.append("file_name", fileName);
+    form.append("file", new Blob([bytes]), fileName);
+
+    const response = await this.fetch(
+      `${this.config.apiBaseUrl}/open-apis/im/v1/files`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: form,
+      },
+    );
+    const result = await response.json();
+    const fileKey = result.data?.file_key;
+    if (!response.ok || result.code !== 0 || !fileKey) {
+      throw new Error(`Feishu file upload failed: ${result.msg || result.message || response.status}`);
+    }
+
+    return fileKey;
+  }
+
+  async sendFileMessage(chatId, filePath, { fileName = path.basename(filePath), idempotencyKey } = {}) {
+    const fileKey = await this.uploadFile(filePath, { fileName });
+    const token = await this.getTenantAccessToken();
+    const body = {
+      content: JSON.stringify({ file_key: fileKey }),
+      msg_type: "file",
+      receive_id: chatId,
+    };
+    const uuid = compact(idempotencyKey);
+    if (uuid) {
+      body.uuid = uuid;
+    }
+
+    const response = await this.fetch(
+      `${this.config.apiBaseUrl}/open-apis/im/v1/messages?receive_id_type=chat_id`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      },
+    );
+    const result = await response.json();
+    if (!response.ok || result.code !== 0) {
+      throw new Error(`Feishu file message send failed: ${result.msg || result.message || response.status}`);
+    }
+
+    return { ...result, fileKey };
   }
 }

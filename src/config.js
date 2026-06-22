@@ -94,3 +94,19 @@ export function getServerConfig() {
     feishuWebhookPath: process.env.FEISHU_WEBHOOK_PATH || "/feishu/events",
   };
 }
+
+export function getWatchtowerConfig() {
+  return {
+    runPath: process.env.WATCHTOWER_RUN_PATH || "/watchtower/run",
+    runSecret: process.env.WATCHTOWER_RUN_SECRET || "",
+    chatId: process.env.WATCHTOWER_FEISHU_CHAT_ID || "",
+    outputDir: process.env.WATCHTOWER_OUTPUT_DIR || "outputs/watchtower",
+    createTimeLookbackDays: Number(process.env.WATCHTOWER_CREATE_TIME_LOOKBACK_DAYS || 30),
+    preshipThresholdHours: Number(process.env.WATCHTOWER_PRESHIP_THRESHOLD_HOURS || 48),
+    inTransitThresholdHours: Number(process.env.WATCHTOWER_IN_TRANSIT_THRESHOLD_HOURS || 120),
+    scheduleEnabled: process.env.WATCHTOWER_SCHEDULE_ENABLED === "true",
+    scheduleTimeZone: process.env.WATCHTOWER_SCHEDULE_TIME_ZONE || "America/Los_Angeles",
+    scheduleHour: Number(process.env.WATCHTOWER_SCHEDULE_HOUR || 22),
+    scheduleMinute: Number(process.env.WATCHTOWER_SCHEDULE_MINUTE || 30),
+  };
+}
