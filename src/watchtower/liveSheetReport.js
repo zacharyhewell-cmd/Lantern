@@ -33,11 +33,21 @@ function colName(index) {
   return value;
 }
 
+function sheetArray(value) {
+  if (Array.isArray(value)) {
+    return value;
+  }
+  if (Array.isArray(value?.sheets)) {
+    return value.sheets;
+  }
+  return null;
+}
+
 function sheetList(spreadsheetInfo) {
-  return spreadsheetInfo?.data?.sheets?.sheets ||
-    spreadsheetInfo?.data?.spreadsheet?.sheets ||
-    spreadsheetInfo?.spreadsheet?.sheets ||
-    spreadsheetInfo?.data?.properties?.sheets ||
+  return sheetArray(spreadsheetInfo?.data?.sheets) ||
+    sheetArray(spreadsheetInfo?.data?.spreadsheet?.sheets) ||
+    sheetArray(spreadsheetInfo?.spreadsheet?.sheets) ||
+    sheetArray(spreadsheetInfo?.data?.properties?.sheets) ||
     [];
 }
 
@@ -112,25 +122,42 @@ async function getSheetsByTitle(client, spreadsheetToken) {
   return new Map(sheetList(info).map(normalizeSheet).filter((sheet) => sheet.id && sheet.title).map((sheet) => [sheet.title, sheet]));
 }
 
+function isSheetTitleExistsError(error) {
+  return /sheetTitle already exist|sheet title already exist|already exists?/i.test(String(error?.message || ""));
+}
+
+async function applySheetSetupRequest(client, spreadsheetToken, request) {
+  try {
+    await client.batchUpdateSheets(spreadsheetToken, [request]);
+  } catch (error) {
+    if (isSheetTitleExistsError(error)) {
+      return false;
+    }
+    throw error;
+  }
+  return true;
+}
+
 async function ensureSheets(client, spreadsheetToken) {
   let sheetsByTitle = await getSheetsByTitle(client, spreadsheetToken);
   const requiredTitles = [...WATCHTOWER_SHEETS, ACTION_LOG_SHEET];
-  const requests = [];
-  const existingSheets = [...sheetsByTitle.values()];
-  const unnamedFirstSheet = existingSheets.length === 1 && !requiredTitles.includes(existingSheets[0].title)
-    ? existingSheets[0]
-    : null;
 
   for (const title of requiredTitles) {
+    sheetsByTitle = await getSheetsByTitle(client, spreadsheetToken);
     if (sheetsByTitle.has(title)) {
       continue;
     }
 
-    if (unnamedFirstSheet && !requests.length) {
-      requests.push({
+    const existingSheets = [...sheetsByTitle.values()];
+    const reusableSheet = existingSheets.length === 1 && !requiredTitles.includes(existingSheets[0].title)
+      ? existingSheets[0]
+      : null;
+
+    if (reusableSheet) {
+      await applySheetSetupRequest(client, spreadsheetToken, {
         updateSheet: {
           properties: {
-            sheetId: unnamedFirstSheet.id,
+            sheetId: reusableSheet.id,
             title,
             frozenRowCount: 1,
             hidden: title === ACTION_LOG_SHEET,
@@ -138,7 +165,7 @@ async function ensureSheets(client, spreadsheetToken) {
         },
       });
     } else {
-      requests.push({
+      await applySheetSetupRequest(client, spreadsheetToken, {
         addSheet: {
           properties: {
             title,
@@ -149,10 +176,7 @@ async function ensureSheets(client, spreadsheetToken) {
     }
   }
 
-  if (requests.length) {
-    await client.batchUpdateSheets(spreadsheetToken, requests);
-    sheetsByTitle = await getSheetsByTitle(client, spreadsheetToken);
-  }
+  sheetsByTitle = await getSheetsByTitle(client, spreadsheetToken);
 
   const freezeAndHideRequests = requiredTitles
     .map((title) => sheetsByTitle.get(title))

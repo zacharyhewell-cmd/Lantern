@@ -64,6 +64,52 @@ function fakeSheetClient() {
   };
 }
 
+function fakeSheetClientWithMetadataShapes(metadataResponses) {
+  const calls = [];
+  const ranges = new Map();
+  let metadataIndex = 0;
+  return {
+    calls,
+    ranges,
+    async getSpreadsheet() {
+      const response = metadataResponses[Math.min(metadataIndex, metadataResponses.length - 1)];
+      metadataIndex += 1;
+      return response;
+    },
+    async batchUpdateSheets(_token, requests) {
+      calls.push(["batchUpdateSheets", requests]);
+    },
+    async readSheetRange(_token, range) {
+      calls.push(["readSheetRange", range]);
+      return { data: { valueRange: { values: ranges.get(range) || [] } } };
+    },
+    async writeSheetRange(_token, range, values) {
+      calls.push(["writeSheetRange", range, values]);
+      ranges.set(range, values);
+    },
+    async setSheetDropdown(_token, range, values) {
+      calls.push(["setSheetDropdown", range, values]);
+    },
+    async setSheetStyle(_token, range, style) {
+      calls.push(["setSheetStyle", range, style]);
+    },
+  };
+}
+
+function sheetInfoArrayShape() {
+  return {
+    data: {
+      sheets: [
+        { sheet_id: "pfx", title: "preship FedEx" },
+        { sheet_id: "plt", title: "preship LtL Other" },
+        { sheet_id: "ifx", title: "In Transit FedEx" },
+        { sheet_id: "ilt", title: "In Transit LtL Other" },
+        { sheet_id: "log", title: "_Watchtower Actions" },
+      ],
+    },
+  };
+}
+
 test("live sheet report captures checked actions and rewrites the shared report", async () => {
   const client = fakeSheetClient();
   client.ranges.set("pfx!A1:M2000", [
@@ -111,4 +157,46 @@ test("live sheet report captures checked actions and rewrites the shared report"
     ["OT1", "2026-06-21"],
     ["OT1", "2026-06-22"],
   ]);
+});
+
+test("live sheet report recognizes existing tabs from array-shaped metadata", async () => {
+  const client = fakeSheetClientWithMetadataShapes([sheetInfoArrayShape()]);
+
+  await writeWatchtowerLiveSheetReport([row()], {
+    client,
+    spreadsheetToken: "sht_test",
+    reportDate: "2026-06-22",
+    preshipThresholdHours: 48,
+  });
+
+  const setupCalls = client.calls.filter((call) => call[0] === "batchUpdateSheets");
+  assert.equal(
+    setupCalls.some((call) => JSON.stringify(call[1]).includes("addSheet")),
+    false,
+  );
+});
+
+test("live sheet report recovers when Feishu says a sheet title already exists", async () => {
+  const emptyInfo = { data: { sheets: { sheets: [] } } };
+  const client = fakeSheetClientWithMetadataShapes([
+    emptyInfo,
+    emptyInfo,
+    sheetInfoArrayShape(),
+  ]);
+  client.batchUpdateSheets = async (_token, requests) => {
+    client.calls.push(["batchUpdateSheets", requests]);
+    if (JSON.stringify(requests).includes("addSheet")) {
+      throw new Error("Feishu API request failed: sheetTitle already exist in snapshot");
+    }
+  };
+
+  await writeWatchtowerLiveSheetReport([row()], {
+    client,
+    spreadsheetToken: "sht_test",
+    reportDate: "2026-06-22",
+    preshipThresholdHours: 48,
+  });
+
+  const preshipWrite = client.calls.find((call) => call[0] === "writeSheetRange" && call[1].startsWith("pfx!A1:"));
+  assert.ok(preshipWrite);
 });
