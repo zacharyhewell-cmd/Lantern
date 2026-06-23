@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { createHash } from "node:crypto";
 
 function compact(value) {
   return value == null || value === "" ? null : value;
@@ -12,6 +13,20 @@ function assertConfigured(config) {
 }
 
 const MARKDOWN_LINK_PATTERN = /\[([^\]\n]+)]\((https?:\/\/[^)\s]+)\)/g;
+const FEISHU_UUID_PATTERN = /^[A-Za-z0-9_-]{1,64}$/;
+
+function safeUuid(value) {
+  const text = compact(value);
+  if (!text) {
+    return null;
+  }
+
+  if (FEISHU_UUID_PATTERN.test(text)) {
+    return text;
+  }
+
+  return `lantern-${createHash("sha256").update(text).digest("hex").slice(0, 32)}`;
+}
 
 function parseRichTextLine(line) {
   if (!line) {
@@ -56,7 +71,7 @@ function buildReplyMessageBody(text, idempotencyKey) {
   }
   MARKDOWN_LINK_PATTERN.lastIndex = 0;
 
-  const uuid = compact(idempotencyKey);
+  const uuid = safeUuid(idempotencyKey);
   if (uuid) {
     body.uuid = uuid;
   }
@@ -117,7 +132,7 @@ export class FeishuOpenApiClient {
     );
     const result = await response.json();
     if (!response.ok || result.code !== 0) {
-      throw new Error(`Feishu reply failed: ${result.msg || result.message || response.status}`);
+      throw new Error(`Feishu reply failed: ${result.code || response.status} ${result.msg || result.message || response.status}`);
     }
 
     return result;
@@ -130,7 +145,7 @@ export class FeishuOpenApiClient {
       msg_type: "text",
       receive_id: chatId,
     };
-    const uuid = compact(idempotencyKey);
+    const uuid = safeUuid(idempotencyKey);
     if (uuid) {
       body.uuid = uuid;
     }
@@ -148,7 +163,7 @@ export class FeishuOpenApiClient {
     );
     const result = await response.json();
     if (!response.ok || result.code !== 0) {
-      throw new Error(`Feishu message send failed: ${result.msg || result.message || response.status}`);
+      throw new Error(`Feishu message send failed: ${result.code || response.status} ${result.msg || result.message || response.status}`);
     }
 
     return result;
@@ -189,7 +204,7 @@ export class FeishuOpenApiClient {
       msg_type: "file",
       receive_id: chatId,
     };
-    const uuid = compact(idempotencyKey);
+    const uuid = safeUuid(idempotencyKey);
     if (uuid) {
       body.uuid = uuid;
     }
@@ -207,7 +222,7 @@ export class FeishuOpenApiClient {
     );
     const result = await response.json();
     if (!response.ok || result.code !== 0) {
-      throw new Error(`Feishu file message send failed: ${result.msg || result.message || response.status}`);
+      throw new Error(`Feishu file message send failed: ${result.code || response.status} ${result.msg || result.message || response.status}`);
     }
 
     return { ...result, fileKey };

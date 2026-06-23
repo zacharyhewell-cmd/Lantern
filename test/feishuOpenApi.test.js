@@ -89,6 +89,42 @@ test("sends markdown tracking links as Feishu rich text", async () => {
   ]]);
 });
 
+test("normalizes long or invalid Feishu message UUID values", async () => {
+  const requests = [];
+  const fetchImpl = async (url, options) => {
+    requests.push({ url, options });
+    if (url.endsWith("/open-apis/auth/v3/tenant_access_token/internal")) {
+      return {
+        ok: true,
+        async json() {
+          return { code: 0, tenant_access_token: "tenant-token", expire: 7200 };
+        },
+      };
+    }
+
+    return {
+      ok: true,
+      async json() {
+        return { code: 0, data: { message_id: "om_reply" } };
+      },
+    };
+  };
+
+  const client = new FeishuOpenApiClient({
+    apiBaseUrl: "https://open.feishu.test",
+    appId: "app-id",
+    appSecret: "app-secret",
+  }, fetchImpl);
+
+  await client.replyInThread("om_root", "hello", {
+    idempotencyKey: `${"evt".repeat(40)}!`,
+  });
+
+  const body = JSON.parse(requests[1].options.body);
+  assert.match(body.uuid, /^lantern-[a-f0-9]{32}$/);
+  assert.ok(body.uuid.length <= 64);
+});
+
 test("uploads and sends a Feishu file message", async () => {
   const requests = [];
   const fetchImpl = async (url, options) => {
