@@ -43,11 +43,38 @@ function sheetArray(value) {
   return null;
 }
 
+function looksLikeSheet(value) {
+  const properties = value?.properties || value;
+  return Boolean(properties?.title && (properties.sheet_id || properties.sheetId || properties.id));
+}
+
+function findSheetArrays(value, results = []) {
+  if (!value || typeof value !== "object") {
+    return results;
+  }
+
+  if (Array.isArray(value)) {
+    if (value.some(looksLikeSheet)) {
+      results.push(value);
+    }
+    for (const item of value) {
+      findSheetArrays(item, results);
+    }
+    return results;
+  }
+
+  for (const child of Object.values(value)) {
+    findSheetArrays(child, results);
+  }
+  return results;
+}
+
 function sheetList(spreadsheetInfo) {
   return sheetArray(spreadsheetInfo?.data?.sheets) ||
     sheetArray(spreadsheetInfo?.data?.spreadsheet?.sheets) ||
     sheetArray(spreadsheetInfo?.spreadsheet?.sheets) ||
     sheetArray(spreadsheetInfo?.data?.properties?.sheets) ||
+    findSheetArrays(spreadsheetInfo)[0] ||
     [];
 }
 
@@ -197,6 +224,11 @@ async function ensureSheets(client, spreadsheetToken) {
   return getSheetsByTitle(client, spreadsheetToken);
 }
 
+function missingSheetError(title, sheetsByTitle) {
+  const knownTitles = [...sheetsByTitle.keys()].join(", ") || "none";
+  return new Error(`Missing Watchtower sheet tab after setup: ${title}. Known tabs: ${knownTitles}`);
+}
+
 async function checkedActionsFromLiveSheets(client, spreadsheetToken, sheetsByTitle, reportDate) {
   const entries = [];
   for (const title of WATCHTOWER_SHEETS) {
@@ -323,13 +355,13 @@ export async function writeWatchtowerLiveSheetReport(rows, {
   for (const definition of report.sheets) {
     const sheet = sheetsByTitle.get(definition.name);
     if (!sheet) {
-      throw new Error(`Missing Watchtower sheet tab after setup: ${definition.name}`);
+      throw missingSheetError(definition.name, sheetsByTitle);
     }
     await writeVisibleSheet(client, spreadsheetToken, sheet, definition);
   }
   const actionLogSheet = sheetsByTitle.get(ACTION_LOG_SHEET);
   if (!actionLogSheet) {
-    throw new Error(`Missing Watchtower action log tab after setup: ${ACTION_LOG_SHEET}`);
+    throw missingSheetError(ACTION_LOG_SHEET, sheetsByTitle);
   }
   await writeActionLogSheet(client, spreadsheetToken, actionLogSheet, actionEntries);
 

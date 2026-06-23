@@ -176,6 +176,39 @@ test("live sheet report recognizes existing tabs from array-shaped metadata", as
   );
 });
 
+test("live sheet report recognizes existing tabs from deeply nested metadata", async () => {
+  const client = fakeSheetClientWithMetadataShapes([{
+    data: {
+      spreadsheet: {
+        spreadsheet: {
+          token: "sht_test",
+        },
+      },
+      unexpected: {
+        nested: {
+          values: [
+            { sheet_id: "pfx", title: "preship FedEx" },
+            { sheet_id: "plt", title: "preship LtL Other" },
+            { sheet_id: "ifx", title: "In Transit FedEx" },
+            { sheet_id: "ilt", title: "In Transit LtL Other" },
+            { sheet_id: "log", title: "_Watchtower Actions" },
+          ],
+        },
+      },
+    },
+  }]);
+
+  await writeWatchtowerLiveSheetReport([row()], {
+    client,
+    spreadsheetToken: "sht_test",
+    reportDate: "2026-06-22",
+    preshipThresholdHours: 48,
+  });
+
+  const preshipWrite = client.calls.find((call) => call[0] === "writeSheetRange" && call[1].startsWith("pfx!A1:"));
+  assert.ok(preshipWrite);
+});
+
 test("live sheet report recovers when Feishu says a sheet title already exists", async () => {
   const emptyInfo = { data: { sheets: { sheets: [] } } };
   const client = fakeSheetClientWithMetadataShapes([
