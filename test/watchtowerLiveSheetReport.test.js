@@ -35,12 +35,10 @@ function fakeSheetClient() {
     async getSpreadsheet() {
       return {
         data: {
-          spreadsheet: {
+          sheets: {
             sheets: sheets.map((sheet) => ({
-              properties: {
-                sheet_id: sheet.id,
-                title: sheet.title,
-              },
+              sheet_id: sheet.id,
+              title: sheet.title,
             })),
           },
         },

@@ -30,9 +30,10 @@ export async function runAndPostWatchtowerReport({
 
   if (watchtowerConfig.chatId) {
     const reportLink = result.spreadsheetUrl || watchtowerConfig.sheetUrl;
+    const findingSummary = `Findings: ${result.findings?.preship ?? 0} preship, ${result.findings?.inTransit ?? 0} in transit.`;
     const summary = reportLink
-      ? `Watchtower report for ${runDate} is ready. Source rows scanned: ${result.source.rows}.\n${reportLink}`
-      : `Watchtower report for ${runDate} is ready. Source rows scanned: ${result.source.rows}.`;
+      ? `Watchtower report for ${runDate} is ready. Source rows scanned: ${result.source.rows}. ${findingSummary}\n${reportLink}`
+      : `Watchtower report for ${runDate} is ready. Source rows scanned: ${result.source.rows}. ${findingSummary}`;
     await replyClient.sendTextMessage(watchtowerConfig.chatId, summary, {
       idempotencyKey: `watchtower-summary-${runDate}`,
     });

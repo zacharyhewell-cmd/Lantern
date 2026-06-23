@@ -34,8 +34,11 @@ function colName(index) {
 }
 
 function sheetList(spreadsheetInfo) {
-  const spreadsheet = spreadsheetInfo?.data?.spreadsheet || spreadsheetInfo?.spreadsheet || spreadsheetInfo?.data || {};
-  return spreadsheet.sheets || spreadsheet.properties?.sheets || [];
+  return spreadsheetInfo?.data?.sheets?.sheets ||
+    spreadsheetInfo?.data?.spreadsheet?.sheets ||
+    spreadsheetInfo?.spreadsheet?.sheets ||
+    spreadsheetInfo?.data?.properties?.sheets ||
+    [];
 }
 
 function normalizeSheet(sheet) {
@@ -295,9 +298,16 @@ export async function writeWatchtowerLiveSheetReport(rows, {
 
   for (const definition of report.sheets) {
     const sheet = sheetsByTitle.get(definition.name);
+    if (!sheet) {
+      throw new Error(`Missing Watchtower sheet tab after setup: ${definition.name}`);
+    }
     await writeVisibleSheet(client, spreadsheetToken, sheet, definition);
   }
-  await writeActionLogSheet(client, spreadsheetToken, sheetsByTitle.get(ACTION_LOG_SHEET), actionEntries);
+  const actionLogSheet = sheetsByTitle.get(ACTION_LOG_SHEET);
+  if (!actionLogSheet) {
+    throw new Error(`Missing Watchtower action log tab after setup: ${ACTION_LOG_SHEET}`);
+  }
+  await writeActionLogSheet(client, spreadsheetToken, actionLogSheet, actionEntries);
 
   return {
     spreadsheetToken,
