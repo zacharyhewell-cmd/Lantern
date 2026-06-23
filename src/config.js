@@ -49,6 +49,33 @@ function sheetTokenFromUrl(url) {
   return match?.[1] || "";
 }
 
+function parseWatchtowerSheetTabs(value) {
+  const text = String(value || "").trim();
+  if (!text) {
+    return {};
+  }
+
+  try {
+    const parsed = JSON.parse(text);
+    if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+      return parsed;
+    }
+  } catch {
+    // Comma-separated title:id is friendlier to enter in Render.
+  }
+
+  return Object.fromEntries(text.split(",")
+    .map((entry) => entry.trim())
+    .filter(Boolean)
+    .map((entry) => {
+      const separator = entry.lastIndexOf(":");
+      return separator > 0
+        ? [entry.slice(0, separator).trim(), entry.slice(separator + 1).trim()]
+        : null;
+    })
+    .filter((entry) => entry?.[0] && entry?.[1]));
+}
+
 export function getShopifyConfig() {
   return {
     shopDomain: requireEnv("SHOPIFY_SHOP_DOMAIN"),
@@ -109,6 +136,7 @@ export function getWatchtowerConfig() {
     chatId: process.env.WATCHTOWER_FEISHU_CHAT_ID || "",
     sheetUrl,
     sheetToken: process.env.WATCHTOWER_SHEET_TOKEN || sheetTokenFromUrl(sheetUrl),
+    sheetTabs: parseWatchtowerSheetTabs(process.env.WATCHTOWER_SHEET_TABS),
     outputDir: process.env.WATCHTOWER_OUTPUT_DIR || "outputs/watchtower",
     createTimeLookbackDays: Number(process.env.WATCHTOWER_CREATE_TIME_LOOKBACK_DAYS || 30),
     preshipThresholdHours: Number(process.env.WATCHTOWER_PRESHIP_THRESHOLD_HOURS || 48),

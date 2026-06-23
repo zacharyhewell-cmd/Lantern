@@ -149,6 +149,16 @@ async function getSheetsByTitle(client, spreadsheetToken) {
   return new Map(sheetList(info).map(normalizeSheet).filter((sheet) => sheet.id && sheet.title).map((sheet) => [sheet.title, sheet]));
 }
 
+function configuredSheetsByTitle(sheetTabs) {
+  return new Map(Object.entries(sheetTabs || {})
+    .filter(([, id]) => id)
+    .map(([title, id]) => [title, { title, id }]));
+}
+
+function mergeSheetsByTitle(...maps) {
+  return new Map(maps.flatMap((map) => [...map.entries()]));
+}
+
 function isSheetTitleExistsError(error) {
   return /sheetTitle already exist|sheet title already exist|already exists?/i.test(String(error?.message || ""));
 }
@@ -165,12 +175,20 @@ async function applySheetSetupRequest(client, spreadsheetToken, request) {
   return true;
 }
 
-async function ensureSheets(client, spreadsheetToken) {
+async function ensureSheets(client, spreadsheetToken, sheetTabs = {}) {
+  const configuredSheets = configuredSheetsByTitle(sheetTabs);
   let sheetsByTitle = await getSheetsByTitle(client, spreadsheetToken);
   const requiredTitles = [...WATCHTOWER_SHEETS, ACTION_LOG_SHEET];
+  if (configuredSheets.size && requiredTitles.every((title) => configuredSheets.has(title))) {
+    return mergeSheetsByTitle(sheetsByTitle, configuredSheets);
+  }
 
   for (const title of requiredTitles) {
     sheetsByTitle = await getSheetsByTitle(client, spreadsheetToken);
+    const availableSheets = mergeSheetsByTitle(sheetsByTitle, configuredSheets);
+    if (availableSheets.has(title)) {
+      continue;
+    }
     if (sheetsByTitle.has(title)) {
       continue;
     }
@@ -204,9 +222,10 @@ async function ensureSheets(client, spreadsheetToken) {
   }
 
   sheetsByTitle = await getSheetsByTitle(client, spreadsheetToken);
+  const availableSheets = mergeSheetsByTitle(sheetsByTitle, configuredSheets);
 
   const freezeAndHideRequests = requiredTitles
-    .map((title) => sheetsByTitle.get(title))
+    .map((title) => availableSheets.get(title))
     .filter(Boolean)
     .map((sheet) => ({
       updateSheet: {
@@ -221,7 +240,7 @@ async function ensureSheets(client, spreadsheetToken) {
     await client.batchUpdateSheets(spreadsheetToken, freezeAndHideRequests);
   }
 
-  return getSheetsByTitle(client, spreadsheetToken);
+  return mergeSheetsByTitle(await getSheetsByTitle(client, spreadsheetToken), configuredSheets);
 }
 
 function missingSheetError(title, sheetsByTitle) {
@@ -330,6 +349,7 @@ export async function writeWatchtowerLiveSheetReport(rows, {
   client,
   spreadsheetToken,
   spreadsheetUrl,
+  sheetTabs,
   reportDate = new Date().toISOString().slice(0, 10),
   preshipThresholdHours = 48,
   inTransitThresholdHours = 120,
@@ -341,7 +361,7 @@ export async function writeWatchtowerLiveSheetReport(rows, {
     throw new Error("Missing required Watchtower spreadsheet token");
   }
 
-  const sheetsByTitle = await ensureSheets(client, spreadsheetToken);
+  const sheetsByTitle = await ensureSheets(client, spreadsheetToken, sheetTabs);
   const hiddenActionEntries = await actionLogFromSheet(client, spreadsheetToken, sheetsByTitle.get(ACTION_LOG_SHEET));
   const checkedEntries = await checkedActionsFromLiveSheets(client, spreadsheetToken, sheetsByTitle, reportDate);
   const actionEntries = mergeActionEntries([...hiddenActionEntries, ...checkedEntries]);

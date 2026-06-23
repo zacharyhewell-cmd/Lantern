@@ -26,6 +26,7 @@ export async function runAndPostWatchtowerReport({
     feishuClient: replyClient,
     spreadsheetToken: watchtowerConfig.sheetToken,
     spreadsheetUrl: watchtowerConfig.sheetUrl,
+    sheetTabs: watchtowerConfig.sheetTabs,
   });
 
   if (watchtowerConfig.chatId) {

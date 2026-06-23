@@ -209,6 +209,32 @@ test("live sheet report recognizes existing tabs from deeply nested metadata", a
   assert.ok(preshipWrite);
 });
 
+test("live sheet report can use configured tab IDs when metadata has no tabs", async () => {
+  const client = fakeSheetClientWithMetadataShapes([{ data: { spreadsheet: { spreadsheet: { token: "sht_test" } } } }]);
+
+  await writeWatchtowerLiveSheetReport([row()], {
+    client,
+    spreadsheetToken: "sht_test",
+    sheetTabs: {
+      "preship FedEx": "pfx",
+      "preship LtL Other": "plt",
+      "In Transit FedEx": "ifx",
+      "In Transit LtL Other": "ilt",
+      "_Watchtower Actions": "log",
+    },
+    reportDate: "2026-06-22",
+    preshipThresholdHours: 48,
+  });
+
+  const preshipWrite = client.calls.find((call) => call[0] === "writeSheetRange" && call[1].startsWith("pfx!A1:"));
+  assert.ok(preshipWrite);
+  const setupCalls = client.calls.filter((call) => call[0] === "batchUpdateSheets");
+  assert.equal(
+    setupCalls.some((call) => JSON.stringify(call[1]).includes("addSheet")),
+    false,
+  );
+});
+
 test("live sheet report recovers when Feishu says a sheet title already exists", async () => {
   const emptyInfo = { data: { sheets: { sheets: [] } } };
   const client = fakeSheetClientWithMetadataShapes([

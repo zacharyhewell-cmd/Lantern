@@ -67,6 +67,7 @@ export async function runWatchtowerOutboundDelayReport({
   feishuClient,
   spreadsheetToken,
   spreadsheetUrl,
+  sheetTabs,
 } = {}) {
   const { rows, source } = await fetchWatchtowerOutboundRows({
     client,
@@ -80,6 +81,7 @@ export async function runWatchtowerOutboundDelayReport({
       client: feishuClient,
       spreadsheetToken,
       spreadsheetUrl,
+      sheetTabs,
       reportDate: outputDate,
       preshipThresholdHours,
       inTransitThresholdHours,

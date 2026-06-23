@@ -134,6 +134,7 @@ Watchtower environment values:
 - `WATCHTOWER_FEISHU_CHAT_ID`, Feishu chat ID for the report destination, for example `US Logistics Team`
 - `WATCHTOWER_SHEET_URL`, optional live Feishu Sheet URL for the shared report
 - `WATCHTOWER_SHEET_TOKEN`, optional live Feishu Sheet token; not needed if `WATCHTOWER_SHEET_URL` is set
+- `WATCHTOWER_SHEET_TABS`, optional fixed tab IDs for the live Sheet, as `Tab title:sheetId` pairs separated by commas
 - `WATCHTOWER_RUN_PATH`, default `/watchtower/run`
 - `WATCHTOWER_CREATE_TIME_LOOKBACK_DAYS`, default `30`
 - `WATCHTOWER_PRESHIP_THRESHOLD_HOURS`, default `48`
@@ -158,6 +159,7 @@ For the live Sheet path:
 - Create a blank Feishu Sheet.
 - Share it with the logistics team and the Lantern bot.
 - Set `WATCHTOWER_SHEET_URL` in Render to the Sheet URL.
+- If Feishu metadata does not expose tabs to Render, set `WATCHTOWER_SHEET_TABS` with the fixed tab IDs.
 - Lantern will create and maintain the visible report tabs plus a hidden `_Watchtower Actions` tab.
 - The `Action taken?` column uses a live `TRUE/FALSE` selector; checked rows are recorded once per OT per report date on the next refresh.
 
