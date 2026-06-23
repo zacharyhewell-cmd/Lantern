@@ -207,13 +207,13 @@ export function buildWatchtowerSheetReport(rows, {
     },
     {
       name: "In Transit FedEx",
-      headers: ["WS#", "OT number", "Action taken?", "Action count", "Last action date", "Tracking", "In Transit Time", "Stale Timer", "Origin warehouse code", "Destination State", "Product SKU", "Carrier", "Status"],
+      headers: ["WS#", "OT number", "Action taken?", "Action count", "Last action date", "Tracking", "In Transit Days", "Stale Days", "Origin warehouse code", "Destination State", "Product SKU", "Carrier", "Status"],
       rows: inTransitRows(inTransitFindings, "fedex", actionsByOt, reportDate),
       options: { checkboxColumnIndex: 2, numberColumns: [3, 6, 7], staleColumnIndex: 7, widths: [14, 22, 15, 13, 16, 18, 16, 13, 20, 18, 42, 16, 24] },
     },
     {
       name: "In Transit LtL Other",
-      headers: ["WS#", "OT number", "Action taken?", "Action count", "Last action date", "Tracking", "In Transit Time", "Stale Timer", "Origin warehouse code", "Destination State", "Product SKU", "Carrier", "Status"],
+      headers: ["WS#", "OT number", "Action taken?", "Action count", "Last action date", "Tracking", "In Transit Days", "Stale Days", "Origin warehouse code", "Destination State", "Product SKU", "Carrier", "Status"],
       rows: inTransitRows(inTransitFindings, "ltl", actionsByOt, reportDate),
       options: { checkboxColumnIndex: 2, numberColumns: [3, 6, 7], staleColumnIndex: 7, widths: [14, 22, 15, 13, 16, 18, 16, 13, 20, 18, 42, 22, 24] },
     },
