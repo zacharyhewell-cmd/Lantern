@@ -52,7 +52,7 @@ function parseRichTextLine(line) {
   return elements.length ? elements : [{ tag: "text", text: line }];
 }
 
-function buildReplyMessageBody(text, idempotencyKey) {
+function buildReplyMessageBody(text) {
   const body = {
     content: JSON.stringify({ text }),
     msg_type: "text",
@@ -70,11 +70,6 @@ function buildReplyMessageBody(text, idempotencyKey) {
     body.msg_type = "post";
   }
   MARKDOWN_LINK_PATTERN.lastIndex = 0;
-
-  const uuid = safeUuid(idempotencyKey);
-  if (uuid) {
-    body.uuid = uuid;
-  }
 
   return body;
 }
@@ -115,9 +110,9 @@ export class FeishuOpenApiClient {
     return this.token;
   }
 
-  async replyInThread(messageId, text, { idempotencyKey } = {}) {
+  async replyInThread(messageId, text, _options = {}) {
     const token = await this.getTenantAccessToken();
-    const body = buildReplyMessageBody(text, idempotencyKey);
+    const body = buildReplyMessageBody(text);
 
     const response = await this.fetch(
       `${this.config.apiBaseUrl}/open-apis/im/v1/messages/${encodeURIComponent(messageId)}/reply`,

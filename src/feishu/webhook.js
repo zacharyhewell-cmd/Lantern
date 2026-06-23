@@ -62,6 +62,16 @@ export function isWatchtowerRefreshTrigger(content) {
   return WATCHTOWER_REFRESH_PATTERN.test(String(content || ""));
 }
 
+async function tryReplyInThread(replyClient, messageId, text, options, logger, label) {
+  try {
+    await replyClient.replyInThread(messageId, text, options);
+    return true;
+  } catch (error) {
+    logger.warn?.(`Feishu webhook ${label} reply failed but processing will continue: ${error.message}`);
+    return false;
+  }
+}
+
 export function createFeishuWebhookProcessor({
   allowedChatId,
   allowedChatIds,
@@ -135,20 +145,33 @@ export function createFeishuWebhookProcessor({
     const afterResponse = (async () => {
       if (isWatchtowerRefreshRequest) {
         if (!watchtowerRefreshHandler) {
-          await replyClient.replyInThread(event.messageId, "Watchtower refresh is not configured on this Lantern service yet.", {
-            idempotencyKey: `${dedupeKey}-watchtower-unconfigured`,
-          });
+          await tryReplyInThread(
+            replyClient,
+            event.messageId,
+            "Watchtower refresh is not configured on this Lantern service yet.",
+            { idempotencyKey: `${dedupeKey}-watchtower-unconfigured` },
+            logger,
+            "Watchtower unconfigured",
+          );
           return;
         }
 
-        await replyClient.replyInThread(event.messageId, "Watchtower refresh started. I will post the updated report when it is ready.", {
-          idempotencyKey: `${dedupeKey}-watchtower-started`,
-        });
+        await tryReplyInThread(
+          replyClient,
+          event.messageId,
+          "Watchtower refresh started. I will post the updated report when it is ready.",
+          { idempotencyKey: `${dedupeKey}-watchtower-started` },
+          logger,
+          "Watchtower started",
+        );
         const result = await watchtowerRefreshHandler(event, dedupeKey);
-        await replyClient.replyInThread(
+        await tryReplyInThread(
+          replyClient,
           event.messageId,
           `Watchtower refresh complete. Source rows scanned: ${result.source?.rows ?? "unknown"}.`,
           { idempotencyKey: `${dedupeKey}-watchtower-complete` },
+          logger,
+          "Watchtower complete",
         );
         return;
       }

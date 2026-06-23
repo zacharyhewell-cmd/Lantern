@@ -129,6 +129,49 @@ test("runs Watchtower refresh from Feishu trigger", async () => {
   ]);
 });
 
+test("runs Watchtower refresh even when status replies fail", async () => {
+  const warnings = [];
+  const refreshes = [];
+  const processor = createFeishuWebhookProcessor({
+    allowedChatId: "oc_test",
+    logger: {
+      info() {},
+      warn(message) {
+        warnings.push(message);
+      },
+      error() {},
+    },
+    replyClient: {
+      async replyInThread() {
+        throw new Error("Feishu reply failed: 99992402 field validation failed");
+      },
+    },
+    buildReply: async () => "should not be called",
+    watchtowerRefreshHandler: async (event, dedupeKey) => {
+      refreshes.push({ event, dedupeKey });
+      return { source: { rows: 42 } };
+    },
+  });
+
+  const result = await processor({
+    header: { event_id: "evt-watchtower-2", event_type: "im.message.receive_v1" },
+    event: {
+      message: {
+        chat_id: "oc_test",
+        message_id: "om_watchtower",
+        message_type: "text",
+        content: "{\"text\":\"Watchtower refresh\"}",
+      },
+    },
+  });
+
+  assert.equal(result.status, 200);
+  await result.afterResponse;
+  assert.equal(refreshes.length, 1);
+  assert.equal(refreshes[0].dedupeKey, "evt-watchtower-2");
+  assert.equal(warnings.length, 2);
+});
+
 test("replies in-thread and dedupes Feishu retry events", async () => {
   const replies = [];
   const processor = createFeishuWebhookProcessor({

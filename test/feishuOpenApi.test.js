@@ -46,7 +46,6 @@ test("requests tenant token and sends threaded text reply", async () => {
     content: "{\"text\":\"hello\"}",
     msg_type: "text",
     reply_in_thread: true,
-    uuid: "evt-1",
   });
 });
 
@@ -82,14 +81,14 @@ test("sends markdown tracking links as Feishu rich text", async () => {
   const body = JSON.parse(requests[1].options.body);
   assert.equal(body.msg_type, "post");
   assert.equal(body.reply_in_thread, true);
-  assert.equal(body.uuid, "evt-2");
+  assert.equal(body.uuid, undefined);
   assert.deepEqual(JSON.parse(body.content).en_us.content, [[
     { tag: "text", text: "Tracking: " },
     { tag: "a", text: "123", href: "https://example.com/123" },
   ]]);
 });
 
-test("normalizes long or invalid Feishu message UUID values", async () => {
+test("normalizes long or invalid Feishu send UUID values", async () => {
   const requests = [];
   const fetchImpl = async (url, options) => {
     requests.push({ url, options });
@@ -116,7 +115,7 @@ test("normalizes long or invalid Feishu message UUID values", async () => {
     appSecret: "app-secret",
   }, fetchImpl);
 
-  await client.replyInThread("om_root", "hello", {
+  await client.sendTextMessage("oc_chat", "hello", {
     idempotencyKey: `${"evt".repeat(40)}!`,
   });
 
