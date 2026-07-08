@@ -212,6 +212,39 @@ test("replies in-thread and dedupes Feishu retry events", async () => {
   ]]);
 });
 
+test("replies in-thread to near-miss Lantern trigger spellings", async () => {
+  const replies = [];
+  const processor = createFeishuWebhookProcessor({
+    allowedChatId: "oc_test",
+    replyClient: {
+      async replyInThread(...args) {
+        replies.push(args);
+      },
+    },
+    buildReply: async () => "Lantern. L A N T E R N. Lantern.",
+  });
+
+  const result = await processor({
+    header: { event_id: "evt-misspell", event_type: "im.message.receive_v1" },
+    event: {
+      message: {
+        chat_id: "oc_test",
+        message_id: "om_misspell",
+        message_type: "text",
+        content: "{\"text\":\"Lantren 32146\"}",
+      },
+    },
+  });
+
+  assert.equal(result.status, 200);
+  await result.afterResponse;
+  assert.deepEqual(replies, [[
+    "om_misspell",
+    "Lantern. L A N T E R N. Lantern.",
+    { idempotencyKey: "evt-misspell" },
+  ]]);
+});
+
 test("accepts any configured allowed chat ID", async () => {
   const replies = [];
   const processor = createFeishuWebhookProcessor({

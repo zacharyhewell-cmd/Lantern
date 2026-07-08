@@ -1,4 +1,4 @@
-import { buildLanternReply, isLanternTrigger } from "../lantern/reply.js";
+import { buildLanternReply, isLanternRequestTrigger } from "../lantern/reply.js";
 
 const WATCHTOWER_REFRESH_PATTERN = /^\s*watchtower\s+refresh\s*$/i;
 
@@ -124,7 +124,7 @@ export function createFeishuWebhookProcessor({
       return { status: 200, body: { ok: true, ignored: "message_type" } };
     }
 
-    const isLanternRequest = isLanternTrigger(event.content);
+    const isLanternRequest = isLanternRequestTrigger(event.content);
     const isWatchtowerRefreshRequest = isWatchtowerRefreshTrigger(event.content);
 
     if (!event.messageId || (!isLanternRequest && !isWatchtowerRefreshRequest)) {
