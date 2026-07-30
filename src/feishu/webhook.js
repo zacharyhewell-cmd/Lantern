@@ -1,4 +1,5 @@
 import { buildLanternReply, isLanternRequestTrigger } from "../lantern/reply.js";
+import { buildWtfSheetReply, isWtfSheetLookupTrigger } from "../lantern/wtfSheetLookup.js";
 
 const WATCHTOWER_REFRESH_PATTERN = /^\s*watchtower\s+refresh\s*$/i;
 
@@ -78,6 +79,7 @@ export function createFeishuWebhookProcessor({
   verificationToken,
   replyClient,
   buildReply = buildLanternReply,
+  buildWtfReply = (content) => buildWtfSheetReply(content, { feishuClient: replyClient }),
   watchtowerRefreshHandler,
   processedIds = new Set(),
   logger = console,
@@ -125,9 +127,10 @@ export function createFeishuWebhookProcessor({
     }
 
     const isLanternRequest = isLanternRequestTrigger(event.content);
+    const isWtfSheetLookupRequest = isWtfSheetLookupTrigger(event.content);
     const isWatchtowerRefreshRequest = isWatchtowerRefreshTrigger(event.content);
 
-    if (!event.messageId || (!isLanternRequest && !isWatchtowerRefreshRequest)) {
+    if (!event.messageId || (!isLanternRequest && !isWtfSheetLookupRequest && !isWatchtowerRefreshRequest)) {
       logger.info?.(
         `Feishu webhook ignored event: trigger message_id=${event.messageId ? "present" : "missing"}`,
       );
@@ -140,7 +143,8 @@ export function createFeishuWebhookProcessor({
       return { status: 200, body: { ok: true, duplicate: true } };
     }
     processedIds.add(dedupeKey);
-    logger.info?.(`Feishu webhook accepted ${isWatchtowerRefreshRequest ? "Watchtower refresh" : "Lantern"} request: event=${dedupeKey}`);
+    const requestLabel = isWatchtowerRefreshRequest ? "Watchtower refresh" : isWtfSheetLookupRequest ? "WTF sheet lookup" : "Lantern";
+    logger.info?.(`Feishu webhook accepted ${requestLabel} request: event=${dedupeKey}`);
 
     const afterResponse = (async () => {
       if (isWatchtowerRefreshRequest) {
@@ -173,6 +177,16 @@ export function createFeishuWebhookProcessor({
           logger,
           "Watchtower complete",
         );
+        return;
+      }
+
+      if (isWtfSheetLookupRequest) {
+        const reply = await buildWtfReply(event.content);
+        if (reply) {
+          await replyClient.replyInThread(event.messageId, reply, {
+            idempotencyKey: dedupeKey,
+          });
+        }
         return;
       }
 

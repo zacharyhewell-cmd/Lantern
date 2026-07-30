@@ -44,11 +44,6 @@ function readCodexSurpathMcpUrl() {
   }
 }
 
-function sheetTokenFromUrl(url) {
-  const match = String(url || "").match(/\/sheets\/([A-Za-z0-9]+)/);
-  return match?.[1] || "";
-}
-
 function parseWatchtowerSheetTabs(value) {
   const text = String(value || "").trim();
   if (!text) {
@@ -74,6 +69,11 @@ function parseWatchtowerSheetTabs(value) {
         : null;
     })
     .filter((entry) => entry?.[0] && entry?.[1]));
+}
+
+export function sheetTokenFromUrl(url) {
+  const match = String(url || "").match(/\/sheets\/([A-Za-z0-9]+)/);
+  return match?.[1] || "";
 }
 
 export function getShopifyConfig() {
@@ -125,6 +125,18 @@ export function getServerConfig() {
   return {
     port: Number(process.env.PORT || 3000),
     feishuWebhookPath: process.env.FEISHU_WEBHOOK_PATH || "/feishu/events",
+  };
+}
+
+export function getWtfConfig() {
+  const sheetUrl = process.env.WTF_SHEET_URL ||
+    "https://velotric.feishu.cn/sheets/Y0UUsLgAPhZllot6GbQcopCynJh?from=from_copylink&sheet=2UiKQ";
+
+  return {
+    sheetUrl,
+    sheetToken: process.env.WTF_SHEET_TOKEN || sheetTokenFromUrl(sheetUrl),
+    sheetId: process.env.WTF_SHEET_ID || "2UiKQ",
+    maxRows: Number(process.env.WTF_SHEET_MAX_ROWS || 5000),
   };
 }
 

@@ -129,6 +129,45 @@ test("runs Watchtower refresh from Feishu trigger", async () => {
   ]);
 });
 
+test("routes WTF sheet lookups to the sheet handler", async () => {
+  const replies = [];
+  const lookups = [];
+  const processor = createFeishuWebhookProcessor({
+    allowedChatId: "oc_test",
+    replyClient: {
+      async replyInThread(...args) {
+        replies.push(args);
+      },
+    },
+    buildReply: async () => "should not be called",
+    buildWtfReply: async (content) => {
+      lookups.push(content);
+      return `sheet reply for ${content}`;
+    },
+  });
+
+  const result = await processor({
+    header: { event_id: "evt-wtf-1", event_type: "im.message.receive_v1" },
+    event: {
+      message: {
+        chat_id: "oc_test",
+        message_id: "om_wtf",
+        message_type: "text",
+        content: "{\"text\":\"WTF WS-#37974\"}",
+      },
+    },
+  });
+
+  assert.equal(result.status, 200);
+  await result.afterResponse;
+  assert.deepEqual(lookups, ["WTF WS-#37974"]);
+  assert.deepEqual(replies, [[
+    "om_wtf",
+    "sheet reply for WTF WS-#37974",
+    { idempotencyKey: "evt-wtf-1" },
+  ]]);
+});
+
 test("runs Watchtower refresh even when status replies fail", async () => {
   const warnings = [];
   const refreshes = [];

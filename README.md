@@ -128,6 +128,13 @@ Optional environment values:
 - `SHOPIFY_API_VERSION`, default `2026-01`
 - `FEDEX_API_BASE_URL`, default `https://apis.fedex.com`
 
+WTF sheet lookup environment values:
+
+- `WTF_SHEET_URL`, optional Feishu Sheet URL for the temporary `WTF WS-#xxxxx` lookup
+- `WTF_SHEET_TOKEN`, optional Sheet token; not needed if `WTF_SHEET_URL` is set
+- `WTF_SHEET_ID`, optional tab ID; defaults to the current OOS Pending Orders tab
+- `WTF_SHEET_MAX_ROWS`, default `5000`
+
 Watchtower environment values:
 
 - `WATCHTOWER_RUN_SECRET`, required for hosted Watchtower runs; use a long random value
