@@ -9,6 +9,16 @@ const DISPLAY_COLUMNS = [
   { letter: "U", index: 20 },
 ];
 
+function sheetArray(value) {
+  if (Array.isArray(value)) {
+    return value;
+  }
+  if (Array.isArray(value?.sheets)) {
+    return value.sheets;
+  }
+  return null;
+}
+
 function cellText(value) {
   if (value == null) {
     return "";
@@ -37,6 +47,58 @@ function valuesFromReadResponse(response) {
     response?.valueRange?.values ||
     response?.values ||
     [];
+}
+
+function sheetList(spreadsheetInfo) {
+  return sheetArray(spreadsheetInfo?.data?.sheets) ||
+    sheetArray(spreadsheetInfo?.data?.spreadsheet?.sheets) ||
+    sheetArray(spreadsheetInfo?.spreadsheet?.sheets) ||
+    sheetArray(spreadsheetInfo?.sheets) ||
+    [];
+}
+
+function normalizeSheet(sheet) {
+  const properties = sheet?.properties || sheet || {};
+  return {
+    id: properties.sheet_id || properties.sheetId || properties.id,
+    title: properties.title,
+  };
+}
+
+function isMissingSheetIdError(error) {
+  return /not found sheetId/i.test(String(error?.message || ""));
+}
+
+async function resolveSheetIdByTitle(feishuClient, sheetToken, sheetTitle) {
+  if (!sheetTitle || !feishuClient?.getSpreadsheet) {
+    return "";
+  }
+
+  const spreadsheetInfo = await feishuClient.getSpreadsheet(sheetToken);
+  const sheet = sheetList(spreadsheetInfo)
+    .map(normalizeSheet)
+    .find((candidate) => candidate.title === sheetTitle);
+
+  return sheet?.id || "";
+}
+
+async function readWtfSheetValues(feishuClient, config, maxRows) {
+  const readRange = (sheetId) => feishuClient.readSheetRange(config.sheetToken, `${sheetId}!A1:U${maxRows}`);
+
+  try {
+    return valuesFromReadResponse(await readRange(config.sheetId));
+  } catch (error) {
+    if (!isMissingSheetIdError(error)) {
+      throw error;
+    }
+
+    const resolvedSheetId = await resolveSheetIdByTitle(feishuClient, config.sheetToken, config.sheetTitle);
+    if (!resolvedSheetId || resolvedSheetId === config.sheetId) {
+      throw error;
+    }
+
+    return valuesFromReadResponse(await readRange(resolvedSheetId));
+  }
 }
 
 function displayCellValue(row, column) {
@@ -124,8 +186,7 @@ export async function buildWtfSheetReply(content, {
   }
 
   const maxRows = Number.isFinite(config.maxRows) && config.maxRows > 1 ? Math.floor(config.maxRows) : 5000;
-  const response = await feishuClient.readSheetRange(config.sheetToken, `${config.sheetId}!A1:U${maxRows}`);
-  const values = valuesFromReadResponse(response);
+  const values = await readWtfSheetValues(feishuClient, config, maxRows);
   const rows = findWtfSheetRows(values, orderIdentifier);
 
   return formatWtfSheetReply({ orderIdentifier, values, rows });

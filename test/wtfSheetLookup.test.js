@@ -95,3 +95,38 @@ test("builds reply from Feishu sheet client", async () => {
   assert.deepEqual(reads, [["sht_test", "sheet_test!A1:U100"]]);
   assert.match(reply, /Order SKU: AACC0028A/);
 });
+
+test("resolves WTF sheet tab by title when configured sheet ID is stale", async () => {
+  const reads = [];
+  const reply = await buildWtfSheetReply("WTF WS-#37974", {
+    config: {
+      sheetToken: "sht_test",
+      sheetId: "stale_sheet",
+      sheetTitle: "OOS Pending Orders All Products",
+      maxRows: 100,
+    },
+    feishuClient: {
+      async readSheetRange(_token, range) {
+        reads.push(range);
+        if (range.startsWith("stale_sheet!")) {
+          throw new Error("Feishu API request failed: not found sheetId");
+        }
+        return { data: { valueRange: { values: sampleValues } } };
+      },
+      async getSpreadsheet() {
+        return {
+          data: {
+            sheets: {
+              sheets: [
+                { sheet_id: "fresh_sheet", title: "OOS Pending Orders All Products" },
+              ],
+            },
+          },
+        };
+      },
+    },
+  });
+
+  assert.deepEqual(reads, ["stale_sheet!A1:U100", "fresh_sheet!A1:U100"]);
+  assert.match(reply, /Order SKU: AACC0028A/);
+});
