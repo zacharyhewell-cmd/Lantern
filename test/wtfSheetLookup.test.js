@@ -96,7 +96,7 @@ test("builds reply from Feishu sheet client", async () => {
   assert.match(reply, /Order SKU: AACC0028A/);
 });
 
-test("resolves WTF sheet tab by title when configured sheet ID is stale", async () => {
+test("prefers resolving WTF sheet tab by title", async () => {
   const reads = [];
   const reply = await buildWtfSheetReply("WTF WS-#37974", {
     config: {
@@ -127,6 +127,38 @@ test("resolves WTF sheet tab by title when configured sheet ID is stale", async 
     },
   });
 
-  assert.deepEqual(reads, ["stale_sheet!A1:U100", "fresh_sheet!A1:U100"]);
+  assert.deepEqual(reads, ["fresh_sheet!A1:U100"]);
+  assert.match(reply, /Order SKU: AACC0028A/);
+});
+
+test("falls back to configured WTF sheet ID when title is unavailable", async () => {
+  const reads = [];
+  const reply = await buildWtfSheetReply("WTF WS-#37974", {
+    config: {
+      sheetToken: "sht_test",
+      sheetId: "configured_sheet",
+      sheetTitle: "Missing Title",
+      maxRows: 100,
+    },
+    feishuClient: {
+      async readSheetRange(_token, range) {
+        reads.push(range);
+        return { data: { valueRange: { values: sampleValues } } };
+      },
+      async getSpreadsheet() {
+        return {
+          data: {
+            sheets: {
+              sheets: [
+                { sheet_id: "other_sheet", title: "Other Title" },
+              ],
+            },
+          },
+        };
+      },
+    },
+  });
+
+  assert.deepEqual(reads, ["configured_sheet!A1:U100"]);
   assert.match(reply, /Order SKU: AACC0028A/);
 });

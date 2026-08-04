@@ -74,7 +74,13 @@ async function resolveSheetIdByTitle(feishuClient, sheetToken, sheetTitle) {
     return "";
   }
 
-  const spreadsheetInfo = await feishuClient.getSpreadsheet(sheetToken);
+  let spreadsheetInfo;
+  try {
+    spreadsheetInfo = await feishuClient.getSpreadsheet(sheetToken);
+  } catch {
+    return "";
+  }
+
   const sheet = sheetList(spreadsheetInfo)
     .map(normalizeSheet)
     .find((candidate) => candidate.title === sheetTitle);
@@ -84,6 +90,27 @@ async function resolveSheetIdByTitle(feishuClient, sheetToken, sheetTitle) {
 
 async function readWtfSheetValues(feishuClient, config, maxRows) {
   const readRange = (sheetId) => feishuClient.readSheetRange(config.sheetToken, `${sheetId}!A1:U${maxRows}`);
+  const resolvedSheetId = await resolveSheetIdByTitle(feishuClient, config.sheetToken, config.sheetTitle);
+  const candidateSheetIds = [
+    resolvedSheetId,
+    config.sheetId,
+  ].filter(Boolean);
+
+  let lastMissingSheetError = null;
+  for (const sheetId of [...new Set(candidateSheetIds)]) {
+    try {
+      return valuesFromReadResponse(await readRange(sheetId));
+    } catch (error) {
+      if (!isMissingSheetIdError(error)) {
+        throw error;
+      }
+      lastMissingSheetError = error;
+    }
+  }
+
+  if (lastMissingSheetError) {
+    throw lastMissingSheetError;
+  }
 
   try {
     return valuesFromReadResponse(await readRange(config.sheetId));
@@ -91,13 +118,7 @@ async function readWtfSheetValues(feishuClient, config, maxRows) {
     if (!isMissingSheetIdError(error)) {
       throw error;
     }
-
-    const resolvedSheetId = await resolveSheetIdByTitle(feishuClient, config.sheetToken, config.sheetTitle);
-    if (!resolvedSheetId || resolvedSheetId === config.sheetId) {
-      throw error;
-    }
-
-    return valuesFromReadResponse(await readRange(resolvedSheetId));
+    throw error;
   }
 }
 
