@@ -206,6 +206,7 @@ test("reads and writes Feishu Sheet ranges", async () => {
   }, fetchImpl);
 
   await client.getSpreadsheet("sht_test");
+  await client.querySpreadsheetSheets("sht_test");
   await client.writeSheetRange("sht_test", "sheet1!A1:B2", [["A", "B"]]);
   await client.readSheetRange("sht_test", "sheet1!A1:B2");
   await client.batchUpdateSheets("sht_test", [{ addSheet: { properties: { title: "Tab" } } }]);
@@ -213,15 +214,16 @@ test("reads and writes Feishu Sheet ranges", async () => {
   await client.setSheetStyle("sht_test", "sheet1!A1:C1", { font: { bold: true } });
 
   assert.equal(requests[1].url, "https://open.feishu.test/open-apis/sheets/v3/spreadsheets/sht_test");
-  assert.equal(requests[2].url, "https://open.feishu.test/open-apis/sheets/v2/spreadsheets/sht_test/values");
-  assert.deepEqual(JSON.parse(requests[2].options.body), {
+  assert.equal(requests[2].url, "https://open.feishu.test/open-apis/sheets/v3/spreadsheets/sht_test/sheets/query");
+  assert.equal(requests[3].url, "https://open.feishu.test/open-apis/sheets/v2/spreadsheets/sht_test/values");
+  assert.deepEqual(JSON.parse(requests[3].options.body), {
     valueRange: {
       range: "sheet1!A1:B2",
       values: [["A", "B"]],
     },
   });
-  assert.equal(requests[3].url, "https://open.feishu.test/open-apis/sheets/v2/spreadsheets/sht_test/values/sheet1!A1%3AB2");
-  assert.equal(requests[4].url, "https://open.feishu.test/open-apis/sheets/v2/spreadsheets/sht_test/sheets_batch_update");
-  assert.equal(requests[5].url, "https://open.feishu.test/open-apis/sheets/v2/spreadsheets/sht_test/dataValidation");
-  assert.equal(requests[6].url, "https://open.feishu.test/open-apis/sheets/v2/spreadsheets/sht_test/style");
+  assert.equal(requests[4].url, "https://open.feishu.test/open-apis/sheets/v2/spreadsheets/sht_test/values/sheet1!A1%3AB2");
+  assert.equal(requests[5].url, "https://open.feishu.test/open-apis/sheets/v2/spreadsheets/sht_test/sheets_batch_update");
+  assert.equal(requests[6].url, "https://open.feishu.test/open-apis/sheets/v2/spreadsheets/sht_test/dataValidation");
+  assert.equal(requests[7].url, "https://open.feishu.test/open-apis/sheets/v2/spreadsheets/sht_test/style");
 });

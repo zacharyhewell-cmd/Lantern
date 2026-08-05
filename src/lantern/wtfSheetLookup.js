@@ -86,6 +86,22 @@ function sheetList(spreadsheetInfo) {
     [];
 }
 
+async function getSpreadsheetSheetInfo(feishuClient, sheetToken) {
+  if (feishuClient?.querySpreadsheetSheets) {
+    const sheetsInfo = await feishuClient.querySpreadsheetSheets(sheetToken);
+    const sheets = sheetList(sheetsInfo);
+    if (sheets.length) {
+      return sheetsInfo;
+    }
+  }
+
+  if (!feishuClient?.getSpreadsheet) {
+    throw new Error("client does not support spreadsheet metadata lookup");
+  }
+
+  return feishuClient.getSpreadsheet(sheetToken);
+}
+
 function normalizeSheet(sheet) {
   const properties = sheet?.properties || sheet || {};
   return {
@@ -105,7 +121,7 @@ async function sheetIdsByDiscovery(feishuClient, sheetToken, sheetTitle) {
 
   let spreadsheetInfo;
   try {
-    spreadsheetInfo = await feishuClient.getSpreadsheet(sheetToken);
+    spreadsheetInfo = await getSpreadsheetSheetInfo(feishuClient, sheetToken);
   } catch (error) {
     return { sheetIds: [], error: error.message };
   }

@@ -245,6 +245,10 @@ export class FeishuOpenApiClient {
     return this.requestJson("GET", `/open-apis/sheets/v3/spreadsheets/${encodeURIComponent(spreadsheetToken)}`);
   }
 
+  async querySpreadsheetSheets(spreadsheetToken) {
+    return this.requestJson("GET", `/open-apis/sheets/v3/spreadsheets/${encodeURIComponent(spreadsheetToken)}/sheets/query`);
+  }
+
   async batchUpdateSheets(spreadsheetToken, requests) {
     return this.requestJson(
       "POST",

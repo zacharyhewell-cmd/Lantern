@@ -162,6 +162,47 @@ test("can resolve WTF sheet tab without any configured sheet ID", async () => {
   assert.match(reply, /Order SKU: AACC0028A/);
 });
 
+test("uses direct worksheet query before broad spreadsheet metadata", async () => {
+  const reads = [];
+  let broadMetadataCalls = 0;
+  const reply = await buildWtfSheetReply("WTF WS-#37974", {
+    config: {
+      sheetToken: "sht_test",
+      sheetTitle: "OOS Pending Orders All Products",
+      maxRows: 100,
+    },
+    feishuClient: {
+      async readSheetRange(_token, range) {
+        reads.push(range);
+        return { data: { valueRange: { values: sampleValues } } };
+      },
+      async querySpreadsheetSheets() {
+        return {
+          data: {
+            sheets: [
+              { sheet_id: "queried_sheet", title: "OOS Pending Orders All Products" },
+            ],
+          },
+        };
+      },
+      async getSpreadsheet() {
+        broadMetadataCalls += 1;
+        return {
+          data: {
+            spreadsheet: {
+              token: "sht_test",
+            },
+          },
+        };
+      },
+    },
+  });
+
+  assert.equal(broadMetadataCalls, 0);
+  assert.deepEqual(reads, ["queried_sheet!A1:U100"]);
+  assert.match(reply, /Order SKU: AACC0028A/);
+});
+
 test("recognizes nested spreadsheet metadata shapes", async () => {
   const reads = [];
   const reply = await buildWtfSheetReply("WTF WS-#37974", {
