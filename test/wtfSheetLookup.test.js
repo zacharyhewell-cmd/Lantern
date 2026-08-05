@@ -131,8 +131,40 @@ test("prefers resolving WTF sheet tab by title", async () => {
   assert.match(reply, /Order SKU: AACC0028A/);
 });
 
+test("can resolve WTF sheet tab without any configured sheet ID", async () => {
+  const reads = [];
+  const reply = await buildWtfSheetReply("WTF WS-#37974", {
+    config: {
+      sheetToken: "sht_test",
+      sheetTitle: "OOS Pending Orders All Products",
+      maxRows: 100,
+    },
+    feishuClient: {
+      async readSheetRange(_token, range) {
+        reads.push(range);
+        return { data: { valueRange: { values: sampleValues } } };
+      },
+      async getSpreadsheet() {
+        return {
+          data: {
+            sheets: {
+              sheets: [
+                { sheet_id: "current_sheet", title: "OOS Pending Orders All Products" },
+              ],
+            },
+          },
+        };
+      },
+    },
+  });
+
+  assert.deepEqual(reads, ["current_sheet!A1:U100"]);
+  assert.match(reply, /Order SKU: AACC0028A/);
+});
+
 test("falls back to configured WTF sheet ID when title is unavailable", async () => {
   const reads = [];
+  const badValues = [["Wrong Header"]];
   const reply = await buildWtfSheetReply("WTF WS-#37974", {
     config: {
       sheetToken: "sht_test",
@@ -143,6 +175,9 @@ test("falls back to configured WTF sheet ID when title is unavailable", async ()
     feishuClient: {
       async readSheetRange(_token, range) {
         reads.push(range);
+        if (range.startsWith("other_sheet!")) {
+          return { data: { valueRange: { values: badValues } } };
+        }
         return { data: { valueRange: { values: sampleValues } } };
       },
       async getSpreadsheet() {
@@ -159,6 +194,6 @@ test("falls back to configured WTF sheet ID when title is unavailable", async ()
     },
   });
 
-  assert.deepEqual(reads, ["configured_sheet!A1:U100"]);
+  assert.deepEqual(reads, ["other_sheet!A1:U100", "configured_sheet!A1:U100"]);
   assert.match(reply, /Order SKU: AACC0028A/);
 });

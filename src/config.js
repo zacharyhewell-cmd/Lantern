@@ -135,7 +135,7 @@ export function getWtfConfig() {
   return {
     sheetUrl,
     sheetToken: process.env.WTF_SHEET_TOKEN || sheetTokenFromUrl(sheetUrl),
-    sheetId: process.env.WTF_SHEET_ID || "1gqqv6",
+    sheetId: process.env.WTF_SHEET_ID || "2RqqCA",
     sheetTitle: process.env.WTF_SHEET_TITLE || "OOS Pending Orders All Products",
     maxRows: Number(process.env.WTF_SHEET_MAX_ROWS || 5000),
   };

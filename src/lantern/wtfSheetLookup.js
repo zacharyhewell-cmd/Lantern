@@ -61,7 +61,7 @@ function normalizeSheet(sheet) {
   const properties = sheet?.properties || sheet || {};
   return {
     id: properties.sheet_id || properties.sheetId || properties.id,
-    title: properties.title,
+    title: properties.title || "",
   };
 }
 
@@ -69,37 +69,59 @@ function isMissingSheetIdError(error) {
   return /not found sheetId/i.test(String(error?.message || ""));
 }
 
-async function resolveSheetIdByTitle(feishuClient, sheetToken, sheetTitle) {
-  if (!sheetTitle || !feishuClient?.getSpreadsheet) {
-    return "";
+async function sheetIdsByDiscovery(feishuClient, sheetToken, sheetTitle) {
+  if (!feishuClient?.getSpreadsheet) {
+    return [];
   }
 
   let spreadsheetInfo;
   try {
     spreadsheetInfo = await feishuClient.getSpreadsheet(sheetToken);
   } catch {
-    return "";
+    return [];
   }
 
-  const sheet = sheetList(spreadsheetInfo)
+  const sheets = sheetList(spreadsheetInfo)
     .map(normalizeSheet)
-    .find((candidate) => candidate.title === sheetTitle);
+    .filter((sheet) => sheet.id);
+  const normalizedTitle = String(sheetTitle || "").trim().toLowerCase();
+  const titleMatches = sheets
+    .filter((sheet) => String(sheet.title || "").trim().toLowerCase() === normalizedTitle)
+    .map((sheet) => sheet.id);
+  const looseTitleMatches = sheets
+    .filter((sheet) => normalizedTitle && String(sheet.title || "").toLowerCase().includes(normalizedTitle))
+    .map((sheet) => sheet.id);
 
-  return sheet?.id || "";
+  return [
+    ...titleMatches,
+    ...looseTitleMatches,
+    ...sheets.map((sheet) => sheet.id),
+  ];
+}
+
+function hasWtfHeaders(values) {
+  const headers = values[0] || [];
+  return cellText(headers[0]).trim() === "Order SKU" &&
+    cellText(headers[3]).trim() === "Order Number" &&
+    cellText(headers[12]).trim() === "Product Title" &&
+    cellText(headers[16]).trim() === "Covered by Next Inbound" &&
+    cellText(headers[20]).trim() === "Next Inbound Date";
 }
 
 async function readWtfSheetValues(feishuClient, config, maxRows) {
   const readRange = (sheetId) => feishuClient.readSheetRange(config.sheetToken, `${sheetId}!A1:U${maxRows}`);
-  const resolvedSheetId = await resolveSheetIdByTitle(feishuClient, config.sheetToken, config.sheetTitle);
   const candidateSheetIds = [
-    resolvedSheetId,
+    ...await sheetIdsByDiscovery(feishuClient, config.sheetToken, config.sheetTitle),
     config.sheetId,
   ].filter(Boolean);
 
   let lastMissingSheetError = null;
   for (const sheetId of [...new Set(candidateSheetIds)]) {
     try {
-      return valuesFromReadResponse(await readRange(sheetId));
+      const values = valuesFromReadResponse(await readRange(sheetId));
+      if (hasWtfHeaders(values)) {
+        return values;
+      }
     } catch (error) {
       if (!isMissingSheetIdError(error)) {
         throw error;
@@ -109,17 +131,11 @@ async function readWtfSheetValues(feishuClient, config, maxRows) {
   }
 
   if (lastMissingSheetError) {
-    throw lastMissingSheetError;
+    const tried = [...new Set(candidateSheetIds)].join(", ") || "none";
+    throw new Error(`Could not read WTF sheet tab. Tried sheet IDs: ${tried}. Last error: ${lastMissingSheetError.message}`);
   }
 
-  try {
-    return valuesFromReadResponse(await readRange(config.sheetId));
-  } catch (error) {
-    if (!isMissingSheetIdError(error)) {
-      throw error;
-    }
-    throw error;
-  }
+  throw new Error(`Could not find WTF sheet tab with expected headers: ${config.sheetTitle || "unknown title"}`);
 }
 
 function displayCellValue(row, column) {
@@ -202,7 +218,7 @@ export async function buildWtfSheetReply(content, {
     throw new Error("Missing Feishu sheet client");
   }
 
-  if (!config.sheetToken || !config.sheetId) {
+  if (!config.sheetToken || (!config.sheetId && !config.sheetTitle)) {
     throw new Error("Missing WTF sheet configuration");
   }
 
