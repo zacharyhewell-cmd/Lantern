@@ -100,14 +100,14 @@ function isMissingSheetIdError(error) {
 
 async function sheetIdsByDiscovery(feishuClient, sheetToken, sheetTitle) {
   if (!feishuClient?.getSpreadsheet) {
-    return [];
+    return { sheetIds: [], error: "client does not support spreadsheet metadata lookup" };
   }
 
   let spreadsheetInfo;
   try {
     spreadsheetInfo = await feishuClient.getSpreadsheet(sheetToken);
-  } catch {
-    return [];
+  } catch (error) {
+    return { sheetIds: [], error: error.message };
   }
 
   const sheets = sheetList(spreadsheetInfo)
@@ -118,10 +118,14 @@ async function sheetIdsByDiscovery(feishuClient, sheetToken, sheetTitle) {
     .filter((sheet) => normalizedTitle && String(sheet.title || "").trim().toLowerCase() === normalizedTitle)
     .map((sheet) => sheet.id);
 
-  return [
+  return {
+    sheetIds: [
     ...titleMatches,
     ...sheets.map((sheet) => sheet.id),
-  ];
+    ],
+    sheetCount: sheets.length,
+    titles: sheets.map((sheet) => sheet.title).filter(Boolean),
+  };
 }
 
 function hasWtfHeaders(values) {
@@ -135,18 +139,21 @@ function hasWtfHeaders(values) {
 
 async function readWtfSheetValues(feishuClient, config, maxRows) {
   const readRange = (sheetId) => feishuClient.readSheetRange(config.sheetToken, `${sheetId}!A1:U${maxRows}`);
+  const discovery = await sheetIdsByDiscovery(feishuClient, config.sheetToken, config.sheetTitle);
   const candidateSheetIds = [
-    ...await sheetIdsByDiscovery(feishuClient, config.sheetToken, config.sheetTitle),
+    ...discovery.sheetIds,
     config.sheetId,
   ].filter(Boolean);
 
   let lastMissingSheetError = null;
+  const rejectedHeaders = [];
   for (const sheetId of [...new Set(candidateSheetIds)]) {
     try {
       const values = valuesFromReadResponse(await readRange(sheetId));
       if (hasWtfHeaders(values)) {
         return values;
       }
+      rejectedHeaders.push(`${sheetId}: ${JSON.stringify((values[0] || []).slice(0, 21))}`);
     } catch (error) {
       if (!isMissingSheetIdError(error)) {
         throw error;
@@ -155,12 +162,18 @@ async function readWtfSheetValues(feishuClient, config, maxRows) {
     }
   }
 
+  if (discovery.error) {
+    throw new Error(`Could not discover WTF sheet tabs for ${config.sheetTitle || "unknown title"}: ${discovery.error}`);
+  }
+
   if (lastMissingSheetError) {
     const tried = [...new Set(candidateSheetIds)].join(", ") || "none";
     throw new Error(`Could not read WTF sheet tab. Tried sheet IDs: ${tried}. Last error: ${lastMissingSheetError.message}`);
   }
 
-  throw new Error(`Could not find WTF sheet tab with expected headers: ${config.sheetTitle || "unknown title"}`);
+  const titleList = discovery.titles?.length ? discovery.titles.join(", ") : "none";
+  const rejected = rejectedHeaders.length ? ` Rejected headers: ${rejectedHeaders.join(" | ")}` : "";
+  throw new Error(`Could not find WTF sheet tab with expected headers: ${config.sheetTitle || "unknown title"}. Metadata tabs: ${discovery.sheetCount ?? 0}. Titles: ${titleList}.${rejected}`);
 }
 
 function displayCellValue(row, column) {
