@@ -19,6 +19,32 @@ function sheetArray(value) {
   return null;
 }
 
+function looksLikeSheet(value) {
+  const properties = value?.properties || value;
+  return Boolean(properties?.title && (properties.sheet_id || properties.sheetId || properties.id));
+}
+
+function findSheetArrays(value, results = []) {
+  if (!value || typeof value !== "object") {
+    return results;
+  }
+
+  if (Array.isArray(value)) {
+    if (value.some(looksLikeSheet)) {
+      results.push(value);
+    }
+    for (const item of value) {
+      findSheetArrays(item, results);
+    }
+    return results;
+  }
+
+  for (const child of Object.values(value)) {
+    findSheetArrays(child, results);
+  }
+  return results;
+}
+
 function cellText(value) {
   if (value == null) {
     return "";
@@ -44,6 +70,7 @@ function normalizeOrderNumber(value) {
 
 function valuesFromReadResponse(response) {
   return response?.data?.valueRange?.values ||
+    response?.data?.value_range?.values ||
     response?.valueRange?.values ||
     response?.values ||
     [];
@@ -53,7 +80,9 @@ function sheetList(spreadsheetInfo) {
   return sheetArray(spreadsheetInfo?.data?.sheets) ||
     sheetArray(spreadsheetInfo?.data?.spreadsheet?.sheets) ||
     sheetArray(spreadsheetInfo?.spreadsheet?.sheets) ||
+    sheetArray(spreadsheetInfo?.data?.properties?.sheets) ||
     sheetArray(spreadsheetInfo?.sheets) ||
+    findSheetArrays(spreadsheetInfo)[0] ||
     [];
 }
 
@@ -85,10 +114,14 @@ async function sheetIdsByDiscovery(feishuClient, sheetToken, sheetTitle) {
     .map(normalizeSheet)
     .filter((sheet) => sheet.id);
   const normalizedTitle = String(sheetTitle || "").trim().toLowerCase();
-
-  return sheets
+  const titleMatches = sheets
     .filter((sheet) => normalizedTitle && String(sheet.title || "").trim().toLowerCase() === normalizedTitle)
     .map((sheet) => sheet.id);
+
+  return [
+    ...titleMatches,
+    ...sheets.map((sheet) => sheet.id),
+  ];
 }
 
 function hasWtfHeaders(values) {
