@@ -85,18 +85,10 @@ async function sheetIdsByDiscovery(feishuClient, sheetToken, sheetTitle) {
     .map(normalizeSheet)
     .filter((sheet) => sheet.id);
   const normalizedTitle = String(sheetTitle || "").trim().toLowerCase();
-  const titleMatches = sheets
-    .filter((sheet) => String(sheet.title || "").trim().toLowerCase() === normalizedTitle)
-    .map((sheet) => sheet.id);
-  const looseTitleMatches = sheets
-    .filter((sheet) => normalizedTitle && String(sheet.title || "").toLowerCase().includes(normalizedTitle))
-    .map((sheet) => sheet.id);
 
-  return [
-    ...titleMatches,
-    ...looseTitleMatches,
-    ...sheets.map((sheet) => sheet.id),
-  ];
+  return sheets
+    .filter((sheet) => normalizedTitle && String(sheet.title || "").trim().toLowerCase() === normalizedTitle)
+    .map((sheet) => sheet.id);
 }
 
 function hasWtfHeaders(values) {

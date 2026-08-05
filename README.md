@@ -132,8 +132,8 @@ WTF sheet lookup environment values:
 
 - `WTF_SHEET_URL`, optional Feishu Sheet URL for the temporary `WTF WS-#xxxxx` lookup
 - `WTF_SHEET_TOKEN`, optional Sheet token; not needed if `WTF_SHEET_URL` is set
-- `WTF_SHEET_ID`, optional tab ID; defaults to the current OOS Pending Orders tab
-- `WTF_SHEET_TITLE`, optional fallback tab title if the sheet ID changes; default `OOS Pending Orders All Products`
+- `WTF_SHEET_TITLE`, optional tab title; default `OOS Pending Orders All Products`
+- `WTF_SHEET_ID`, optional fallback tab ID; avoid setting this for auto-recreated tabs
 - `WTF_SHEET_MAX_ROWS`, default `5000`
 
 Watchtower environment values:

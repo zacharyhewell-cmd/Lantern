@@ -130,12 +130,12 @@ export function getServerConfig() {
 
 export function getWtfConfig() {
   const sheetUrl = process.env.WTF_SHEET_URL ||
-    "https://velotric.feishu.cn/sheets/Y0UUsLgAPhZllot6GbQcopCynJh?from=from_copylink&sheet=2UiKQ";
+    "https://velotric.feishu.cn/sheets/Y0UUsLgAPhZllot6GbQcopCynJh";
 
   return {
     sheetUrl,
     sheetToken: process.env.WTF_SHEET_TOKEN || sheetTokenFromUrl(sheetUrl),
-    sheetId: process.env.WTF_SHEET_ID || "2RqqCA",
+    sheetId: process.env.WTF_SHEET_ID || "",
     sheetTitle: process.env.WTF_SHEET_TITLE || "OOS Pending Orders All Products",
     maxRows: Number(process.env.WTF_SHEET_MAX_ROWS || 5000),
   };
