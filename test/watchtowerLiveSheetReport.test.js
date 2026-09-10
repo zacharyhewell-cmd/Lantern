@@ -47,6 +47,9 @@ function fakeSheetClient() {
     async batchUpdateSheets(_token, requests) {
       calls.push(["batchUpdateSheets", requests]);
     },
+    async addSheetRows(_token, sheetId, length) {
+      calls.push(["addSheetRows", sheetId, length]);
+    },
     async readSheetRange(_token, range) {
       calls.push(["readSheetRange", range]);
       return { data: { valueRange: { values: ranges.get(range) || [] } } };
@@ -78,6 +81,9 @@ function fakeSheetClientWithMetadataShapes(metadataResponses) {
     },
     async batchUpdateSheets(_token, requests) {
       calls.push(["batchUpdateSheets", requests]);
+    },
+    async addSheetRows(_token, sheetId, length) {
+      calls.push(["addSheetRows", sheetId, length]);
     },
     async readSheetRange(_token, range) {
       calls.push(["readSheetRange", range]);
@@ -210,6 +216,36 @@ test("live sheet report writes header-only action log to matching one-row range"
   const logWrite = client.calls.find((call) => call[0] === "writeSheetRange" && call[1].startsWith("log!A1:"));
   assert.equal(logWrite[1], "log!A1:B1");
   assert.deepEqual(logWrite[2], [["OT number", "Action date"]]);
+});
+
+test("live sheet report expands action log tab before writing beyond its current row count", async () => {
+  const client = fakeSheetClientWithMetadataShapes([{
+    data: {
+      sheets: [
+        { sheet_id: "pfx", title: "preship FedEx", grid_properties: { row_count: 2000 } },
+        { sheet_id: "plt", title: "preship LtL Other", grid_properties: { row_count: 2000 } },
+        { sheet_id: "ifx", title: "In Transit FedEx", grid_properties: { row_count: 2000 } },
+        { sheet_id: "ilt", title: "In Transit LtL Other", grid_properties: { row_count: 2000 } },
+        { sheet_id: "log", title: "_Watchtower Actions", grid_properties: { row_count: 4928 } },
+      ],
+    },
+  }]);
+  client.ranges.set("log!A1:B4928", [
+    ["OT number", "Action date"],
+    ...Array.from({ length: 5002 }, (_, index) => [`OT${index}`, "2026-06-21"]),
+  ]);
+
+  await writeWatchtowerLiveSheetReport([], {
+    client,
+    spreadsheetToken: "sht_test",
+    reportDate: "2026-06-22",
+    preshipThresholdHours: 48,
+  });
+
+  assert.deepEqual(client.calls.find((call) => call[0] === "addSheetRows"), ["addSheetRows", "log", 75]);
+  const logWrite = client.calls.find((call) => call[0] === "writeSheetRange" && call[1].startsWith("log!A1:"));
+  assert.equal(logWrite[1], "log!A1:B5003");
+  assert.equal(logWrite[2].length, 5003);
 });
 
 test("live sheet report avoids row 2 ranges on header-only one-row tabs", async () => {

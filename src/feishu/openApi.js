@@ -262,6 +262,22 @@ export class FeishuOpenApiClient {
     );
   }
 
+  async addSheetRows(spreadsheetToken, sheetId, length) {
+    return this.requestJson(
+      "POST",
+      `/open-apis/sheets/v2/spreadsheets/${encodeURIComponent(spreadsheetToken)}/dimension_range`,
+      {
+        body: {
+          dimension: {
+            length,
+            majorDimension: "ROWS",
+            sheetId,
+          },
+        },
+      },
+    );
+  }
+
   async readSheetRange(spreadsheetToken, range) {
     return this.requestJson(
       "GET",

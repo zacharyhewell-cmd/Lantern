@@ -12,6 +12,7 @@ import {
 const ACTION_LOG_SHEET = "_Watchtower Actions";
 const MAX_VISIBLE_ROWS = 2000;
 const MAX_ACTION_LOG_ROWS = 20000;
+const MAX_ADD_ROWS = 5000;
 
 function isChecked(value) {
   if (value === true) {
@@ -143,6 +144,20 @@ async function readRangeOrEmpty(client, spreadsheetToken, range) {
     return parseValues(await client.readSheetRange(spreadsheetToken, range));
   } catch {
     return [];
+  }
+}
+
+async function ensureSheetRows(client, spreadsheetToken, sheet, requiredRows) {
+  if (!client.addSheetRows || !sheet || !requiredRows) {
+    return;
+  }
+
+  let remaining = Math.max(0, requiredRows - (sheet.rowCount || 0));
+  while (remaining > 0) {
+    const length = Math.min(MAX_ADD_ROWS, remaining);
+    await client.addSheetRows(spreadsheetToken, sheet.id, length);
+    sheet.rowCount = (sheet.rowCount || 0) + length;
+    remaining -= length;
   }
 }
 
@@ -289,6 +304,7 @@ async function writeActionLogSheet(client, spreadsheetToken, actionLogSheet, act
     ["OT number", "Action date"],
     ...mergeActionEntries(actionEntries).map((entry) => [entry.otNumber, entry.actionDate]),
   ];
+  await ensureSheetRows(client, spreadsheetToken, actionLogSheet, rows.length);
   await client.writeSheetRange(spreadsheetToken, `${actionLogSheet.id}!A1:B${rows.length}`, rows);
 }
 
@@ -354,6 +370,7 @@ async function writeVisibleSheet(client, spreadsheetToken, sheet, definition) {
   const readRows = Math.max(1, Math.min(MAX_VISIBLE_ROWS, sheet.rowCount || MAX_VISIBLE_ROWS));
   const oldValues = await readRangeOrEmpty(client, spreadsheetToken, `${sheet.id}!A1:M${readRows}`);
   const rowCount = Math.max(oldValues.length, definition.rows.length + 1, 1);
+  await ensureSheetRows(client, spreadsheetToken, sheet, rowCount);
   const values = matrixForSheet(definition.headers, definition.rows, rowCount);
   const lastCol = colName(definition.headers.length - 1);
   await client.writeSheetRange(spreadsheetToken, `${sheet.id}!A1:${lastCol}${rowCount}`, values);

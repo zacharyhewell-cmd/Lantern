@@ -210,6 +210,7 @@ test("reads and writes Feishu Sheet ranges", async () => {
   await client.writeSheetRange("sht_test", "sheet1!A1:B2", [["A", "B"]]);
   await client.readSheetRange("sht_test", "sheet1!A1:B2");
   await client.batchUpdateSheets("sht_test", [{ addSheet: { properties: { title: "Tab" } } }]);
+  await client.addSheetRows("sht_test", "sheet1", 75);
   await client.setSheetDropdown("sht_test", "sheet1!C2:C100", ["TRUE", "FALSE"]);
   await client.setSheetStyle("sht_test", "sheet1!A1:C1", { font: { bold: true } });
 
@@ -224,8 +225,16 @@ test("reads and writes Feishu Sheet ranges", async () => {
   });
   assert.equal(requests[4].url, "https://open.feishu.test/open-apis/sheets/v2/spreadsheets/sht_test/values/sheet1!A1%3AB2");
   assert.equal(requests[5].url, "https://open.feishu.test/open-apis/sheets/v2/spreadsheets/sht_test/sheets_batch_update");
-  assert.equal(requests[6].url, "https://open.feishu.test/open-apis/sheets/v2/spreadsheets/sht_test/dataValidation");
-  assert.equal(requests[7].url, "https://open.feishu.test/open-apis/sheets/v2/spreadsheets/sht_test/style");
+  assert.equal(requests[6].url, "https://open.feishu.test/open-apis/sheets/v2/spreadsheets/sht_test/dimension_range");
+  assert.deepEqual(JSON.parse(requests[6].options.body), {
+    dimension: {
+      length: 75,
+      majorDimension: "ROWS",
+      sheetId: "sheet1",
+    },
+  });
+  assert.equal(requests[7].url, "https://open.feishu.test/open-apis/sheets/v2/spreadsheets/sht_test/dataValidation");
+  assert.equal(requests[8].url, "https://open.feishu.test/open-apis/sheets/v2/spreadsheets/sht_test/style");
 });
 
 test("includes sanitized sheet range context in Feishu API errors", async () => {
