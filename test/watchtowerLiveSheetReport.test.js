@@ -176,6 +176,42 @@ test("live sheet report recognizes existing tabs from array-shaped metadata", as
   );
 });
 
+test("live sheet report uses direct worksheet query when available", async () => {
+  const client = fakeSheetClientWithMetadataShapes([sheetInfoArrayShape()]);
+  let broadMetadataCalls = 0;
+  client.querySpreadsheetSheets = async () => sheetInfoArrayShape();
+  client.getSpreadsheet = async () => {
+    broadMetadataCalls += 1;
+    return { data: { spreadsheet: { token: "sht_test" } } };
+  };
+
+  await writeWatchtowerLiveSheetReport([row()], {
+    client,
+    spreadsheetToken: "sht_test",
+    reportDate: "2026-06-22",
+    preshipThresholdHours: 48,
+  });
+
+  assert.equal(broadMetadataCalls, 0);
+  const preshipWrite = client.calls.find((call) => call[0] === "writeSheetRange" && call[1].startsWith("pfx!A1:"));
+  assert.ok(preshipWrite);
+});
+
+test("live sheet report writes header-only action log to matching one-row range", async () => {
+  const client = fakeSheetClient();
+
+  await writeWatchtowerLiveSheetReport([], {
+    client,
+    spreadsheetToken: "sht_test",
+    reportDate: "2026-06-22",
+    preshipThresholdHours: 48,
+  });
+
+  const logWrite = client.calls.find((call) => call[0] === "writeSheetRange" && call[1].startsWith("log!A1:"));
+  assert.equal(logWrite[1], "log!A1:B1");
+  assert.deepEqual(logWrite[2], [["OT number", "Action date"]]);
+});
+
 test("live sheet report recognizes existing tabs from deeply nested metadata", async () => {
   const client = fakeSheetClientWithMetadataShapes([{
     data: {

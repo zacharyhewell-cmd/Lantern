@@ -145,7 +145,15 @@ async function readRangeOrEmpty(client, spreadsheetToken, range) {
 }
 
 async function getSheetsByTitle(client, spreadsheetToken) {
-  const info = await client.getSpreadsheet(spreadsheetToken);
+  let info = null;
+  if (client.querySpreadsheetSheets) {
+    info = await client.querySpreadsheetSheets(spreadsheetToken);
+    if (sheetList(info).length) {
+      return new Map(sheetList(info).map(normalizeSheet).filter((sheet) => sheet.id && sheet.title).map((sheet) => [sheet.title, sheet]));
+    }
+  }
+
+  info = await client.getSpreadsheet(spreadsheetToken);
   return new Map(sheetList(info).map(normalizeSheet).filter((sheet) => sheet.id && sheet.title).map((sheet) => [sheet.title, sheet]));
 }
 
@@ -277,7 +285,7 @@ async function writeActionLogSheet(client, spreadsheetToken, actionLogSheet, act
     ["OT number", "Action date"],
     ...mergeActionEntries(actionEntries).map((entry) => [entry.otNumber, entry.actionDate]),
   ];
-  await client.writeSheetRange(spreadsheetToken, `${actionLogSheet.id}!A1:B${Math.max(rows.length, 2)}`, rows);
+  await client.writeSheetRange(spreadsheetToken, `${actionLogSheet.id}!A1:B${rows.length}`, rows);
 }
 
 function duplicateRuns(rows) {
