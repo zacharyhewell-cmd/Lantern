@@ -227,3 +227,34 @@ test("reads and writes Feishu Sheet ranges", async () => {
   assert.equal(requests[6].url, "https://open.feishu.test/open-apis/sheets/v2/spreadsheets/sht_test/dataValidation");
   assert.equal(requests[7].url, "https://open.feishu.test/open-apis/sheets/v2/spreadsheets/sht_test/style");
 });
+
+test("includes sanitized sheet range context in Feishu API errors", async () => {
+  const fetchImpl = async (url) => {
+    if (url.endsWith("/open-apis/auth/v3/tenant_access_token/internal")) {
+      return {
+        ok: true,
+        async json() {
+          return { code: 0, tenant_access_token: "tenant-token", expire: 7200 };
+        },
+      };
+    }
+
+    return {
+      ok: true,
+      async json() {
+        return { code: 1254003, msg: "validate RangeVal fail" };
+      },
+    };
+  };
+
+  const client = new FeishuOpenApiClient({
+    apiBaseUrl: "https://open.feishu.test",
+    appId: "app-id",
+    appSecret: "app-secret",
+  }, fetchImpl);
+
+  await assert.rejects(
+    () => client.setSheetStyle("sht_secret", "sheet1!A2:M2", { backColor: "#FFFFFF" }),
+    /validate RangeVal fail \(PUT \/open-apis\/sheets\/v2\/spreadsheets\/\[token]\/style range=sheet1!A2:M2\)/,
+  );
+});

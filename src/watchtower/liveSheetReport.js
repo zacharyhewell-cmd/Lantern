@@ -80,9 +80,11 @@ function sheetList(spreadsheetInfo) {
 
 function normalizeSheet(sheet) {
   const properties = sheet.properties || sheet;
+  const gridProperties = properties.grid_properties || properties.gridProperties || {};
   return {
     id: properties.sheet_id || properties.sheetId || properties.id,
     title: properties.title,
+    rowCount: Number(gridProperties.row_count || gridProperties.rowCount || 0),
   };
 }
 
@@ -264,7 +266,8 @@ async function checkedActionsFromLiveSheets(client, spreadsheetToken, sheetsByTi
       continue;
     }
 
-    const values = await readRangeOrEmpty(client, spreadsheetToken, `${sheet.id}!A1:M${MAX_VISIBLE_ROWS}`);
+    const maxRows = Math.max(1, Math.min(MAX_VISIBLE_ROWS, sheet.rowCount || MAX_VISIBLE_ROWS));
+    const values = await readRangeOrEmpty(client, spreadsheetToken, `${sheet.id}!A1:M${maxRows}`);
     entries.push(...actionEntriesFromValues(values, reportDate));
   }
 
@@ -276,7 +279,8 @@ async function actionLogFromSheet(client, spreadsheetToken, actionLogSheet) {
     return [];
   }
 
-  const values = await readRangeOrEmpty(client, spreadsheetToken, `${actionLogSheet.id}!A1:B${MAX_ACTION_LOG_ROWS}`);
+  const maxRows = Math.max(1, Math.min(MAX_ACTION_LOG_ROWS, actionLogSheet.rowCount || MAX_ACTION_LOG_ROWS));
+  const values = await readRangeOrEmpty(client, spreadsheetToken, `${actionLogSheet.id}!A1:B${maxRows}`);
   return actionLogEntriesFromValues(values);
 }
 
@@ -313,14 +317,16 @@ async function styleVisibleSheet(client, spreadsheetToken, sheet, definition, ro
     textDecoration: 0,
     foreColor: "#FFFFFF",
   });
-  await client.setSheetStyle(spreadsheetToken, `${sheet.id}!A2:${lastCol}${Math.max(rowCount, 2)}`, {
-    backColor: "#FFFFFF",
-  });
+  if (rowCount >= 2) {
+    await client.setSheetStyle(spreadsheetToken, `${sheet.id}!A2:${lastCol}${rowCount}`, {
+      backColor: "#FFFFFF",
+    });
+  }
 
   const checkboxColumnIndex = definition.options.checkboxColumnIndex;
-  if (checkboxColumnIndex != null) {
+  if (checkboxColumnIndex != null && rowCount >= 2) {
     const col = colName(checkboxColumnIndex);
-    await client.setSheetDropdown(spreadsheetToken, `${sheet.id}!${col}2:${col}${MAX_VISIBLE_ROWS}`, ["TRUE", "FALSE"]);
+    await client.setSheetDropdown(spreadsheetToken, `${sheet.id}!${col}2:${col}${rowCount}`, ["TRUE", "FALSE"]);
   }
 
   const duplicateColors = ["#FFF2CC", "#DDEBF7"];
@@ -345,8 +351,9 @@ async function styleVisibleSheet(client, spreadsheetToken, sheet, definition, ro
 }
 
 async function writeVisibleSheet(client, spreadsheetToken, sheet, definition) {
-  const oldValues = await readRangeOrEmpty(client, spreadsheetToken, `${sheet.id}!A1:M${MAX_VISIBLE_ROWS}`);
-  const rowCount = Math.max(oldValues.length, definition.rows.length + 1, 2);
+  const readRows = Math.max(1, Math.min(MAX_VISIBLE_ROWS, sheet.rowCount || MAX_VISIBLE_ROWS));
+  const oldValues = await readRangeOrEmpty(client, spreadsheetToken, `${sheet.id}!A1:M${readRows}`);
+  const rowCount = Math.max(oldValues.length, definition.rows.length + 1, 1);
   const values = matrixForSheet(definition.headers, definition.rows, rowCount);
   const lastCol = colName(definition.headers.length - 1);
   await client.writeSheetRange(spreadsheetToken, `${sheet.id}!A1:${lastCol}${rowCount}`, values);

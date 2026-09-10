@@ -235,7 +235,12 @@ export class FeishuOpenApiClient {
     });
     const result = await response.json();
     if (!response.ok || result.code !== 0) {
-      throw new Error(`Feishu API request failed: ${result.msg || result.message || response.status}`);
+      const range = body?.valueRange?.range || body?.appendStyle?.range || body?.range;
+      const context = [
+        `${method} ${apiPath.replace(/\/spreadsheets\/[^/]+/, "/spreadsheets/[token]")}`,
+        range ? `range=${range}` : "",
+      ].filter(Boolean).join(" ");
+      throw new Error(`Feishu API request failed: ${result.msg || result.message || response.status} (${context})`);
     }
 
     return result;

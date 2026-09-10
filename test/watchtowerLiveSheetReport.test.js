@@ -212,6 +212,33 @@ test("live sheet report writes header-only action log to matching one-row range"
   assert.deepEqual(logWrite[2], [["OT number", "Action date"]]);
 });
 
+test("live sheet report avoids row 2 ranges on header-only one-row tabs", async () => {
+  const client = fakeSheetClientWithMetadataShapes([{
+    data: {
+      sheets: [
+        { sheet_id: "pfx", title: "preship FedEx", grid_properties: { row_count: 1 } },
+        { sheet_id: "plt", title: "preship LtL Other", grid_properties: { row_count: 1 } },
+        { sheet_id: "ifx", title: "In Transit FedEx", grid_properties: { row_count: 1 } },
+        { sheet_id: "ilt", title: "In Transit LtL Other", grid_properties: { row_count: 1 } },
+        { sheet_id: "log", title: "_Watchtower Actions", grid_properties: { row_count: 1 } },
+      ],
+    },
+  }]);
+
+  await writeWatchtowerLiveSheetReport([], {
+    client,
+    spreadsheetToken: "sht_test",
+    reportDate: "2026-06-22",
+    preshipThresholdHours: 48,
+  });
+
+  const ranges = client.calls
+    .filter((call) => ["readSheetRange", "writeSheetRange", "setSheetDropdown", "setSheetStyle"].includes(call[0]))
+    .map((call) => call[1]);
+  assert.ok(ranges.some((range) => range === "pfx!A1:L1"));
+  assert.equal(ranges.some((range) => /![A-Z]+2:/.test(range)), false);
+});
+
 test("live sheet report recognizes existing tabs from deeply nested metadata", async () => {
   const client = fakeSheetClientWithMetadataShapes([{
     data: {
