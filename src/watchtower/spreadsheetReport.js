@@ -2,7 +2,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import ExcelJS from "exceljs";
 import {
-  mergeActionEntries,
+  mergeActionRecords,
+  removeClosedActionRecords,
   parseActionLog,
   serializeActionLog,
   summarizeActionsByOt,
@@ -70,7 +71,13 @@ async function checkedActionsFromExistingWorkbook(filePath) {
     for (let rowIndex = 2; rowIndex <= sheet.rowCount; rowIndex += 1) {
       const row = sheet.getRow(rowIndex);
       if (isChecked(row.getCell(actionIndex + 1).value)) {
-        entries.push({ otNumber: row.getCell(otIndex + 1).value, actionDate });
+        entries.push({
+          otNumber: row.getCell(otIndex + 1).value,
+          actionDate,
+          rule: sheetName.toLowerCase().startsWith("preship")
+            ? "preship_delay"
+            : "in_transit_delay",
+        });
       }
     }
   }
@@ -353,10 +360,13 @@ export async function writeWatchtowerSpreadsheetReport(rows, {
     throw new Error("Missing required outputPath");
   }
 
-  const actionEntries = mergeActionEntries([
-    ...await readActionLog(actionLogPath),
-    ...await checkedActionsFromExistingWorkbook(outputPath),
-  ]);
+  const actionEntries = removeClosedActionRecords(
+    mergeActionRecords(
+      await readActionLog(actionLogPath),
+      await checkedActionsFromExistingWorkbook(outputPath),
+    ),
+    rows,
+  );
   const report = buildWatchtowerSheetReport(rows, {
     actionEntries,
     reportDate,

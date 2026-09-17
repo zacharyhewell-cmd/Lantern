@@ -50,6 +50,9 @@ function fakeSheetClient() {
     async addSheetRows(_token, sheetId, length) {
       calls.push(["addSheetRows", sheetId, length]);
     },
+    async deleteSheetRows(_token, sheetId, startIndex, endIndex) {
+      calls.push(["deleteSheetRows", sheetId, startIndex, endIndex]);
+    },
     async readSheetRange(_token, range) {
       calls.push(["readSheetRange", range]);
       return { data: { valueRange: { values: ranges.get(range) || [] } } };
@@ -84,6 +87,9 @@ function fakeSheetClientWithMetadataShapes(metadataResponses) {
     },
     async addSheetRows(_token, sheetId, length) {
       calls.push(["addSheetRows", sheetId, length]);
+    },
+    async deleteSheetRows(_token, sheetId, startIndex, endIndex) {
+      calls.push(["deleteSheetRows", sheetId, startIndex, endIndex]);
     },
     async readSheetRange(_token, range) {
       calls.push(["readSheetRange", range]);
@@ -122,9 +128,9 @@ test("live sheet report captures checked actions and rewrites the shared report"
     ["WS#", "OT number", "Action taken?"],
     ["WS-#33000", "OT1", "TRUE"],
   ]);
-  client.ranges.set("log!A1:B20000", [
-    ["OT number", "Action date"],
-    ["OT1", "2026-06-21"],
+  client.ranges.set("log!A1:D20000", [
+    ["OT number", "Rule", "Action count", "Last action date"],
+    ["OT1", "preship_delay", 1, "2026-06-21"],
   ]);
 
   const result = await writeWatchtowerLiveSheetReport([row()], {
@@ -136,9 +142,8 @@ test("live sheet report captures checked actions and rewrites the shared report"
   });
 
   assert.equal(result.spreadsheetUrl, "https://example.feishu.cn/sheets/sht_test");
-  assert.equal(result.actionLog.entries, 2);
-  assert.match(result.actionLogCsv, /OT1,2026-06-21/);
-  assert.match(result.actionLogCsv, /OT1,2026-06-22/);
+  assert.equal(result.actionLog.entries, 1);
+  assert.match(result.actionLogCsv, /OT1,preship_delay,2,2026-06-22/);
 
   const preshipWrite = client.calls.find((call) => call[0] === "writeSheetRange" && call[1].startsWith("pfx!A1:"));
   assert.ok(preshipWrite);
@@ -159,9 +164,8 @@ test("live sheet report captures checked actions and rewrites the shared report"
 
   const logWrite = client.calls.find((call) => call[0] === "writeSheetRange" && call[1].startsWith("log!A1:"));
   assert.deepEqual(logWrite[2], [
-    ["OT number", "Action date"],
-    ["OT1", "2026-06-21"],
-    ["OT1", "2026-06-22"],
+    ["OT number", "Rule", "Action count", "Last action date"],
+    ["OT1", "preship_delay", 2, "2026-06-22"],
   ]);
 });
 
@@ -214,8 +218,8 @@ test("live sheet report writes header-only action log to matching one-row range"
   });
 
   const logWrite = client.calls.find((call) => call[0] === "writeSheetRange" && call[1].startsWith("log!A1:"));
-  assert.equal(logWrite[1], "log!A1:B1");
-  assert.deepEqual(logWrite[2], [["OT number", "Action date"]]);
+  assert.equal(logWrite[1], "log!A1:D1");
+  assert.deepEqual(logWrite[2], [["OT number", "Rule", "Action count", "Last action date"]]);
 });
 
 test("live sheet report expands action log tab before writing beyond its current row count", async () => {
@@ -230,9 +234,9 @@ test("live sheet report expands action log tab before writing beyond its current
       ],
     },
   }]);
-  client.ranges.set("log!A1:B4928", [
-    ["OT number", "Action date"],
-    ...Array.from({ length: 5002 }, (_, index) => [`OT${index}`, "2026-06-21"]),
+  client.ranges.set("log!A1:D4928", [
+    ["OT number", "Rule", "Action count", "Last action date"],
+    ...Array.from({ length: 5002 }, (_, index) => [`OT${index}`, "preship_delay", 1, "2026-06-21"]),
   ]);
 
   await writeWatchtowerLiveSheetReport([], {
@@ -244,7 +248,7 @@ test("live sheet report expands action log tab before writing beyond its current
 
   assert.deepEqual(client.calls.find((call) => call[0] === "addSheetRows"), ["addSheetRows", "log", 75]);
   const logWrite = client.calls.find((call) => call[0] === "writeSheetRange" && call[1].startsWith("log!A1:"));
-  assert.equal(logWrite[1], "log!A1:B5003");
+  assert.equal(logWrite[1], "log!A1:D5003");
   assert.equal(logWrite[2].length, 5003);
 });
 
@@ -273,6 +277,40 @@ test("live sheet report avoids row 2 ranges on header-only one-row tabs", async 
     .map((call) => call[1]);
   assert.ok(ranges.some((range) => range === "pfx!A1:L1"));
   assert.equal(ranges.some((range) => /![A-Z]+2:/.test(range)), false);
+});
+
+test("live sheet report trims unused action-log rows after closed records are removed", async () => {
+  const client = fakeSheetClientWithMetadataShapes([{
+    data: {
+      sheets: [
+        { sheet_id: "pfx", title: "preship FedEx", grid_properties: { row_count: 1 } },
+        { sheet_id: "plt", title: "preship LtL Other", grid_properties: { row_count: 1 } },
+        { sheet_id: "ifx", title: "In Transit FedEx", grid_properties: { row_count: 1 } },
+        { sheet_id: "ilt", title: "In Transit LtL Other", grid_properties: { row_count: 1 } },
+        { sheet_id: "log", title: "_Watchtower Actions", grid_properties: { row_count: 10 } },
+      ],
+    },
+  }]);
+  client.ranges.set("log!A1:D10", [
+    ["OT number", "Rule", "Action count", "Last action date"],
+    ["OT1", "preship_delay", 1, "2026-06-21"],
+  ]);
+
+  await writeWatchtowerLiveSheetReport([row({
+    platformCode: "OT1",
+    status: "Delivered",
+    deliveredDate: "2026-06-22T12:00:00Z",
+  })], {
+    client,
+    spreadsheetToken: "sht_test",
+    reportDate: "2026-06-22",
+    preshipThresholdHours: 48,
+  });
+
+  assert.deepEqual(
+    client.calls.find((call) => call[0] === "deleteSheetRows"),
+    ["deleteSheetRows", "log", 1, 10],
+  );
 });
 
 test("live sheet report recognizes existing tabs from deeply nested metadata", async () => {

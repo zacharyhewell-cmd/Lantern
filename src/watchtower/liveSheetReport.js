@@ -1,5 +1,8 @@
 import {
-  mergeActionEntries,
+  compactActionLogEntries,
+  mergeActionRecords,
+  parseActionLogRows,
+  removeClosedActionRecords,
   serializeActionLog,
   summarizeActionsByOt,
 } from "./actionLog.js";
@@ -96,7 +99,7 @@ function parseValues(result) {
     [];
 }
 
-function actionEntriesFromValues(values, actionDate) {
+function actionEntriesFromValues(values, actionDate, rule) {
   if (!values?.length) {
     return [];
   }
@@ -110,18 +113,11 @@ function actionEntriesFromValues(values, actionDate) {
 
   return values.slice(1)
     .filter((row) => isChecked(row[actionIndex]))
-    .map((row) => ({ otNumber: row[otIndex], actionDate }));
+    .map((row) => ({ otNumber: row[otIndex], actionDate, rule }));
 }
 
 function actionLogEntriesFromValues(values) {
-  if (!values?.length) {
-    return [];
-  }
-
-  return mergeActionEntries(values.slice(1).map((row) => ({
-    otNumber: row[0],
-    actionDate: row[1],
-  })));
+  return parseActionLogRows(values);
 }
 
 function booleanForSheet(value) {
@@ -159,6 +155,15 @@ async function ensureSheetRows(client, spreadsheetToken, sheet, requiredRows) {
     sheet.rowCount = (sheet.rowCount || 0) + length;
     remaining -= length;
   }
+}
+
+async function trimSheetRows(client, spreadsheetToken, sheet, keepRows) {
+  if (!client.deleteSheetRows || !sheet?.rowCount || sheet.rowCount <= keepRows) {
+    return;
+  }
+
+  await client.deleteSheetRows(spreadsheetToken, sheet.id, keepRows, sheet.rowCount);
+  sheet.rowCount = keepRows;
 }
 
 async function getSheetsByTitle(client, spreadsheetToken) {
@@ -283,7 +288,10 @@ async function checkedActionsFromLiveSheets(client, spreadsheetToken, sheetsByTi
 
     const maxRows = Math.max(1, Math.min(MAX_VISIBLE_ROWS, sheet.rowCount || MAX_VISIBLE_ROWS));
     const values = await readRangeOrEmpty(client, spreadsheetToken, `${sheet.id}!A1:M${maxRows}`);
-    entries.push(...actionEntriesFromValues(values, reportDate));
+    const rule = title.toLowerCase().startsWith("preship")
+      ? "preship_delay"
+      : "in_transit_delay";
+    entries.push(...actionEntriesFromValues(values, reportDate, rule));
   }
 
   return entries;
@@ -295,17 +303,24 @@ async function actionLogFromSheet(client, spreadsheetToken, actionLogSheet) {
   }
 
   const maxRows = Math.max(1, Math.min(MAX_ACTION_LOG_ROWS, actionLogSheet.rowCount || MAX_ACTION_LOG_ROWS));
-  const values = await readRangeOrEmpty(client, spreadsheetToken, `${actionLogSheet.id}!A1:B${maxRows}`);
+  const values = await readRangeOrEmpty(client, spreadsheetToken, `${actionLogSheet.id}!A1:D${maxRows}`);
   return actionLogEntriesFromValues(values);
 }
 
 async function writeActionLogSheet(client, spreadsheetToken, actionLogSheet, actionEntries) {
+  const records = compactActionLogEntries(actionEntries);
   const rows = [
-    ["OT number", "Action date"],
-    ...mergeActionEntries(actionEntries).map((entry) => [entry.otNumber, entry.actionDate]),
+    ["OT number", "Rule", "Action count", "Last action date"],
+    ...records.map((entry) => [
+      entry.otNumber,
+      entry.rule,
+      entry.actionCount,
+      entry.lastActionDate,
+    ]),
   ];
   await ensureSheetRows(client, spreadsheetToken, actionLogSheet, rows.length);
-  await client.writeSheetRange(spreadsheetToken, `${actionLogSheet.id}!A1:B${rows.length}`, rows);
+  await client.writeSheetRange(spreadsheetToken, `${actionLogSheet.id}!A1:D${rows.length}`, rows);
+  await trimSheetRows(client, spreadsheetToken, actionLogSheet, rows.length);
 }
 
 function duplicateRuns(rows) {
@@ -396,9 +411,12 @@ export async function writeWatchtowerLiveSheetReport(rows, {
   const sheetsByTitle = await ensureSheets(client, spreadsheetToken, sheetTabs);
   const hiddenActionEntries = await actionLogFromSheet(client, spreadsheetToken, sheetsByTitle.get(ACTION_LOG_SHEET));
   const checkedEntries = await checkedActionsFromLiveSheets(client, spreadsheetToken, sheetsByTitle, reportDate);
-  const actionEntries = mergeActionEntries([...hiddenActionEntries, ...checkedEntries]);
+  const activeActionRecords = removeClosedActionRecords(
+    mergeActionRecords(hiddenActionEntries, checkedEntries),
+    rows,
+  );
   const report = buildWatchtowerSheetReport(rows, {
-    actionEntries,
+    actionEntries: activeActionRecords,
     reportDate,
     preshipThresholdHours,
     inTransitThresholdHours,
@@ -415,20 +433,20 @@ export async function writeWatchtowerLiveSheetReport(rows, {
   if (!actionLogSheet) {
     throw missingSheetError(ACTION_LOG_SHEET, sheetsByTitle);
   }
-  await writeActionLogSheet(client, spreadsheetToken, actionLogSheet, actionEntries);
+  await writeActionLogSheet(client, spreadsheetToken, actionLogSheet, activeActionRecords);
 
   return {
     spreadsheetToken,
     spreadsheetUrl,
-    actionLogCsv: serializeActionLog(actionEntries),
+    actionLogCsv: serializeActionLog(activeActionRecords),
     findings: report.findings,
     sheets: report.sheets.map((sheet) => ({
       name: sheet.name,
       rows: sheet.rows.length + 1,
     })),
     actionLog: {
-      entries: actionEntries.length,
-      summaryCount: summarizeActionsByOt(actionEntries).size,
+      entries: activeActionRecords.length,
+      summaryCount: summarizeActionsByOt(activeActionRecords).size,
     },
   };
 }

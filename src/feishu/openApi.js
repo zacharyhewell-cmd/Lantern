@@ -278,6 +278,23 @@ export class FeishuOpenApiClient {
     );
   }
 
+  async deleteSheetRows(spreadsheetToken, sheetId, startIndex, endIndex) {
+    return this.requestJson(
+      "DELETE",
+      `/open-apis/sheets/v2/spreadsheets/${encodeURIComponent(spreadsheetToken)}/dimension_range`,
+      {
+        body: {
+          dimension: {
+            endIndex,
+            majorDimension: "ROWS",
+            sheetId,
+            startIndex,
+          },
+        },
+      },
+    );
+  }
+
   async readSheetRange(spreadsheetToken, range) {
     return this.requestJson(
       "GET",
