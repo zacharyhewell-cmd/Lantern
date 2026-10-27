@@ -124,10 +124,22 @@ export class SurpathMcpClient {
   }
 
   async queryOutboundOrders(params) {
+    return this.callTool("queryOutboundOrders", params);
+  }
+
+  async querySkuInventory(params) {
+    return this.callTool("querySkuInventory", params);
+  }
+
+  async querySkuInventoryDetail(params) {
+    return this.callTool("querySkuInventoryDetail", params);
+  }
+
+  async callTool(name, arguments_) {
     await this.connect();
     const result = await callToolWithRateLimitRetry(this.client, {
-      name: "queryOutboundOrders",
-      arguments: params,
+      name,
+      arguments: arguments_,
     });
     return parseToolResult(result);
   }

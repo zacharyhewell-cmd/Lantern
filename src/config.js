@@ -125,6 +125,8 @@ export function getServerConfig() {
   return {
     port: Number(process.env.PORT || 3000),
     feishuWebhookPath: process.env.FEISHU_WEBHOOK_PATH || "/feishu/events",
+    dv1DataPath: process.env.DV1_DATA_PATH || "/dv1/data",
+    dv1DataApiSecret: process.env.DV1_DATA_API_SECRET || "",
   };
 }
 

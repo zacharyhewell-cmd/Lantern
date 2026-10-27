@@ -1,9 +1,10 @@
 import { createServer } from "node:http";
-import { getFeishuConfig, getServerConfig, getWatchtowerConfig } from "../config.js";
+import { getFeishuConfig, getServerConfig, getShopifyConfig, getSurpathConfig, getWatchtowerConfig } from "../config.js";
 import { FeishuOpenApiClient } from "../feishu/openApi.js";
 import { createFeishuWebhookProcessor } from "../feishu/webhook.js";
 import { runWatchtowerOutboundDelayReport } from "../watchtower/runOutboundDelayReport.js";
 import { isoDate, runAndPostWatchtowerReport } from "../watchtower/feishuReportJob.js";
+import { loadDv1PlanningData } from "../dv1/data.js";
 
 async function readJsonBody(request) {
   const chunks = [];
@@ -36,12 +37,21 @@ function isAuthorizedWatchtowerRequest(request, watchtowerConfig) {
   return authorization === `Bearer ${watchtowerConfig.runSecret}`;
 }
 
+function isAuthorizedDv1Request(request, serverConfig) {
+  if (!serverConfig.dv1DataApiSecret) {
+    return false;
+  }
+
+  return request.headers.authorization === `Bearer ${serverConfig.dv1DataApiSecret}`;
+}
+
 export function createLanternServer({
   serverConfig = getServerConfig(),
   feishuConfig = getFeishuConfig(),
   watchtowerConfig = getWatchtowerConfig(),
   replyClient = new FeishuOpenApiClient(feishuConfig),
   watchtowerRunner = runWatchtowerOutboundDelayReport,
+  dv1DataLoader = loadDv1PlanningData,
   processor,
 } = {}) {
   const webhookProcessor = processor || createFeishuWebhookProcessor({
@@ -89,6 +99,33 @@ export function createLanternServer({
         });
 
         sendJson(response, 200, { ok: true, ...result });
+        return;
+      }
+
+      if (request.method === "POST" && pathname === serverConfig.dv1DataPath) {
+        if (!isAuthorizedDv1Request(request, serverConfig)) {
+          sendJson(response, 401, { error: "unauthorized" });
+          return;
+        }
+
+        const payload = await readJsonBody(request);
+        const orderNumber = String(payload.orderNumber || "").trim();
+        if (!orderNumber) {
+          sendJson(response, 400, { error: "orderNumber is required" });
+          return;
+        }
+
+        const result = await dv1DataLoader({
+          orderNumber,
+          shopifyConfig: getShopifyConfig(),
+          surpathConfig: getSurpathConfig(),
+        });
+        if (!result) {
+          sendJson(response, 404, { error: `No Shopify order found for ${orderNumber}.` });
+          return;
+        }
+
+        sendJson(response, 200, result);
         return;
       }
 
