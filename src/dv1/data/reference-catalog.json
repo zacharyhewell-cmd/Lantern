@@ -1,0 +1,1167 @@
+{
+  "skus": [
+    {
+      "sku": "AACC0073A",
+      "name": "Velotric Trailer Coupler",
+      "dimensions": {
+        "length": 150,
+        "width": 75,
+        "height": 45,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 150*75*45mm."
+    },
+    {
+      "sku": "AACC0074A",
+      "name": "Suspension Seatpost",
+      "dimensions": {
+        "length": 420,
+        "width": 100,
+        "height": 100,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 420*100*100mm."
+    },
+    {
+      "sku": "AACC0075A",
+      "name": "Double Spring Comfort Saddle",
+      "dimensions": {
+        "length": 290,
+        "width": 290,
+        "height": 170,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 290*290*170mm."
+    },
+    {
+      "sku": "AACC0036A",
+      "name": "Adjustable Stem",
+      "dimensions": {
+        "length": 163,
+        "width": 161,
+        "height": 60,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 163*161*60mm."
+    },
+    {
+      "sku": "AACC0035A",
+      "name": "Ergonomic Grips",
+      "dimensions": {
+        "length": 155,
+        "width": 155,
+        "height": 50,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 155*155*50mm."
+    },
+    {
+      "sku": "AACC0011B",
+      "name": "Thunder 1 Fender Pack M",
+      "dimensions": {
+        "length": 725,
+        "width": 310,
+        "height": 80,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 725*310*80mm. Expanded from source SKU AACC0011B-14B."
+    },
+    {
+      "sku": "AACC0012B",
+      "name": "Thunder 1 Fender Pack M",
+      "dimensions": {
+        "length": 725,
+        "width": 310,
+        "height": 80,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 725*310*80mm. Expanded from source SKU AACC0011B-14B."
+    },
+    {
+      "sku": "AACC0013B",
+      "name": "Thunder 1 Fender Pack M",
+      "dimensions": {
+        "length": 725,
+        "width": 310,
+        "height": 80,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 725*310*80mm. Expanded from source SKU AACC0011B-14B."
+    },
+    {
+      "sku": "AACC0014B",
+      "name": "Thunder 1 Fender Pack M",
+      "dimensions": {
+        "length": 725,
+        "width": 310,
+        "height": 80,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 725*310*80mm. Expanded from source SKU AACC0011B-14B."
+    },
+    {
+      "sku": "AACC0095A",
+      "name": "Classic Hydrate Kit",
+      "dimensions": {
+        "length": 250,
+        "width": 95,
+        "height": 95,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 250*95*95mm. Expanded from source SKU AACC0095A-96A."
+    },
+    {
+      "sku": "AACC0096A",
+      "name": "Classic Hydrate Kit",
+      "dimensions": {
+        "length": 250,
+        "width": 95,
+        "height": 95,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 250*95*95mm. Expanded from source SKU AACC0095A-96A."
+    },
+    {
+      "sku": "AACC0080A",
+      "name": "Half Twist Throttle Set",
+      "dimensions": {
+        "length": 163,
+        "width": 161,
+        "height": 60,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 163*161*60mm."
+    },
+    {
+      "sku": "AACC0023A",
+      "name": "Packer 1 Seat Pad",
+      "dimensions": {
+        "length": 351,
+        "width": 188,
+        "height": 90,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 351*188*90mm."
+    },
+    {
+      "sku": "AACC0024A",
+      "name": "Passenger Handrail",
+      "dimensions": {
+        "length": 450,
+        "width": 299,
+        "height": 63,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 450*299*63mm."
+    },
+    {
+      "sku": "AACC0034A",
+      "name": "Front Basket",
+      "dimensions": {
+        "length": 470,
+        "width": 376,
+        "height": 147,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 470*376*147mm."
+    },
+    {
+      "sku": "AACC0034B",
+      "name": "Front Basket",
+      "dimensions": {
+        "length": 470,
+        "width": 376,
+        "height": 147,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 470*376*147mm."
+    },
+    {
+      "sku": "AACC0028A",
+      "name": "Velotric Seat Pad",
+      "dimensions": {
+        "length": 447,
+        "width": 188,
+        "height": 90,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 447*188*90mm."
+    },
+    {
+      "sku": "AACC0029A",
+      "name": "Velotric Rear Pegs",
+      "dimensions": {
+        "length": 155,
+        "width": 155,
+        "height": 50,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 155*155*50mm."
+    },
+    {
+      "sku": "AACC0025A",
+      "name": "Packer 1 Child Safety Balustrade",
+      "dimensions": {
+        "length": 694,
+        "width": 358,
+        "height": 71,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 694*358*71mm."
+    },
+    {
+      "sku": "AACC0027B",
+      "name": "Rear Basket M",
+      "dimensions": {
+        "length": 512,
+        "width": 408,
+        "height": 204,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 512*408*204mm."
+    },
+    {
+      "sku": "AACC0030A",
+      "name": "Phone Mount",
+      "dimensions": {
+        "length": 163,
+        "width": 161,
+        "height": 60,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 163*161*60mm."
+    },
+    {
+      "sku": "AACC0026A",
+      "name": "Packer 1 Passenger foot rest",
+      "dimensions": {
+        "length": 509,
+        "width": 178,
+        "height": 95,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 509*178*95mm."
+    },
+    {
+      "sku": "AACC0022A",
+      "name": "Rear Basket L",
+      "dimensions": {
+        "length": 755,
+        "width": 526,
+        "height": 204,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 755*526*204mm."
+    },
+    {
+      "sku": "AACC0082A",
+      "name": "Go Extra Battery Rack",
+      "dimensions": {
+        "length": 540,
+        "width": 205,
+        "height": 500,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 540*205*500mm."
+    },
+    {
+      "sku": "AACC0019B",
+      "name": "Velotric Mirror",
+      "dimensions": {
+        "length": 170,
+        "width": 85,
+        "height": 45,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 170*85*45mm."
+    },
+    {
+      "sku": "AACC0084A",
+      "name": "D2 Battery Cover",
+      "dimensions": {
+        "length": 480,
+        "width": 125,
+        "height": 47,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 480*125*47mm. Expanded from source SKU AACC0084A-087A."
+    },
+    {
+      "sku": "AACC0085A",
+      "name": "D2 Battery Cover",
+      "dimensions": {
+        "length": 480,
+        "width": 125,
+        "height": 47,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 480*125*47mm. Expanded from source SKU AACC0084A-087A."
+    },
+    {
+      "sku": "AACC0086A",
+      "name": "D2 Battery Cover",
+      "dimensions": {
+        "length": 480,
+        "width": 125,
+        "height": 47,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 480*125*47mm. Expanded from source SKU AACC0084A-087A."
+    },
+    {
+      "sku": "AACC0087A",
+      "name": "D2 Battery Cover",
+      "dimensions": {
+        "length": 480,
+        "width": 125,
+        "height": 47,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 480*125*47mm. Expanded from source SKU AACC0084A-087A."
+    },
+    {
+      "sku": "AACC0083A",
+      "name": "D2/S1 Battery Terminal Cover",
+      "dimensions": {
+        "length": 170,
+        "width": 155,
+        "height": 75,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 170*155*75mm."
+    },
+    {
+      "sku": "AACC0088A",
+      "name": "S1 Battery Cover",
+      "dimensions": {
+        "length": 480,
+        "width": 125,
+        "height": 47,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 480*125*47mm."
+    },
+    {
+      "sku": "AACC0017A",
+      "name": "Nomad1 Rear Rack",
+      "dimensions": {
+        "length": 480,
+        "width": 240,
+        "height": 460,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 480*240*460mm."
+    },
+    {
+      "sku": "AACC0016B",
+      "name": "Discover 1 Rear Rack",
+      "dimensions": {
+        "length": 450,
+        "width": 220,
+        "height": 430,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 450*220*430mm."
+    },
+    {
+      "sku": "AACC0078A",
+      "name": "Rear Rack Pannier Bag",
+      "dimensions": {
+        "length": 430,
+        "width": 335,
+        "height": 80,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 430*335*80mm."
+    },
+    {
+      "sku": "AACC0079A",
+      "name": "Packer Pannier Bag",
+      "dimensions": {
+        "length": 660,
+        "width": 340,
+        "height": 100,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 660*340*100mm."
+    },
+    {
+      "sku": "AACC0091A",
+      "name": "F1 Satety wheel Guard",
+      "dimensions": {
+        "length": 500,
+        "width": 290,
+        "height": 50,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 500*290*50mm."
+    },
+    {
+      "sku": "AACC0092A",
+      "name": "Velotric Passenger Handrail",
+      "dimensions": {
+        "length": 325,
+        "width": 125,
+        "height": 145,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 325*125*145mm."
+    },
+    {
+      "sku": "AACC0089A",
+      "name": "S1 Fender Set",
+      "dimensions": {
+        "length": 840,
+        "width": 427,
+        "height": 75,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 840*427*75mm."
+    },
+    {
+      "sku": "AACC0090A",
+      "name": "S1 Rear Rack",
+      "dimensions": {
+        "length": 455,
+        "width": 207,
+        "height": 365,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 455*207*365mm."
+    },
+    {
+      "sku": "AACC0099A",
+      "name": "Velotric Suspension Seatpost 2.0",
+      "dimensions": {
+        "length": 395,
+        "width": 134,
+        "height": 89,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 395*134*89mm."
+    },
+    {
+      "sku": "AACC0032A",
+      "name": "ABUS Steelchain Lock",
+      "dimensions": {
+        "length": 235,
+        "width": 85,
+        "height": 75,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 235*85*75mm."
+    },
+    {
+      "sku": "AACC0015B",
+      "name": "Thunder Series Rear Rack",
+      "dimensions": {
+        "length": 390,
+        "width": 200,
+        "height": 355,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 390*200*355mm."
+    },
+    {
+      "sku": "AACC0097A",
+      "name": "Battery connector cover (D1)",
+      "dimensions": {
+        "length": 150,
+        "width": 75,
+        "height": 45,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 150*75*45mm."
+    },
+    {
+      "sku": "AACC0098A",
+      "name": "Battery connector cover",
+      "dimensions": {
+        "length": 150,
+        "width": 75,
+        "height": 45,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 150*75*45mm."
+    },
+    {
+      "sku": "AACC0101A",
+      "name": "60mm Adjustable Stem",
+      "dimensions": {
+        "length": 180,
+        "width": 125,
+        "height": 50,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 180*125*50mm."
+    },
+    {
+      "sku": "AACC0093A",
+      "name": "F1 Lite Rear Cargo Rack",
+      "dimensions": {
+        "length": 350,
+        "width": 220,
+        "height": 375,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 350*220*375mm."
+    },
+    {
+      "sku": "AACC0104A",
+      "name": "Velotric T1 Series Rear Rack 2.0",
+      "dimensions": {
+        "length": 455,
+        "width": 207,
+        "height": 365,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 455*207*365mm."
+    },
+    {
+      "sku": "AACC0121A",
+      "name": "Velotric Breeze 1 Rear Rack",
+      "dimensions": {
+        "length": 395,
+        "width": 210,
+        "height": 70,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 395*210*70mm."
+    },
+    {
+      "sku": "AACC0124A",
+      "name": "Bar End Mirrors",
+      "dimensions": {
+        "length": 175,
+        "width": 120,
+        "height": 60,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 175*120*60mm. Expanded from source SKU AACC0124A/124B."
+    },
+    {
+      "sku": "AACC0124B",
+      "name": "Bar End Mirrors",
+      "dimensions": {
+        "length": 175,
+        "width": 120,
+        "height": 60,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 175*120*60mm. Expanded from source SKU AACC0124A/124B."
+    },
+    {
+      "sku": "AACC0122A",
+      "name": "Velotric Breeze 1 Fender",
+      "dimensions": {
+        "length": 840,
+        "width": 427,
+        "height": 75,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 840*427*75mm."
+    },
+    {
+      "sku": "AACC0125A",
+      "name": "Velotric Folding Lock",
+      "dimensions": {
+        "length": 177,
+        "width": 100,
+        "height": 70,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 177*100*70mm."
+    },
+    {
+      "sku": "AACC0126A",
+      "name": "Velotric ComfortMax Saddle",
+      "dimensions": {
+        "length": 295,
+        "width": 235,
+        "height": 140,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 295*235*140mm."
+    },
+    {
+      "sku": "AACC0119A",
+      "name": "Velotric Rack Top Bag",
+      "dimensions": {
+        "length": 350,
+        "width": 240,
+        "height": 190,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 350*240*190mm."
+    },
+    {
+      "sku": "AACC0120A",
+      "name": "Velotric Rack Battery Bag",
+      "dimensions": {
+        "length": 500,
+        "width": 260,
+        "height": 250,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 500*260*250mm."
+    },
+    {
+      "sku": "AACC0127A",
+      "name": "Velotric T1 ST Modular Rear Rack",
+      "dimensions": {
+        "length": 420,
+        "width": 210,
+        "height": 70,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 420*210*70mm."
+    },
+    {
+      "sku": "AACC0103A",
+      "name": "Velotric Half Twist Throttle Set",
+      "dimensions": {
+        "length": 250,
+        "width": 160,
+        "height": 65,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 250*160*65mm."
+    },
+    {
+      "sku": "AACC0037A",
+      "name": "Multifunctional Phone Mount",
+      "dimensions": {
+        "length": 163,
+        "width": 161,
+        "height": 60,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 163*161*60mm."
+    },
+    {
+      "sku": "AACC0134A",
+      "name": "Velotric All-Mountain Pedals",
+      "dimensions": {
+        "length": 148,
+        "width": 50,
+        "height": 250,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 148*50*250mm. Expanded from source SKU AACC0134A/0138A/0139A."
+    },
+    {
+      "sku": "AACC0138A",
+      "name": "Velotric All-Mountain Pedals",
+      "dimensions": {
+        "length": 148,
+        "width": 50,
+        "height": 250,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 148*50*250mm. Expanded from source SKU AACC0134A/0138A/0139A."
+    },
+    {
+      "sku": "AACC0139A",
+      "name": "Velotric All-Mountain Pedals",
+      "dimensions": {
+        "length": 148,
+        "width": 50,
+        "height": 250,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 148*50*250mm. Expanded from source SKU AACC0134A/0138A/0139A."
+    },
+    {
+      "sku": "AACC0131A",
+      "name": "Breeze Air Suspension Fork",
+      "dimensions": {
+        "length": 810,
+        "width": 235,
+        "height": 125,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 810*235*125."
+    },
+    {
+      "sku": "AACC0135A",
+      "name": "Velotric Tempo Rear Rack",
+      "dimensions": {
+        "length": 420,
+        "width": 210,
+        "height": 70,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 420*210*70mm."
+    },
+    {
+      "sku": "AACC0136A",
+      "name": "Velotric Tempo Fender",
+      "dimensions": {
+        "length": 840,
+        "width": 427,
+        "height": 75,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 840*427*75."
+    },
+    {
+      "sku": "AACC0132A",
+      "name": "Velotric Front Rack",
+      "dimensions": {
+        "length": 455,
+        "width": 370,
+        "height": 155,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 455*370*155mm."
+    },
+    {
+      "sku": "AACC0130A",
+      "name": "Summit 2 Modular Rear Rack",
+      "dimensions": {
+        "length": 420,
+        "width": 210,
+        "height": 70,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 420*210*70mm."
+    },
+    {
+      "sku": "AACC0140A",
+      "name": "Suspension Seatpost for Triker",
+      "dimensions": {
+        "length": 395,
+        "width": 134,
+        "height": 89,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 395*134*89mm."
+    },
+    {
+      "sku": "AACC0146A",
+      "name": "GoMad Passenger Kit",
+      "dimensions": {
+        "length": 520,
+        "width": 290,
+        "height": 240,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 520*290*240mm."
+    },
+    {
+      "sku": "AACC0150A",
+      "name": "GoMad Young Passenger Kit",
+      "dimensions": {
+        "length": 530,
+        "width": 360,
+        "height": 320,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 530*360*320mm."
+    },
+    {
+      "sku": "AACC0142A",
+      "name": "GoMad Pannier Support Bar",
+      "dimensions": {
+        "length": 380,
+        "width": 80,
+        "height": 50,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 380*80*50."
+    },
+    {
+      "sku": "AACC0152A",
+      "name": "Velotric Adjustable Stem (90mm)",
+      "dimensions": {
+        "length": 180,
+        "width": 125,
+        "height": 48,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 180*125*48mm."
+    },
+    {
+      "sku": "AACC0153A",
+      "name": "Suspension Seatpost for Summit 2",
+      "dimensions": {
+        "length": 425,
+        "width": 300,
+        "height": 210,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 425*300*210mm."
+    },
+    {
+      "sku": "AACC0154A",
+      "name": "Velotric Suspension Seatpost Spring Kit",
+      "dimensions": {
+        "length": 170,
+        "width": 85,
+        "height": 45,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 170*85*45mmmm."
+    },
+    {
+      "sku": "AACC0141A",
+      "name": "85mm High-Rise Handlebar",
+      "dimensions": {
+        "length": 750,
+        "width": 180,
+        "height": 90,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 750*180*90mm."
+    },
+    {
+      "sku": "AACC0183A",
+      "name": "Quick- Release Phone Mount",
+      "dimensions": {
+        "length": 110,
+        "width": 80,
+        "height": 200,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 110*80*200mm."
+    },
+    {
+      "sku": "AACC0183A-D",
+      "name": "Quick- Release Phone Mount-Case",
+      "dimensions": {
+        "length": 430,
+        "width": 460,
+        "height": 245,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B, C, and F on 2026-08-14 for case SKU. Source value: 430*460*245mm. Previous row SKU AACC0183A matches base SKU AACC0183A."
+    },
+    {
+      "sku": "AACC0175A",
+      "name": "Front Basket Bag",
+      "dimensions": {
+        "length": 540,
+        "width": 340,
+        "height": 50,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 540*340*50mm."
+    },
+    {
+      "sku": "AACC0175A-D",
+      "name": "Front Basket Bag-Case",
+      "dimensions": {
+        "length": 565,
+        "width": 365,
+        "height": 340,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B, C, and F on 2026-08-14 for case SKU. Source value: 565*365*340mm. Previous row SKU AACC0175A matches base SKU AACC0175A."
+    },
+    {
+      "sku": "AACC0176A",
+      "name": "Cargo Net",
+      "dimensions": {
+        "length": 240,
+        "width": 100,
+        "height": 65,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 240*100*65mm."
+    },
+    {
+      "sku": "AACC0176A-D",
+      "name": "Cargo Net-Case",
+      "dimensions": {
+        "length": 430,
+        "width": 265,
+        "height": 230,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B, C, and F on 2026-08-14 for case SKU. Source value: 430*265*230mm. Previous row SKU AACC0176A matches base SKU AACC0176A."
+    },
+    {
+      "sku": "AACC0177A",
+      "name": "Rack Top Bag (Quick Release)",
+      "dimensions": {
+        "length": 350,
+        "width": 240,
+        "height": 190,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 350*240*190mm."
+    },
+    {
+      "sku": "AACC0179A",
+      "name": "Rear Rack Pannier Bag (Quick Release)",
+      "dimensions": {
+        "length": 430,
+        "width": 335,
+        "height": 80,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 430*335*80mm."
+    },
+    {
+      "sku": "AACC0179A-D",
+      "name": "Rear Rack Pannier Bag (Quick Release)-Case",
+      "dimensions": {
+        "length": 520,
+        "width": 455,
+        "height": 360,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B, C, and F on 2026-08-14 for case SKU. Source value: 520*455*360mm. Previous row SKU AACC0179A matches base SKU AACC0179A."
+    },
+    {
+      "sku": "AACC0180A",
+      "name": "Cooler Bag",
+      "dimensions": {
+        "length": 350,
+        "width": 350,
+        "height": 250,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 350*350*250mm."
+    },
+    {
+      "sku": "AACC0189A",
+      "name": "Water Bottle Cage",
+      "dimensions": {
+        "length": 180,
+        "width": 90,
+        "height": 110,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 180*90*110mm."
+    },
+    {
+      "sku": "AACC0189A-D",
+      "name": "Water Bottle Cage-Case",
+      "dimensions": {
+        "length": 385,
+        "width": 205,
+        "height": 360,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B, C, and F on 2026-08-14 for case SKU. Source value: 385*205*360mm. Previous row SKU AACC0189A matches base SKU AACC0189A."
+    },
+    {
+      "sku": "AACC0196A",
+      "name": "Heart Rate Monitor",
+      "dimensions": {
+        "length": 150,
+        "width": 100,
+        "height": 50,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 150*100*50mm."
+    },
+    {
+      "sku": "AACC0197A",
+      "name": "Velotric Ultra-Wide Comfort Saddle",
+      "dimensions": {
+        "length": 340,
+        "width": 285,
+        "height": 130,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 340*285*130mm."
+    }
+  ],
+  "cartons": [
+    {
+      "sku": "ABOX0001",
+      "name": "Velotric Box S",
+      "innerDimensions": {
+        "length": 430,
+        "width": 205,
+        "height": 260,
+        "unit": "mm"
+      },
+      "maxWeight": {
+        "value": 20,
+        "unit": "lb"
+      },
+      "sourceNote": "Confirmed from Feishu sheet VMUqZT; sheet notes indicate usable internal dimensions may need confirmation."
+    },
+    {
+      "sku": "ABOX0002",
+      "name": "Velotric Box M",
+      "innerDimensions": {
+        "length": 500,
+        "width": 360,
+        "height": 310,
+        "unit": "mm"
+      },
+      "maxWeight": {
+        "value": 20,
+        "unit": "lb"
+      },
+      "sourceNote": "Confirmed from Feishu sheet VMUqZT; sheet notes indicate usable internal dimensions may need confirmation."
+    },
+    {
+      "sku": "ABOX0003",
+      "name": "Velotric Box L",
+      "innerDimensions": {
+        "length": 500,
+        "width": 400,
+        "height": 540,
+        "unit": "mm"
+      },
+      "maxWeight": {
+        "value": 20,
+        "unit": "lb"
+      },
+      "sourceNote": "Confirmed from Feishu sheet VMUqZT; sheet notes indicate usable internal dimensions may need confirmation."
+    },
+    {
+      "sku": "ABOX0004",
+      "name": "Velotric Box F",
+      "innerDimensions": {
+        "length": 865,
+        "width": 500,
+        "height": 305,
+        "unit": "mm"
+      },
+      "maxWeight": {
+        "value": 20,
+        "unit": "lb"
+      },
+      "sourceNote": "Confirmed from Feishu sheet VMUqZT; sheet notes indicate usable internal dimensions may need confirmation."
+    },
+    {
+      "sku": "ABOX0005",
+      "name": "Velotric Box A",
+      "innerDimensions": {
+        "length": 325,
+        "width": 360,
+        "height": 170,
+        "unit": "mm"
+      },
+      "maxWeight": {
+        "value": 20,
+        "unit": "lb"
+      },
+      "sourceNote": "Confirmed from Feishu sheet VMUqZT; sheet notes indicate usable internal dimensions may need confirmation."
+    },
+    {
+      "sku": "ABOX0006",
+      "name": "Velotric Box B",
+      "innerDimensions": {
+        "length": 485,
+        "width": 400,
+        "height": 380,
+        "unit": "mm"
+      },
+      "maxWeight": {
+        "value": 20,
+        "unit": "lb"
+      },
+      "sourceNote": "Confirmed from Feishu sheet VMUqZT; sheet notes indicate usable internal dimensions may need confirmation."
+    },
+    {
+      "sku": "ABOX0007",
+      "name": "Velotric Box C",
+      "innerDimensions": {
+        "length": 355,
+        "width": 190,
+        "height": 190,
+        "unit": "mm"
+      },
+      "maxWeight": {
+        "value": 20,
+        "unit": "lb"
+      },
+      "sourceNote": "Confirmed from Feishu sheet VMUqZT; sheet notes indicate usable internal dimensions may need confirmation."
+    }
+  ]
+}

@@ -64,6 +64,10 @@ services:
         sync: false
       - key: DV1_DATA_API_SECRET
         sync: false
+      - key: DV1_UI_USERNAME
+        sync: false
+      - key: DV1_UI_PASSWORD
+        sync: false
       - key: DV1_DEFAULT_WAREHOUSE
         value: LA-SPI1
       - key: DV1_CARTON_SKUS

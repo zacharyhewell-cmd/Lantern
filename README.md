@@ -81,6 +81,8 @@ Authorization: Bearer <DV1_DATA_API_SECRET>
 
 The gateway calls Surpath's `querySkuInventory` tool for the order SKUs and configured carton SKUs. `DV1_DEFAULT_WAREHOUSE` and `DV1_CARTON_SKUS` control the planning defaults without changing Lantern's tracking behavior.
 
+The same Lantern service can serve the DV1 operator screen at `/dv1`. Set `DV1_UI_USERNAME` and `DV1_UI_PASSWORD` to enable the protected browser route. The screen is read-only: it runs the recommendation and does not edit Shopify, Eccang, or Surpath.
+
 Local smoke test:
 
 ```bash

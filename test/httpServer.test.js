@@ -170,3 +170,52 @@ test("serves the protected DV1 live-data endpoint", async () => {
     await close(server);
   }
 });
+
+test("serves the protected DV1 planning screen and plan route", async () => {
+  const server = createLanternServer({
+    serverConfig: {
+      port: 0,
+      feishuWebhookPath: "/feishu/events",
+      dv1PlanPath: "/dv1/plan",
+      dv1UiUsername: "operator",
+      dv1UiPassword: "password",
+    },
+    feishuConfig: {
+      appId: "app-id",
+      appSecret: "app-secret",
+      verificationToken: "verify-token",
+      lanternChatId: "oc_test",
+    },
+    replyClient: { async replyInThread() {} },
+    dv1PlanRunner: async ({ orderNumber }) => ({
+      order: { orderNumber },
+      plan: { status: "ready", shipments: [], exceptions: [], ignoredLines: [] },
+    }),
+  });
+
+  const port = await listen(server);
+  const authorization = `Basic ${Buffer.from("operator:password").toString("base64")}`;
+  try {
+    const unauthorized = await fetch(`http://127.0.0.1:${port}/dv1`);
+    assert.equal(unauthorized.status, 401);
+
+    const page = await fetch(`http://127.0.0.1:${port}/dv1`, {
+      headers: { Authorization: authorization },
+    });
+    assert.equal(page.status, 200);
+    assert.match(await page.text(), /Plan an order/);
+
+    const plan = await fetch(`http://127.0.0.1:${port}/dv1/plan`, {
+      method: "POST",
+      headers: {
+        Authorization: authorization,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ orderNumber: "WS-#10001" }),
+    });
+    assert.equal(plan.status, 200);
+    assert.equal((await plan.json()).order.orderNumber, "WS-#10001");
+  } finally {
+    await close(server);
+  }
+});

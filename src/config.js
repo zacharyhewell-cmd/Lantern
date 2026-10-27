@@ -127,6 +127,9 @@ export function getServerConfig() {
     feishuWebhookPath: process.env.FEISHU_WEBHOOK_PATH || "/feishu/events",
     dv1DataPath: process.env.DV1_DATA_PATH || "/dv1/data",
     dv1DataApiSecret: process.env.DV1_DATA_API_SECRET || "",
+    dv1PlanPath: process.env.DV1_PLAN_PATH || "/dv1/plan",
+    dv1UiUsername: process.env.DV1_UI_USERNAME || "",
+    dv1UiPassword: process.env.DV1_UI_PASSWORD || "",
   };
 }
 
