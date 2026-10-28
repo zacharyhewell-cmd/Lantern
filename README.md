@@ -67,6 +67,22 @@ For standalone deployment, set `SURPATH_MCP_URL` directly in the service environ
 
 Lantern can also run as a small web service. This is the path for moving it off this machine.
 
+### DV1 live planning data
+
+The Lantern service also exposes a protected read-only data gateway for DV1. It reuses the existing Shopify credentials, Surpath MCP connection, and retry behavior, then returns normalized order lines plus Surpath inventory and warehouse locations. It does not split orders, change shipping channels, or mutate either system.
+
+Configure `DV1_DATA_API_SECRET` in Render and give the same value to the DV1 planning service. The endpoint is:
+
+```text
+POST /dv1/data
+Authorization: Bearer <DV1_DATA_API_SECRET>
+{"orderNumber":"WS-#12345"}
+```
+
+The gateway calls Surpath's `querySkuInventory` tool for the order SKUs and configured carton SKUs. `DV1_DEFAULT_WAREHOUSE` and `DV1_CARTON_SKUS` control the planning defaults without changing Lantern's tracking behavior.
+
+The same Lantern service can serve the DV1 operator screen at `/dv1`. Set `DV1_UI_USERNAME` and `DV1_UI_PASSWORD` to enable the protected browser route. The screen is read-only: it runs the recommendation and does not edit Shopify, Eccang, or Surpath.
+
 Local smoke test:
 
 ```bash

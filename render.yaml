@@ -62,3 +62,13 @@ services:
         sync: false
       - key: SURPATH_MCP_URL
         sync: false
+      - key: DV1_DATA_API_SECRET
+        sync: false
+      - key: DV1_UI_USERNAME
+        sync: false
+      - key: DV1_UI_PASSWORD
+        sync: false
+      - key: DV1_DEFAULT_WAREHOUSE
+        value: LA-SPI1
+      - key: DV1_CARTON_SKUS
+        value: ABOX0001,ABOX0002,ABOX0003,ABOX0004,ABOX0005,ABOX0006,ABOX0007
