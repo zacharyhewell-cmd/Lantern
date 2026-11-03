@@ -1,4 +1,28 @@
 {
+  "generatedFrom": {
+    "sourceType": "feishu-sheet",
+    "sourceTitle": "Accessories Package Dimension",
+    "wikiUrl": "https://velotric.feishu.cn/wiki/GAsUwq2iKiPEAXkaZ4ncU0xhnme?from=from_copylink",
+    "spreadsheetToken": "UsMXsBUuKha13jt0W4jciGgyn6g",
+    "sheetId": "2b1183",
+    "revision": 200,
+    "sourceColumns": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "excludedColumns": [
+      "F",
+      "G",
+      "H"
+    ],
+    "fetchedAt": "2026-11-03T00:00:00-06:00",
+    "sourceRowCount": 106,
+    "includedSourceRows": 94,
+    "skippedSourceRows": 12
+  },
   "skus": [
     {
       "sku": "AACC0073A",
@@ -9,56 +33,76 @@
         "height": 45,
         "unit": "mm"
       },
+      "weight": {
+        "value": 0.265,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 150*75*45mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 2; source SKU AACC0073A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0074A",
-      "name": "Suspension Seatpost",
+      "name": "Velotric Suspension Seatpost",
       "dimensions": {
         "length": 420,
         "width": 100,
         "height": 100,
         "unit": "mm"
       },
+      "weight": {
+        "value": 2.469,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 420*100*100mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 3; source SKU AACC0074A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0075A",
-      "name": "Double Spring Comfort Saddle",
+      "name": "Velotric Double Spring Comfort Saddle",
       "dimensions": {
         "length": 290,
         "width": 290,
         "height": 170,
         "unit": "mm"
       },
+      "weight": {
+        "value": 3.417,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 290*290*170mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 4; source SKU AACC0075A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0036A",
-      "name": "Adjustable Stem",
+      "name": "Velotric Adjustable Stem",
       "dimensions": {
         "length": 163,
         "width": 161,
         "height": 60,
         "unit": "mm"
       },
+      "weight": {
+        "value": 1.323,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 163*161*60mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 5; source SKU AACC0036A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0035A",
-      "name": "Ergonomic Grips",
+      "name": "Velotric Ergonomic Grips",
       "dimensions": {
         "length": 155,
         "width": 155,
         "height": 50,
         "unit": "mm"
       },
+      "weight": {
+        "value": 0.485,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 155*155*50mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 6; source SKU AACC0035A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0011B",
@@ -69,8 +113,12 @@
         "height": 80,
         "unit": "mm"
       },
+      "weight": {
+        "value": 3.924,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 725*310*80mm. Expanded from source SKU AACC0011B-14B."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 7; source SKU AACC0011B-14B; dimensions from column D; weight from column E. Expanded from source SKU AACC0011B-14B."
     },
     {
       "sku": "AACC0012B",
@@ -81,8 +129,12 @@
         "height": 80,
         "unit": "mm"
       },
+      "weight": {
+        "value": 3.924,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 725*310*80mm. Expanded from source SKU AACC0011B-14B."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 7; source SKU AACC0011B-14B; dimensions from column D; weight from column E. Expanded from source SKU AACC0011B-14B."
     },
     {
       "sku": "AACC0013B",
@@ -93,44 +145,60 @@
         "height": 80,
         "unit": "mm"
       },
+      "weight": {
+        "value": 3.924,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 725*310*80mm. Expanded from source SKU AACC0011B-14B."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 7; source SKU AACC0011B-14B; dimensions from column D; weight from column E. Expanded from source SKU AACC0011B-14B."
     },
     {
       "sku": "AACC0014B",
-      "name": "Thunder 1 Fender Pack M",
+      "name": "Thunder 1 ST Fender Pack M",
       "dimensions": {
         "length": 725,
         "width": 310,
         "height": 80,
         "unit": "mm"
       },
+      "weight": {
+        "value": 2.832,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 725*310*80mm. Expanded from source SKU AACC0011B-14B."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 36; source SKU AACC0014B; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0095A",
-      "name": "Classic Hydrate Kit",
+      "name": "Adjustable Stem Classic Hydrate Kit",
       "dimensions": {
         "length": 250,
         "width": 95,
         "height": 95,
         "unit": "mm"
       },
+      "weight": {
+        "value": 0.441,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 250*95*95mm. Expanded from source SKU AACC0095A-96A."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 8; source SKU AACC0095A-96A; dimensions from column D; weight from column E. Expanded from source SKU AACC0095A-96A."
     },
     {
       "sku": "AACC0096A",
-      "name": "Classic Hydrate Kit",
+      "name": "Adjustable Stem Classic Hydrate Kit",
       "dimensions": {
         "length": 250,
         "width": 95,
         "height": 95,
         "unit": "mm"
       },
+      "weight": {
+        "value": 0.441,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 250*95*95mm. Expanded from source SKU AACC0095A-96A."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 8; source SKU AACC0095A-96A; dimensions from column D; weight from column E. Expanded from source SKU AACC0095A-96A."
     },
     {
       "sku": "AACC0080A",
@@ -141,8 +209,12 @@
         "height": 60,
         "unit": "mm"
       },
+      "weight": {
+        "value": 0.661,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 163*161*60mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 9; source SKU AACC0080A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0023A",
@@ -153,8 +225,12 @@
         "height": 90,
         "unit": "mm"
       },
+      "weight": {
+        "value": 2.315,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 351*188*90mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 10; source SKU AACC0023A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0024A",
@@ -165,32 +241,44 @@
         "height": 63,
         "unit": "mm"
       },
+      "weight": {
+        "value": 2.094,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 450*299*63mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 11; source SKU AACC0024A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0034A",
-      "name": "Front Basket",
+      "name": "Velotric Front Basket",
       "dimensions": {
         "length": 470,
         "width": 376,
         "height": 147,
         "unit": "mm"
       },
+      "weight": {
+        "value": 5.181,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 470*376*147mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 12; source SKU AACC0034A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0034B",
-      "name": "Front Basket",
+      "name": "Velotric Front Basket",
       "dimensions": {
         "length": 470,
         "width": 376,
         "height": 147,
         "unit": "mm"
       },
+      "weight": {
+        "value": 5.181,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 470*376*147mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 13; source SKU AACC0034B; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0028A",
@@ -201,8 +289,12 @@
         "height": 90,
         "unit": "mm"
       },
+      "weight": {
+        "value": 2.976,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 447*188*90mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 14; source SKU AACC0028A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0029A",
@@ -213,8 +305,12 @@
         "height": 50,
         "unit": "mm"
       },
+      "weight": {
+        "value": 0.772,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 155*155*50mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 15; source SKU AACC0029A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0025A",
@@ -225,32 +321,44 @@
         "height": 71,
         "unit": "mm"
       },
+      "weight": {
+        "value": 5.401,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 694*358*71mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 16; source SKU AACC0025A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0027B",
-      "name": "Rear Basket M",
+      "name": "Velotric Rear Basket M",
       "dimensions": {
         "length": 512,
         "width": 408,
         "height": 204,
         "unit": "mm"
       },
+      "weight": {
+        "value": 8.047,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 512*408*204mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 17; source SKU AACC0027B; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0030A",
-      "name": "Phone Mount",
+      "name": "Velotric Phone Mount",
       "dimensions": {
         "length": 163,
         "width": 161,
         "height": 60,
         "unit": "mm"
       },
+      "weight": {
+        "value": 0.551,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 163*161*60mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 18; source SKU AACC0030A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0026A",
@@ -261,8 +369,12 @@
         "height": 95,
         "unit": "mm"
       },
+      "weight": {
+        "value": 4.96,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 509*178*95mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 19; source SKU AACC0026A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0022A",
@@ -273,8 +385,12 @@
         "height": 204,
         "unit": "mm"
       },
+      "weight": {
+        "value": 12.566,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 755*526*204mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 20; source SKU AACC0022A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0082A",
@@ -285,8 +401,12 @@
         "height": 500,
         "unit": "mm"
       },
+      "weight": {
+        "value": 9.921,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 540*205*500mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 21; source SKU AACC0082A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0019B",
@@ -297,8 +417,12 @@
         "height": 45,
         "unit": "mm"
       },
+      "weight": {
+        "value": 0.364,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 170*85*45mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 22; source SKU AACC0019B; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0084A",
@@ -309,8 +433,12 @@
         "height": 47,
         "unit": "mm"
       },
+      "weight": {
+        "value": 1.213,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 480*125*47mm. Expanded from source SKU AACC0084A-087A."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 23; source SKU AACC0084A-087A; dimensions from column D; weight from column E. Expanded from source SKU AACC0084A-087A."
     },
     {
       "sku": "AACC0085A",
@@ -321,8 +449,12 @@
         "height": 47,
         "unit": "mm"
       },
+      "weight": {
+        "value": 1.213,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 480*125*47mm. Expanded from source SKU AACC0084A-087A."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 23; source SKU AACC0084A-087A; dimensions from column D; weight from column E. Expanded from source SKU AACC0084A-087A."
     },
     {
       "sku": "AACC0086A",
@@ -333,8 +465,12 @@
         "height": 47,
         "unit": "mm"
       },
+      "weight": {
+        "value": 1.213,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 480*125*47mm. Expanded from source SKU AACC0084A-087A."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 23; source SKU AACC0084A-087A; dimensions from column D; weight from column E. Expanded from source SKU AACC0084A-087A."
     },
     {
       "sku": "AACC0087A",
@@ -345,8 +481,12 @@
         "height": 47,
         "unit": "mm"
       },
+      "weight": {
+        "value": 1.213,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 480*125*47mm. Expanded from source SKU AACC0084A-087A."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 23; source SKU AACC0084A-087A; dimensions from column D; weight from column E. Expanded from source SKU AACC0084A-087A."
     },
     {
       "sku": "AACC0083A",
@@ -357,8 +497,12 @@
         "height": 75,
         "unit": "mm"
       },
+      "weight": {
+        "value": 0.397,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 170*155*75mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 24; source SKU AACC0083A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0088A",
@@ -369,8 +513,12 @@
         "height": 47,
         "unit": "mm"
       },
+      "weight": {
+        "value": 0.86,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 480*125*47mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 25; source SKU AACC0088A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0017A",
@@ -381,8 +529,12 @@
         "height": 460,
         "unit": "mm"
       },
+      "weight": {
+        "value": 4.343,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 480*240*460mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 26; source SKU AACC0017A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0016B",
@@ -393,8 +545,12 @@
         "height": 430,
         "unit": "mm"
       },
+      "weight": {
+        "value": 3.924,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 450*220*430mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 27; source SKU AACC0016B; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0078A",
@@ -405,8 +561,12 @@
         "height": 80,
         "unit": "mm"
       },
+      "weight": {
+        "value": 3.086,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 430*335*80mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 28; source SKU AACC0078A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0079A",
@@ -417,8 +577,12 @@
         "height": 100,
         "unit": "mm"
       },
+      "weight": {
+        "value": 9.039,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 660*340*100mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 29; source SKU AACC0079A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0091A",
@@ -429,8 +593,12 @@
         "height": 50,
         "unit": "mm"
       },
+      "weight": {
+        "value": 1.246,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 500*290*50mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 30; source SKU AACC0091A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0092A",
@@ -441,8 +609,12 @@
         "height": 145,
         "unit": "mm"
       },
+      "weight": {
+        "value": 1.929,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 325*125*145mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 31; source SKU AACC0092A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0089A",
@@ -453,8 +625,12 @@
         "height": 75,
         "unit": "mm"
       },
+      "weight": {
+        "value": 3.968,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 840*427*75mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 32; source SKU AACC0089A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0090A",
@@ -465,8 +641,12 @@
         "height": 365,
         "unit": "mm"
       },
+      "weight": {
+        "value": 3.527,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 455*207*365mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 33; source SKU AACC0090A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0099A",
@@ -477,8 +657,12 @@
         "height": 89,
         "unit": "mm"
       },
+      "weight": {
+        "value": 2.568,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 395*134*89mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 34; source SKU AACC0099A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0032A",
@@ -489,8 +673,12 @@
         "height": 75,
         "unit": "mm"
       },
+      "weight": {
+        "value": 2.866,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 235*85*75mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 35; source SKU AACC0032A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0015B",
@@ -501,8 +689,12 @@
         "height": 355,
         "unit": "mm"
       },
+      "weight": {
+        "value": 3.197,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 390*200*355mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 37; source SKU AACC0015B; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0097A",
@@ -513,8 +705,12 @@
         "height": 45,
         "unit": "mm"
       },
+      "weight": {
+        "value": 0.154,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 150*75*45mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 38; source SKU AACC0097A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0098A",
@@ -525,8 +721,12 @@
         "height": 45,
         "unit": "mm"
       },
+      "weight": {
+        "value": 0.143,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 150*75*45mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 39; source SKU AACC0098A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0101A",
@@ -537,8 +737,12 @@
         "height": 50,
         "unit": "mm"
       },
+      "weight": {
+        "value": 1.102,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 180*125*50mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 40; source SKU AACC0101A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0093A",
@@ -549,8 +753,12 @@
         "height": 375,
         "unit": "mm"
       },
+      "weight": {
+        "value": 2.756,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 350*220*375mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 41; source SKU AACC0093A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0104A",
@@ -561,8 +769,12 @@
         "height": 365,
         "unit": "mm"
       },
+      "weight": {
+        "value": 3.197,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 455*207*365mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 42; source SKU AACC0104A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0121A",
@@ -573,8 +785,12 @@
         "height": 70,
         "unit": "mm"
       },
+      "weight": {
+        "value": 3.516,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 395*210*70mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 43; source SKU AACC0121A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0124A",
@@ -585,8 +801,12 @@
         "height": 60,
         "unit": "mm"
       },
+      "weight": {
+        "value": 0.434,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 175*120*60mm. Expanded from source SKU AACC0124A/124B."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 44; source SKU AACC0124A/124B; dimensions from column D; weight from column E. Expanded from source SKU AACC0124A/124B."
     },
     {
       "sku": "AACC0124B",
@@ -597,8 +817,12 @@
         "height": 60,
         "unit": "mm"
       },
+      "weight": {
+        "value": 0.434,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 175*120*60mm. Expanded from source SKU AACC0124A/124B."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 44; source SKU AACC0124A/124B; dimensions from column D; weight from column E. Expanded from source SKU AACC0124A/124B."
     },
     {
       "sku": "AACC0122A",
@@ -609,8 +833,12 @@
         "height": 75,
         "unit": "mm"
       },
+      "weight": {
+        "value": 3.968,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 840*427*75mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 45; source SKU AACC0122A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0125A",
@@ -621,8 +849,12 @@
         "height": 70,
         "unit": "mm"
       },
+      "weight": {
+        "value": 1.94,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 177*100*70mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 46; source SKU AACC0125A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0126A",
@@ -633,8 +865,12 @@
         "height": 140,
         "unit": "mm"
       },
+      "weight": {
+        "value": 2.315,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 295*235*140mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 47; source SKU AACC0126A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0119A",
@@ -645,8 +881,12 @@
         "height": 190,
         "unit": "mm"
       },
+      "weight": {
+        "value": 3.241,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 350*240*190mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 48; source SKU AACC0119A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0120A",
@@ -657,8 +897,12 @@
         "height": 250,
         "unit": "mm"
       },
+      "weight": {
+        "value": 4.486,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 500*260*250mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 49; source SKU AACC0120A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0127A",
@@ -669,8 +913,12 @@
         "height": 70,
         "unit": "mm"
       },
+      "weight": {
+        "value": 2.756,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 420*210*70mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 50; source SKU AACC0127A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0103A",
@@ -681,8 +929,12 @@
         "height": 65,
         "unit": "mm"
       },
+      "weight": {
+        "value": 0.86,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 250*160*65mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 51; source SKU AACC0103A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0037A",
@@ -693,8 +945,12 @@
         "height": 60,
         "unit": "mm"
       },
+      "weight": {
+        "value": 0.661,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 163*161*60mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 52; source SKU AACC0037A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0134A",
@@ -705,8 +961,12 @@
         "height": 250,
         "unit": "mm"
       },
+      "weight": {
+        "value": 1.323,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 148*50*250mm. Expanded from source SKU AACC0134A/0138A/0139A."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 53; source SKU AACC0134A/0138A/0139A; dimensions from column D; weight from column E. Expanded from source SKU AACC0134A/0138A/0139A."
     },
     {
       "sku": "AACC0138A",
@@ -717,8 +977,12 @@
         "height": 250,
         "unit": "mm"
       },
+      "weight": {
+        "value": 1.323,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 148*50*250mm. Expanded from source SKU AACC0134A/0138A/0139A."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 53; source SKU AACC0134A/0138A/0139A; dimensions from column D; weight from column E. Expanded from source SKU AACC0134A/0138A/0139A."
     },
     {
       "sku": "AACC0139A",
@@ -729,8 +993,12 @@
         "height": 250,
         "unit": "mm"
       },
+      "weight": {
+        "value": 1.323,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 148*50*250mm. Expanded from source SKU AACC0134A/0138A/0139A."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 53; source SKU AACC0134A/0138A/0139A; dimensions from column D; weight from column E. Expanded from source SKU AACC0134A/0138A/0139A."
     },
     {
       "sku": "AACC0131A",
@@ -741,8 +1009,12 @@
         "height": 125,
         "unit": "mm"
       },
+      "weight": {
+        "value": 5.952,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 810*235*125."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 54; source SKU AACC0131A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0135A",
@@ -753,8 +1025,12 @@
         "height": 70,
         "unit": "mm"
       },
+      "weight": {
+        "value": 2.888,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 420*210*70mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 55; source SKU AACC0135A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0136A",
@@ -765,8 +1041,12 @@
         "height": 75,
         "unit": "mm"
       },
+      "weight": {
+        "value": 4.431,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 840*427*75."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 56; source SKU AACC0136A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0132A",
@@ -777,68 +1057,92 @@
         "height": 155,
         "unit": "mm"
       },
+      "weight": {
+        "value": 3.02,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 455*370*155mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 57; source SKU AACC0132A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0130A",
-      "name": "Summit 2 Modular Rear Rack",
+      "name": "Velotric Summit 2 Modular Rear Rack",
       "dimensions": {
         "length": 420,
         "width": 210,
         "height": 70,
         "unit": "mm"
       },
+      "weight": {
+        "value": 2.271,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 420*210*70mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 58; source SKU AACC0130A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0140A",
-      "name": "Suspension Seatpost for Triker",
+      "name": "Velotric Suspension Seatpost for Triker",
       "dimensions": {
         "length": 395,
         "width": 134,
         "height": 89,
         "unit": "mm"
       },
+      "weight": {
+        "value": 2.568,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 395*134*89mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 59; source SKU AACC0140A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0146A",
-      "name": "GoMad Passenger Kit",
+      "name": "Velotric GoMad Passenger Kit",
       "dimensions": {
         "length": 520,
         "width": 290,
         "height": 240,
         "unit": "mm"
       },
+      "weight": {
+        "value": 6.57,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 520*290*240mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 60; source SKU AACC0146A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0150A",
-      "name": "GoMad Young Passenger Kit",
+      "name": "Velotric GoMad Young Passenger Kit",
       "dimensions": {
         "length": 530,
         "width": 360,
         "height": 320,
         "unit": "mm"
       },
+      "weight": {
+        "value": 11.464,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 530*360*320mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 61; source SKU AACC0150A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0142A",
-      "name": "GoMad Pannier Support Bar",
+      "name": "Velotric GoMad Pannier Support Bar",
       "dimensions": {
         "length": 380,
         "width": 80,
         "height": 50,
         "unit": "mm"
       },
+      "weight": {
+        "value": 0.498,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 380*80*50."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 62; source SKU AACC0142A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0152A",
@@ -849,20 +1153,28 @@
         "height": 48,
         "unit": "mm"
       },
+      "weight": {
+        "value": 1.323,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 180*125*48mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 63; source SKU AACC0152A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0153A",
-      "name": "Suspension Seatpost for Summit 2",
+      "name": "Velotric Suspension Seatpost for Summit 2",
       "dimensions": {
         "length": 425,
         "width": 300,
         "height": 210,
         "unit": "mm"
       },
+      "weight": {
+        "value": 2.568,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 425*300*210mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 64; source SKU AACC0153A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0154A",
@@ -873,12 +1185,16 @@
         "height": 45,
         "unit": "mm"
       },
+      "weight": {
+        "value": 1.146,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 170*85*45mmmm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 65; source SKU AACC0154A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0141A",
-      "name": "85mm High-Rise Handlebar",
+      "name": "Velotric 85mm High-Rise Handlebar",
       "dimensions": {
         "length": 750,
         "width": 180,
@@ -886,131 +1202,139 @@
         "unit": "mm"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 750*180*90mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 66; source SKU AACC0141A; dimensions from column D."
     },
     {
       "sku": "AACC0183A",
-      "name": "Quick- Release Phone Mount",
+      "name": "Velotric Bike Phone Mount\n360°Rotation• Shock Absorbing",
       "dimensions": {
         "length": 110,
         "width": 80,
         "height": 200,
         "unit": "mm"
       },
+      "weight": {
+        "value": 0.606,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 110*80*200mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 67; source SKU AACC0183A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0183A-D",
-      "name": "Quick- Release Phone Mount-Case",
+      "name": "Velotric Bike Phone Mount\n360°Rotation• Shock Absorbing",
       "dimensions": {
-        "length": 430,
-        "width": 460,
-        "height": 245,
+        "length": 107,
+        "width": 80,
+        "height": 200,
         "unit": "mm"
       },
+      "weight": {
+        "value": 0.606,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B, C, and F on 2026-08-14 for case SKU. Source value: 430*460*245mm. Previous row SKU AACC0183A matches base SKU AACC0183A."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 68; source SKU AACC0183A-D; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0175A",
-      "name": "Front Basket Bag",
+      "name": "Velotric Front Basket Bag",
       "dimensions": {
         "length": 540,
         "width": 340,
         "height": 50,
         "unit": "mm"
       },
-      "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 540*340*50mm."
-    },
-    {
-      "sku": "AACC0175A-D",
-      "name": "Front Basket Bag-Case",
-      "dimensions": {
-        "length": 565,
-        "width": 365,
-        "height": 340,
-        "unit": "mm"
+      "weight": {
+        "value": 3.638,
+        "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B, C, and F on 2026-08-14 for case SKU. Source value: 565*365*340mm. Previous row SKU AACC0175A matches base SKU AACC0175A."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 69; source SKU AACC0175A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0176A",
-      "name": "Cargo Net",
+      "name": "Velotric Cargo Net",
       "dimensions": {
         "length": 240,
         "width": 100,
         "height": 65,
         "unit": "mm"
       },
-      "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 240*100*65mm."
-    },
-    {
-      "sku": "AACC0176A-D",
-      "name": "Cargo Net-Case",
-      "dimensions": {
-        "length": 430,
-        "width": 265,
-        "height": 230,
-        "unit": "mm"
+      "weight": {
+        "value": 1.984,
+        "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B, C, and F on 2026-08-14 for case SKU. Source value: 430*265*230mm. Previous row SKU AACC0176A matches base SKU AACC0176A."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 71; source SKU AACC0176A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0177A",
-      "name": "Rack Top Bag (Quick Release)",
+      "name": "Velotric Rack Top Bag (Quick Release)",
       "dimensions": {
         "length": 350,
         "width": 240,
         "height": 190,
         "unit": "mm"
       },
+      "weight": {
+        "value": 3.439,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 350*240*190mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 73; source SKU AACC0177A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0179A",
-      "name": "Rear Rack Pannier Bag (Quick Release)",
+      "name": "Velotric Rear Rack Pannier Bag (Quick Release)",
       "dimensions": {
         "length": 430,
         "width": 335,
         "height": 80,
         "unit": "mm"
       },
-      "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 430*335*80mm."
-    },
-    {
-      "sku": "AACC0179A-D",
-      "name": "Rear Rack Pannier Bag (Quick Release)-Case",
-      "dimensions": {
-        "length": 520,
-        "width": 455,
-        "height": 360,
-        "unit": "mm"
+      "weight": {
+        "value": 3.571,
+        "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B, C, and F on 2026-08-14 for case SKU. Source value: 520*455*360mm. Previous row SKU AACC0179A matches base SKU AACC0179A."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 75; source SKU AACC0179A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0180A",
-      "name": "Cooler Bag",
+      "name": "Velotric Cooler Bag",
       "dimensions": {
         "length": 350,
         "width": 350,
         "height": 250,
         "unit": "mm"
       },
+      "weight": {
+        "value": 3.748,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 350*350*250mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 77; source SKU AACC0180A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0189A",
-      "name": "Water Bottle Cage",
+      "name": "Velotric Water Bottle Cage",
+      "dimensions": {
+        "length": 180,
+        "width": 90,
+        "height": 110,
+        "unit": "mm"
+      },
+      "weight": {
+        "value": 0.243,
+        "unit": "lb"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 78; source SKU AACC0189A; dimensions from column D; weight from column E."
+    },
+    {
+      "sku": "AACC0189A-D",
+      "name": "Velotric Water Bottle Cage",
       "dimensions": {
         "length": 180,
         "width": 90,
@@ -1018,31 +1342,23 @@
         "unit": "mm"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 180*90*110mm."
-    },
-    {
-      "sku": "AACC0189A-D",
-      "name": "Water Bottle Cage-Case",
-      "dimensions": {
-        "length": 385,
-        "width": 205,
-        "height": 360,
-        "unit": "mm"
-      },
-      "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B, C, and F on 2026-08-14 for case SKU. Source value: 385*205*360mm. Previous row SKU AACC0189A matches base SKU AACC0189A."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 79; source SKU AACC0189A-D; dimensions from column D."
     },
     {
       "sku": "AACC0196A",
-      "name": "Heart Rate Monitor",
+      "name": "Velotric Heart Rate Monitor",
       "dimensions": {
         "length": 150,
         "width": 100,
         "height": 50,
         "unit": "mm"
       },
+      "weight": {
+        "value": 0.661,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 150*100*50mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 80; source SKU AACC0196A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0197A",
@@ -1053,8 +1369,288 @@
         "height": 130,
         "unit": "mm"
       },
+      "weight": {
+        "value": 2.337,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension Sheet1 columns B-D on 2026-08-14. Source value: 340*285*130mm."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 81; source SKU AACC0197A; dimensions from column D; weight from column E."
+    },
+    {
+      "sku": "AACC0212A",
+      "name": "Velotric Front Frame Phone Bag",
+      "dimensions": {
+        "length": 225,
+        "width": 110,
+        "height": 110,
+        "unit": "mm"
+      },
+      "weight": {
+        "value": 0.518,
+        "unit": "lb"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 82; source SKU AACC0212A; dimensions from column D; weight from column E."
+    },
+    {
+      "sku": "AACC0221A",
+      "name": "Velotric Chain Lock",
+      "dimensions": {
+        "length": 255,
+        "width": 120,
+        "height": 95,
+        "unit": "mm"
+      },
+      "weight": {
+        "value": 4.486,
+        "unit": "lb"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 83; source SKU AACC0221A; dimensions from column D; weight from column E."
+    },
+    {
+      "sku": "AACC0220A",
+      "name": "Velotric U-Lock",
+      "dimensions": {
+        "length": 340,
+        "width": 185,
+        "height": 70,
+        "unit": "mm"
+      },
+      "weight": {
+        "value": 4.233,
+        "unit": "lb"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 84; source SKU AACC0220A; dimensions from column D; weight from column E."
+    },
+    {
+      "sku": "AACC0219A",
+      "name": "Velotric  Folding Lock 100cm",
+      "dimensions": {
+        "length": 335,
+        "width": 110,
+        "height": 50,
+        "unit": "mm"
+      },
+      "weight": {
+        "value": 3.638,
+        "unit": "lb"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 85; source SKU AACC0219A; dimensions from column D; weight from column E."
+    },
+    {
+      "sku": "AACC0182A",
+      "name": "Velotric Cargo Trailer",
+      "dimensions": {
+        "length": 825,
+        "width": 165,
+        "height": 650,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 86; source SKU AACC0182A; dimensions from column D."
+    },
+    {
+      "sku": "AACC0213A",
+      "name": "Velotric Handlebar Water Bottle Bag",
+      "dimensions": {
+        "length": 215,
+        "width": 115,
+        "height": 70,
+        "unit": "mm"
+      },
+      "weight": {
+        "value": 0.408,
+        "unit": "lb"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 87; source SKU AACC0213A; dimensions from column D; weight from column E."
+    },
+    {
+      "sku": "AACC0191A",
+      "name": "Velotric Fold 2 Wheel Guard",
+      "dimensions": {
+        "length": 460,
+        "width": 275,
+        "height": 40,
+        "unit": "mm"
+      },
+      "weight": {
+        "value": 1.058,
+        "unit": "lb"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 89; source SKU AACC0191A; dimensions from column D; weight from column E."
+    },
+    {
+      "sku": "AACC0186A",
+      "name": "Velotric Left Side Mirror",
+      "dimensions": {
+        "length": 299,
+        "width": 136,
+        "height": 55,
+        "unit": "mm"
+      },
+      "weight": {
+        "value": 0.606,
+        "unit": "lb"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 90; source SKU AACC0186A; dimensions from column D; weight from column E."
+    },
+    {
+      "sku": "AACC0187A",
+      "name": "Velotric Right Side Mirror",
+      "dimensions": {
+        "length": 299,
+        "width": 136,
+        "height": 55,
+        "unit": "mm"
+      },
+      "weight": {
+        "value": 0.606,
+        "unit": "lb"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 92; source SKU AACC0187A; dimensions from column D; weight from column E."
+    },
+    {
+      "sku": "AACC0181A",
+      "name": "Velotric Pet Carrier Basket",
+      "dimensions": {
+        "length": 470,
+        "width": 360,
+        "height": 95,
+        "unit": "mm"
+      },
+      "weight": {
+        "value": 6.945,
+        "unit": "lb"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 94; source SKU AACC0181A; dimensions from column D; weight from column E."
+    },
+    {
+      "sku": "AACC0199A",
+      "name": "Velotric Comfort Saddle with Backrest",
+      "dimensions": {
+        "length": 360,
+        "width": 380,
+        "height": 390,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 95; source SKU AACC0199A; dimensions from column D."
+    },
+    {
+      "sku": "AACC0192A",
+      "name": "Velotric Rear Pegs",
+      "dimensions": {
+        "length": 165,
+        "width": 77,
+        "height": 40,
+        "unit": "mm"
+      },
+      "weight": {
+        "value": 0.562,
+        "unit": "lb"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 98; source SKU AACC0192A; dimensions from column D; weight from column E."
+    },
+    {
+      "sku": "AACC0195A",
+      "name": "Velotric MPPT Solar Boost Charger",
+      "dimensions": {
+        "length": 180,
+        "width": 80,
+        "height": 100,
+        "unit": "mm"
+      },
+      "weight": {
+        "value": 1.422,
+        "unit": "lb"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 99; source SKU AACC0195A; dimensions from column D; weight from column E."
+    },
+    {
+      "sku": "AACC0160A",
+      "name": "Velotric Comfort Front Grab Bar",
+      "dimensions": {
+        "length": 460,
+        "width": 130,
+        "height": 385,
+        "unit": "mm"
+      },
+      "weight": {
+        "value": 2.756,
+        "unit": "lb"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 100; source SKU AACC0160A; dimensions from column D; weight from column E."
+    },
+    {
+      "sku": "AACC0171A",
+      "name": "Velotric High-Visibility Rear Light",
+      "dimensions": {
+        "length": 265,
+        "width": 105,
+        "height": 50,
+        "unit": "mm"
+      },
+      "weight": {
+        "value": 0.309,
+        "unit": "lb"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 101; source SKU AACC0171A; dimensions from column D; weight from column E."
+    },
+    {
+      "sku": "AACC0169A",
+      "name": "Velotric High-Capacity Cargo Panniers",
+      "dimensions": {
+        "length": 650,
+        "width": 120,
+        "height": 400,
+        "unit": "mm"
+      },
+      "weight": {
+        "value": 10.737,
+        "unit": "lb"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 103; source SKU AACC0169A; dimensions from column D; weight from column E."
+    },
+    {
+      "sku": "AACC0155A",
+      "name": "Velotric Quick-Release Comfort Seat",
+      "dimensions": {
+        "length": 360,
+        "width": 165,
+        "height": 100,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 104; source SKU AACC0155A; dimensions from column D."
+    },
+    {
+      "sku": "AACC0167A",
+      "name": "Velotric Heavy-Duty Bungee Straps",
+      "dimensions": {
+        "length": 202,
+        "width": 90,
+        "height": 145,
+        "unit": "mm"
+      },
+      "weight": {
+        "value": 0.937,
+        "unit": "lb"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 106; source SKU AACC0167A; dimensions from column D; weight from column E."
     }
   ],
   "cartons": [

@@ -19,6 +19,14 @@ export function planShipments(order, inventory, options = {}) {
     const ignoredLines = order.lines.filter((line) => !isDelineatorSku(line)).map(toShipmentLine);
     const eligibleLinesByWarehouse = new Map();
     for (const line of order.lines.filter(isDelineatorSku)) {
+        if (options.catalogSkus && !options.catalogSkus.has(line.sku)) {
+            exceptions.push({
+                code: "MISSING_REFERENCE_DATA",
+                message: `${line.sku} is not included in the current SKU catalog snapshot. Operator direction is required before planning this line.`,
+                orderLineIds: [line.id]
+            });
+            continue;
+        }
         if (!line.dimensions) {
             exceptions.push({
                 code: "MISSING_REFERENCE_DATA",

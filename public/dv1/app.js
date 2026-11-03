@@ -32,7 +32,7 @@ form.addEventListener("submit", async (event) => {
   }
 });
 
-function renderPlan({ order, plan }) {
+function renderPlan({ order, plan, catalogSnapshot }) {
   const shipmentCards = plan.shipments.map((shipment) => `
     <article class="shipment-card">
       <div class="shipment-heading">
@@ -48,8 +48,9 @@ function renderPlan({ order, plan }) {
     </article>
   `).join("");
 
-  const exceptions = plan.exceptions.length
-    ? `<div class="warning"><h3>Review before acting</h3><ul>${plan.exceptions.map((item) => `<li>${escapeHtml(item.message)}</li>`).join("")}</ul></div>`
+    const hasMissingReference = plan.exceptions.some((item) => item.code === "MISSING_REFERENCE_DATA");
+    const exceptions = plan.exceptions.length
+        ? `<div class="warning"><h3>${hasMissingReference ? "Direction required before acting" : "Review before acting"}</h3><ul>${plan.exceptions.map((item) => `<li>${escapeHtml(item.message)}</li>`).join("")}</ul>${hasMissingReference ? "<p class=\"warning-action\"><strong>Pause this order and get an operator ruling for the missing SKU before continuing.</strong></p>" : ""}</div>`
     : `<div class="success-panel">No planner exceptions. Recheck the live Eccang and Surpath state before making changes.</div>`;
 
   const ignored = plan.ignoredLines.length
@@ -61,7 +62,8 @@ function renderPlan({ order, plan }) {
       <div>
         <p class="eyebrow">Planning result</p>
         <h2>${escapeHtml(order.orderNumber)}</h2>
-        <p class="muted">Planner status: <strong>${escapeHtml(plan.status)}</strong> · Preferred warehouse: ${escapeHtml(order.warehouseId)}</p>
+            <p class="muted">Planner status: <strong>${escapeHtml(plan.status)}</strong> · Preferred warehouse: ${escapeHtml(order.warehouseId)}</p>
+            ${catalogSnapshot ? `<p class="muted">Catalog snapshot: revision ${escapeHtml(catalogSnapshot.revision ?? "unknown")} · fetched ${escapeHtml(catalogSnapshot.fetchedAt ?? "unknown")}</p>` : ""}
       </div>
       <span class="status ${plan.status === "ready" ? "status-ready" : "status-review"}">${escapeHtml(plan.status.replace("_", " "))}</span>
     </div>

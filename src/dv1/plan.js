@@ -32,11 +32,13 @@ export async function planDv1Order({ orderNumber, shopifyConfig, surpathConfig }
   const plan = planShipments(order, inventory, {
     knownCombinations: new JsonFileKnownCombinationStore(knownCombinationsPath),
     soloShippingCosts,
+        catalogSkus: new Set(catalog.skus.map((sku) => sku.sku)),
   });
 
   return {
     order,
     plan,
+    catalogSnapshot: catalog.generatedFrom,
     warnings: liveData.warnings || [],
   };
 }
