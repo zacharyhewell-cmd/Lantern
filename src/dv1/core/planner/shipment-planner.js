@@ -41,7 +41,7 @@ export function planShipments(order, inventory, options = {}) {
                 orderLineIds: order.lines.map((line) => line.id)
             });
         }
-        const warehouseIds = new Set(normalizedInventory.map((item) => item.warehouseId ?? inventory.warehouseId));
+        const warehouseIds = new Set(normalizedInventory.filter((item) => item.available > 0).map((item) => item.warehouseId ?? inventory.warehouseId));
         warehouseIds.add(order.warehouseId);
         for (const warehouseId of warehouseIds) {
             if (!resolveWarehouseOrigin(warehouseId, options.rateConfig.origins)) {
@@ -288,7 +288,7 @@ function scoreShipmentPlan(shipments, sourceLines, containers, order, soloShippi
                 shipment,
                 lines,
                 containerDimensions: container?.container.innerDimensions,
-                packageDimensions: container?.container.innerDimensions,
+                packageDimensions: container?.container.innerDimensions ?? (lines.length === 1 ? requiredDimensions(lines[0]) : undefined),
                 warehouseId: shipment.warehouseId,
                 packageWeight: totalWeight(lines),
                 defaultProxyCost
@@ -319,7 +319,7 @@ function shipmentCandidateScore(lines, containerSku, containerDimensions, order,
         },
         lines,
         containerDimensions,
-        packageDimensions: containerDimensions,
+        packageDimensions: containerDimensions ?? (lines.length === 1 ? requiredDimensions(lines[0]) : undefined),
         warehouseId,
         packageWeight: totalWeight(lines),
         defaultProxyCost
@@ -784,7 +784,7 @@ function singleLineShipment(orderNumber, shipmentIndex, warehouseId, line, costR
         warehouseId,
         containerSku: null,
         lines: [toShipmentLine(line)],
-        reasons: [`Line ships without a carton because it is not part of a qualifying carton consolidation.${costReason}`]
+        reasons: [`Line ships without a carton because no lower-cost qualifying carton consolidation was selected.${costReason}`]
     };
 }
 function fulfillmentName(orderNumber, shipmentIndex) {

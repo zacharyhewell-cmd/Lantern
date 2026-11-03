@@ -56,14 +56,14 @@ export function resolveWarehouseOrigin(warehouseId, origins = DEFAULT_WAREHOUSE_
     return Object.entries(origins).find(([code, origin]) => code.toUpperCase() === key || origin.code.toUpperCase() === key)?.[1];
 }
 export function createFedexGroundProxyEstimator(config) {
-    return ({ order, lines, containerDimensions, packageWeight, warehouseId }) => {
+    return ({ order, lines, containerDimensions, packageDimensions, packageWeight, warehouseId }) => {
         const origin = resolveWarehouseOrigin(warehouseId, config.origins);
         const destination = order.destination;
         if (!origin || !destination?.postalCode || !destination.countryCode) {
             return Number.POSITIVE_INFINITY;
         }
-        const dimensionalWeight = containerDimensions
-            ? Math.ceil((containerDimensions.length * containerDimensions.width * containerDimensions.height) / 139)
+        const dimensionalWeight = (containerDimensions ?? packageDimensions)
+            ? dimensionalWeightFor(containerDimensions ?? packageDimensions)
             : 0;
         const actualWeight = packageWeight?.value ?? lines.reduce((sum, line) => sum + (line.weight?.value ?? 0) * line.quantity, 0);
         const billableWeight = Math.max(1, dimensionalWeight, Math.ceil(actualWeight));
@@ -76,4 +76,13 @@ export function createFedexGroundProxyEstimator(config) {
         const serviceProxy = config.serviceLevel === FEDEX_GROUND ? 0 : 25;
         return 10 + billableWeight * 2.95 + distanceProxy + crossCountryProxy + serviceProxy;
     };
+}
+function dimensionalWeightFor(dimensions) {
+    const length = Math.ceil(toInches(dimensions.length, dimensions.unit));
+    const width = Math.ceil(toInches(dimensions.width, dimensions.unit));
+    const height = Math.ceil(toInches(dimensions.height, dimensions.unit));
+    return Math.ceil((length * width * height) / 139);
+}
+function toInches(value, unit) {
+    return unit === "in" ? value : value / 25.4;
 }
