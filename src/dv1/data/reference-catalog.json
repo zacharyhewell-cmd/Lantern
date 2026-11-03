@@ -1777,7 +1777,7 @@
       "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 106; source SKU AACC0167A; dimensions from column D; weight from column E."
     },
     {
-      "sku": "AACCO167A-D",
+      "sku": "AACC0167A-D",
       "name": "Velotric Heavy-Duty Bungee Straps",
       "dimensions": {
         "length": 390,
@@ -1790,7 +1790,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 107; source SKU AACCO167A-D; dimensions from column F; weight from column G."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 107; source SKU AACC0167A-D; dimensions from column F; weight from column G. Corrected source SKU typo AACCO167A-D to AACC0167A-D."
     }
   ],
   "cartons": [
