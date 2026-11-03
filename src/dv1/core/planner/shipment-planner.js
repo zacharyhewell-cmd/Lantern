@@ -41,17 +41,6 @@ export function planShipments(order, inventory, options = {}) {
                 orderLineIds: order.lines.map((line) => line.id)
             });
         }
-        const warehouseIds = new Set(normalizedInventory.filter((item) => item.available > 0).map((item) => item.warehouseId ?? inventory.warehouseId));
-        warehouseIds.add(order.warehouseId);
-        for (const warehouseId of warehouseIds) {
-            if (!resolveWarehouseOrigin(warehouseId, options.rateConfig.origins)) {
-                exceptions.push({
-                    code: "MISSING_RATE_DATA",
-                    message: `No shipping origin address is configured for Surpath warehouse ${warehouseId}.`,
-                    orderLineIds: order.lines.map((line) => line.id)
-                });
-            }
-        }
     }
     const eligibleLines = [];
     const inventoryByLineId = new Map();
@@ -92,6 +81,20 @@ export function planShipments(order, inventory, options = {}) {
         }
         eligibleLines.push(line);
         inventoryByLineId.set(line.id, itemInventory);
+    }
+    if (options.rateConfig) {
+        const warehouseIds = new Set(eligibleLines.flatMap((line) => (inventoryByLineId.get(line.id) ?? [])
+            .filter((item) => item.available > 0)
+            .map((item) => item.warehouseId ?? inventory.warehouseId)));
+        for (const warehouseId of warehouseIds) {
+            if (!resolveWarehouseOrigin(warehouseId, options.rateConfig.origins)) {
+                exceptions.push({
+                    code: "MISSING_RATE_DATA",
+                    message: `No shipping origin address is configured for Surpath warehouse ${warehouseId}.`,
+                    orderLineIds: eligibleLines.map((line) => line.id)
+                });
+            }
+        }
     }
     const shipments = [];
     const packableGroups = groupByPackCompatibility(eligibleLines, exceptions);
