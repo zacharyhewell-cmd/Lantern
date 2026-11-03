@@ -1,6 +1,7 @@
 import { packRigidItems, requiredDimensions, totalLineVolume, volume } from "../domain/geometry.js";
 import { isDelineatorSku } from "../domain/reference-catalog.js";
 import { inventoryBySku, normalizeInventoryItemLocation } from "../domain/surpath-adapter.js";
+import { createFedexGroundProxyEstimator, resolveWarehouseOrigin } from "../domain/shipping-rates.js";
 import { createKnownCombinationRecord, knownCombinationKey, sameDimensions } from "./known-combinations.js";
 const MAX_EXACT_OPTIMIZATION_UNITS = 16;
 const MAX_EXACT_ALLOCATION_UNITS = 12;
@@ -12,6 +13,18 @@ const FALLBACK_SOLO_BASE_COST_USD = 15;
 const FALLBACK_SOLO_COST_PER_DIM_WEIGHT_LB_USD = CARTON_COST_PER_DIM_WEIGHT_LB_USD;
 export function planShipments(order, inventory, options = {}) {
     const exceptions = [];
+    const baseRateEstimator = options.rateEstimator ?? (options.rateConfig
+        ? createFedexGroundProxyEstimator(options.rateConfig)
+        : undefined);
+    const rateEstimator = baseRateEstimator
+        ? (context) => baseRateEstimator({
+            ...context,
+            destination: order.destination,
+            origin: resolveWarehouseOrigin(context.warehouseId, options.rateConfig?.origins),
+            serviceLevel: options.rateConfig?.serviceLevel ?? "FEDEX_GROUND",
+            packageWeight: context.packageWeight ?? totalWeight(context.lines)
+        })
+        : undefined;
     const normalizedInventory = inventory.items.map((item) => normalizeInventoryItemLocation(item, inventory.warehouseId));
     const availableBySku = inventoryBySku(normalizedInventory, inventory.warehouseId);
     const containers = normalizedInventory
@@ -20,6 +33,26 @@ export function planShipments(order, inventory, options = {}) {
         .sort((a, b) => volume(a.container.innerDimensions) - volume(b.container.innerDimensions));
     const remainingContainerAvailability = new Map(containers.map((container) => [containerAvailabilityKey(container), container.available]));
     const ignoredLines = order.lines.filter((line) => !isDelineatorSku(line)).map(toShipmentLine);
+    if (options.rateConfig) {
+        if (!order.destination?.postalCode || !order.destination.countryCode) {
+            exceptions.push({
+                code: "MISSING_RATE_DATA",
+                message: "Shopify did not provide a complete destination postal code and country for FedEx Ground rating.",
+                orderLineIds: order.lines.map((line) => line.id)
+            });
+        }
+        const warehouseIds = new Set(normalizedInventory.map((item) => item.warehouseId ?? inventory.warehouseId));
+        warehouseIds.add(order.warehouseId);
+        for (const warehouseId of warehouseIds) {
+            if (!resolveWarehouseOrigin(warehouseId, options.rateConfig.origins)) {
+                exceptions.push({
+                    code: "MISSING_RATE_DATA",
+                    message: `No shipping origin address is configured for Surpath warehouse ${warehouseId}.`,
+                    orderLineIds: order.lines.map((line) => line.id)
+                });
+            }
+        }
+    }
     const eligibleLines = [];
     const inventoryByLineId = new Map();
     for (const line of order.lines.filter(isDelineatorSku)) {
@@ -63,7 +96,7 @@ export function planShipments(order, inventory, options = {}) {
     const shipments = [];
     const packableGroups = groupByPackCompatibility(eligibleLines, exceptions);
     for (const group of packableGroups) {
-        const selected = selectBestAllocation(group, inventoryByLineId, containers, order, options.knownCombinations, options.soloShippingCosts, options.rateEstimator, remainingContainerAvailability);
+        const selected = selectBestAllocation(group, inventoryByLineId, containers, order, options.knownCombinations, options.soloShippingCosts, rateEstimator, remainingContainerAvailability);
         exceptions.push(...selected.exceptions);
         recordKnownCombinations(selected.shipments, group, containers, options.knownCombinations);
         for (const shipment of selected.shipments) {
@@ -255,6 +288,9 @@ function scoreShipmentPlan(shipments, sourceLines, containers, order, soloShippi
                 shipment,
                 lines,
                 containerDimensions: container?.container.innerDimensions,
+                packageDimensions: container?.container.innerDimensions,
+                warehouseId: shipment.warehouseId,
+                packageWeight: totalWeight(lines),
                 defaultProxyCost
             });
         }
@@ -263,6 +299,10 @@ function scoreShipmentPlan(shipments, sourceLines, containers, order, soloShippi
         }
         return sum + defaultProxyCost;
     }, 0);
+}
+function totalWeight(lines) {
+    const pounds = lines.reduce((sum, line) => sum + (line.weight?.value ?? 0) * line.quantity, 0);
+    return pounds > 0 ? { value: pounds, unit: "lb" } : undefined;
 }
 function shipmentCandidateScore(lines, containerSku, containerDimensions, order, warehouseId, rateEstimator, defaultProxyCost) {
     if (!rateEstimator)
@@ -279,6 +319,9 @@ function shipmentCandidateScore(lines, containerSku, containerDimensions, order,
         },
         lines,
         containerDimensions,
+        packageDimensions: containerDimensions,
+        warehouseId,
+        packageWeight: totalWeight(lines),
         defaultProxyCost
     });
 }

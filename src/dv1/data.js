@@ -16,6 +16,21 @@ function compact(value) {
   return value == null || value === "" ? null : value;
 }
 
+function normalizeShippingAddress(address) {
+  if (!address) return undefined;
+  return {
+    name: compact(address.name),
+    company: compact(address.company),
+    address1: compact(address.address1),
+    address2: compact(address.address2),
+    city: compact(address.city),
+    provinceCode: compact(address.provinceCode),
+    postalCode: compact(address.zip),
+    countryCode: compact(address.countryCode),
+    phone: compact(address.phone),
+  };
+}
+
 function requestedCartonSkus() {
   const configured = String(process.env.DV1_CARTON_SKUS || "")
     .split(",")
@@ -76,6 +91,7 @@ export async function loadDv1PlanningData({
         orderId: shopifyOrder.id,
         orderNumber: shopifyOrder.name || orderIdentifier.canonical,
         warehouseId,
+        destination: normalizeShippingAddress(shopifyOrder.shippingAddress),
         lines,
       },
       inventory: {

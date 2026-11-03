@@ -6,6 +6,7 @@ import { hydrateCartonsFromReferenceCatalog, hydrateOrderFromReferenceCatalog } 
 import { soloShippingCostLookup } from "./core/domain/solo-shipping-costs.js";
 import { JsonFileKnownCombinationStore } from "./core/planner/known-combinations.js";
 import { planShipments } from "./core/planner/shipment-planner.js";
+import { DEFAULT_FEDEX_GROUND_RATE_CONFIG } from "./core/domain/shipping-rates.js";
 
 const dataDirectory = join(dirname(fileURLToPath(import.meta.url)), "data");
 const knownCombinationsPath = process.env.DV1_KNOWN_COMBINATIONS_PATH || "var/dv1-known-combinations.json";
@@ -32,13 +33,17 @@ export async function planDv1Order({ orderNumber, shopifyConfig, surpathConfig }
   const plan = planShipments(order, inventory, {
     knownCombinations: new JsonFileKnownCombinationStore(knownCombinationsPath),
     soloShippingCosts,
-        catalogSkus: new Set(catalog.skus.map((sku) => sku.sku)),
+    catalogSkus: new Set(catalog.skus.map((sku) => sku.sku)),
+    rateConfig: DEFAULT_FEDEX_GROUND_RATE_CONFIG,
   });
 
   return {
     order,
     plan,
     catalogSnapshot: catalog.generatedFrom,
-    warnings: liveData.warnings || [],
+    warnings: [
+      ...(liveData.warnings || []),
+      "FedEx Ground costs are currently estimated with an origin-aware planning proxy; carrier rating is not yet live.",
+    ],
   };
 }
