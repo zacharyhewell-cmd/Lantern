@@ -3,6 +3,8 @@ import { isDelineatorSku } from "../domain/reference-catalog.js";
 import { inventoryBySku, normalizeInventoryItemLocation } from "../domain/surpath-adapter.js";
 import { createKnownCombinationRecord, knownCombinationKey, sameDimensions } from "./known-combinations.js";
 const MAX_EXACT_OPTIMIZATION_UNITS = 16;
+const MAX_EXACT_ALLOCATION_UNITS = 12;
+const MAX_ALLOCATION_CANDIDATES = 2_000;
 const DIMENSIONAL_WEIGHT_DIVISOR_IN = 139;
 const CARTON_BASE_COST_USD = 10;
 const CARTON_COST_PER_DIM_WEIGHT_LB_USD = 2.95;
@@ -16,8 +18,10 @@ export function planShipments(order, inventory, options = {}) {
         .filter((item) => Boolean(item.container))
         .filter((item) => item.available > 0)
         .sort((a, b) => volume(a.container.innerDimensions) - volume(b.container.innerDimensions));
+    const remainingContainerAvailability = new Map(containers.map((container) => [containerAvailabilityKey(container), container.available]));
     const ignoredLines = order.lines.filter((line) => !isDelineatorSku(line)).map(toShipmentLine);
-    const eligibleLinesByWarehouse = new Map();
+    const eligibleLines = [];
+    const inventoryByLineId = new Map();
     for (const line of order.lines.filter(isDelineatorSku)) {
         if (options.catalogSkus && !options.catalogSkus.has(line.sku)) {
             exceptions.push({
@@ -53,46 +57,40 @@ export function planShipments(order, inventory, options = {}) {
             });
             continue;
         }
-        for (const allocatedLine of allocateLineByWarehouse(line, itemInventory, order.warehouseId)) {
-            const warehouseLines = eligibleLinesByWarehouse.get(allocatedLine.warehouseId) ?? [];
-            warehouseLines.push(allocatedLine.line);
-            eligibleLinesByWarehouse.set(allocatedLine.warehouseId, warehouseLines);
-        }
+        eligibleLines.push(line);
+        inventoryByLineId.set(line.id, itemInventory);
     }
     const shipments = [];
-    for (const [warehouseId, eligibleLines] of sortWarehouseEntries(eligibleLinesByWarehouse, order.warehouseId)) {
-        const warehouseContainers = containers.filter((container) => container.warehouseId === warehouseId);
-        const remainingContainers = new Map(warehouseContainers.map((container) => [container.sku, container.available]));
-        const packableGroups = groupByPackCompatibility(eligibleLines, exceptions);
-        for (const group of packableGroups) {
-            const matchingUnitContainers = warehouseContainers.filter((container) => container.container.innerDimensions.unit === group[0]?.dimensions?.unit);
-            if (warehouseContainers.length > 0 && matchingUnitContainers.length === 0) {
-                exceptions.push({
-                    code: "UNIT_MISMATCH",
-                    message: `No available cartons in ${warehouseId} use the same dimension unit as ${group
-                        .map((line) => line.sku)
-                        .join(", ")}.`,
-                    orderLineIds: group.map((line) => line.id)
-                });
-                for (const line of group) {
-                    shipments.push(singleLineShipment(order.orderNumber, shipments.length + 1, warehouseId, line));
-                }
+    const packableGroups = groupByPackCompatibility(eligibleLines, exceptions);
+    for (const group of packableGroups) {
+        const selected = selectBestAllocation(group, inventoryByLineId, containers, order, options.knownCombinations, options.soloShippingCosts, options.rateEstimator, remainingContainerAvailability);
+        exceptions.push(...selected.exceptions);
+        recordKnownCombinations(selected.shipments, group, containers, options.knownCombinations);
+        for (const shipment of selected.shipments) {
+            if (!shipment.containerSku)
                 continue;
-            }
-            const optimized = optimizeGroupIntoShipments(group, matchingUnitContainers, remainingContainers, order.orderNumber, warehouseId, options.knownCombinations, options.soloShippingCosts, shipments.length);
-            if (optimized.shipments.length === 0) {
-                for (const line of group) {
-                    shipments.push(singleLineShipment(order.orderNumber, shipments.length + 1, warehouseId, line));
-                }
-                continue;
-            }
-            shipments.push(...optimized.shipments);
-            if (optimized.unpackedLines.length > 0) {
-                for (const line of optimized.unpackedLines) {
-                    shipments.push(singleLineShipment(order.orderNumber, shipments.length + 1, warehouseId, line));
-                }
-            }
+            const key = `${shipment.warehouseId}:${shipment.containerSku}`;
+            remainingContainerAvailability.set(key, (remainingContainerAvailability.get(key) ?? 0) - 1);
         }
+        for (const shipment of selected.shipments) {
+            const shipmentIndex = shipments.length + 1;
+            shipments.push({
+                ...shipment,
+                shipmentIndex,
+                fulfillmentName: fulfillmentName(order.orderNumber, shipmentIndex)
+            });
+        }
+    }
+    if (eligibleLines.length === 0 && exceptions.length === 0) {
+        return {
+            orderId: order.orderId,
+            orderNumber: order.orderNumber,
+            warehouseId: order.warehouseId,
+            status: "ready",
+            shipments: [],
+            exceptions,
+            ignoredLines
+        };
     }
     return {
         orderId: order.orderId,
@@ -103,6 +101,205 @@ export function planShipments(order, inventory, options = {}) {
         exceptions,
         ignoredLines
     };
+}
+function selectBestAllocation(group, inventoryByLineId, containers, order, knownCombinations, soloShippingCosts, rateEstimator, remainingContainerAvailability) {
+    const candidates = enumerateAllocationCandidates(group, inventoryByLineId, order.warehouseId);
+    let best = null;
+    for (const allocation of candidates) {
+        const shipments = [];
+        const exceptions = [];
+        for (const [warehouseId, lines] of sortWarehouseEntries(allocation, order.warehouseId)) {
+            const warehouseContainers = containers.filter((container) => container.warehouseId === warehouseId);
+            const remainingContainers = new Map(warehouseContainers.map((container) => [
+                container.sku,
+                remainingContainerAvailability?.get(containerAvailabilityKey(container)) ?? container.available
+            ]));
+            const matchingUnitContainers = warehouseContainers.filter((container) => container.container.innerDimensions.unit === lines[0]?.dimensions?.unit);
+            const usableContainers = warehouseContainers.length > 0 && matchingUnitContainers.length === 0
+                ? []
+                : matchingUnitContainers;
+            if (warehouseContainers.length > 0 && matchingUnitContainers.length === 0) {
+                exceptions.push({
+                    code: "UNIT_MISMATCH",
+                    message: `No available cartons in ${warehouseId} use the same dimension unit as ${lines
+                        .map((line) => line.sku)
+                        .join(", ")}.`,
+                    orderLineIds: lines.map((line) => line.id)
+                });
+            }
+            const optimized = optimizeGroupIntoShipments(lines, usableContainers, remainingContainers, order.orderNumber, order, warehouseId, readOnlyKnownCombinationStore(knownCombinations), soloShippingCosts, rateEstimator, shipments.length);
+            shipments.push(...optimized.shipments);
+            for (const line of optimized.unpackedLines) {
+                shipments.push(singleLineShipment(order.orderNumber, shipments.length + 1, warehouseId, line, soloShippingCosts?.get(line.sku)));
+            }
+        }
+        const score = scoreShipmentPlan(shipments, group, containers, order, soloShippingCosts, rateEstimator);
+        if (!best || score < best.score || (score === best.score && shipments.length < best.shipments.length)) {
+            best = { shipments, score, exceptions };
+        }
+    }
+    return best ?? { shipments: [], score: Number.POSITIVE_INFINITY, exceptions: [] };
+}
+function readOnlyKnownCombinationStore(store) {
+    if (!store)
+        return undefined;
+    return {
+        get: (key) => store.get(key),
+        put: () => undefined
+    };
+}
+function containerAvailabilityKey(container) {
+    return `${container.warehouseId}:${container.sku}`;
+}
+function enumerateAllocationCandidates(group, inventoryByLineId, preferredWarehouseId) {
+    const unitCount = group.reduce((sum, line) => sum + line.quantity, 0);
+    if (unitCount > MAX_EXACT_ALLOCATION_UNITS) {
+        return [greedyAllocation(group, inventoryByLineId, preferredWarehouseId)];
+    }
+    let candidates = [new Map()];
+    for (const line of group) {
+        const options = enumerateLineAllocations(line, inventoryByLineId.get(line.id) ?? [], preferredWarehouseId);
+        const expanded = [];
+        for (const candidate of candidates) {
+            for (const option of options) {
+                const merged = cloneAllocation(candidate);
+                for (const allocated of option) {
+                    const lines = merged.get(allocated.warehouseId) ?? [];
+                    lines.push(allocated.line);
+                    merged.set(allocated.warehouseId, lines);
+                }
+                expanded.push(merged);
+                if (expanded.length >= MAX_ALLOCATION_CANDIDATES) {
+                    break;
+                }
+            }
+            if (expanded.length >= MAX_ALLOCATION_CANDIDATES) {
+                break;
+            }
+        }
+        candidates = expanded;
+    }
+    return candidates;
+}
+function enumerateLineAllocations(line, inventoryItems, preferredWarehouseId) {
+    const availability = new Map();
+    for (const item of inventoryItems) {
+        const warehouseId = item.warehouseId ?? preferredWarehouseId;
+        availability.set(warehouseId, (availability.get(warehouseId) ?? 0) + item.available);
+    }
+    const warehouses = [...availability.keys()].sort((a, b) => {
+        if (a === preferredWarehouseId && b !== preferredWarehouseId)
+            return -1;
+        if (b === preferredWarehouseId && a !== preferredWarehouseId)
+            return 1;
+        return a.localeCompare(b);
+    });
+    const options = [];
+    const visit = (index, remaining, allocations) => {
+        if (index === warehouses.length) {
+            if (remaining === 0) {
+                options.push([...allocations.entries()]
+                    .filter(([, quantity]) => quantity > 0)
+                    .map(([warehouseId, quantity]) => ({ warehouseId, line: { ...line, quantity } })));
+            }
+            return;
+        }
+        const warehouseId = warehouses[index];
+        const available = availability.get(warehouseId) ?? 0;
+        const remainingCapacity = warehouses
+            .slice(index + 1)
+            .reduce((sum, candidate) => sum + (availability.get(candidate) ?? 0), 0);
+        const minimum = Math.max(0, remaining - remainingCapacity);
+        const maximum = Math.min(available, remaining);
+        for (let quantity = minimum; quantity <= maximum; quantity += 1) {
+            if (quantity > 0)
+                allocations.set(warehouseId, quantity);
+            visit(index + 1, remaining - quantity, allocations);
+            allocations.delete(warehouseId);
+        }
+    };
+    visit(0, line.quantity, new Map());
+    return options;
+}
+function greedyAllocation(group, inventoryByLineId, preferredWarehouseId) {
+    const allocation = new Map();
+    for (const line of group) {
+        for (const allocated of allocateLineByWarehouse(line, inventoryByLineId.get(line.id) ?? [], preferredWarehouseId)) {
+            const lines = allocation.get(allocated.warehouseId) ?? [];
+            lines.push(allocated.line);
+            allocation.set(allocated.warehouseId, lines);
+        }
+    }
+    return allocation;
+}
+function cloneAllocation(allocation) {
+    return new Map([...allocation.entries()].map(([warehouseId, lines]) => [warehouseId, [...lines]]));
+}
+function scoreShipmentPlan(shipments, sourceLines, containers, order, soloShippingCosts, rateEstimator) {
+    return shipments.reduce((sum, shipment) => {
+        const lines = shipment.lines.flatMap((shipmentLine) => {
+            const source = sourceLines.find((line) => line.id === shipmentLine.orderLineId);
+            return source ? [{ ...source, quantity: shipmentLine.quantity }] : [];
+        });
+        const container = shipment.containerSku
+            ? containers.find((candidate) => candidate.sku === shipment.containerSku)
+            : undefined;
+        const defaultProxyCost = shipment.containerSku
+            ? (container ? cartonShipmentScore(container.container.innerDimensions) : Number.POSITIVE_INFINITY)
+            : lines.reduce((lineSum, line) => lineSum + soloShipmentScore(requiredDimensions(line), soloShippingCosts?.get(line.sku)) * line.quantity, 0);
+        if (rateEstimator) {
+            return sum + rateEstimator({
+                order,
+                shipment,
+                lines,
+                containerDimensions: container?.container.innerDimensions,
+                defaultProxyCost
+            });
+        }
+        if (shipment.containerSku) {
+            return sum + (container ? cartonShipmentScore(container.container.innerDimensions) : Number.POSITIVE_INFINITY);
+        }
+        return sum + defaultProxyCost;
+    }, 0);
+}
+function shipmentCandidateScore(lines, containerSku, containerDimensions, order, warehouseId, rateEstimator, defaultProxyCost) {
+    if (!rateEstimator)
+        return defaultProxyCost;
+    return rateEstimator({
+        order,
+        shipment: {
+            shipmentIndex: 0,
+            fulfillmentName: "candidate",
+            warehouseId,
+            containerSku,
+            lines: lines.map(toShipmentLine),
+            reasons: []
+        },
+        lines,
+        containerDimensions,
+        defaultProxyCost
+    });
+}
+function recordKnownCombinations(shipments, sourceLines, containers, knownCombinations) {
+    if (!knownCombinations)
+        return;
+    for (const shipment of shipments) {
+        if (!shipment.containerSku)
+            continue;
+        const container = containers.find((candidate) => candidate.sku === shipment.containerSku);
+        if (!container)
+            continue;
+        const lines = shipment.lines.flatMap((shipmentLine) => {
+            const source = sourceLines.find((line) => line.id === shipmentLine.orderLineId);
+            return source ? [{ ...source, quantity: shipmentLine.quantity }] : [];
+        });
+        if (lines.length > 0) {
+            const key = knownCombinationKey(lines);
+            if (!knownCombinations.get(key)) {
+                knownCombinations.put(createKnownCombinationRecord(key, lines, container.sku, container.container.innerDimensions));
+            }
+        }
+    }
 }
 function sortWarehouseEntries(lineGroups, preferredWarehouseId) {
     return [...lineGroups.entries()].sort(([a], [b]) => {
@@ -191,15 +388,15 @@ function groupByPackCompatibility(lines, exceptions) {
     }
     return groups;
 }
-function optimizeGroupIntoShipments(group, containers, remainingContainers, orderNumber, warehouseId, knownCombinations, soloShippingCosts, startingShipmentCount) {
-    const exactResult = optimizeExactGroupIntoShipments(group, containers, remainingContainers, orderNumber, warehouseId, knownCombinations, soloShippingCosts, startingShipmentCount);
+function optimizeGroupIntoShipments(group, containers, remainingContainers, orderNumber, order, warehouseId, knownCombinations, soloShippingCosts, rateEstimator, startingShipmentCount) {
+    const exactResult = optimizeExactGroupIntoShipments(group, containers, remainingContainers, orderNumber, order, warehouseId, knownCombinations, soloShippingCosts, rateEstimator, startingShipmentCount);
     if (exactResult) {
         return exactResult;
     }
     const shipments = [];
     let remainingUnits = expandPackingUnits(group, warehouseId);
     while (remainingUnits.length > 0) {
-        const candidate = findBestPackedCartonCandidate(remainingUnits, containers, remainingContainers, knownCombinations, soloShippingCosts);
+        const candidate = findBestPackedCartonCandidate(remainingUnits, containers, remainingContainers, knownCombinations, soloShippingCosts, rateEstimator, order, warehouseId);
         if (!candidate) {
             break;
         }
@@ -224,7 +421,7 @@ function optimizeGroupIntoShipments(group, containers, remainingContainers, orde
         unpackedLines: unitsToOrderLines(remainingUnits)
     };
 }
-function findBestPackedCartonCandidate(units, containers, remainingContainers, knownCombinations, soloShippingCosts) {
+function findBestPackedCartonCandidate(units, containers, remainingContainers, knownCombinations, soloShippingCosts, rateEstimator, order, warehouseId) {
     const subsets = candidateUnitSubsets(units);
     let best = null;
     for (const subset of subsets) {
@@ -254,7 +451,7 @@ function findBestPackedCartonCandidate(units, containers, remainingContainers, k
                 lines,
                 fillRatio: requiredVolume / containerVolume,
                 dimensionalWeight: dimensionalWeight(container.container.innerDimensions),
-                score: cartonShipmentScore(container.container.innerDimensions),
+                score: shipmentCandidateScore(lines, container.sku, container.container.innerDimensions, order, warehouseId, rateEstimator, cartonShipmentScore(container.container.innerDimensions)),
                 usedKnownCombination: Boolean(cachedContainer)
             };
             if (!best || isBetterCandidate(candidate, best)) {
@@ -264,12 +461,12 @@ function findBestPackedCartonCandidate(units, containers, remainingContainers, k
     }
     return best;
 }
-function optimizeExactGroupIntoShipments(group, containers, remainingContainers, orderNumber, warehouseId, knownCombinations, soloShippingCosts, startingShipmentCount) {
+function optimizeExactGroupIntoShipments(group, containers, remainingContainers, orderNumber, order, warehouseId, knownCombinations, soloShippingCosts, rateEstimator, startingShipmentCount) {
     const units = expandPackingUnits(group, warehouseId);
     if (units.length > MAX_EXACT_OPTIMIZATION_UNITS) {
         return null;
     }
-    const candidates = exactShipmentCandidates(units, containers, remainingContainers, knownCombinations, soloShippingCosts);
+    const candidates = exactShipmentCandidates(units, containers, remainingContainers, knownCombinations, soloShippingCosts, rateEstimator, order, warehouseId);
     const fullMask = (1 << units.length) - 1;
     const memo = new Map();
     const solve = (mask, counts) => {
@@ -336,7 +533,7 @@ function optimizeExactGroupIntoShipments(group, containers, remainingContainers,
         unpackedLines: []
     };
 }
-function exactShipmentCandidates(units, containers, remainingContainers, knownCombinations, soloShippingCosts) {
+function exactShipmentCandidates(units, containers, remainingContainers, knownCombinations, soloShippingCosts, rateEstimator, order, warehouseId) {
     const candidates = [];
     const subsetCount = 2 ** units.length;
     for (let mask = 1; mask < subsetCount; mask += 1) {
@@ -353,7 +550,7 @@ function exactShipmentCandidates(units, containers, remainingContainers, knownCo
                 lines,
                 fillRatio: 1,
                 dimensionalWeight: dimensionalWeight(unit.dimensions),
-                score: soloShipmentScore(unit.dimensions, soloCostReference),
+                score: shipmentCandidateScore(lines, null, undefined, order, warehouseId, rateEstimator, soloShipmentScore(unit.dimensions, soloCostReference)),
                 usedKnownCombination: false,
                 soloCostReference
             });
@@ -384,7 +581,7 @@ function exactShipmentCandidates(units, containers, remainingContainers, knownCo
                 lines,
                 fillRatio: requiredVolume / containerVolume,
                 dimensionalWeight: dimensionalWeight(containerDimensions),
-                score: cartonShipmentScore(containerDimensions),
+                score: shipmentCandidateScore(lines, container.sku, containerDimensions, order, warehouseId, rateEstimator, cartonShipmentScore(containerDimensions)),
                 usedKnownCombination
             });
         }
