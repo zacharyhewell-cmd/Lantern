@@ -134,7 +134,9 @@ function selectBestAllocation(group, inventoryByLineId, containers, order, known
             }
         }
         const score = scoreShipmentPlan(shipments, group, containers, order, soloShippingCosts, rateEstimator);
-        if (!best || score < best.score || (score === best.score && shipments.length < best.shipments.length)) {
+        if (!best ||
+            exceptions.length < best.exceptions.length ||
+            (exceptions.length === best.exceptions.length && (score < best.score || (score === best.score && shipments.length < best.shipments.length)))) {
             best = { shipments, score, exceptions };
         }
     }
@@ -242,7 +244,7 @@ function scoreShipmentPlan(shipments, sourceLines, containers, order, soloShippi
             return source ? [{ ...source, quantity: shipmentLine.quantity }] : [];
         });
         const container = shipment.containerSku
-            ? containers.find((candidate) => candidate.sku === shipment.containerSku)
+            ? containers.find((candidate) => candidate.sku === shipment.containerSku && candidate.warehouseId === shipment.warehouseId)
             : undefined;
         const defaultProxyCost = shipment.containerSku
             ? (container ? cartonShipmentScore(container.container.innerDimensions) : Number.POSITIVE_INFINITY)
@@ -286,7 +288,7 @@ function recordKnownCombinations(shipments, sourceLines, containers, knownCombin
     for (const shipment of shipments) {
         if (!shipment.containerSku)
             continue;
-        const container = containers.find((candidate) => candidate.sku === shipment.containerSku);
+        const container = containers.find((candidate) => candidate.sku === shipment.containerSku && candidate.warehouseId === shipment.warehouseId);
         if (!container)
             continue;
         const lines = shipment.lines.flatMap((shipmentLine) => {
