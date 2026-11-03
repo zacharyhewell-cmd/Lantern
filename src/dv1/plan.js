@@ -43,7 +43,7 @@ export async function planDv1Order({ orderNumber, shopifyConfig, surpathConfig }
     catalogSnapshot: catalog.generatedFrom,
     warnings: [
       ...(liveData.warnings || []),
-      "FedEx Ground costs are currently estimated with an origin-aware planning proxy; carrier rating is not yet live.",
+      "FedEx Ground costs are ranked with an origin-aware comparative planning model; this is a relative decision score, not a carrier quote.",
     ],
   };
 }
