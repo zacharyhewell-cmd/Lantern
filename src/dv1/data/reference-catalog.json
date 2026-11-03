@@ -2,26 +2,26 @@
   "generatedFrom": {
     "sourceType": "feishu-sheet",
     "sourceTitle": "Accessories Package Dimension",
-    "wikiUrl": "https://velotric.feishu.cn/wiki/GAsUwq2iKiPEAXkaZ4ncU0xhnme?from=from_copylink",
     "spreadsheetToken": "UsMXsBUuKha13jt0W4jciGgyn6g",
     "sheetId": "2b1183",
     "revision": 200,
+    "wikiUrl": "https://velotric.feishu.cn/wiki/GAsUwq2iKiPEAXkaZ4ncU0xhnme?from=from_copylink",
+    "fetchedAt": "2026-11-03T00:00:00-06:00",
     "sourceColumns": [
       "A",
       "B",
       "C",
       "D",
-      "E"
+      "E",
+      "F",
+      "G"
     ],
     "excludedColumns": [
-      "F",
-      "G",
       "H"
     ],
-    "fetchedAt": "2026-11-03T00:00:00-06:00",
     "sourceRowCount": 106,
-    "includedSourceRows": 94,
-    "skippedSourceRows": 12
+    "includedSourceRows": 103,
+    "skippedSourceRows": 3
   },
   "skus": [
     {
@@ -38,7 +38,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 2; source SKU AACC0073A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 2; source SKU AACC0073A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0074A",
@@ -54,7 +54,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 3; source SKU AACC0074A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 3; source SKU AACC0074A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0075A",
@@ -70,7 +70,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 4; source SKU AACC0075A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 4; source SKU AACC0075A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0036A",
@@ -86,7 +86,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 5; source SKU AACC0036A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 5; source SKU AACC0036A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0035A",
@@ -102,7 +102,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 6; source SKU AACC0035A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 6; source SKU AACC0035A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0011B",
@@ -118,7 +118,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 7; source SKU AACC0011B-14B; dimensions from column D; weight from column E. Expanded from source SKU AACC0011B-14B."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 7; source SKU AACC0011B-14B; dimensions from column D; weight from column E. Expanded from source SKU AACC0011B-14B."
     },
     {
       "sku": "AACC0012B",
@@ -134,7 +134,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 7; source SKU AACC0011B-14B; dimensions from column D; weight from column E. Expanded from source SKU AACC0011B-14B."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 7; source SKU AACC0011B-14B; dimensions from column D; weight from column E. Expanded from source SKU AACC0011B-14B."
     },
     {
       "sku": "AACC0013B",
@@ -150,7 +150,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 7; source SKU AACC0011B-14B; dimensions from column D; weight from column E. Expanded from source SKU AACC0011B-14B."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 7; source SKU AACC0011B-14B; dimensions from column D; weight from column E. Expanded from source SKU AACC0011B-14B."
     },
     {
       "sku": "AACC0014B",
@@ -166,7 +166,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 36; source SKU AACC0014B; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 36; source SKU AACC0014B; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0095A",
@@ -182,7 +182,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 8; source SKU AACC0095A-96A; dimensions from column D; weight from column E. Expanded from source SKU AACC0095A-96A."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 8; source SKU AACC0095A-96A; dimensions from column D; weight from column E. Expanded from source SKU AACC0095A-96A."
     },
     {
       "sku": "AACC0096A",
@@ -198,7 +198,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 8; source SKU AACC0095A-96A; dimensions from column D; weight from column E. Expanded from source SKU AACC0095A-96A."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 8; source SKU AACC0095A-96A; dimensions from column D; weight from column E. Expanded from source SKU AACC0095A-96A."
     },
     {
       "sku": "AACC0080A",
@@ -214,7 +214,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 9; source SKU AACC0080A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 9; source SKU AACC0080A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0023A",
@@ -230,7 +230,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 10; source SKU AACC0023A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 10; source SKU AACC0023A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0024A",
@@ -246,7 +246,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 11; source SKU AACC0024A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 11; source SKU AACC0024A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0034A",
@@ -262,7 +262,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 12; source SKU AACC0034A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 12; source SKU AACC0034A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0034B",
@@ -278,7 +278,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 13; source SKU AACC0034B; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 13; source SKU AACC0034B; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0028A",
@@ -294,7 +294,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 14; source SKU AACC0028A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 14; source SKU AACC0028A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0029A",
@@ -310,7 +310,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 15; source SKU AACC0029A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 15; source SKU AACC0029A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0025A",
@@ -326,7 +326,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 16; source SKU AACC0025A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 16; source SKU AACC0025A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0027B",
@@ -342,7 +342,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 17; source SKU AACC0027B; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 17; source SKU AACC0027B; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0030A",
@@ -358,7 +358,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 18; source SKU AACC0030A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 18; source SKU AACC0030A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0026A",
@@ -374,7 +374,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 19; source SKU AACC0026A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 19; source SKU AACC0026A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0022A",
@@ -390,7 +390,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 20; source SKU AACC0022A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 20; source SKU AACC0022A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0082A",
@@ -406,7 +406,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 21; source SKU AACC0082A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 21; source SKU AACC0082A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0019B",
@@ -422,7 +422,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 22; source SKU AACC0019B; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 22; source SKU AACC0019B; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0084A",
@@ -438,7 +438,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 23; source SKU AACC0084A-087A; dimensions from column D; weight from column E. Expanded from source SKU AACC0084A-087A."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 23; source SKU AACC0084A-087A; dimensions from column D; weight from column E. Expanded from source SKU AACC0084A-087A."
     },
     {
       "sku": "AACC0085A",
@@ -454,7 +454,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 23; source SKU AACC0084A-087A; dimensions from column D; weight from column E. Expanded from source SKU AACC0084A-087A."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 23; source SKU AACC0084A-087A; dimensions from column D; weight from column E. Expanded from source SKU AACC0084A-087A."
     },
     {
       "sku": "AACC0086A",
@@ -470,7 +470,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 23; source SKU AACC0084A-087A; dimensions from column D; weight from column E. Expanded from source SKU AACC0084A-087A."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 23; source SKU AACC0084A-087A; dimensions from column D; weight from column E. Expanded from source SKU AACC0084A-087A."
     },
     {
       "sku": "AACC0087A",
@@ -486,7 +486,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 23; source SKU AACC0084A-087A; dimensions from column D; weight from column E. Expanded from source SKU AACC0084A-087A."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 23; source SKU AACC0084A-087A; dimensions from column D; weight from column E. Expanded from source SKU AACC0084A-087A."
     },
     {
       "sku": "AACC0083A",
@@ -502,7 +502,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 24; source SKU AACC0083A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 24; source SKU AACC0083A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0088A",
@@ -518,7 +518,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 25; source SKU AACC0088A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 25; source SKU AACC0088A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0017A",
@@ -534,7 +534,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 26; source SKU AACC0017A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 26; source SKU AACC0017A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0016B",
@@ -550,7 +550,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 27; source SKU AACC0016B; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 27; source SKU AACC0016B; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0078A",
@@ -566,7 +566,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 28; source SKU AACC0078A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 28; source SKU AACC0078A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0079A",
@@ -582,7 +582,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 29; source SKU AACC0079A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 29; source SKU AACC0079A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0091A",
@@ -598,7 +598,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 30; source SKU AACC0091A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 30; source SKU AACC0091A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0092A",
@@ -614,7 +614,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 31; source SKU AACC0092A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 31; source SKU AACC0092A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0089A",
@@ -630,7 +630,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 32; source SKU AACC0089A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 32; source SKU AACC0089A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0090A",
@@ -646,7 +646,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 33; source SKU AACC0090A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 33; source SKU AACC0090A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0099A",
@@ -662,7 +662,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 34; source SKU AACC0099A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 34; source SKU AACC0099A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0032A",
@@ -678,7 +678,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 35; source SKU AACC0032A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 35; source SKU AACC0032A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0015B",
@@ -694,7 +694,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 37; source SKU AACC0015B; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 37; source SKU AACC0015B; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0097A",
@@ -710,7 +710,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 38; source SKU AACC0097A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 38; source SKU AACC0097A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0098A",
@@ -726,7 +726,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 39; source SKU AACC0098A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 39; source SKU AACC0098A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0101A",
@@ -742,7 +742,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 40; source SKU AACC0101A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 40; source SKU AACC0101A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0093A",
@@ -758,7 +758,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 41; source SKU AACC0093A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 41; source SKU AACC0093A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0104A",
@@ -774,7 +774,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 42; source SKU AACC0104A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 42; source SKU AACC0104A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0121A",
@@ -790,7 +790,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 43; source SKU AACC0121A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 43; source SKU AACC0121A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0124A",
@@ -806,7 +806,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 44; source SKU AACC0124A/124B; dimensions from column D; weight from column E. Expanded from source SKU AACC0124A/124B."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 44; source SKU AACC0124A/124B; dimensions from column D; weight from column E. Expanded from source SKU AACC0124A/124B."
     },
     {
       "sku": "AACC0124B",
@@ -822,7 +822,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 44; source SKU AACC0124A/124B; dimensions from column D; weight from column E. Expanded from source SKU AACC0124A/124B."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 44; source SKU AACC0124A/124B; dimensions from column D; weight from column E. Expanded from source SKU AACC0124A/124B."
     },
     {
       "sku": "AACC0122A",
@@ -838,7 +838,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 45; source SKU AACC0122A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 45; source SKU AACC0122A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0125A",
@@ -854,7 +854,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 46; source SKU AACC0125A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 46; source SKU AACC0125A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0126A",
@@ -870,7 +870,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 47; source SKU AACC0126A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 47; source SKU AACC0126A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0119A",
@@ -886,7 +886,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 48; source SKU AACC0119A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 48; source SKU AACC0119A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0120A",
@@ -902,7 +902,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 49; source SKU AACC0120A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 49; source SKU AACC0120A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0127A",
@@ -918,7 +918,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 50; source SKU AACC0127A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 50; source SKU AACC0127A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0103A",
@@ -934,7 +934,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 51; source SKU AACC0103A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 51; source SKU AACC0103A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0037A",
@@ -950,7 +950,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 52; source SKU AACC0037A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 52; source SKU AACC0037A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0134A",
@@ -966,7 +966,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 53; source SKU AACC0134A/0138A/0139A; dimensions from column D; weight from column E. Expanded from source SKU AACC0134A/0138A/0139A."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 53; source SKU AACC0134A/0138A/0139A; dimensions from column D; weight from column E. Expanded from source SKU AACC0134A/0138A/0139A."
     },
     {
       "sku": "AACC0138A",
@@ -982,7 +982,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 53; source SKU AACC0134A/0138A/0139A; dimensions from column D; weight from column E. Expanded from source SKU AACC0134A/0138A/0139A."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 53; source SKU AACC0134A/0138A/0139A; dimensions from column D; weight from column E. Expanded from source SKU AACC0134A/0138A/0139A."
     },
     {
       "sku": "AACC0139A",
@@ -998,7 +998,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 53; source SKU AACC0134A/0138A/0139A; dimensions from column D; weight from column E. Expanded from source SKU AACC0134A/0138A/0139A."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 53; source SKU AACC0134A/0138A/0139A; dimensions from column D; weight from column E. Expanded from source SKU AACC0134A/0138A/0139A."
     },
     {
       "sku": "AACC0131A",
@@ -1014,7 +1014,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 54; source SKU AACC0131A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 54; source SKU AACC0131A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0135A",
@@ -1030,7 +1030,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 55; source SKU AACC0135A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 55; source SKU AACC0135A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0136A",
@@ -1046,7 +1046,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 56; source SKU AACC0136A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 56; source SKU AACC0136A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0132A",
@@ -1062,7 +1062,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 57; source SKU AACC0132A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 57; source SKU AACC0132A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0130A",
@@ -1078,7 +1078,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 58; source SKU AACC0130A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 58; source SKU AACC0130A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0140A",
@@ -1094,7 +1094,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 59; source SKU AACC0140A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 59; source SKU AACC0140A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0146A",
@@ -1110,7 +1110,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 60; source SKU AACC0146A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 60; source SKU AACC0146A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0150A",
@@ -1126,7 +1126,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 61; source SKU AACC0150A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 61; source SKU AACC0150A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0142A",
@@ -1142,7 +1142,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 62; source SKU AACC0142A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 62; source SKU AACC0142A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0152A",
@@ -1158,7 +1158,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 63; source SKU AACC0152A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 63; source SKU AACC0152A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0153A",
@@ -1174,7 +1174,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 64; source SKU AACC0153A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 64; source SKU AACC0153A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0154A",
@@ -1190,7 +1190,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 65; source SKU AACC0154A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 65; source SKU AACC0154A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0141A",
@@ -1202,7 +1202,7 @@
         "unit": "mm"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 66; source SKU AACC0141A; dimensions from column D."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 66; source SKU AACC0141A; dimensions from column D."
     },
     {
       "sku": "AACC0183A",
@@ -1218,23 +1218,23 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 67; source SKU AACC0183A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 67; source SKU AACC0183A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0183A-D",
       "name": "Velotric Bike Phone Mount\n360°Rotation• Shock Absorbing",
       "dimensions": {
-        "length": 107,
-        "width": 80,
-        "height": 200,
+        "length": 430,
+        "width": 460,
+        "height": 245,
         "unit": "mm"
       },
       "weight": {
-        "value": 0.606,
+        "value": 7.981,
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 68; source SKU AACC0183A-D; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 68; source SKU AACC0183A-D; dimensions from column F; weight from column G."
     },
     {
       "sku": "AACC0175A",
@@ -1250,7 +1250,23 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 69; source SKU AACC0175A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 69; source SKU AACC0175A; dimensions from column D; weight from column E."
+    },
+    {
+      "sku": "AACC0175A-D",
+      "name": "Velotric Front Basket Bag",
+      "dimensions": {
+        "length": 565,
+        "width": 365,
+        "height": 340,
+        "unit": "mm"
+      },
+      "weight": {
+        "value": 33.841,
+        "unit": "lb"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 70; source SKU AACC0175A-D; dimensions from column F; weight from column G."
     },
     {
       "sku": "AACC0176A",
@@ -1266,7 +1282,19 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 71; source SKU AACC0176A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 71; source SKU AACC0176A; dimensions from column D; weight from column E."
+    },
+    {
+      "sku": "AACC0176A-D",
+      "name": "Velotric Cargo Net",
+      "dimensions": {
+        "length": 430,
+        "width": 265,
+        "height": 230,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 72; source SKU AACC0176A-D; dimensions from column F."
     },
     {
       "sku": "AACC0177A",
@@ -1282,7 +1310,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 73; source SKU AACC0177A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 73; source SKU AACC0177A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0179A",
@@ -1298,7 +1326,23 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 75; source SKU AACC0179A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 75; source SKU AACC0179A; dimensions from column D; weight from column E."
+    },
+    {
+      "sku": "AACC0179A-D",
+      "name": "Velotric Rear Rack Pannier Bag (Quick Release)",
+      "dimensions": {
+        "length": 520,
+        "width": 455,
+        "height": 360,
+        "unit": "mm"
+      },
+      "weight": {
+        "value": 30.887,
+        "unit": "lb"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 76; source SKU AACC0179A-D; dimensions from column F; weight from column G."
     },
     {
       "sku": "AACC0180A",
@@ -1314,7 +1358,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 77; source SKU AACC0180A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 77; source SKU AACC0180A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0189A",
@@ -1330,19 +1374,23 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 78; source SKU AACC0189A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 78; source SKU AACC0189A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0189A-D",
       "name": "Velotric Water Bottle Cage",
       "dimensions": {
-        "length": 180,
-        "width": 90,
-        "height": 110,
+        "length": 385,
+        "width": 205,
+        "height": 360,
         "unit": "mm"
       },
+      "weight": {
+        "value": 4.519,
+        "unit": "lb"
+      },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 79; source SKU AACC0189A-D; dimensions from column D."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 79; source SKU AACC0189A-D; dimensions from column F; weight from column G."
     },
     {
       "sku": "AACC0196A",
@@ -1358,7 +1406,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 80; source SKU AACC0196A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 80; source SKU AACC0196A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0197A",
@@ -1374,7 +1422,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 81; source SKU AACC0197A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 81; source SKU AACC0197A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0212A",
@@ -1390,7 +1438,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 82; source SKU AACC0212A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 82; source SKU AACC0212A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0221A",
@@ -1406,7 +1454,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 83; source SKU AACC0221A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 83; source SKU AACC0221A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0220A",
@@ -1422,7 +1470,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 84; source SKU AACC0220A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 84; source SKU AACC0220A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0219A",
@@ -1438,7 +1486,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 85; source SKU AACC0219A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 85; source SKU AACC0219A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0182A",
@@ -1450,7 +1498,7 @@
         "unit": "mm"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 86; source SKU AACC0182A; dimensions from column D."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 86; source SKU AACC0182A; dimensions from column D."
     },
     {
       "sku": "AACC0213A",
@@ -1466,7 +1514,23 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 87; source SKU AACC0213A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 87; source SKU AACC0213A; dimensions from column D; weight from column E."
+    },
+    {
+      "sku": "AACC0213A-D",
+      "name": "Velotric Handlebar Water Bottle Bag",
+      "dimensions": {
+        "length": 490,
+        "width": 235,
+        "height": 235,
+        "unit": "mm"
+      },
+      "weight": {
+        "value": 7.231,
+        "unit": "lb"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 88; source SKU AACC0213A-D; dimensions from column F; weight from column G."
     },
     {
       "sku": "AACC0191A",
@@ -1482,7 +1546,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 89; source SKU AACC0191A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 89; source SKU AACC0191A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0186A",
@@ -1498,7 +1562,23 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 90; source SKU AACC0186A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 90; source SKU AACC0186A; dimensions from column D; weight from column E."
+    },
+    {
+      "sku": "AACC0186A-D",
+      "name": "Velotric Left Side Mirror",
+      "dimensions": {
+        "length": 300,
+        "width": 320,
+        "height": 300,
+        "unit": "mm"
+      },
+      "weight": {
+        "value": 10.251,
+        "unit": "lb"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 91; source SKU AACC0186A-D; dimensions from column F; weight from column G."
     },
     {
       "sku": "AACC0187A",
@@ -1514,7 +1594,23 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 92; source SKU AACC0187A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 92; source SKU AACC0187A; dimensions from column D; weight from column E."
+    },
+    {
+      "sku": "AACC0187A-D",
+      "name": "Velotric Right Side Mirror",
+      "dimensions": {
+        "length": 300,
+        "width": 320,
+        "height": 300,
+        "unit": "mm"
+      },
+      "weight": {
+        "value": 10.251,
+        "unit": "lb"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 93; source SKU AACC0187A-D; dimensions from column F; weight from column G."
     },
     {
       "sku": "AACC0181A",
@@ -1530,7 +1626,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 94; source SKU AACC0181A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 94; source SKU AACC0181A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0199A",
@@ -1542,7 +1638,7 @@
         "unit": "mm"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 95; source SKU AACC0199A; dimensions from column D."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 95; source SKU AACC0199A; dimensions from column D."
     },
     {
       "sku": "AACC0192A",
@@ -1558,7 +1654,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 98; source SKU AACC0192A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 98; source SKU AACC0192A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0195A",
@@ -1574,7 +1670,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 99; source SKU AACC0195A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 99; source SKU AACC0195A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0160A",
@@ -1590,7 +1686,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 100; source SKU AACC0160A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 100; source SKU AACC0160A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0171A",
@@ -1606,7 +1702,23 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 101; source SKU AACC0171A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 101; source SKU AACC0171A; dimensions from column D; weight from column E."
+    },
+    {
+      "sku": "AACC0171A-D",
+      "name": "Velotric High-Visibility Rear Light",
+      "dimensions": {
+        "length": 280,
+        "width": 225,
+        "height": 120,
+        "unit": "mm"
+      },
+      "weight": {
+        "value": 2.315,
+        "unit": "lb"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 102; source SKU AACC0171A-D; dimensions from column F; weight from column G."
     },
     {
       "sku": "AACC0169A",
@@ -1622,7 +1734,7 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 103; source SKU AACC0169A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 103; source SKU AACC0169A; dimensions from column D; weight from column E."
     },
     {
       "sku": "AACC0155A",
@@ -1634,7 +1746,19 @@
         "unit": "mm"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 104; source SKU AACC0155A; dimensions from column D."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 104; source SKU AACC0155A; dimensions from column D."
+    },
+    {
+      "sku": "AACC0155A-D",
+      "name": "Velotric Quick-Release Comfort Seat",
+      "dimensions": {
+        "length": 435,
+        "width": 380,
+        "height": 185,
+        "unit": "mm"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 105; source SKU AACC0155A-D; dimensions from column F."
     },
     {
       "sku": "AACC0167A",
@@ -1650,7 +1774,23 @@
         "unit": "lb"
       },
       "packGroup": "standard",
-      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-E. Source row 106; source SKU AACC0167A; dimensions from column D; weight from column E."
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 106; source SKU AACC0167A; dimensions from column D; weight from column E."
+    },
+    {
+      "sku": "AACCO167A-D",
+      "name": "Velotric Heavy-Duty Bungee Straps",
+      "dimensions": {
+        "length": 390,
+        "width": 220,
+        "height": 165,
+        "unit": "mm"
+      },
+      "weight": {
+        "value": 19.875,
+        "unit": "lb"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 107; source SKU AACCO167A-D; dimensions from column F; weight from column G."
     }
   ],
   "cartons": [
