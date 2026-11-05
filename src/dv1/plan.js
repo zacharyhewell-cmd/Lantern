@@ -45,7 +45,7 @@ export async function planDv1Order({ orderNumber, shopifyConfig, surpathConfig }
     catalogSnapshot: catalog.generatedFrom,
     warnings: [
       ...(liveData.warnings || []),
-      "FedEx Ground costs are ranked with an origin-aware comparative planning model; this is a relative decision score, not a carrier quote.",
+      "FedEx Ground and Express Saver are compared with published list-rate tables and origin zone maps; this is a comparative planning model, not a carrier quote.",
     ],
   };
 }
