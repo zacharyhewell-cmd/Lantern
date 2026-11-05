@@ -1,0 +1,49 @@
+{
+  "records": [
+    {
+      "key": "{\"sku\":\"AACC0019B\",\"quantity\":2,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0036A\",\"quantity\":1,\"dimensions\":{\"length\":163,\"width\":161,\"height\":60,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0073A\",\"quantity\":1,\"dimensions\":{\"length\":150,\"width\":75,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
+      "cartonSku": "ABOX0007",
+      "cartonDimensions": {
+        "length": 355,
+        "width": 190,
+        "height": 190,
+        "unit": "mm"
+      },
+      "itemSummary": [
+        {
+          "sku": "AACC0019B",
+          "quantity": 2,
+          "dimensions": {
+            "length": 170,
+            "width": 85,
+            "height": 45,
+            "unit": "mm"
+          }
+        },
+        {
+          "sku": "AACC0073A",
+          "quantity": 1,
+          "dimensions": {
+            "length": 150,
+            "width": 75,
+            "height": 45,
+            "unit": "mm"
+          }
+        },
+        {
+          "sku": "AACC0036A",
+          "quantity": 1,
+          "dimensions": {
+            "length": 163,
+            "width": 161,
+            "height": 60,
+            "unit": "mm"
+          }
+        }
+      ],
+      "createdAt": "2026-10-27T21:54:49.349Z",
+      "useCount": 88,
+      "lastUsedAt": "2026-11-04T22:47:56.011Z"
+    }
+  ]
+}

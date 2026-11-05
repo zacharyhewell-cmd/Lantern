@@ -83,6 +83,8 @@ The gateway calls Surpath's `querySkuInventory` tool for the order SKUs and conf
 
 The same Lantern service can serve the DV1 operator screen at `/dv1`. Set `DV1_UI_USERNAME` and `DV1_UI_PASSWORD` to enable the protected browser route. The screen is read-only: it runs the recommendation and does not edit Shopify, Eccang, or Surpath.
 
+DV1 can refresh its two Feishu-backed data snapshots once per week. Set `DV1_SOURCE_REFRESH_ENABLED=true` (the Render configuration enables this), with `DV1_SOURCE_REFRESH_INTERVAL_HOURS=168`. The updater reads the SKU catalog and the `派送费明细 （Fedex）2026` tab through the existing Feishu app connection, validates that both produce usable records, and then replaces both snapshots atomically. If either source fails, the previous snapshots remain active. The updater retains the carton definitions already stored in the catalog snapshot.
+
 Local smoke test:
 
 ```bash

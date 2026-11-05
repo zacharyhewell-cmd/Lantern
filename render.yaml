@@ -72,3 +72,17 @@ services:
         value: LA-SPI1
       - key: DV1_CARTON_SKUS
         value: ABOX0001,ABOX0002,ABOX0003,ABOX0004,ABOX0005,ABOX0006,ABOX0007
+      - key: DV1_SOURCE_REFRESH_ENABLED
+        value: "true"
+      - key: DV1_SOURCE_REFRESH_INTERVAL_HOURS
+        value: "168"
+      - key: DV1_SOURCE_REFRESH_MAX_ROWS
+        value: "250000"
+      - key: DV1_CATALOG_SPREADSHEET_TOKEN
+        sync: false
+      - key: DV1_CATALOG_SHEET_ID
+        sync: false
+      - key: DV1_FEDEX_SPREADSHEET_TOKEN
+        sync: false
+      - key: DV1_FEDEX_SHEET_ID
+        sync: false

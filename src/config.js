@@ -133,6 +133,18 @@ export function getServerConfig() {
   };
 }
 
+export function getDv1SourceRefreshConfig() {
+  return {
+    enabled: process.env.DV1_SOURCE_REFRESH_ENABLED === "true",
+    intervalMs: Math.max(60 * 60 * 1000, Number(process.env.DV1_SOURCE_REFRESH_INTERVAL_HOURS || 168) * 60 * 60 * 1000),
+    catalogSpreadsheetToken: process.env.DV1_CATALOG_SPREADSHEET_TOKEN || "UsMXsBUuKha13jt0W4jciGgyn6g",
+    catalogSheetId: process.env.DV1_CATALOG_SHEET_ID || "2b1183",
+    fedexSpreadsheetToken: process.env.DV1_FEDEX_SPREADSHEET_TOKEN || "T7Mbs087hhtWtrtffoec84IBnpf",
+    fedexSheetId: process.env.DV1_FEDEX_SHEET_ID || "qFDTIF",
+    maxRows: Math.max(10_000, Number(process.env.DV1_SOURCE_REFRESH_MAX_ROWS || 250_000)),
+  };
+}
+
 export function getWtfConfig() {
   const sheetUrl = process.env.WTF_SHEET_URL ||
     "https://velotric.feishu.cn/sheets/Y0UUsLgAPhZllot6GbQcopCynJh";

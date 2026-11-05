@@ -9,7 +9,7 @@ import { planShipments } from "./core/planner/shipment-planner.js";
 import { DEFAULT_WAREHOUSE_ORIGINS } from "./core/domain/shipping-rates.js";
 
 const dataDirectory = join(dirname(fileURLToPath(import.meta.url)), "data");
-const knownCombinationsPath = process.env.DV1_KNOWN_COMBINATIONS_PATH || "var/dv1-known-combinations.json";
+const knownCombinationsPath = process.env.DV1_KNOWN_COMBINATIONS_PATH || join(dataDirectory, "known-combinations.json");
 let publishedRateConfigPromise;
 
 async function readJson(path) {
