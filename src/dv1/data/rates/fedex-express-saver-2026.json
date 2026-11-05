@@ -1,0 +1,1880 @@
+{
+  "serviceLevel": "FEDEX_EXPRESS_SAVER",
+  "serviceName": "FedEx Express Saver Standard List Rates",
+  "effectiveDate": "2026-01-05",
+  "currency": "USD",
+  "weightUnit": "lb",
+  "sourceFile": "ESP.csv",
+  "sourceEncoding": "windows-1252",
+  "scope": "US domestic Express Saver zones 2-8",
+  "zoneLabels": [
+    "Zone 2",
+    "Zone 3",
+    "Zone 4",
+    "Zone 5",
+    "Zone 6",
+    "Zone 7",
+    "Zone 8"
+  ],
+  "rows": [
+    {
+      "billableWeightLb": 1,
+      "ratesUsd": {
+        "Zone 2": 23.84,
+        "Zone 3": 24.33,
+        "Zone 4": 24.83,
+        "Zone 5": 31.04,
+        "Zone 6": 35.69,
+        "Zone 7": 37.51,
+        "Zone 8": 41.41
+      }
+    },
+    {
+      "billableWeightLb": 2,
+      "ratesUsd": {
+        "Zone 2": 24.29,
+        "Zone 3": 24.79,
+        "Zone 4": 25.29,
+        "Zone 5": 31.59,
+        "Zone 6": 38.06,
+        "Zone 7": 41.8,
+        "Zone 8": 48.1
+      }
+    },
+    {
+      "billableWeightLb": 3,
+      "ratesUsd": {
+        "Zone 2": 25.79,
+        "Zone 3": 27.51,
+        "Zone 4": 28.07,
+        "Zone 5": 35.04,
+        "Zone 6": 44.25,
+        "Zone 7": 46.77,
+        "Zone 8": 54.32
+      }
+    },
+    {
+      "billableWeightLb": 4,
+      "ratesUsd": {
+        "Zone 2": 26.25,
+        "Zone 3": 28.41,
+        "Zone 4": 30.52,
+        "Zone 5": 39.38,
+        "Zone 6": 46.55,
+        "Zone 7": 53.47,
+        "Zone 8": 62.15
+      }
+    },
+    {
+      "billableWeightLb": 5,
+      "ratesUsd": {
+        "Zone 2": 26.7,
+        "Zone 3": 28.86,
+        "Zone 4": 32.19,
+        "Zone 5": 40.99,
+        "Zone 6": 52.83,
+        "Zone 7": 59.03,
+        "Zone 8": 69.71
+      }
+    },
+    {
+      "billableWeightLb": 6,
+      "ratesUsd": {
+        "Zone 2": 28.86,
+        "Zone 3": 31.46,
+        "Zone 4": 36.78,
+        "Zone 5": 48.3,
+        "Zone 6": 62.06,
+        "Zone 7": 65.57,
+        "Zone 8": 79.28
+      }
+    },
+    {
+      "billableWeightLb": 7,
+      "ratesUsd": {
+        "Zone 2": 29.33,
+        "Zone 3": 34.48,
+        "Zone 4": 39.75,
+        "Zone 5": 49.24,
+        "Zone 6": 65.49,
+        "Zone 7": 74.19,
+        "Zone 8": 82.57
+      }
+    },
+    {
+      "billableWeightLb": 8,
+      "ratesUsd": {
+        "Zone 2": 30.43,
+        "Zone 3": 36.5,
+        "Zone 4": 41.11,
+        "Zone 5": 52.94,
+        "Zone 6": 71.89,
+        "Zone 7": 81.21,
+        "Zone 8": 90.17
+      }
+    },
+    {
+      "billableWeightLb": 9,
+      "ratesUsd": {
+        "Zone 2": 30.69,
+        "Zone 3": 36.77,
+        "Zone 4": 43.87,
+        "Zone 5": 55.08,
+        "Zone 6": 74.23,
+        "Zone 7": 89.12,
+        "Zone 8": 102.41
+      }
+    },
+    {
+      "billableWeightLb": 10,
+      "ratesUsd": {
+        "Zone 2": 30.99,
+        "Zone 3": 37.02,
+        "Zone 4": 45.01,
+        "Zone 5": 59.21,
+        "Zone 6": 78.83,
+        "Zone 7": 95.91,
+        "Zone 8": 110.41
+      }
+    },
+    {
+      "billableWeightLb": 11,
+      "ratesUsd": {
+        "Zone 2": 36.75,
+        "Zone 3": 39.86,
+        "Zone 4": 49.64,
+        "Zone 5": 62.58,
+        "Zone 6": 87.41,
+        "Zone 7": 102.84,
+        "Zone 8": 117.19
+      }
+    },
+    {
+      "billableWeightLb": 12,
+      "ratesUsd": {
+        "Zone 2": 37.67,
+        "Zone 3": 46.71,
+        "Zone 4": 54.16,
+        "Zone 5": 72.5,
+        "Zone 6": 92.83,
+        "Zone 7": 109.35,
+        "Zone 8": 123.83
+      }
+    },
+    {
+      "billableWeightLb": 13,
+      "ratesUsd": {
+        "Zone 2": 41.07,
+        "Zone 3": 49.13,
+        "Zone 4": 55.31,
+        "Zone 5": 73.89,
+        "Zone 6": 94.9,
+        "Zone 7": 110.02,
+        "Zone 8": 132.62
+      }
+    },
+    {
+      "billableWeightLb": 14,
+      "ratesUsd": {
+        "Zone 2": 41.51,
+        "Zone 3": 49.86,
+        "Zone 4": 60.01,
+        "Zone 5": 78.29,
+        "Zone 6": 99.73,
+        "Zone 7": 115.66,
+        "Zone 8": 139.49
+      }
+    },
+    {
+      "billableWeightLb": 15,
+      "ratesUsd": {
+        "Zone 2": 41.78,
+        "Zone 3": 52.95,
+        "Zone 4": 62.69,
+        "Zone 5": 81.69,
+        "Zone 6": 105.14,
+        "Zone 7": 126.36,
+        "Zone 8": 147.36
+      }
+    },
+    {
+      "billableWeightLb": 16,
+      "ratesUsd": {
+        "Zone 2": 44.3,
+        "Zone 3": 54.63,
+        "Zone 4": 64.87,
+        "Zone 5": 87.57,
+        "Zone 6": 109.56,
+        "Zone 7": 132.95,
+        "Zone 8": 152.45
+      }
+    },
+    {
+      "billableWeightLb": 17,
+      "ratesUsd": {
+        "Zone 2": 44.57,
+        "Zone 3": 56.34,
+        "Zone 4": 67.57,
+        "Zone 5": 88.4,
+        "Zone 6": 113.96,
+        "Zone 7": 133.62,
+        "Zone 8": 160.83
+      }
+    },
+    {
+      "billableWeightLb": 18,
+      "ratesUsd": {
+        "Zone 2": 48.62,
+        "Zone 3": 58.12,
+        "Zone 4": 70.16,
+        "Zone 5": 91.71,
+        "Zone 6": 118.05,
+        "Zone 7": 145.95,
+        "Zone 8": 166.28
+      }
+    },
+    {
+      "billableWeightLb": 19,
+      "ratesUsd": {
+        "Zone 2": 49.87,
+        "Zone 3": 59.79,
+        "Zone 4": 72.6,
+        "Zone 5": 95.05,
+        "Zone 6": 122.02,
+        "Zone 7": 149.91,
+        "Zone 8": 172.32
+      }
+    },
+    {
+      "billableWeightLb": 20,
+      "ratesUsd": {
+        "Zone 2": 50.14,
+        "Zone 3": 60.56,
+        "Zone 4": 74.0,
+        "Zone 5": 99.0,
+        "Zone 6": 126.57,
+        "Zone 7": 150.42,
+        "Zone 8": 177.95
+      }
+    },
+    {
+      "billableWeightLb": 21,
+      "ratesUsd": {
+        "Zone 2": 51.58,
+        "Zone 3": 62.54,
+        "Zone 4": 76.44,
+        "Zone 5": 99.41,
+        "Zone 6": 132.6,
+        "Zone 7": 160.33,
+        "Zone 8": 183.78
+      }
+    },
+    {
+      "billableWeightLb": 22,
+      "ratesUsd": {
+        "Zone 2": 55.3,
+        "Zone 3": 66.42,
+        "Zone 4": 79.78,
+        "Zone 5": 105.67,
+        "Zone 6": 137.22,
+        "Zone 7": 161.33,
+        "Zone 8": 190.65
+      }
+    },
+    {
+      "billableWeightLb": 23,
+      "ratesUsd": {
+        "Zone 2": 57.42,
+        "Zone 3": 67.92,
+        "Zone 4": 85.09,
+        "Zone 5": 108.75,
+        "Zone 6": 142.87,
+        "Zone 7": 172.02,
+        "Zone 8": 192.39
+      }
+    },
+    {
+      "billableWeightLb": 24,
+      "ratesUsd": {
+        "Zone 2": 57.68,
+        "Zone 3": 72.18,
+        "Zone 4": 87.24,
+        "Zone 5": 112.83,
+        "Zone 6": 145.32,
+        "Zone 7": 173.35,
+        "Zone 8": 193.27
+      }
+    },
+    {
+      "billableWeightLb": 25,
+      "ratesUsd": {
+        "Zone 2": 57.96,
+        "Zone 3": 72.64,
+        "Zone 4": 90.13,
+        "Zone 5": 116.72,
+        "Zone 6": 151.74,
+        "Zone 7": 183.96,
+        "Zone 8": 210.4
+      }
+    },
+    {
+      "billableWeightLb": 26,
+      "ratesUsd": {
+        "Zone 2": 63.36,
+        "Zone 3": 75.31,
+        "Zone 4": 93.08,
+        "Zone 5": 120.52,
+        "Zone 6": 154.07,
+        "Zone 7": 190.31,
+        "Zone 8": 216.82
+      }
+    },
+    {
+      "billableWeightLb": 27,
+      "ratesUsd": {
+        "Zone 2": 65.42,
+        "Zone 3": 78.51,
+        "Zone 4": 96.6,
+        "Zone 5": 127.0,
+        "Zone 6": 158.12,
+        "Zone 7": 196.99,
+        "Zone 8": 223.54
+      }
+    },
+    {
+      "billableWeightLb": 28,
+      "ratesUsd": {
+        "Zone 2": 67.39,
+        "Zone 3": 78.83,
+        "Zone 4": 99.02,
+        "Zone 5": 127.69,
+        "Zone 6": 175.06,
+        "Zone 7": 206.15,
+        "Zone 8": 230.74
+      }
+    },
+    {
+      "billableWeightLb": 29,
+      "ratesUsd": {
+        "Zone 2": 67.67,
+        "Zone 3": 80.76,
+        "Zone 4": 101.88,
+        "Zone 5": 131.0,
+        "Zone 6": 180.23,
+        "Zone 7": 212.29,
+        "Zone 8": 237.92
+      }
+    },
+    {
+      "billableWeightLb": 30,
+      "ratesUsd": {
+        "Zone 2": 67.92,
+        "Zone 3": 82.96,
+        "Zone 4": 102.17,
+        "Zone 5": 135.09,
+        "Zone 6": 183.13,
+        "Zone 7": 212.91,
+        "Zone 8": 244.73
+      }
+    },
+    {
+      "billableWeightLb": 31,
+      "ratesUsd": {
+        "Zone 2": 70.12,
+        "Zone 3": 87.7,
+        "Zone 4": 105.14,
+        "Zone 5": 137.28,
+        "Zone 6": 192.46,
+        "Zone 7": 215.16,
+        "Zone 8": 251.38
+      }
+    },
+    {
+      "billableWeightLb": 32,
+      "ratesUsd": {
+        "Zone 2": 70.41,
+        "Zone 3": 88.27,
+        "Zone 4": 108.13,
+        "Zone 5": 141.83,
+        "Zone 6": 196.41,
+        "Zone 7": 220.06,
+        "Zone 8": 254.7
+      }
+    },
+    {
+      "billableWeightLb": 33,
+      "ratesUsd": {
+        "Zone 2": 74.4,
+        "Zone 3": 90.12,
+        "Zone 4": 112.55,
+        "Zone 5": 145.73,
+        "Zone 6": 202.13,
+        "Zone 7": 225.76,
+        "Zone 8": 255.68
+      }
+    },
+    {
+      "billableWeightLb": 34,
+      "ratesUsd": {
+        "Zone 2": 75.86,
+        "Zone 3": 90.38,
+        "Zone 4": 113.0,
+        "Zone 5": 149.26,
+        "Zone 6": 205.42,
+        "Zone 7": 231.07,
+        "Zone 8": 275.09
+      }
+    },
+    {
+      "billableWeightLb": 35,
+      "ratesUsd": {
+        "Zone 2": 77.34,
+        "Zone 3": 94.39,
+        "Zone 4": 116.27,
+        "Zone 5": 153.01,
+        "Zone 6": 205.78,
+        "Zone 7": 236.9,
+        "Zone 8": 277.04
+      }
+    },
+    {
+      "billableWeightLb": 36,
+      "ratesUsd": {
+        "Zone 2": 79.54,
+        "Zone 3": 96.48,
+        "Zone 4": 120.62,
+        "Zone 5": 153.55,
+        "Zone 6": 206.56,
+        "Zone 7": 238.06,
+        "Zone 8": 286.38
+      }
+    },
+    {
+      "billableWeightLb": 37,
+      "ratesUsd": {
+        "Zone 2": 79.97,
+        "Zone 3": 97.17,
+        "Zone 4": 121.07,
+        "Zone 5": 160.07,
+        "Zone 6": 222.09,
+        "Zone 7": 246.62,
+        "Zone 8": 290.36
+      }
+    },
+    {
+      "billableWeightLb": 38,
+      "ratesUsd": {
+        "Zone 2": 80.59,
+        "Zone 3": 97.63,
+        "Zone 4": 124.55,
+        "Zone 5": 163.87,
+        "Zone 6": 226.77,
+        "Zone 7": 251.56,
+        "Zone 8": 290.93
+      }
+    },
+    {
+      "billableWeightLb": 39,
+      "ratesUsd": {
+        "Zone 2": 80.85,
+        "Zone 3": 98.06,
+        "Zone 4": 126.84,
+        "Zone 5": 167.46,
+        "Zone 6": 232.13,
+        "Zone 7": 264.74,
+        "Zone 8": 301.9
+      }
+    },
+    {
+      "billableWeightLb": 40,
+      "ratesUsd": {
+        "Zone 2": 81.33,
+        "Zone 3": 98.5,
+        "Zone 4": 127.1,
+        "Zone 5": 168.98,
+        "Zone 6": 232.69,
+        "Zone 7": 266.06,
+        "Zone 8": 309.81
+      }
+    },
+    {
+      "billableWeightLb": 41,
+      "ratesUsd": {
+        "Zone 2": 90.7,
+        "Zone 3": 104.26,
+        "Zone 4": 130.55,
+        "Zone 5": 170.13,
+        "Zone 6": 237.75,
+        "Zone 7": 266.26,
+        "Zone 8": 316.42
+      }
+    },
+    {
+      "billableWeightLb": 42,
+      "ratesUsd": {
+        "Zone 2": 92.37,
+        "Zone 3": 106.8,
+        "Zone 4": 130.9,
+        "Zone 5": 174.5,
+        "Zone 6": 242.85,
+        "Zone 7": 267.82,
+        "Zone 8": 326.4
+      }
+    },
+    {
+      "billableWeightLb": 43,
+      "ratesUsd": {
+        "Zone 2": 94.17,
+        "Zone 3": 109.88,
+        "Zone 4": 137.16,
+        "Zone 5": 177.73,
+        "Zone 6": 247.74,
+        "Zone 7": 278.04,
+        "Zone 8": 330.78
+      }
+    },
+    {
+      "billableWeightLb": 44,
+      "ratesUsd": {
+        "Zone 2": 94.87,
+        "Zone 3": 110.2,
+        "Zone 4": 137.79,
+        "Zone 5": 181.4,
+        "Zone 6": 252.22,
+        "Zone 7": 279.63,
+        "Zone 8": 331.55
+      }
+    },
+    {
+      "billableWeightLb": 45,
+      "ratesUsd": {
+        "Zone 2": 95.14,
+        "Zone 3": 113.5,
+        "Zone 4": 140.67,
+        "Zone 5": 190.68,
+        "Zone 6": 252.68,
+        "Zone 7": 285.46,
+        "Zone 8": 332.57
+      }
+    },
+    {
+      "billableWeightLb": 46,
+      "ratesUsd": {
+        "Zone 2": 95.4,
+        "Zone 3": 113.83,
+        "Zone 4": 149.06,
+        "Zone 5": 192.0,
+        "Zone 6": 259.45,
+        "Zone 7": 295.99,
+        "Zone 8": 352.96
+      }
+    },
+    {
+      "billableWeightLb": 47,
+      "ratesUsd": {
+        "Zone 2": 95.67,
+        "Zone 3": 114.16,
+        "Zone 4": 149.91,
+        "Zone 5": 198.19,
+        "Zone 6": 260.31,
+        "Zone 7": 301.67,
+        "Zone 8": 358.46
+      }
+    },
+    {
+      "billableWeightLb": 48,
+      "ratesUsd": {
+        "Zone 2": 95.94,
+        "Zone 3": 114.42,
+        "Zone 4": 150.18,
+        "Zone 5": 204.76,
+        "Zone 6": 260.51,
+        "Zone 7": 317.63,
+        "Zone 8": 365.06
+      }
+    },
+    {
+      "billableWeightLb": 49,
+      "ratesUsd": {
+        "Zone 2": 96.2,
+        "Zone 3": 114.62,
+        "Zone 4": 150.38,
+        "Zone 5": 205.42,
+        "Zone 6": 260.74,
+        "Zone 7": 320.78,
+        "Zone 8": 366.08
+      }
+    },
+    {
+      "billableWeightLb": 50,
+      "ratesUsd": {
+        "Zone 2": 96.64,
+        "Zone 3": 115.2,
+        "Zone 4": 150.93,
+        "Zone 5": 205.81,
+        "Zone 6": 265.3,
+        "Zone 7": 326.38,
+        "Zone 8": 371.2
+      }
+    },
+    {
+      "billableWeightLb": 51,
+      "ratesUsd": {
+        "Zone 2": 104.85,
+        "Zone 3": 122.37,
+        "Zone 4": 161.78,
+        "Zone 5": 207.54,
+        "Zone 6": 271.34,
+        "Zone 7": 327.97,
+        "Zone 8": 398.7
+      }
+    },
+    {
+      "billableWeightLb": 52,
+      "ratesUsd": {
+        "Zone 2": 107.26,
+        "Zone 3": 128.24,
+        "Zone 4": 162.87,
+        "Zone 5": 215.29,
+        "Zone 6": 303.84,
+        "Zone 7": 328.37,
+        "Zone 8": 405.72
+      }
+    },
+    {
+      "billableWeightLb": 53,
+      "ratesUsd": {
+        "Zone 2": 111.39,
+        "Zone 3": 132.48,
+        "Zone 4": 165.26,
+        "Zone 5": 223.16,
+        "Zone 6": 307.09,
+        "Zone 7": 332.8,
+        "Zone 8": 412.41
+      }
+    },
+    {
+      "billableWeightLb": 54,
+      "ratesUsd": {
+        "Zone 2": 112.01,
+        "Zone 3": 132.91,
+        "Zone 4": 165.87,
+        "Zone 5": 223.95,
+        "Zone 6": 307.49,
+        "Zone 7": 339.92,
+        "Zone 8": 413.08
+      }
+    },
+    {
+      "billableWeightLb": 55,
+      "ratesUsd": {
+        "Zone 2": 112.55,
+        "Zone 3": 137.91,
+        "Zone 4": 171.09,
+        "Zone 5": 227.25,
+        "Zone 6": 308.27,
+        "Zone 7": 347.91,
+        "Zone 8": 413.65
+      }
+    },
+    {
+      "billableWeightLb": 56,
+      "ratesUsd": {
+        "Zone 2": 113.09,
+        "Zone 3": 138.45,
+        "Zone 4": 171.69,
+        "Zone 5": 239.15,
+        "Zone 6": 323.65,
+        "Zone 7": 349.54,
+        "Zone 8": 418.27
+      }
+    },
+    {
+      "billableWeightLb": 57,
+      "ratesUsd": {
+        "Zone 2": 113.62,
+        "Zone 3": 138.98,
+        "Zone 4": 175.98,
+        "Zone 5": 242.83,
+        "Zone 6": 325.19,
+        "Zone 7": 382.08,
+        "Zone 8": 426.63
+      }
+    },
+    {
+      "billableWeightLb": 58,
+      "ratesUsd": {
+        "Zone 2": 114.18,
+        "Zone 3": 139.53,
+        "Zone 4": 176.6,
+        "Zone 5": 246.64,
+        "Zone 6": 341.38,
+        "Zone 7": 385.36,
+        "Zone 8": 433.6
+      }
+    },
+    {
+      "billableWeightLb": 59,
+      "ratesUsd": {
+        "Zone 2": 114.72,
+        "Zone 3": 140.15,
+        "Zone 4": 177.18,
+        "Zone 5": 249.74,
+        "Zone 6": 343.0,
+        "Zone 7": 391.4,
+        "Zone 8": 441.58
+      }
+    },
+    {
+      "billableWeightLb": 60,
+      "ratesUsd": {
+        "Zone 2": 116.79,
+        "Zone 3": 144.68,
+        "Zone 4": 177.77,
+        "Zone 5": 250.39,
+        "Zone 6": 343.92,
+        "Zone 7": 392.07,
+        "Zone 8": 449.58
+      }
+    },
+    {
+      "billableWeightLb": 61,
+      "ratesUsd": {
+        "Zone 2": 119.79,
+        "Zone 3": 148.73,
+        "Zone 4": 187.19,
+        "Zone 5": 258.88,
+        "Zone 6": 344.79,
+        "Zone 7": 404.8,
+        "Zone 8": 456.78
+      }
+    },
+    {
+      "billableWeightLb": 62,
+      "ratesUsd": {
+        "Zone 2": 121.74,
+        "Zone 3": 149.31,
+        "Zone 4": 190.17,
+        "Zone 5": 262.44,
+        "Zone 6": 361.97,
+        "Zone 7": 411.77,
+        "Zone 8": 457.53
+      }
+    },
+    {
+      "billableWeightLb": 63,
+      "ratesUsd": {
+        "Zone 2": 123.09,
+        "Zone 3": 149.85,
+        "Zone 4": 190.79,
+        "Zone 5": 266.55,
+        "Zone 6": 373.29,
+        "Zone 7": 418.38,
+        "Zone 8": 471.89
+      }
+    },
+    {
+      "billableWeightLb": 64,
+      "ratesUsd": {
+        "Zone 2": 126.08,
+        "Zone 3": 152.77,
+        "Zone 4": 191.36,
+        "Zone 5": 270.11,
+        "Zone 6": 379.15,
+        "Zone 7": 424.99,
+        "Zone 8": 479.41
+      }
+    },
+    {
+      "billableWeightLb": 65,
+      "ratesUsd": {
+        "Zone 2": 126.62,
+        "Zone 3": 156.82,
+        "Zone 4": 196.12,
+        "Zone 5": 272.94,
+        "Zone 6": 379.8,
+        "Zone 7": 431.56,
+        "Zone 8": 490.82
+      }
+    },
+    {
+      "billableWeightLb": 66,
+      "ratesUsd": {
+        "Zone 2": 127.18,
+        "Zone 3": 157.38,
+        "Zone 4": 198.31,
+        "Zone 5": 273.59,
+        "Zone 6": 382.42,
+        "Zone 7": 432.22,
+        "Zone 8": 501.23
+      }
+    },
+    {
+      "billableWeightLb": 67,
+      "ratesUsd": {
+        "Zone 2": 127.71,
+        "Zone 3": 160.53,
+        "Zone 4": 198.81,
+        "Zone 5": 274.24,
+        "Zone 6": 383.08,
+        "Zone 7": 438.13,
+        "Zone 8": 502.28
+      }
+    },
+    {
+      "billableWeightLb": 68,
+      "ratesUsd": {
+        "Zone 2": 128.24,
+        "Zone 3": 161.83,
+        "Zone 4": 204.34,
+        "Zone 5": 284.74,
+        "Zone 6": 383.74,
+        "Zone 7": 438.77,
+        "Zone 8": 523.11
+      }
+    },
+    {
+      "billableWeightLb": 69,
+      "ratesUsd": {
+        "Zone 2": 128.79,
+        "Zone 3": 165.12,
+        "Zone 4": 204.9,
+        "Zone 5": 285.8,
+        "Zone 6": 384.41,
+        "Zone 7": 439.72,
+        "Zone 8": 525.2
+      }
+    },
+    {
+      "billableWeightLb": 70,
+      "ratesUsd": {
+        "Zone 2": 131.96,
+        "Zone 3": 169.76,
+        "Zone 4": 209.76,
+        "Zone 5": 293.02,
+        "Zone 6": 385.06,
+        "Zone 7": 458.52,
+        "Zone 8": 525.91
+      }
+    },
+    {
+      "billableWeightLb": 71,
+      "ratesUsd": {
+        "Zone 2": 132.56,
+        "Zone 3": 170.35,
+        "Zone 4": 210.25,
+        "Zone 5": 295.51,
+        "Zone 6": 385.72,
+        "Zone 7": 469.89,
+        "Zone 8": 539.59
+      }
+    },
+    {
+      "billableWeightLb": 72,
+      "ratesUsd": {
+        "Zone 2": 135.68,
+        "Zone 3": 170.95,
+        "Zone 4": 210.65,
+        "Zone 5": 299.61,
+        "Zone 6": 386.38,
+        "Zone 7": 474.99,
+        "Zone 8": 540.96
+      }
+    },
+    {
+      "billableWeightLb": 73,
+      "ratesUsd": {
+        "Zone 2": 136.22,
+        "Zone 3": 171.53,
+        "Zone 4": 212.66,
+        "Zone 5": 300.9,
+        "Zone 6": 387.04,
+        "Zone 7": 475.63,
+        "Zone 8": 541.55
+      }
+    },
+    {
+      "billableWeightLb": 74,
+      "ratesUsd": {
+        "Zone 2": 136.75,
+        "Zone 3": 171.93,
+        "Zone 4": 213.25,
+        "Zone 5": 301.3,
+        "Zone 6": 387.44,
+        "Zone 7": 476.03,
+        "Zone 8": 542.15
+      }
+    },
+    {
+      "billableWeightLb": 75,
+      "ratesUsd": {
+        "Zone 2": 137.96,
+        "Zone 3": 173.33,
+        "Zone 4": 214.44,
+        "Zone 5": 302.89,
+        "Zone 6": 389.03,
+        "Zone 7": 477.64,
+        "Zone 8": 543.62
+      }
+    },
+    {
+      "billableWeightLb": 76,
+      "ratesUsd": {
+        "Zone 2": 139.67,
+        "Zone 3": 174.5,
+        "Zone 4": 215.62,
+        "Zone 5": 304.19,
+        "Zone 6": 390.36,
+        "Zone 7": 489.77,
+        "Zone 8": 572.74
+      }
+    },
+    {
+      "billableWeightLb": 77,
+      "ratesUsd": {
+        "Zone 2": 140.76,
+        "Zone 3": 175.3,
+        "Zone 4": 216.81,
+        "Zone 5": 305.51,
+        "Zone 6": 391.16,
+        "Zone 7": 491.09,
+        "Zone 8": 575.66
+      }
+    },
+    {
+      "billableWeightLb": 78,
+      "ratesUsd": {
+        "Zone 2": 141.83,
+        "Zone 3": 176.1,
+        "Zone 4": 218.01,
+        "Zone 5": 306.82,
+        "Zone 6": 391.96,
+        "Zone 7": 492.46,
+        "Zone 8": 578.34
+      }
+    },
+    {
+      "billableWeightLb": 79,
+      "ratesUsd": {
+        "Zone 2": 142.93,
+        "Zone 3": 176.9,
+        "Zone 4": 219.19,
+        "Zone 5": 308.15,
+        "Zone 6": 392.76,
+        "Zone 7": 493.77,
+        "Zone 8": 583.75
+      }
+    },
+    {
+      "billableWeightLb": 80,
+      "ratesUsd": {
+        "Zone 2": 144.01,
+        "Zone 3": 177.7,
+        "Zone 4": 220.5,
+        "Zone 5": 309.45,
+        "Zone 6": 393.56,
+        "Zone 7": 495.1,
+        "Zone 8": 585.06
+      }
+    },
+    {
+      "billableWeightLb": 81,
+      "ratesUsd": {
+        "Zone 2": 145.09,
+        "Zone 3": 182.25,
+        "Zone 4": 221.57,
+        "Zone 5": 310.9,
+        "Zone 6": 400.37,
+        "Zone 7": 497.3,
+        "Zone 8": 586.39
+      }
+    },
+    {
+      "billableWeightLb": 82,
+      "ratesUsd": {
+        "Zone 2": 147.1,
+        "Zone 3": 189.88,
+        "Zone 4": 228.88,
+        "Zone 5": 334.2,
+        "Zone 6": 429.47,
+        "Zone 7": 536.21,
+        "Zone 8": 589.23
+      }
+    },
+    {
+      "billableWeightLb": 83,
+      "ratesUsd": {
+        "Zone 2": 147.9,
+        "Zone 3": 191.07,
+        "Zone 4": 229.68,
+        "Zone 5": 337.8,
+        "Zone 6": 449.25,
+        "Zone 7": 540.11,
+        "Zone 8": 604.36
+      }
+    },
+    {
+      "billableWeightLb": 84,
+      "ratesUsd": {
+        "Zone 2": 148.7,
+        "Zone 3": 197.25,
+        "Zone 4": 230.48,
+        "Zone 5": 339.14,
+        "Zone 6": 451.23,
+        "Zone 7": 540.91,
+        "Zone 8": 605.88
+      }
+    },
+    {
+      "billableWeightLb": 85,
+      "ratesUsd": {
+        "Zone 2": 149.5,
+        "Zone 3": 200.69,
+        "Zone 4": 231.28,
+        "Zone 5": 340.96,
+        "Zone 6": 452.03,
+        "Zone 7": 541.71,
+        "Zone 8": 624.79
+      }
+    },
+    {
+      "billableWeightLb": 86,
+      "ratesUsd": {
+        "Zone 2": 150.3,
+        "Zone 3": 201.49,
+        "Zone 4": 232.08,
+        "Zone 5": 341.76,
+        "Zone 6": 452.83,
+        "Zone 7": 542.51,
+        "Zone 8": 626.69
+      }
+    },
+    {
+      "billableWeightLb": 87,
+      "ratesUsd": {
+        "Zone 2": 151.1,
+        "Zone 3": 202.29,
+        "Zone 4": 232.88,
+        "Zone 5": 342.56,
+        "Zone 6": 453.63,
+        "Zone 7": 543.31,
+        "Zone 8": 627.49
+      }
+    },
+    {
+      "billableWeightLb": 88,
+      "ratesUsd": {
+        "Zone 2": 151.9,
+        "Zone 3": 203.09,
+        "Zone 4": 233.68,
+        "Zone 5": 343.36,
+        "Zone 6": 454.43,
+        "Zone 7": 544.11,
+        "Zone 8": 628.29
+      }
+    },
+    {
+      "billableWeightLb": 89,
+      "ratesUsd": {
+        "Zone 2": 152.7,
+        "Zone 3": 203.89,
+        "Zone 4": 234.48,
+        "Zone 5": 344.16,
+        "Zone 6": 455.23,
+        "Zone 7": 544.91,
+        "Zone 8": 629.09
+      }
+    },
+    {
+      "billableWeightLb": 90,
+      "ratesUsd": {
+        "Zone 2": 153.5,
+        "Zone 3": 204.69,
+        "Zone 4": 235.28,
+        "Zone 5": 344.96,
+        "Zone 6": 456.03,
+        "Zone 7": 545.71,
+        "Zone 8": 629.89
+      }
+    },
+    {
+      "billableWeightLb": 91,
+      "ratesUsd": {
+        "Zone 2": 164.82,
+        "Zone 3": 213.52,
+        "Zone 4": 251.28,
+        "Zone 5": 359.2,
+        "Zone 6": 466.19,
+        "Zone 7": 549.95,
+        "Zone 8": 637.3
+      }
+    },
+    {
+      "billableWeightLb": 92,
+      "ratesUsd": {
+        "Zone 2": 165.96,
+        "Zone 3": 214.64,
+        "Zone 4": 254.77,
+        "Zone 5": 360.63,
+        "Zone 6": 467.52,
+        "Zone 7": 550.75,
+        "Zone 8": 638.64
+      }
+    },
+    {
+      "billableWeightLb": 93,
+      "ratesUsd": {
+        "Zone 2": 167.34,
+        "Zone 3": 215.75,
+        "Zone 4": 255.57,
+        "Zone 5": 361.43,
+        "Zone 6": 468.84,
+        "Zone 7": 551.55,
+        "Zone 8": 639.94
+      }
+    },
+    {
+      "billableWeightLb": 94,
+      "ratesUsd": {
+        "Zone 2": 168.55,
+        "Zone 3": 216.87,
+        "Zone 4": 257.03,
+        "Zone 5": 363.27,
+        "Zone 6": 470.17,
+        "Zone 7": 552.35,
+        "Zone 8": 641.56
+      }
+    },
+    {
+      "billableWeightLb": 95,
+      "ratesUsd": {
+        "Zone 2": 169.99,
+        "Zone 3": 217.99,
+        "Zone 4": 258.14,
+        "Zone 5": 364.58,
+        "Zone 6": 472.11,
+        "Zone 7": 553.15,
+        "Zone 8": 673.78
+      }
+    },
+    {
+      "billableWeightLb": 96,
+      "ratesUsd": {
+        "Zone 2": 173.8,
+        "Zone 3": 218.99,
+        "Zone 4": 262.28,
+        "Zone 5": 365.38,
+        "Zone 6": 509.86,
+        "Zone 7": 553.95,
+        "Zone 8": 693.01
+      }
+    },
+    {
+      "billableWeightLb": 97,
+      "ratesUsd": {
+        "Zone 2": 174.89,
+        "Zone 3": 220.21,
+        "Zone 4": 263.08,
+        "Zone 5": 366.18,
+        "Zone 6": 513.64,
+        "Zone 7": 554.75,
+        "Zone 8": 694.94
+      }
+    },
+    {
+      "billableWeightLb": 98,
+      "ratesUsd": {
+        "Zone 2": 182.03,
+        "Zone 3": 221.34,
+        "Zone 4": 273.04,
+        "Zone 5": 367.0,
+        "Zone 6": 514.8,
+        "Zone 7": 556.62,
+        "Zone 8": 695.97
+      }
+    },
+    {
+      "billableWeightLb": 99,
+      "ratesUsd": {
+        "Zone 2": 184.2,
+        "Zone 3": 222.45,
+        "Zone 4": 279.47,
+        "Zone 5": 383.37,
+        "Zone 6": 537.95,
+        "Zone 7": 594.02,
+        "Zone 8": 716.54
+      }
+    },
+    {
+      "billableWeightLb": 100,
+      "ratesUsd": {
+        "Zone 2": 185.0,
+        "Zone 3": 239.0,
+        "Zone 4": 306.0,
+        "Zone 5": 423.0,
+        "Zone 6": 595.0,
+        "Zone 7": 658.0,
+        "Zone 8": 753.0
+      }
+    },
+    {
+      "billableWeightLb": 101,
+      "ratesUsd": {
+        "Zone 2": 186.85,
+        "Zone 3": 241.39,
+        "Zone 4": 309.06,
+        "Zone 5": 427.23,
+        "Zone 6": 600.95,
+        "Zone 7": 664.58,
+        "Zone 8": 760.53
+      }
+    },
+    {
+      "billableWeightLb": 102,
+      "ratesUsd": {
+        "Zone 2": 188.7,
+        "Zone 3": 243.78,
+        "Zone 4": 312.12,
+        "Zone 5": 431.46,
+        "Zone 6": 606.9,
+        "Zone 7": 671.16,
+        "Zone 8": 768.06
+      }
+    },
+    {
+      "billableWeightLb": 103,
+      "ratesUsd": {
+        "Zone 2": 190.55,
+        "Zone 3": 246.17,
+        "Zone 4": 315.18,
+        "Zone 5": 435.69,
+        "Zone 6": 612.85,
+        "Zone 7": 677.74,
+        "Zone 8": 775.59
+      }
+    },
+    {
+      "billableWeightLb": 104,
+      "ratesUsd": {
+        "Zone 2": 192.4,
+        "Zone 3": 248.56,
+        "Zone 4": 318.24,
+        "Zone 5": 439.92,
+        "Zone 6": 618.8,
+        "Zone 7": 684.32,
+        "Zone 8": 783.12
+      }
+    },
+    {
+      "billableWeightLb": 105,
+      "ratesUsd": {
+        "Zone 2": 194.25,
+        "Zone 3": 250.95,
+        "Zone 4": 321.3,
+        "Zone 5": 444.15,
+        "Zone 6": 624.75,
+        "Zone 7": 690.9,
+        "Zone 8": 790.65
+      }
+    },
+    {
+      "billableWeightLb": 106,
+      "ratesUsd": {
+        "Zone 2": 196.1,
+        "Zone 3": 253.34,
+        "Zone 4": 324.36,
+        "Zone 5": 448.38,
+        "Zone 6": 630.7,
+        "Zone 7": 697.48,
+        "Zone 8": 798.18
+      }
+    },
+    {
+      "billableWeightLb": 107,
+      "ratesUsd": {
+        "Zone 2": 197.95,
+        "Zone 3": 255.73,
+        "Zone 4": 327.42,
+        "Zone 5": 452.61,
+        "Zone 6": 636.65,
+        "Zone 7": 704.06,
+        "Zone 8": 805.71
+      }
+    },
+    {
+      "billableWeightLb": 108,
+      "ratesUsd": {
+        "Zone 2": 199.8,
+        "Zone 3": 258.12,
+        "Zone 4": 330.48,
+        "Zone 5": 456.84,
+        "Zone 6": 642.6,
+        "Zone 7": 710.64,
+        "Zone 8": 813.24
+      }
+    },
+    {
+      "billableWeightLb": 109,
+      "ratesUsd": {
+        "Zone 2": 201.65,
+        "Zone 3": 260.51,
+        "Zone 4": 333.54,
+        "Zone 5": 461.07,
+        "Zone 6": 648.55,
+        "Zone 7": 717.22,
+        "Zone 8": 820.77
+      }
+    },
+    {
+      "billableWeightLb": 110,
+      "ratesUsd": {
+        "Zone 2": 203.5,
+        "Zone 3": 262.9,
+        "Zone 4": 336.6,
+        "Zone 5": 465.3,
+        "Zone 6": 654.5,
+        "Zone 7": 723.8,
+        "Zone 8": 828.3
+      }
+    },
+    {
+      "billableWeightLb": 111,
+      "ratesUsd": {
+        "Zone 2": 205.35,
+        "Zone 3": 265.29,
+        "Zone 4": 339.66,
+        "Zone 5": 469.53,
+        "Zone 6": 660.45,
+        "Zone 7": 730.38,
+        "Zone 8": 835.83
+      }
+    },
+    {
+      "billableWeightLb": 112,
+      "ratesUsd": {
+        "Zone 2": 207.2,
+        "Zone 3": 267.68,
+        "Zone 4": 342.72,
+        "Zone 5": 473.76,
+        "Zone 6": 666.4,
+        "Zone 7": 736.96,
+        "Zone 8": 843.36
+      }
+    },
+    {
+      "billableWeightLb": 113,
+      "ratesUsd": {
+        "Zone 2": 209.05,
+        "Zone 3": 270.07,
+        "Zone 4": 345.78,
+        "Zone 5": 477.99,
+        "Zone 6": 672.35,
+        "Zone 7": 743.54,
+        "Zone 8": 850.89
+      }
+    },
+    {
+      "billableWeightLb": 114,
+      "ratesUsd": {
+        "Zone 2": 210.9,
+        "Zone 3": 272.46,
+        "Zone 4": 348.84,
+        "Zone 5": 482.22,
+        "Zone 6": 678.3,
+        "Zone 7": 750.12,
+        "Zone 8": 858.42
+      }
+    },
+    {
+      "billableWeightLb": 115,
+      "ratesUsd": {
+        "Zone 2": 212.75,
+        "Zone 3": 274.85,
+        "Zone 4": 351.9,
+        "Zone 5": 486.45,
+        "Zone 6": 684.25,
+        "Zone 7": 756.7,
+        "Zone 8": 865.95
+      }
+    },
+    {
+      "billableWeightLb": 116,
+      "ratesUsd": {
+        "Zone 2": 214.6,
+        "Zone 3": 277.24,
+        "Zone 4": 354.96,
+        "Zone 5": 490.68,
+        "Zone 6": 690.2,
+        "Zone 7": 763.28,
+        "Zone 8": 873.48
+      }
+    },
+    {
+      "billableWeightLb": 117,
+      "ratesUsd": {
+        "Zone 2": 216.45,
+        "Zone 3": 279.63,
+        "Zone 4": 358.02,
+        "Zone 5": 494.91,
+        "Zone 6": 696.15,
+        "Zone 7": 769.86,
+        "Zone 8": 881.01
+      }
+    },
+    {
+      "billableWeightLb": 118,
+      "ratesUsd": {
+        "Zone 2": 218.3,
+        "Zone 3": 282.02,
+        "Zone 4": 361.08,
+        "Zone 5": 499.14,
+        "Zone 6": 702.1,
+        "Zone 7": 776.44,
+        "Zone 8": 888.54
+      }
+    },
+    {
+      "billableWeightLb": 119,
+      "ratesUsd": {
+        "Zone 2": 220.15,
+        "Zone 3": 284.41,
+        "Zone 4": 364.14,
+        "Zone 5": 503.37,
+        "Zone 6": 708.05,
+        "Zone 7": 783.02,
+        "Zone 8": 896.07
+      }
+    },
+    {
+      "billableWeightLb": 120,
+      "ratesUsd": {
+        "Zone 2": 222.0,
+        "Zone 3": 286.8,
+        "Zone 4": 367.2,
+        "Zone 5": 507.6,
+        "Zone 6": 714.0,
+        "Zone 7": 789.6,
+        "Zone 8": 903.6
+      }
+    },
+    {
+      "billableWeightLb": 121,
+      "ratesUsd": {
+        "Zone 2": 223.85,
+        "Zone 3": 289.19,
+        "Zone 4": 370.26,
+        "Zone 5": 511.83,
+        "Zone 6": 719.95,
+        "Zone 7": 796.18,
+        "Zone 8": 911.13
+      }
+    },
+    {
+      "billableWeightLb": 122,
+      "ratesUsd": {
+        "Zone 2": 225.7,
+        "Zone 3": 291.58,
+        "Zone 4": 373.32,
+        "Zone 5": 516.06,
+        "Zone 6": 725.9,
+        "Zone 7": 802.76,
+        "Zone 8": 918.66
+      }
+    },
+    {
+      "billableWeightLb": 123,
+      "ratesUsd": {
+        "Zone 2": 227.55,
+        "Zone 3": 293.97,
+        "Zone 4": 376.38,
+        "Zone 5": 520.29,
+        "Zone 6": 731.85,
+        "Zone 7": 809.34,
+        "Zone 8": 926.19
+      }
+    },
+    {
+      "billableWeightLb": 124,
+      "ratesUsd": {
+        "Zone 2": 229.4,
+        "Zone 3": 296.36,
+        "Zone 4": 379.44,
+        "Zone 5": 524.52,
+        "Zone 6": 737.8,
+        "Zone 7": 815.92,
+        "Zone 8": 933.72
+      }
+    },
+    {
+      "billableWeightLb": 125,
+      "ratesUsd": {
+        "Zone 2": 231.25,
+        "Zone 3": 298.75,
+        "Zone 4": 382.5,
+        "Zone 5": 528.75,
+        "Zone 6": 743.75,
+        "Zone 7": 822.5,
+        "Zone 8": 941.25
+      }
+    },
+    {
+      "billableWeightLb": 126,
+      "ratesUsd": {
+        "Zone 2": 233.1,
+        "Zone 3": 301.14,
+        "Zone 4": 385.56,
+        "Zone 5": 532.98,
+        "Zone 6": 749.7,
+        "Zone 7": 829.08,
+        "Zone 8": 948.78
+      }
+    },
+    {
+      "billableWeightLb": 127,
+      "ratesUsd": {
+        "Zone 2": 234.95,
+        "Zone 3": 303.53,
+        "Zone 4": 388.62,
+        "Zone 5": 537.21,
+        "Zone 6": 755.65,
+        "Zone 7": 835.66,
+        "Zone 8": 956.31
+      }
+    },
+    {
+      "billableWeightLb": 128,
+      "ratesUsd": {
+        "Zone 2": 236.8,
+        "Zone 3": 305.92,
+        "Zone 4": 391.68,
+        "Zone 5": 541.44,
+        "Zone 6": 761.6,
+        "Zone 7": 842.24,
+        "Zone 8": 963.84
+      }
+    },
+    {
+      "billableWeightLb": 129,
+      "ratesUsd": {
+        "Zone 2": 238.65,
+        "Zone 3": 308.31,
+        "Zone 4": 394.74,
+        "Zone 5": 545.67,
+        "Zone 6": 767.55,
+        "Zone 7": 848.82,
+        "Zone 8": 971.37
+      }
+    },
+    {
+      "billableWeightLb": 130,
+      "ratesUsd": {
+        "Zone 2": 240.5,
+        "Zone 3": 310.7,
+        "Zone 4": 397.8,
+        "Zone 5": 549.9,
+        "Zone 6": 773.5,
+        "Zone 7": 855.4,
+        "Zone 8": 978.9
+      }
+    },
+    {
+      "billableWeightLb": 131,
+      "ratesUsd": {
+        "Zone 2": 242.35,
+        "Zone 3": 313.09,
+        "Zone 4": 400.86,
+        "Zone 5": 554.13,
+        "Zone 6": 779.45,
+        "Zone 7": 861.98,
+        "Zone 8": 986.43
+      }
+    },
+    {
+      "billableWeightLb": 132,
+      "ratesUsd": {
+        "Zone 2": 244.2,
+        "Zone 3": 315.48,
+        "Zone 4": 403.92,
+        "Zone 5": 558.36,
+        "Zone 6": 785.4,
+        "Zone 7": 868.56,
+        "Zone 8": 993.96
+      }
+    },
+    {
+      "billableWeightLb": 133,
+      "ratesUsd": {
+        "Zone 2": 246.05,
+        "Zone 3": 317.87,
+        "Zone 4": 406.98,
+        "Zone 5": 562.59,
+        "Zone 6": 791.35,
+        "Zone 7": 875.14,
+        "Zone 8": 1001.49
+      }
+    },
+    {
+      "billableWeightLb": 134,
+      "ratesUsd": {
+        "Zone 2": 247.9,
+        "Zone 3": 320.26,
+        "Zone 4": 410.04,
+        "Zone 5": 566.82,
+        "Zone 6": 797.3,
+        "Zone 7": 881.72,
+        "Zone 8": 1009.02
+      }
+    },
+    {
+      "billableWeightLb": 135,
+      "ratesUsd": {
+        "Zone 2": 249.75,
+        "Zone 3": 322.65,
+        "Zone 4": 413.1,
+        "Zone 5": 571.05,
+        "Zone 6": 803.25,
+        "Zone 7": 888.3,
+        "Zone 8": 1016.55
+      }
+    },
+    {
+      "billableWeightLb": 136,
+      "ratesUsd": {
+        "Zone 2": 251.6,
+        "Zone 3": 325.04,
+        "Zone 4": 416.16,
+        "Zone 5": 575.28,
+        "Zone 6": 809.2,
+        "Zone 7": 894.88,
+        "Zone 8": 1024.08
+      }
+    },
+    {
+      "billableWeightLb": 137,
+      "ratesUsd": {
+        "Zone 2": 253.45,
+        "Zone 3": 327.43,
+        "Zone 4": 419.22,
+        "Zone 5": 579.51,
+        "Zone 6": 815.15,
+        "Zone 7": 901.46,
+        "Zone 8": 1031.61
+      }
+    },
+    {
+      "billableWeightLb": 138,
+      "ratesUsd": {
+        "Zone 2": 255.3,
+        "Zone 3": 329.82,
+        "Zone 4": 422.28,
+        "Zone 5": 583.74,
+        "Zone 6": 821.1,
+        "Zone 7": 908.04,
+        "Zone 8": 1039.14
+      }
+    },
+    {
+      "billableWeightLb": 139,
+      "ratesUsd": {
+        "Zone 2": 257.15,
+        "Zone 3": 332.21,
+        "Zone 4": 425.34,
+        "Zone 5": 587.97,
+        "Zone 6": 827.05,
+        "Zone 7": 914.62,
+        "Zone 8": 1046.67
+      }
+    },
+    {
+      "billableWeightLb": 140,
+      "ratesUsd": {
+        "Zone 2": 259.0,
+        "Zone 3": 334.6,
+        "Zone 4": 428.4,
+        "Zone 5": 592.2,
+        "Zone 6": 833.0,
+        "Zone 7": 921.2,
+        "Zone 8": 1054.2
+      }
+    },
+    {
+      "billableWeightLb": 141,
+      "ratesUsd": {
+        "Zone 2": 260.85,
+        "Zone 3": 336.99,
+        "Zone 4": 431.46,
+        "Zone 5": 596.43,
+        "Zone 6": 838.95,
+        "Zone 7": 927.78,
+        "Zone 8": 1061.73
+      }
+    },
+    {
+      "billableWeightLb": 142,
+      "ratesUsd": {
+        "Zone 2": 262.7,
+        "Zone 3": 339.38,
+        "Zone 4": 434.52,
+        "Zone 5": 600.66,
+        "Zone 6": 844.9,
+        "Zone 7": 934.36,
+        "Zone 8": 1069.26
+      }
+    },
+    {
+      "billableWeightLb": 143,
+      "ratesUsd": {
+        "Zone 2": 264.55,
+        "Zone 3": 341.77,
+        "Zone 4": 437.58,
+        "Zone 5": 604.89,
+        "Zone 6": 850.85,
+        "Zone 7": 940.94,
+        "Zone 8": 1076.79
+      }
+    },
+    {
+      "billableWeightLb": 144,
+      "ratesUsd": {
+        "Zone 2": 266.4,
+        "Zone 3": 344.16,
+        "Zone 4": 440.64,
+        "Zone 5": 609.12,
+        "Zone 6": 856.8,
+        "Zone 7": 947.52,
+        "Zone 8": 1084.32
+      }
+    },
+    {
+      "billableWeightLb": 145,
+      "ratesUsd": {
+        "Zone 2": 268.25,
+        "Zone 3": 346.55,
+        "Zone 4": 443.7,
+        "Zone 5": 613.35,
+        "Zone 6": 862.75,
+        "Zone 7": 954.1,
+        "Zone 8": 1091.85
+      }
+    },
+    {
+      "billableWeightLb": 146,
+      "ratesUsd": {
+        "Zone 2": 270.1,
+        "Zone 3": 348.94,
+        "Zone 4": 446.76,
+        "Zone 5": 617.58,
+        "Zone 6": 868.7,
+        "Zone 7": 960.68,
+        "Zone 8": 1099.38
+      }
+    },
+    {
+      "billableWeightLb": 147,
+      "ratesUsd": {
+        "Zone 2": 271.95,
+        "Zone 3": 351.33,
+        "Zone 4": 449.82,
+        "Zone 5": 621.81,
+        "Zone 6": 874.65,
+        "Zone 7": 967.26,
+        "Zone 8": 1106.91
+      }
+    },
+    {
+      "billableWeightLb": 148,
+      "ratesUsd": {
+        "Zone 2": 273.8,
+        "Zone 3": 353.72,
+        "Zone 4": 452.88,
+        "Zone 5": 626.04,
+        "Zone 6": 880.6,
+        "Zone 7": 973.84,
+        "Zone 8": 1114.44
+      }
+    },
+    {
+      "billableWeightLb": 149,
+      "ratesUsd": {
+        "Zone 2": 275.65,
+        "Zone 3": 356.11,
+        "Zone 4": 455.94,
+        "Zone 5": 630.27,
+        "Zone 6": 886.55,
+        "Zone 7": 980.42,
+        "Zone 8": 1121.97
+      }
+    },
+    {
+      "billableWeightLb": 150,
+      "ratesUsd": {
+        "Zone 2": 277.5,
+        "Zone 3": 358.5,
+        "Zone 4": 459.0,
+        "Zone 5": 634.5,
+        "Zone 6": 892.5,
+        "Zone 7": 987.0,
+        "Zone 8": 1129.5
+      }
+    }
+  ],
+  "multiweightRows": [
+    {
+      "minWeightLb": 100,
+      "maxWeightLb": 499,
+      "ratePerLbUsd": {
+        "Zone 2": 1.85,
+        "Zone 3": 2.39,
+        "Zone 4": 3.06,
+        "Zone 5": 4.23,
+        "Zone 6": 5.95,
+        "Zone 7": 6.58,
+        "Zone 8": 7.53
+      }
+    },
+    {
+      "minWeightLb": 500,
+      "maxWeightLb": 999,
+      "ratePerLbUsd": {
+        "Zone 2": 1.83,
+        "Zone 3": 2.37,
+        "Zone 4": 3.04,
+        "Zone 5": 4.21,
+        "Zone 6": 5.93,
+        "Zone 7": 6.56,
+        "Zone 8": 7.51
+      }
+    },
+    {
+      "minWeightLb": 1000,
+      "maxWeightLb": 1999,
+      "ratePerLbUsd": {
+        "Zone 2": 1.81,
+        "Zone 3": 2.35,
+        "Zone 4": 3.02,
+        "Zone 5": 4.19,
+        "Zone 6": 5.91,
+        "Zone 7": 6.54,
+        "Zone 8": 7.49
+      }
+    },
+    {
+      "minWeightLb": 2000,
+      "maxWeightLb": null,
+      "ratePerLbUsd": {
+        "Zone 2": 1.79,
+        "Zone 3": 2.33,
+        "Zone 4": 3.0,
+        "Zone 5": 4.17,
+        "Zone 6": 5.89,
+        "Zone 7": 6.52,
+        "Zone 8": 7.47
+      }
+    }
+  ],
+  "notes": [
+    "Published standard list rates; excludes discounts, fuel surcharge, residential and other accessorial fees.",
+    "The package table covers 1 to 150 lb. The source also includes a separate Express Multiweight schedule for 100 lb and above.",
+    "Express Multiweight is retained as reference data but is not used for ordinary single-carton DV1 candidates yet."
+  ]
+}

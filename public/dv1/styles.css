@@ -36,7 +36,6 @@ button:hover { background: #164c74; }
 .warning { margin-bottom: 16px; padding: 16px 18px; background: #fffaf0; border-color: #f1dca8; }
 .warning h3 { color: #8a5b00; }
 .warning ul { margin-bottom: 0; }
-.warning-action { margin: 12px 0 0; color: #8a5b00; }
 .success-panel { margin-bottom: 16px; padding: 14px 16px; color: #1c7041; background: #f4fcf7; border-color: #b9e3c8; }
 .shipments { display: grid; gap: 14px; }
 .shipment-card { padding: 18px; }

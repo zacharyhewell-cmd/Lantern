@@ -1,7 +1,8 @@
+import { lookupFedexRate, lookupFedexZone } from "./fedex-rate-chart.js";
 export const FEDEX_GROUND = "FEDEX_GROUND";
-// Postal codes are enough for the first proxy and are also the stable inputs
-// expected by the eventual FedEx rating request. Address text is retained for
-// operator reference and future carrier requests.
+export const FEDEX_EXPRESS_SAVER = "FEDEX_EXPRESS_SAVER";
+// Postal codes provide stable lane inputs for the comparative model. Address
+// text is retained for operator reference and possible future carrier requests.
 export const DEFAULT_WAREHOUSE_ORIGINS = {
     "LA-SPI1": {
         code: "LA-SPI1",
@@ -42,6 +43,15 @@ export const DEFAULT_WAREHOUSE_ORIGINS = {
         provinceCode: "CA",
         postalCode: "91744",
         countryCode: "US"
+    },
+    "NJ-RSR7": {
+        code: "NJ-RSR7",
+        address1: "16 Applegate Dr Unit A",
+        address2: "Dock#2",
+        city: "Robbinsville Twp",
+        provinceCode: "NJ",
+        postalCode: "08691",
+        countryCode: "US"
     }
 };
 export const DEFAULT_FEDEX_GROUND_RATE_CONFIG = {
@@ -67,6 +77,22 @@ export function createFedexGroundProxyEstimator(config) {
             : 0;
         const actualWeight = packageWeight?.value ?? lines.reduce((sum, line) => sum + (line.weight?.value ?? 0) * line.quantity, 0);
         const billableWeight = Math.max(1, dimensionalWeight, Math.ceil(actualWeight));
+        const zoneMap = config.zoneMaps?.[origin.code] ?? config.zoneMaps?.[warehouseId];
+        const charts = (config.compareServiceLevels ?? [config.serviceLevel])
+            .map((serviceLevel) => config.rateCharts?.[serviceLevel])
+            .filter((chart) => Boolean(chart));
+        if (zoneMap && charts.length > 0) {
+            const options = charts.flatMap((chart) => {
+                const zone = lookupFedexZone(zoneMap, destination.postalCode, chart.serviceLevel);
+                if (zone === undefined)
+                    return [];
+                const rateUsd = lookupFedexRate(chart, billableWeight, `Zone ${zone}`);
+                return rateUsd === undefined ? [] : [{ serviceLevel: chart.serviceLevel, rateUsd }];
+            });
+            if (options.length > 0) {
+                return options.sort((a, b) => a.rateUsd - b.rateUsd)[0].rateUsd;
+            }
+        }
         const originPrefix = Number(origin.postalCode.slice(0, 3));
         const destinationPrefix = Number(destination.postalCode.slice(0, 3));
         const distanceProxy = Number.isFinite(originPrefix) && Number.isFinite(destinationPrefix)

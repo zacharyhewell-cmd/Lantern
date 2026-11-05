@@ -1,0 +1,974 @@
+{
+  "originZipRanges": [
+    "30500-30599"
+  ],
+  "effectiveDate": "2022-01-03",
+  "sourceFile": "ga-vlh1 zones.pdf",
+  "serviceScope": "FedEx Express and FedEx Ground zone locator",
+  "contiguousUs": [
+    {
+      "startZip": "00000",
+      "endZip": "00399",
+      "zone": null
+    },
+    {
+      "startZip": "00400",
+      "endZip": "00599",
+      "zone": 5
+    },
+    {
+      "startZip": "01000",
+      "endZip": "04399",
+      "zone": 5
+    },
+    {
+      "startZip": "04400",
+      "endZip": "04499",
+      "zone": 6
+    },
+    {
+      "startZip": "04500",
+      "endZip": "04599",
+      "zone": 5
+    },
+    {
+      "startZip": "04600",
+      "endZip": "04999",
+      "zone": 6
+    },
+    {
+      "startZip": "05000",
+      "endZip": "07999",
+      "zone": 5
+    },
+    {
+      "startZip": "08000",
+      "endZip": "08399",
+      "zone": 4
+    },
+    {
+      "startZip": "08400",
+      "endZip": "14699",
+      "zone": 5
+    },
+    {
+      "startZip": "14700",
+      "endZip": "14799",
+      "zone": 4
+    },
+    {
+      "startZip": "14800",
+      "endZip": "14999",
+      "zone": 5
+    },
+    {
+      "startZip": "15000",
+      "endZip": "16899",
+      "zone": 4
+    },
+    {
+      "startZip": "16900",
+      "endZip": "16999",
+      "zone": 5
+    },
+    {
+      "startZip": "17000",
+      "endZip": "17999",
+      "zone": 4
+    },
+    {
+      "startZip": "18000",
+      "endZip": "18999",
+      "zone": 5
+    },
+    {
+      "startZip": "19000",
+      "endZip": "19299",
+      "zone": 4
+    },
+    {
+      "startZip": "19300",
+      "endZip": "19499",
+      "zone": 5
+    },
+    {
+      "startZip": "19500",
+      "endZip": "23999",
+      "zone": 4
+    },
+    {
+      "startZip": "24000",
+      "endZip": "24399",
+      "zone": 3
+    },
+    {
+      "startZip": "24400",
+      "endZip": "24599",
+      "zone": 4
+    },
+    {
+      "startZip": "24600",
+      "endZip": "25399",
+      "zone": 3
+    },
+    {
+      "startZip": "25400",
+      "endZip": "25499",
+      "zone": 4
+    },
+    {
+      "startZip": "25500",
+      "endZip": "25999",
+      "zone": 3
+    },
+    {
+      "startZip": "26000",
+      "endZip": "26899",
+      "zone": 4
+    },
+    {
+      "startZip": "26900",
+      "endZip": "26999",
+      "zone": null
+    },
+    {
+      "startZip": "27000",
+      "endZip": "27799",
+      "zone": 3
+    },
+    {
+      "startZip": "27800",
+      "endZip": "27999",
+      "zone": 4
+    },
+    {
+      "startZip": "28000",
+      "endZip": "28399",
+      "zone": 3
+    },
+    {
+      "startZip": "28400",
+      "endZip": "28599",
+      "zone": 4
+    },
+    {
+      "startZip": "28600",
+      "endZip": "28699",
+      "zone": 3
+    },
+    {
+      "startZip": "28700",
+      "endZip": "29399",
+      "zone": 2
+    },
+    {
+      "startZip": "29400",
+      "endZip": "29599",
+      "zone": 3
+    },
+    {
+      "startZip": "29600",
+      "endZip": "29699",
+      "zone": 2
+    },
+    {
+      "startZip": "29700",
+      "endZip": "29799",
+      "zone": 3
+    },
+    {
+      "startZip": "29800",
+      "endZip": "29899",
+      "zone": 2
+    },
+    {
+      "startZip": "29900",
+      "endZip": "29999",
+      "zone": 3
+    },
+    {
+      "startZip": "30000",
+      "endZip": "31299",
+      "zone": 2
+    },
+    {
+      "startZip": "31300",
+      "endZip": "31799",
+      "zone": 3
+    },
+    {
+      "startZip": "31800",
+      "endZip": "31999",
+      "zone": 2
+    },
+    {
+      "startZip": "32000",
+      "endZip": "32499",
+      "zone": 3
+    },
+    {
+      "startZip": "32500",
+      "endZip": "32999",
+      "zone": 4
+    },
+    {
+      "startZip": "33000",
+      "endZip": "33299",
+      "zone": 5
+    },
+    {
+      "startZip": "33300",
+      "endZip": "34999",
+      "zone": 4
+    },
+    {
+      "startZip": "35000",
+      "endZip": "35899",
+      "zone": 3
+    },
+    {
+      "startZip": "35900",
+      "endZip": "35999",
+      "zone": 2
+    },
+    {
+      "startZip": "36000",
+      "endZip": "36199",
+      "zone": 3
+    },
+    {
+      "startZip": "36200",
+      "endZip": "36299",
+      "zone": 2
+    },
+    {
+      "startZip": "36300",
+      "endZip": "36499",
+      "zone": 3
+    },
+    {
+      "startZip": "36500",
+      "endZip": "36699",
+      "zone": 4
+    },
+    {
+      "startZip": "36700",
+      "endZip": "36799",
+      "zone": 3
+    },
+    {
+      "startZip": "36800",
+      "endZip": "36899",
+      "zone": 2
+    },
+    {
+      "startZip": "36900",
+      "endZip": "37299",
+      "zone": 3
+    },
+    {
+      "startZip": "37300",
+      "endZip": "37499",
+      "zone": 2
+    },
+    {
+      "startZip": "37500",
+      "endZip": "37599",
+      "zone": 4
+    },
+    {
+      "startZip": "37600",
+      "endZip": "37999",
+      "zone": 2
+    },
+    {
+      "startZip": "38000",
+      "endZip": "38199",
+      "zone": 4
+    },
+    {
+      "startZip": "38200",
+      "endZip": "38599",
+      "zone": 3
+    },
+    {
+      "startZip": "38600",
+      "endZip": "38799",
+      "zone": 4
+    },
+    {
+      "startZip": "38800",
+      "endZip": "38899",
+      "zone": 3
+    },
+    {
+      "startZip": "38900",
+      "endZip": "39299",
+      "zone": 4
+    },
+    {
+      "startZip": "39300",
+      "endZip": "39399",
+      "zone": 3
+    },
+    {
+      "startZip": "39400",
+      "endZip": "39699",
+      "zone": 4
+    },
+    {
+      "startZip": "39700",
+      "endZip": "39799",
+      "zone": 3
+    },
+    {
+      "startZip": "39800",
+      "endZip": "39999",
+      "zone": 2
+    },
+    {
+      "startZip": "40000",
+      "endZip": "40999",
+      "zone": 3
+    },
+    {
+      "startZip": "41000",
+      "endZip": "41099",
+      "zone": 4
+    },
+    {
+      "startZip": "41100",
+      "endZip": "41899",
+      "zone": 3
+    },
+    {
+      "startZip": "41900",
+      "endZip": "41999",
+      "zone": null
+    },
+    {
+      "startZip": "42000",
+      "endZip": "42099",
+      "zone": 4
+    },
+    {
+      "startZip": "42100",
+      "endZip": "42399",
+      "zone": 3
+    },
+    {
+      "startZip": "42400",
+      "endZip": "42499",
+      "zone": 4
+    },
+    {
+      "startZip": "42500",
+      "endZip": "42799",
+      "zone": 3
+    },
+    {
+      "startZip": "42800",
+      "endZip": "42999",
+      "zone": null
+    },
+    {
+      "startZip": "43000",
+      "endZip": "47099",
+      "zone": 4
+    },
+    {
+      "startZip": "47100",
+      "endZip": "47199",
+      "zone": 3
+    },
+    {
+      "startZip": "47200",
+      "endZip": "48399",
+      "zone": 4
+    },
+    {
+      "startZip": "48400",
+      "endZip": "48799",
+      "zone": 5
+    },
+    {
+      "startZip": "48800",
+      "endZip": "49599",
+      "zone": 4
+    },
+    {
+      "startZip": "49600",
+      "endZip": "52599",
+      "zone": 5
+    },
+    {
+      "startZip": "52600",
+      "endZip": "52799",
+      "zone": 4
+    },
+    {
+      "startZip": "52800",
+      "endZip": "56499",
+      "zone": 5
+    },
+    {
+      "startZip": "56500",
+      "endZip": "56799",
+      "zone": 6
+    },
+    {
+      "startZip": "56800",
+      "endZip": "56999",
+      "zone": null
+    },
+    {
+      "startZip": "57000",
+      "endZip": "57399",
+      "zone": 5
+    },
+    {
+      "startZip": "57400",
+      "endZip": "58899",
+      "zone": 6
+    },
+    {
+      "startZip": "58900",
+      "endZip": "58999",
+      "zone": null
+    },
+    {
+      "startZip": "59000",
+      "endZip": "59299",
+      "zone": 7
+    },
+    {
+      "startZip": "59300",
+      "endZip": "59399",
+      "zone": 6
+    },
+    {
+      "startZip": "59400",
+      "endZip": "59899",
+      "zone": 7
+    },
+    {
+      "startZip": "59900",
+      "endZip": "59999",
+      "zone": 8
+    },
+    {
+      "startZip": "60000",
+      "endZip": "60999",
+      "zone": 4
+    },
+    {
+      "startZip": "61000",
+      "endZip": "61199",
+      "zone": 5
+    },
+    {
+      "startZip": "61200",
+      "endZip": "63499",
+      "zone": 4
+    },
+    {
+      "startZip": "63500",
+      "endZip": "63599",
+      "zone": 5
+    },
+    {
+      "startZip": "63600",
+      "endZip": "63999",
+      "zone": 4
+    },
+    {
+      "startZip": "64000",
+      "endZip": "64999",
+      "zone": 5
+    },
+    {
+      "startZip": "65000",
+      "endZip": "65999",
+      "zone": 4
+    },
+    {
+      "startZip": "66000",
+      "endZip": "67699",
+      "zone": 5
+    },
+    {
+      "startZip": "67700",
+      "endZip": "67799",
+      "zone": 6
+    },
+    {
+      "startZip": "67800",
+      "endZip": "68999",
+      "zone": 5
+    },
+    {
+      "startZip": "69000",
+      "endZip": "69399",
+      "zone": 6
+    },
+    {
+      "startZip": "69400",
+      "endZip": "69999",
+      "zone": null
+    },
+    {
+      "startZip": "70000",
+      "endZip": "72999",
+      "zone": 4
+    },
+    {
+      "startZip": "73000",
+      "endZip": "74899",
+      "zone": 5
+    },
+    {
+      "startZip": "74900",
+      "endZip": "74999",
+      "zone": 4
+    },
+    {
+      "startZip": "75000",
+      "endZip": "75499",
+      "zone": 5
+    },
+    {
+      "startZip": "75500",
+      "endZip": "75599",
+      "zone": 4
+    },
+    {
+      "startZip": "75600",
+      "endZip": "78499",
+      "zone": 5
+    },
+    {
+      "startZip": "78500",
+      "endZip": "78599",
+      "zone": 6
+    },
+    {
+      "startZip": "78600",
+      "endZip": "78999",
+      "zone": 5
+    },
+    {
+      "startZip": "79000",
+      "endZip": "79199",
+      "zone": 6
+    },
+    {
+      "startZip": "79200",
+      "endZip": "79299",
+      "zone": 5
+    },
+    {
+      "startZip": "79300",
+      "endZip": "79499",
+      "zone": 6
+    },
+    {
+      "startZip": "79500",
+      "endZip": "79699",
+      "zone": 5
+    },
+    {
+      "startZip": "79700",
+      "endZip": "81499",
+      "zone": 6
+    },
+    {
+      "startZip": "81500",
+      "endZip": "81599",
+      "zone": 7
+    },
+    {
+      "startZip": "81600",
+      "endZip": "82099",
+      "zone": 6
+    },
+    {
+      "startZip": "82100",
+      "endZip": "82199",
+      "zone": 7
+    },
+    {
+      "startZip": "82200",
+      "endZip": "82399",
+      "zone": 6
+    },
+    {
+      "startZip": "82400",
+      "endZip": "82599",
+      "zone": 7
+    },
+    {
+      "startZip": "82600",
+      "endZip": "82899",
+      "zone": 6
+    },
+    {
+      "startZip": "82900",
+      "endZip": "83499",
+      "zone": 7
+    },
+    {
+      "startZip": "83500",
+      "endZip": "83899",
+      "zone": 8
+    },
+    {
+      "startZip": "83900",
+      "endZip": "83999",
+      "zone": null
+    },
+    {
+      "startZip": "84000",
+      "endZip": "86599",
+      "zone": 7
+    },
+    {
+      "startZip": "86600",
+      "endZip": "86999",
+      "zone": null
+    },
+    {
+      "startZip": "87000",
+      "endZip": "87299",
+      "zone": 6
+    },
+    {
+      "startZip": "87300",
+      "endZip": "87399",
+      "zone": 7
+    },
+    {
+      "startZip": "87400",
+      "endZip": "88599",
+      "zone": 6
+    },
+    {
+      "startZip": "88600",
+      "endZip": "88899",
+      "zone": null
+    },
+    {
+      "startZip": "88900",
+      "endZip": "89399",
+      "zone": 7
+    },
+    {
+      "startZip": "89400",
+      "endZip": "89799",
+      "zone": 8
+    },
+    {
+      "startZip": "89800",
+      "endZip": "89899",
+      "zone": 7
+    },
+    {
+      "startZip": "89900",
+      "endZip": "89999",
+      "zone": null
+    },
+    {
+      "startZip": "90000",
+      "endZip": "96699",
+      "zone": 8
+    }
+  ],
+  "specialZones": [
+    {
+      "startZip": "96700",
+      "endZip": "96700",
+      "expressZone": 12,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96701",
+      "endZip": "96701",
+      "expressZone": 10,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96702",
+      "endZip": "96705",
+      "expressZone": 12,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96706",
+      "endZip": "96707",
+      "expressZone": 10,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96708",
+      "endZip": "96708",
+      "expressZone": 12,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96709",
+      "endZip": "96709",
+      "expressZone": 10,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96710",
+      "endZip": "96710",
+      "expressZone": 12,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96711",
+      "endZip": "96712",
+      "expressZone": 10,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96713",
+      "endZip": "96716",
+      "expressZone": 12,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96717",
+      "endZip": "96717",
+      "expressZone": 10,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96718",
+      "endZip": "96729",
+      "expressZone": 12,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96730",
+      "endZip": "96731",
+      "expressZone": 10,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96732",
+      "endZip": "96733",
+      "expressZone": 12,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96734",
+      "endZip": "96734",
+      "expressZone": 10,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96735",
+      "endZip": "96743",
+      "expressZone": 12,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96744",
+      "endZip": "96744",
+      "expressZone": 10,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96745",
+      "endZip": "96757",
+      "expressZone": 12,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96758",
+      "endZip": "96759",
+      "expressZone": 10,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96760",
+      "endZip": "96761",
+      "expressZone": 12,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96762",
+      "endZip": "96762",
+      "expressZone": 10,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96763",
+      "endZip": "96774",
+      "expressZone": 12,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96775",
+      "endZip": "96775",
+      "expressZone": 10,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96776",
+      "endZip": "96781",
+      "expressZone": 12,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96782",
+      "endZip": "96782",
+      "expressZone": 10,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96783",
+      "endZip": "96785",
+      "expressZone": 12,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96786",
+      "endZip": "96786",
+      "expressZone": 10,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96787",
+      "endZip": "96788",
+      "expressZone": 12,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96789",
+      "endZip": "96789",
+      "expressZone": 10,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96790",
+      "endZip": "96790",
+      "expressZone": 12,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96791",
+      "endZip": "96792",
+      "expressZone": 10,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96793",
+      "endZip": "96793",
+      "expressZone": 12,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96794",
+      "endZip": "96795",
+      "expressZone": 10,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96796",
+      "endZip": "96796",
+      "expressZone": 12,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96797",
+      "endZip": "96797",
+      "expressZone": 10,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96798",
+      "endZip": "96800",
+      "expressZone": 12,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96801",
+      "endZip": "96863",
+      "expressZone": 10,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96864",
+      "endZip": "96899",
+      "expressZone": 12,
+      "groundZone": 9
+    },
+    {
+      "startZip": "96900",
+      "endZip": "96999",
+      "expressZone": null,
+      "groundZone": null
+    },
+    {
+      "startZip": "99500",
+      "endZip": "99500",
+      "expressZone": 11,
+      "groundZone": 17
+    },
+    {
+      "startZip": "99501",
+      "endZip": "99524",
+      "expressZone": 9,
+      "groundZone": 17
+    },
+    {
+      "startZip": "99525",
+      "endZip": "99539",
+      "expressZone": 11,
+      "groundZone": 17
+    },
+    {
+      "startZip": "99540",
+      "endZip": "99540",
+      "expressZone": 9,
+      "groundZone": 17
+    },
+    {
+      "startZip": "99541",
+      "endZip": "99566",
+      "expressZone": 11,
+      "groundZone": 17
+    },
+    {
+      "startZip": "99567",
+      "endZip": "99567",
+      "expressZone": 9,
+      "groundZone": 17
+    },
+    {
+      "startZip": "99568",
+      "endZip": "99576",
+      "expressZone": 11,
+      "groundZone": 17
+    },
+    {
+      "startZip": "99577",
+      "endZip": "99577",
+      "expressZone": 9,
+      "groundZone": 17
+    },
+    {
+      "startZip": "99578",
+      "endZip": "99999",
+      "expressZone": 11,
+      "groundZone": 17
+    }
+  ],
+  "notes": [
+    "This source is a 2022 FedEx zone locator. Rate tables are separately dated 2026-01-05.",
+    "The contiguous-US table uses one zone value for both services; outside the contiguous US, service-specific columns are retained.",
+    "NA means no assigned zone; Puerto Rico * entries were not normalized because the source directs operators to consult the Service Guide."
+  ]
+}
