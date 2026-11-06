@@ -117,7 +117,7 @@ function planShipments(order, inventory, options = {}) {
       remainingContainerAvailability
     );
     exceptions.push(...selected.exceptions);
-    recordKnownCombinations(selected.shipments, group, containers, options.knownCombinations);
+    recordKnownCombinations(selected.shipments, group, containers, options.knownCombinations, order.orderNumber);
     for (const shipment of selected.shipments) {
       if (!shipment.containerSku) continue;
       const key = `${shipment.warehouseId}:${shipment.containerSku}`;
@@ -340,7 +340,7 @@ function shipmentCandidateScore(lines, containerSku, containerDimensions, order,
     defaultProxyCost
   });
 }
-function recordKnownCombinations(shipments, sourceLines, containers, knownCombinations) {
+function recordKnownCombinations(shipments, sourceLines, containers, knownCombinations, sourceOrderNumber) {
   if (!knownCombinations) return;
   for (const shipment of shipments) {
     if (!shipment.containerSku) continue;
@@ -352,13 +352,20 @@ function recordKnownCombinations(shipments, sourceLines, containers, knownCombin
     });
     if (lines.length > 0) {
       const key = knownCombinationKey(lines);
-      if (knownCombinations.getAll(key).length === 0) {
-        knownCombinations.put(createKnownCombinationRecord(
-          key,
-          lines,
-          container.sku,
-          container.container.innerDimensions
-        ));
+      const record = createKnownCombinationRecord(
+        key,
+        lines,
+        container.sku,
+        container.container.innerDimensions,
+        { sourceOrderNumber, warehouseId: shipment.warehouseId }
+      );
+      const alreadyRecorded = knownCombinations.getAll(key).some((existing) =>
+        existing.cartonSku === record.cartonSku &&
+        (existing.warehouseId ?? null) === (record.warehouseId ?? null) &&
+        (existing.provenance ?? "geometry_validated") === (record.provenance ?? "geometry_validated")
+      );
+      if (!alreadyRecorded) {
+        knownCombinations.put(record);
       }
     }
   }

@@ -145,6 +145,14 @@ export function getDv1SourceRefreshConfig() {
   };
 }
 
+export function getDv1KnownSolutionConfig() {
+  return {
+    spreadsheetToken: process.env.DV1_FEISHU_SPREADSHEET_TOKEN || "",
+    sheetId: process.env.DV1_FEISHU_SHEET_ID || "",
+    syncIntervalMs: Math.max(60 * 1000, Number(process.env.DV1_FEISHU_SYNC_INTERVAL_MS || 60 * 60 * 1000)),
+  };
+}
+
 export function getWtfConfig() {
   const sheetUrl = process.env.WTF_SHEET_URL ||
     "https://velotric.feishu.cn/sheets/Y0UUsLgAPhZllot6GbQcopCynJh";

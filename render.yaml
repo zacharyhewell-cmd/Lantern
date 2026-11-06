@@ -86,3 +86,9 @@ services:
         sync: false
       - key: DV1_FEDEX_SHEET_ID
         sync: false
+      - key: DV1_FEISHU_SPREADSHEET_TOKEN
+        value: Rr4wsjvP3hgO5btcCHDcBHqGnRh
+      - key: DV1_FEISHU_SHEET_ID
+        value: 10dea2
+      - key: DV1_FEISHU_SYNC_INTERVAL_MS
+        value: "3600000"

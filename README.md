@@ -83,6 +83,8 @@ The gateway calls Surpath's `querySkuInventory` tool for the order SKUs and conf
 
 The same Lantern service can serve the DV1 operator screen at `/dv1`. Set `DV1_UI_USERNAME` and `DV1_UI_PASSWORD` to enable the protected browser route. The screen is read-only: it runs the recommendation and does not edit Shopify, Eccang, or Surpath.
 
+DV1 known solutions are durably archived in the Feishu sheet `Delineator DV1 Known Solutions`. Lantern reuses its existing `FEISHU_APP_ID` and `FEISHU_APP_SECRET` credentials, hydrates the archive at startup, flushes new records hourly, retries failed syncs, and attempts a final flush during shutdown. Set `DV1_FEISHU_SPREADSHEET_TOKEN` and `DV1_FEISHU_SHEET_ID` to enable the archive.
+
 DV1 can refresh its two Feishu-backed data snapshots once per week. Set `DV1_SOURCE_REFRESH_ENABLED=true` (the Render configuration enables this), with `DV1_SOURCE_REFRESH_INTERVAL_HOURS=168`. The updater reads the SKU catalog and the `派送费明细 （Fedex）2026` tab through the existing Feishu app connection, validates that both produce usable records, and then replaces both snapshots atomically. If either source fails, the previous snapshots remain active. The updater retains the carton definitions already stored in the catalog snapshot.
 
 Local smoke test:
@@ -145,6 +147,12 @@ Optional environment values:
 - `FEISHU_API_BASE_URL`, default `https://open.feishu.cn`
 - `SHOPIFY_API_VERSION`, default `2026-01`
 - `FEDEX_API_BASE_URL`, default `https://apis.fedex.com`
+
+DV1 known-solution archive values:
+
+- `DV1_FEISHU_SPREADSHEET_TOKEN`, `Rr4wsjvP3hgO5btcCHDcBHqGnRh`
+- `DV1_FEISHU_SHEET_ID`, `10dea2`
+- `DV1_FEISHU_SYNC_INTERVAL_MS`, default `3600000`
 
 WTF sheet lookup environment values:
 

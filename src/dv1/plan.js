@@ -17,7 +17,7 @@ async function readJson(path) {
   return JSON.parse(await readFile(path, "utf8"));
 }
 
-export async function planDv1Order({ orderNumber, shopifyConfig, surpathConfig } = {}) {
+export async function planDv1Order({ orderNumber, shopifyConfig, surpathConfig, knownCombinations } = {}) {
   const liveData = await loadDv1PlanningData({ orderNumber, shopifyConfig, surpathConfig });
   if (!liveData) {
     return null;
@@ -34,7 +34,7 @@ export async function planDv1Order({ orderNumber, shopifyConfig, surpathConfig }
   );
   const rateConfig = await loadPublishedRateConfig();
   const plan = planShipments(order, inventory, {
-    knownCombinations: new JsonFileKnownCombinationStore(knownCombinationsPath, [historicalKnownCombinationsPath]),
+    knownCombinations: knownCombinations || new JsonFileKnownCombinationStore(knownCombinationsPath, [historicalKnownCombinationsPath]),
     soloShippingCosts,
     catalogSkus: new Set(catalog.skus.map((sku) => sku.sku)),
     rateConfig,

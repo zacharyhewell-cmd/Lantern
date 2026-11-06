@@ -89,6 +89,8 @@ export function createLanternServer({
   watchtowerRunner = runWatchtowerOutboundDelayReport,
   dv1DataLoader = loadDv1PlanningData,
   dv1PlanRunner = planDv1Order,
+  dv1KnownCombinations,
+  dv1KnownSolutionArchiveEnabled,
   processor,
 } = {}) {
   const webhookProcessor = processor || createFeishuWebhookProcessor({
@@ -108,7 +110,14 @@ export function createLanternServer({
       const pathname = requestPath(request);
 
       if (request.method === "GET" && pathname === "/health") {
-        sendJson(response, 200, { ok: true, service: "lantern" });
+        const health = {
+          ok: true,
+          service: "lantern",
+        };
+        if (dv1KnownSolutionArchiveEnabled !== undefined) {
+          health.knownSolutionArchive = dv1KnownSolutionArchiveEnabled ? "feishu" : "local";
+        }
+        sendJson(response, 200, health);
         return;
       }
 
@@ -206,6 +215,7 @@ export function createLanternServer({
           orderNumber,
           shopifyConfig: getShopifyConfig(),
           surpathConfig: getSurpathConfig(),
+          knownCombinations: dv1KnownCombinations,
         });
         if (!result) {
           sendJson(response, 404, { error: `No Shopify order found for ${orderNumber}.` });

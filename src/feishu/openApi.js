@@ -317,6 +317,18 @@ export class FeishuOpenApiClient {
     );
   }
 
+  async appendSheetRows(spreadsheetToken, range, values) {
+    return this.requestJson(
+      "POST",
+      `/open-apis/sheets/v2/spreadsheets/${encodeURIComponent(spreadsheetToken)}/values_append`,
+      {
+        body: {
+          valueRange: { range, values },
+        },
+      },
+    );
+  }
+
   async setSheetDropdown(spreadsheetToken, range, values) {
     return this.requestJson(
       "POST",
