@@ -39,9 +39,12 @@ class InMemoryKnownCombinationStore {
   }
 }
 class JsonFileKnownCombinationStore {
-  constructor(path) {
+  constructor(path, seedPaths = []) {
     this.path = path;
-    this.memory = new InMemoryKnownCombinationStore(readRecords(path));
+    this.memory = new InMemoryKnownCombinationStore([
+      ...seedPaths.flatMap((seedPath) => readRecords(seedPath)),
+      ...readRecords(path)
+    ]);
   }
   path;
   memory;

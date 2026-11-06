@@ -10,6 +10,7 @@ import { DEFAULT_WAREHOUSE_ORIGINS } from "./core/domain/shipping-rates.js";
 
 const dataDirectory = join(dirname(fileURLToPath(import.meta.url)), "data");
 const knownCombinationsPath = process.env.DV1_KNOWN_COMBINATIONS_PATH || join(dataDirectory, "known-combinations.json");
+const historicalKnownCombinationsPath = join(dataDirectory, "historical-known-combinations.json");
 let publishedRateConfigPromise;
 
 async function readJson(path) {
@@ -33,7 +34,7 @@ export async function planDv1Order({ orderNumber, shopifyConfig, surpathConfig }
   );
   const rateConfig = await loadPublishedRateConfig();
   const plan = planShipments(order, inventory, {
-    knownCombinations: new JsonFileKnownCombinationStore(knownCombinationsPath),
+    knownCombinations: new JsonFileKnownCombinationStore(knownCombinationsPath, [historicalKnownCombinationsPath]),
     soloShippingCosts,
     catalogSkus: new Set(catalog.skus.map((sku) => sku.sku)),
     rateConfig,

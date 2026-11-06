@@ -18,6 +18,18 @@ test("builds the SKU catalog from the live sheet shape and preserves bulk-carton
   assert.deepEqual(catalog.generatedFrom.excludedColumns, ["H"]);
 });
 
+test("preserves the provisional AACC0099B alias during weekly catalog refresh", () => {
+  const catalog = buildReferenceCatalog([
+    ["No.", "Product Name", "SKU", "Inner", "Weight", "Master", "Master Weight", "Ignored"],
+    [34, "Velotric Suspension Seatpost 2.0", "AACC0099A", "395*134*89", 1.165, "", "", "ignore"],
+  ]);
+
+  const alias = catalog.skus.find((sku) => sku.sku === "AACC0099B");
+  assert.deepEqual(alias?.dimensions, { length: 395, width: 134, height: 89, unit: "mm" });
+  assert.deepEqual(alias?.weight, { value: 2.568, unit: "lb" });
+  assert.match(alias?.sourceNote || "", /dimensionally equivalent to AACC0099A/);
+});
+
 test("builds solo cost baselines from one paid AA tracking row", () => {
   const costs = buildSoloShippingCosts([
     Array.from({ length: 13 }, (_, index) => `H${index}`),

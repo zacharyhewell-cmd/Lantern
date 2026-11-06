@@ -6,7 +6,7 @@
     "sheetId": "2b1183",
     "revision": 200,
     "wikiUrl": "https://velotric.feishu.cn/wiki/GAsUwq2iKiPEAXkaZ4ncU0xhnme?from=from_copylink",
-    "fetchedAt": "2026-11-03T00:00:00-06:00",
+    "fetchedAt": "2026-11-06T20:10:00Z",
     "sourceColumns": [
       "A",
       "B",
@@ -1791,6 +1791,22 @@
       },
       "packGroup": "standard",
       "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 107; source SKU AACC0167A-D; dimensions from column F; weight from column G. Corrected source SKU typo AACCO167A-D to AACC0167A-D."
+    },
+    {
+      "sku": "AACC0099B",
+      "name": "Velotric Suspension Seatpost 2.0",
+      "dimensions": {
+        "length": 395,
+        "width": 134,
+        "height": 89,
+        "unit": "mm"
+      },
+      "weight": {
+        "value": 2.568,
+        "unit": "lb"
+      },
+      "packGroup": "standard",
+      "sourceNote": "Imported from Feishu Accessories Package Dimension columns A-G. Source row 34; source SKU AACC0099A; dimensions from column D; weight from column E. User-directed alias: AACC0099B is assumed dimensionally equivalent to AACC0099A pending alternate product-team information."
     }
   ],
   "cartons": [

@@ -148,6 +148,14 @@ export function buildReferenceCatalog(rows, metadata = {}) {
     if (!existing || (existingExpanded && !expanded)) bySku.set(record.sku, record);
   }
 
+  // Product-team/catalog update lag: until a source row is supplied, treat
+  // AACC0099B as dimensionally equivalent to the established AACC0099A SKU.
+  if (!bySku.has("AACC0099B") && bySku.has("AACC0099A")) {
+    const alias = { ...bySku.get("AACC0099A"), sku: "AACC0099B" };
+    alias.sourceNote = `${alias.sourceNote || "Inherited from the reference catalog."} User-directed alias: AACC0099B is assumed dimensionally equivalent to AACC0099A pending alternate product-team information.`;
+    bySku.set("AACC0099B", alias);
+  }
+
   return {
     generatedFrom: {
       sourceType: "feishu-sheet",
