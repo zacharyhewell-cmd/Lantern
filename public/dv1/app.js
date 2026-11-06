@@ -44,7 +44,6 @@ function renderPlan({ order, plan }) {
       <p class="warehouse">Warehouse: <strong>${escapeHtml(shipment.warehouseId)}</strong></p>
       <div class="shipment-contents">
         <div class="shipment-contents-heading">
-          <p class="eyebrow">Contents</p>
           <span class="badge ${shipment.containerSku ? "badge-carton" : "badge-solo"}">${shipment.containerSku ? escapeHtml(shipment.containerSku) : "Solo shipment"}</span>
         </div>
         <ul>${shipment.lines.map((line) => `<li><strong>${escapeHtml(line.sku)}</strong> × ${line.quantity}</li>`).join("")}</ul>
