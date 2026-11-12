@@ -1,3 +1,4 @@
+import { DEFAULT_SOURCE_MIN_COVERAGE } from "./dv1/sourceValidation.js";
 import { readFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
@@ -136,6 +137,8 @@ export function getServerConfig() {
 export function getDv1SourceRefreshConfig() {
   return {
     enabled: process.env.DV1_SOURCE_REFRESH_ENABLED === "true",
+    minCoverage: Number(process.env.DV1_SOURCE_REFRESH_MIN_COVERAGE || DEFAULT_SOURCE_MIN_COVERAGE),
+    alertChatId: process.env.DV1_SOURCE_REFRESH_ALERT_CHAT_ID?.trim() || "",
     intervalMs: Math.max(60 * 60 * 1000, Number(process.env.DV1_SOURCE_REFRESH_INTERVAL_HOURS || 168) * 60 * 60 * 1000),
     catalogSpreadsheetToken: process.env.DV1_CATALOG_SPREADSHEET_TOKEN || "UsMXsBUuKha13jt0W4jciGgyn6g",
     catalogSheetId: process.env.DV1_CATALOG_SHEET_ID || "2b1183",

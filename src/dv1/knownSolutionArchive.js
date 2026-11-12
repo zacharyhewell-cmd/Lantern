@@ -5,7 +5,7 @@ import {
   BufferedKnownCombinationStore,
   JsonFileKnownCombinationStore,
   knownCombinationRecordId,
-} from "./core/planner/known-combinations.js";
+} from "@lantern/delineator";
 
 const dataDirectory = join(dirname(fileURLToPath(import.meta.url)), "data");
 
@@ -27,18 +27,24 @@ function toRow(record) {
     record.createdAt,
     record.lastUsedAt || "",
     record.useCount,
-    1,
+    record.geometryProofVersion ?? 1,
   ];
 }
 
 function parseRow(row) {
   if (!row?.[0]) return null;
   try {
+    const cartonDimensions = JSON.parse(String(row[4] || "{}"));
+    if (!cartonDimensions || !["in", "mm"].includes(cartonDimensions.unit) ||
+        !["length", "width", "height"].every((side) => Number.isFinite(cartonDimensions[side]) && cartonDimensions[side] > 0)) {
+      return null;
+    }
     return {
       key: String(row[1] || ""),
       itemSummary: JSON.parse(String(row[2] || "[]")),
       cartonSku: String(row[3] || ""),
-      cartonDimensions: JSON.parse(String(row[4] || "{}")),
+      cartonDimensions,
+      geometryProofVersion: Number(row[12]) >= 2 ? Number(row[12]) : undefined,
       warehouseId: String(row[5] || "") || undefined,
       provenance: String(row[6] || "geometry_validated"),
       sourceOrderNumber: String(row[7] || "") || undefined,

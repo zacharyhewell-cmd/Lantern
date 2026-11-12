@@ -3,3 +3,5 @@
 node_modules/
 var/
 outputs/
+packages/delineator/dist/
+packages/delineator/.test-build/

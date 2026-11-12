@@ -1,0 +1,28 @@
+{
+  "orderId": "gid://shopify/Order/1001",
+  "orderNumber": "WS-#10001",
+  "warehouseId": "LA-SPI1",
+  "destination": { "postalCode": "50309", "countryCode": "US" },
+  "lines": [
+    {
+      "id": "line-1",
+      "sku": "AACC0019B",
+      "quantity": 2
+    },
+    {
+      "id": "line-2",
+      "sku": "AACC0073A",
+      "quantity": 1
+    },
+    {
+      "id": "line-3",
+      "sku": "AACC0036A",
+      "quantity": 1
+    },
+    {
+      "id": "line-4",
+      "sku": "MERCH-NOTE-CARD",
+      "quantity": 1
+    }
+  ]
+}

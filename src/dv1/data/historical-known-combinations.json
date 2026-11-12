@@ -45,7 +45,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876520156751; order WS-#44568."
+      "sourceNote": "Imported from Surpath shipment 876520156751; order WS-#44568.",
+      "sourceOrderNumber": "WS-#44568"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":1,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0096A\",\"quantity\":1,\"dimensions\":{\"length\":250,\"width\":95,\"height\":95,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0103A\",\"quantity\":1,\"dimensions\":{\"length\":250,\"width\":160,\"height\":65,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0120A\",\"quantity\":1,\"dimensions\":{\"length\":500,\"width\":260,\"height\":250,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -112,7 +113,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876443035038; order WS-#44377."
+      "sourceNote": "Imported from Surpath shipment 876443035038; order WS-#44377.",
+      "sourceOrderNumber": "WS-#44377"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0120A\",\"quantity\":1,\"dimensions\":{\"length\":500,\"width\":260,\"height\":250,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":1,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -159,7 +161,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876606546761; order WS-#44856."
+      "sourceNote": "Imported from Surpath shipment 876606546761; order WS-#44856.",
+      "sourceOrderNumber": "WS-#44856"
     },
     {
       "key": "{\"sku\":\"AACC0095A\",\"quantity\":4,\"dimensions\":{\"length\":250,\"width\":95,\"height\":95,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0125A\",\"quantity\":2,\"dimensions\":{\"length\":177,\"width\":100,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0140A\",\"quantity\":2,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -206,7 +209,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876589918115; order WS-#44823."
+      "sourceNote": "Imported from Surpath shipment 876589918115; order WS-#44823.",
+      "sourceOrderNumber": "WS-#44823"
     },
     {
       "key": "{\"sku\":\"AACC0083A\",\"quantity\":3,\"dimensions\":{\"length\":170,\"width\":155,\"height\":75,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0099B\",\"quantity\":2,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -243,7 +247,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876588695005; order WS-#43853."
+      "sourceNote": "Imported from Surpath shipment 876588695005; order WS-#43853.",
+      "sourceOrderNumber": "WS-#43853"
     },
     {
       "key": "{\"sku\":\"AACC0034B\",\"quantity\":1,\"dimensions\":{\"length\":470,\"width\":376,\"height\":147,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0078A\",\"quantity\":1,\"dimensions\":{\"length\":430,\"width\":335,\"height\":80,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":6,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -290,7 +295,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876582123596; order WS-#44821."
+      "sourceNote": "Imported from Surpath shipment 876582123596; order WS-#44821.",
+      "sourceOrderNumber": "WS-#44821"
     },
     {
       "key": "{\"sku\":\"AACC0034B\",\"quantity\":1,\"dimensions\":{\"length\":470,\"width\":376,\"height\":147,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0099B\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":1,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -337,7 +343,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876552712581; order WS-#44587."
+      "sourceNote": "Imported from Surpath shipment 876552712581; order WS-#44587.",
+      "sourceOrderNumber": "WS-#44587"
     },
     {
       "key": "{\"sku\":\"AACC0119A\",\"quantity\":3,\"dimensions\":{\"length\":350,\"width\":240,\"height\":190,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0153A\",\"quantity\":1,\"dimensions\":{\"length\":425,\"width\":300,\"height\":210,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -384,7 +391,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876646167041; order WS-#44609."
+      "sourceNote": "Imported from Surpath shipment 876646167041; order WS-#44609.",
+      "sourceOrderNumber": "WS-#44609"
     },
     {
       "key": "{\"sku\":\"AACC0073A\",\"quantity\":1,\"dimensions\":{\"length\":150,\"width\":75,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":2,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0136A\",\"quantity\":1,\"dimensions\":{\"length\":840,\"width\":427,\"height\":75,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -431,7 +439,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876645444741; order WS-#45149."
+      "sourceNote": "Imported from Surpath shipment 876645444741; order WS-#45149.",
+      "sourceOrderNumber": "WS-#45149"
     },
     {
       "key": "{\"sku\":\"AACC0034B\",\"quantity\":2,\"dimensions\":{\"length\":470,\"width\":376,\"height\":147,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":2,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -468,7 +477,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876638668661; order WS-#45090."
+      "sourceNote": "Imported from Surpath shipment 876638668661; order WS-#45090.",
+      "sourceOrderNumber": "WS-#45090"
     },
     {
       "key": "{\"sku\":\"AACC0095A\",\"quantity\":2,\"dimensions\":{\"length\":250,\"width\":95,\"height\":95,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0120A\",\"quantity\":1,\"dimensions\":{\"length\":500,\"width\":260,\"height\":250,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0134A\",\"quantity\":1,\"dimensions\":{\"length\":148,\"width\":50,\"height\":250,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -515,7 +525,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876620272812; order WS-#44711."
+      "sourceNote": "Imported from Surpath shipment 876620272812; order WS-#44711.",
+      "sourceOrderNumber": "WS-#44711"
     },
     {
       "key": "{\"sku\":\"AACC0078A\",\"quantity\":1,\"dimensions\":{\"length\":430,\"width\":335,\"height\":80,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -552,7 +563,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876614085465; order WS-#44759."
+      "sourceNote": "Imported from Surpath shipment 876614085465; order WS-#44759.",
+      "sourceOrderNumber": "WS-#44759"
     },
     {
       "key": "{\"sku\":\"AACC0034B\",\"quantity\":1,\"dimensions\":{\"length\":470,\"width\":376,\"height\":147,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0119A\",\"quantity\":1,\"dimensions\":{\"length\":350,\"width\":240,\"height\":190,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -589,7 +601,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876613821632; order WS-#44884."
+      "sourceNote": "Imported from Surpath shipment 876613821632; order WS-#44884.",
+      "sourceOrderNumber": "WS-#44884"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":2,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0027B\",\"quantity\":1,\"dimensions\":{\"length\":512,\"width\":408,\"height\":204,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0034B\",\"quantity\":1,\"dimensions\":{\"length\":470,\"width\":376,\"height\":147,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0099B\",\"quantity\":2,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0125A\",\"quantity\":1,\"dimensions\":{\"length\":177,\"width\":100,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -656,7 +669,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876613887327; order WS-#44908."
+      "sourceNote": "Imported from Surpath shipment 876613887327; order WS-#44908.",
+      "sourceOrderNumber": "WS-#44908"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":2,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0096A\",\"quantity\":2,\"dimensions\":{\"length\":250,\"width\":95,\"height\":95,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":2,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -703,7 +717,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876606840810; order WS-#44958."
+      "sourceNote": "Imported from Surpath shipment 876606840810; order WS-#44958.",
+      "sourceOrderNumber": "WS-#44958"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":1,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0034B\",\"quantity\":1,\"dimensions\":{\"length\":470,\"width\":376,\"height\":147,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0096A\",\"quantity\":1,\"dimensions\":{\"length\":250,\"width\":95,\"height\":95,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -750,7 +765,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876708158027; order WS-#45431."
+      "sourceNote": "Imported from Surpath shipment 876708158027; order WS-#45431.",
+      "sourceOrderNumber": "WS-#45431"
     },
     {
       "key": "{\"sku\":\"AACC0095A\",\"quantity\":1,\"dimensions\":{\"length\":250,\"width\":95,\"height\":95,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0139A\",\"quantity\":1,\"dimensions\":{\"length\":148,\"width\":50,\"height\":250,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -797,7 +813,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876707841930; order WS-#44627."
+      "sourceNote": "Imported from Surpath shipment 876707841930; order WS-#44627.",
+      "sourceOrderNumber": "WS-#44627"
     },
     {
       "key": "{\"sku\":\"AACC0078A\",\"quantity\":1,\"dimensions\":{\"length\":430,\"width\":335,\"height\":80,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0132A\",\"quantity\":1,\"dimensions\":{\"length\":455,\"width\":370,\"height\":155,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":13,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -844,7 +861,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876707402390; order WS-#45382."
+      "sourceNote": "Imported from Surpath shipment 876707402390; order WS-#45382.",
+      "sourceOrderNumber": "WS-#45382"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":1,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0099B\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0136A\",\"quantity\":1,\"dimensions\":{\"length\":840,\"width\":427,\"height\":75,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -901,7 +919,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876684694841; order WS-#45189."
+      "sourceNote": "Imported from Surpath shipment 876684694841; order WS-#45189.",
+      "sourceOrderNumber": "WS-#45189"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":1,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0119A\",\"quantity\":1,\"dimensions\":{\"length\":350,\"width\":240,\"height\":190,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0121A\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0125A\",\"quantity\":1,\"dimensions\":{\"length\":177,\"width\":100,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -958,7 +977,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876665126952; order WS-#45249."
+      "sourceNote": "Imported from Surpath shipment 876665126952; order WS-#45249.",
+      "sourceOrderNumber": "WS-#45249"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":4,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":2,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -995,7 +1015,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876665178971; order WS-#44648."
+      "sourceNote": "Imported from Surpath shipment 876665178971; order WS-#44648.",
+      "sourceOrderNumber": "WS-#44648"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":1,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0034B\",\"quantity\":1,\"dimensions\":{\"length\":470,\"width\":376,\"height\":147,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0096A\",\"quantity\":1,\"dimensions\":{\"length\":250,\"width\":95,\"height\":95,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -1052,7 +1073,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876742277454; order WS-#45450."
+      "sourceNote": "Imported from Surpath shipment 876742277454; order WS-#45450.",
+      "sourceOrderNumber": "WS-#45450"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":1,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0034B\",\"quantity\":1,\"dimensions\":{\"length\":470,\"width\":376,\"height\":147,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0095A\",\"quantity\":1,\"dimensions\":{\"length\":250,\"width\":95,\"height\":95,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -1099,7 +1121,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876777057760; order WS-#45629."
+      "sourceNote": "Imported from Surpath shipment 876777057760; order WS-#45629.",
+      "sourceOrderNumber": "WS-#45629"
     },
     {
       "key": "{\"sku\":\"AACC0124B\",\"quantity\":3,\"dimensions\":{\"length\":175,\"width\":120,\"height\":60,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":7,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":6,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -1146,7 +1169,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876775148284; order WS-#45621."
+      "sourceNote": "Imported from Surpath shipment 876775148284; order WS-#45621.",
+      "sourceOrderNumber": "WS-#45621"
     },
     {
       "key": "{\"sku\":\"AACC0103A\",\"quantity\":4,\"dimensions\":{\"length\":250,\"width\":160,\"height\":65,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0131A\",\"quantity\":3,\"dimensions\":{\"length\":810,\"width\":235,\"height\":125,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -1183,7 +1207,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876760406044; order WS-#45517."
+      "sourceNote": "Imported from Surpath shipment 876760406044; order WS-#45517.",
+      "sourceOrderNumber": "WS-#45517"
     },
     {
       "key": "{\"sku\":\"AACC0135A\",\"quantity\":2,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0153A\",\"quantity\":2,\"dimensions\":{\"length\":425,\"width\":300,\"height\":210,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -1220,7 +1245,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876850392127; order WS-#45843."
+      "sourceNote": "Imported from Surpath shipment 876850392127; order WS-#45843.",
+      "sourceOrderNumber": "WS-#45843"
     },
     {
       "key": "{\"sku\":\"AACC0078A\",\"quantity\":2,\"dimensions\":{\"length\":430,\"width\":335,\"height\":80,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0099B\",\"quantity\":2,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0119A\",\"quantity\":1,\"dimensions\":{\"length\":350,\"width\":240,\"height\":190,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0125A\",\"quantity\":1,\"dimensions\":{\"length\":177,\"width\":100,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":2,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":2,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -1297,7 +1323,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876840147573; order WS-#45838."
+      "sourceNote": "Imported from Surpath shipment 876840147573; order WS-#45838.",
+      "sourceOrderNumber": "WS-#45838"
     },
     {
       "key": "{\"sku\":\"AACC0120A\",\"quantity\":2,\"dimensions\":{\"length\":500,\"width\":260,\"height\":250,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0140A\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -1334,7 +1361,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876839914801; order WS-#45831."
+      "sourceNote": "Imported from Surpath shipment 876839914801; order WS-#45831.",
+      "sourceOrderNumber": "WS-#45831"
     },
     {
       "key": "{\"sku\":\"AACC0119A\",\"quantity\":1,\"dimensions\":{\"length\":350,\"width\":240,\"height\":190,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -1371,7 +1399,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876839014299; order WS-#45706."
+      "sourceNote": "Imported from Surpath shipment 876839014299; order WS-#45706.",
+      "sourceOrderNumber": "WS-#45706"
     },
     {
       "key": "{\"sku\":\"AACC0027B\",\"quantity\":1,\"dimensions\":{\"length\":512,\"width\":408,\"height\":204,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0034B\",\"quantity\":1,\"dimensions\":{\"length\":470,\"width\":376,\"height\":147,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0124B\",\"quantity\":4,\"dimensions\":{\"length\":175,\"width\":120,\"height\":60,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -1418,7 +1447,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876837705691; order WS-#45685."
+      "sourceNote": "Imported from Surpath shipment 876837705691; order WS-#45685.",
+      "sourceOrderNumber": "WS-#45685"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":2,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":2,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":2,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -1465,7 +1495,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876836820974; order WS-#44714."
+      "sourceNote": "Imported from Surpath shipment 876836820974; order WS-#44714.",
+      "sourceOrderNumber": "WS-#44714"
     },
     {
       "key": "{\"sku\":\"AACC0078A\",\"quantity\":1,\"dimensions\":{\"length\":430,\"width\":335,\"height\":80,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0132A\",\"quantity\":1,\"dimensions\":{\"length\":455,\"width\":370,\"height\":155,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0142A\",\"quantity\":1,\"dimensions\":{\"length\":380,\"width\":80,\"height\":50,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -1512,7 +1543,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876835197134; order WS-#45778."
+      "sourceNote": "Imported from Surpath shipment 876835197134; order WS-#45778.",
+      "sourceOrderNumber": "WS-#45778"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":2,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0119A\",\"quantity\":1,\"dimensions\":{\"length\":350,\"width\":240,\"height\":190,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":2,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -1559,7 +1591,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876960653100; order WS-#46070."
+      "sourceNote": "Imported from Surpath shipment 876960653100; order WS-#46070.",
+      "sourceOrderNumber": "WS-#46070"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":4,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":4,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -1596,7 +1629,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876960350087; order WS-#46046."
+      "sourceNote": "Imported from Surpath shipment 876960350087; order WS-#46046.",
+      "sourceOrderNumber": "WS-#46046"
     },
     {
       "key": "{\"sku\":\"AACC0028A\",\"quantity\":3,\"dimensions\":{\"length\":447,\"width\":188,\"height\":90,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0099B\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0121A\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":1,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":2,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -1663,7 +1697,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876959202928; order WS-#45872."
+      "sourceNote": "Imported from Surpath shipment 876959202928; order WS-#45872.",
+      "sourceOrderNumber": "WS-#45872"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":2,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0096A\",\"quantity\":2,\"dimensions\":{\"length\":250,\"width\":95,\"height\":95,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":2,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -1710,7 +1745,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876953244168; order WS-#46125."
+      "sourceNote": "Imported from Surpath shipment 876953244168; order WS-#46125.",
+      "sourceOrderNumber": "WS-#46125"
     },
     {
       "key": "{\"sku\":\"AACC0034B\",\"quantity\":2,\"dimensions\":{\"length\":470,\"width\":376,\"height\":147,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0096A\",\"quantity\":2,\"dimensions\":{\"length\":250,\"width\":95,\"height\":95,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0119A\",\"quantity\":2,\"dimensions\":{\"length\":350,\"width\":240,\"height\":190,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -1757,7 +1793,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876953147131; order WS-#46008."
+      "sourceNote": "Imported from Surpath shipment 876953147131; order WS-#46008.",
+      "sourceOrderNumber": "WS-#46008"
     },
     {
       "key": "{\"sku\":\"AACC0083A\",\"quantity\":2,\"dimensions\":{\"length\":170,\"width\":155,\"height\":75,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0120A\",\"quantity\":1,\"dimensions\":{\"length\":500,\"width\":260,\"height\":250,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -1794,7 +1831,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876952364122; order WS-#45948."
+      "sourceNote": "Imported from Surpath shipment 876952364122; order WS-#45948.",
+      "sourceOrderNumber": "WS-#45948"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":1,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0125A\",\"quantity\":1,\"dimensions\":{\"length\":177,\"width\":100,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":1,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -1851,7 +1889,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876951446108; order WS-#45915."
+      "sourceNote": "Imported from Surpath shipment 876951446108; order WS-#45915.",
+      "sourceOrderNumber": "WS-#45915"
     },
     {
       "key": "{\"sku\":\"AACC0130A\",\"quantity\":2,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0140A\",\"quantity\":2,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -1888,7 +1927,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876926705193; order WS-#45875."
+      "sourceNote": "Imported from Surpath shipment 876926705193; order WS-#45875.",
+      "sourceOrderNumber": "WS-#45875"
     },
     {
       "key": "{\"sku\":\"AACC0120A\",\"quantity\":1,\"dimensions\":{\"length\":500,\"width\":260,\"height\":250,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":3,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0152A\",\"quantity\":2,\"dimensions\":{\"length\":180,\"width\":125,\"height\":48,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -1935,7 +1975,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876913495892; order WS-#45889."
+      "sourceNote": "Imported from Surpath shipment 876913495892; order WS-#45889.",
+      "sourceOrderNumber": "WS-#45889"
     },
     {
       "key": "{\"sku\":\"AACC0034B\",\"quantity\":2,\"dimensions\":{\"length\":470,\"width\":376,\"height\":147,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0083A\",\"quantity\":6,\"dimensions\":{\"length\":170,\"width\":155,\"height\":75,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -1972,7 +2013,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876895503402; order WS-#45982."
+      "sourceNote": "Imported from Surpath shipment 876895503402; order WS-#45982.",
+      "sourceOrderNumber": "WS-#45982"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0140A\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -2009,7 +2051,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876887651979; order WS-#45817."
+      "sourceNote": "Imported from Surpath shipment 876887651979; order WS-#45817.",
+      "sourceOrderNumber": "WS-#45817"
     },
     {
       "key": "{\"sku\":\"AACC0034B\",\"quantity\":1,\"dimensions\":{\"length\":470,\"width\":376,\"height\":147,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":2,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -2046,7 +2089,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876990779105; order WS-#46167."
+      "sourceNote": "Imported from Surpath shipment 876990779105; order WS-#46167.",
+      "sourceOrderNumber": "WS-#46167"
     },
     {
       "key": "{\"sku\":\"AACC0120A\",\"quantity\":1,\"dimensions\":{\"length\":500,\"width\":260,\"height\":250,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0154A\",\"quantity\":1,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -2083,7 +2127,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876990705147; order WS-#46121."
+      "sourceNote": "Imported from Surpath shipment 876990705147; order WS-#46121.",
+      "sourceOrderNumber": "WS-#46121"
     },
     {
       "key": "{\"sku\":\"AACC0119A\",\"quantity\":3,\"dimensions\":{\"length\":350,\"width\":240,\"height\":190,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0124B\",\"quantity\":1,\"dimensions\":{\"length\":175,\"width\":120,\"height\":60,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":2,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -2130,7 +2175,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876983257815; order WS-#46252."
+      "sourceNote": "Imported from Surpath shipment 876983257815; order WS-#46252.",
+      "sourceOrderNumber": "WS-#46252"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":1,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -2177,7 +2223,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876982419250; order WS-#46257."
+      "sourceNote": "Imported from Surpath shipment 876982419250; order WS-#46257.",
+      "sourceOrderNumber": "WS-#46257"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":1,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0079A\",\"quantity\":2,\"dimensions\":{\"length\":660,\"width\":340,\"height\":100,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -2214,7 +2261,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876981985373; order WS-#46269."
+      "sourceNote": "Imported from Surpath shipment 876981985373; order WS-#46269.",
+      "sourceOrderNumber": "WS-#46269"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":1,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0096A\",\"quantity\":1,\"dimensions\":{\"length\":250,\"width\":95,\"height\":95,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0099B\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":1,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -2281,7 +2329,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876981260543; order WS-#46302."
+      "sourceNote": "Imported from Surpath shipment 876981260543; order WS-#46302.",
+      "sourceOrderNumber": "WS-#46302"
     },
     {
       "key": "{\"sku\":\"AACC0028A\",\"quantity\":2,\"dimensions\":{\"length\":447,\"width\":188,\"height\":90,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0029A\",\"quantity\":2,\"dimensions\":{\"length\":155,\"width\":155,\"height\":50,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -2318,7 +2367,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876978274500; order WS-#46264."
+      "sourceNote": "Imported from Surpath shipment 876978274500; order WS-#46264.",
+      "sourceOrderNumber": "WS-#46264"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":2,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":2,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -2355,7 +2405,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876975073119; order WS-#46260."
+      "sourceNote": "Imported from Surpath shipment 876975073119; order WS-#46260.",
+      "sourceOrderNumber": "WS-#46260"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":6,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0132A\",\"quantity\":2,\"dimensions\":{\"length\":455,\"width\":370,\"height\":155,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -2392,7 +2443,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876973172638; order WS-#46053."
+      "sourceNote": "Imported from Surpath shipment 876973172638; order WS-#46053.",
+      "sourceOrderNumber": "WS-#46053"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":1,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0095A\",\"quantity\":1,\"dimensions\":{\"length\":250,\"width\":95,\"height\":95,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -2439,7 +2491,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 876963575317; order WS-#46188."
+      "sourceNote": "Imported from Surpath shipment 876963575317; order WS-#46188.",
+      "sourceOrderNumber": "WS-#46188"
     },
     {
       "key": "{\"sku\":\"AACC0027B\",\"quantity\":1,\"dimensions\":{\"length\":512,\"width\":408,\"height\":204,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -2476,7 +2529,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877073792042; order WS-#46506."
+      "sourceNote": "Imported from Surpath shipment 877073792042; order WS-#46506.",
+      "sourceOrderNumber": "WS-#46506"
     },
     {
       "key": "{\"sku\":\"AACC0120A\",\"quantity\":1,\"dimensions\":{\"length\":500,\"width\":260,\"height\":250,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0121A\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":2,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -2523,7 +2577,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877043463641; order WS-#46481."
+      "sourceNote": "Imported from Surpath shipment 877043463641; order WS-#46481.",
+      "sourceOrderNumber": "WS-#46481"
     },
     {
       "key": "{\"sku\":\"AACC0124B\",\"quantity\":4,\"dimensions\":{\"length\":175,\"width\":120,\"height\":60,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -2560,7 +2615,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877042316533; order WS-#46491."
+      "sourceNote": "Imported from Surpath shipment 877042316533; order WS-#46491.",
+      "sourceOrderNumber": "WS-#46491"
     },
     {
       "key": "{\"sku\":\"AACC0120A\",\"quantity\":1,\"dimensions\":{\"length\":500,\"width\":260,\"height\":250,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":2,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -2597,7 +2653,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877038450171; order WS-#46456."
+      "sourceNote": "Imported from Surpath shipment 877038450171; order WS-#46456.",
+      "sourceOrderNumber": "WS-#46456"
     },
     {
       "key": "{\"sku\":\"AACC0029A\",\"quantity\":1,\"dimensions\":{\"length\":155,\"width\":155,\"height\":50,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0124B\",\"quantity\":10,\"dimensions\":{\"length\":175,\"width\":120,\"height\":60,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -2634,7 +2691,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877025593420; order WS-#46372."
+      "sourceNote": "Imported from Surpath shipment 877025593420; order WS-#46372.",
+      "sourceOrderNumber": "WS-#46372"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":1,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0096A\",\"quantity\":1,\"dimensions\":{\"length\":250,\"width\":95,\"height\":95,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -2681,7 +2739,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877015354416; order WS-#45782."
+      "sourceNote": "Imported from Surpath shipment 877015354416; order WS-#45782.",
+      "sourceOrderNumber": "WS-#45782"
     },
     {
       "key": "{\"sku\":\"AACC0028A\",\"quantity\":2,\"dimensions\":{\"length\":447,\"width\":188,\"height\":90,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0029A\",\"quantity\":1,\"dimensions\":{\"length\":155,\"width\":155,\"height\":50,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0091A\",\"quantity\":1,\"dimensions\":{\"length\":500,\"width\":290,\"height\":50,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0103A\",\"quantity\":1,\"dimensions\":{\"length\":250,\"width\":160,\"height\":65,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0132A\",\"quantity\":2,\"dimensions\":{\"length\":455,\"width\":370,\"height\":155,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -2748,7 +2807,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877173469299; order WS-#46712."
+      "sourceNote": "Imported from Surpath shipment 877173469299; order WS-#46712.",
+      "sourceOrderNumber": "WS-#46712"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":2,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0103A\",\"quantity\":2,\"dimensions\":{\"length\":250,\"width\":160,\"height\":65,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -2785,7 +2845,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877172635657; order WS-#46819."
+      "sourceNote": "Imported from Surpath shipment 877172635657; order WS-#46819.",
+      "sourceOrderNumber": "WS-#46819"
     },
     {
       "key": "{\"sku\":\"AACC0119A\",\"quantity\":2,\"dimensions\":{\"length\":350,\"width\":240,\"height\":190,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -2822,7 +2883,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877171003578; order WS-#46752."
+      "sourceNote": "Imported from Surpath shipment 877171003578; order WS-#46752.",
+      "sourceOrderNumber": "WS-#46752"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":1,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0096A\",\"quantity\":1,\"dimensions\":{\"length\":250,\"width\":95,\"height\":95,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0119A\",\"quantity\":1,\"dimensions\":{\"length\":350,\"width\":240,\"height\":190,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -2869,7 +2931,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877168648253; order WS-#46684."
+      "sourceNote": "Imported from Surpath shipment 877168648253; order WS-#46684.",
+      "sourceOrderNumber": "WS-#46684"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":2,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -2906,7 +2969,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877112349362; order WS-#46581."
+      "sourceNote": "Imported from Surpath shipment 877112349362; order WS-#46581.",
+      "sourceOrderNumber": "WS-#46581"
     },
     {
       "key": "{\"sku\":\"AACC0034B\",\"quantity\":1,\"dimensions\":{\"length\":470,\"width\":376,\"height\":147,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":3,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -2943,7 +3007,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877099837512; order WS-#46482."
+      "sourceNote": "Imported from Surpath shipment 877099837512; order WS-#46482.",
+      "sourceOrderNumber": "WS-#46482"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":1,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0125A\",\"quantity\":1,\"dimensions\":{\"length\":177,\"width\":100,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -2980,7 +3045,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877084092246; order WS-#46625."
+      "sourceNote": "Imported from Surpath shipment 877084092246; order WS-#46625.",
+      "sourceOrderNumber": "WS-#46625"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":3,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":2,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0132A\",\"quantity\":2,\"dimensions\":{\"length\":455,\"width\":370,\"height\":155,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -3027,7 +3093,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877078281867; order WS-#46532."
+      "sourceNote": "Imported from Surpath shipment 877078281867; order WS-#46532.",
+      "sourceOrderNumber": "WS-#46532"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":6,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":3,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -3064,7 +3131,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877258726253; order WS-#47082."
+      "sourceNote": "Imported from Surpath shipment 877258726253; order WS-#47082.",
+      "sourceOrderNumber": "WS-#47082"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":1,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0099B\",\"quantity\":2,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":2,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -3111,7 +3179,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877247824120; order WS-#46941."
+      "sourceNote": "Imported from Surpath shipment 877247824120; order WS-#46941.",
+      "sourceOrderNumber": "WS-#46941"
     },
     {
       "key": "{\"sku\":\"AACC0034B\",\"quantity\":1,\"dimensions\":{\"length\":470,\"width\":376,\"height\":147,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0140A\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0153A\",\"quantity\":2,\"dimensions\":{\"length\":425,\"width\":300,\"height\":210,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -3158,7 +3227,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877213810505; order WS-#46660."
+      "sourceNote": "Imported from Surpath shipment 877213810505; order WS-#46660.",
+      "sourceOrderNumber": "WS-#46660"
     },
     {
       "key": "{\"sku\":\"AACC0131A\",\"quantity\":2,\"dimensions\":{\"length\":810,\"width\":235,\"height\":125,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0154A\",\"quantity\":1,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -3195,7 +3265,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877181543705; order WS-#46833."
+      "sourceNote": "Imported from Surpath shipment 877181543705; order WS-#46833.",
+      "sourceOrderNumber": "WS-#46833"
     },
     {
       "key": "{\"sku\":\"AACC0034B\",\"quantity\":2,\"dimensions\":{\"length\":470,\"width\":376,\"height\":147,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -3232,7 +3303,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877283241700; order WS-#47064."
+      "sourceNote": "Imported from Surpath shipment 877283241700; order WS-#47064.",
+      "sourceOrderNumber": "WS-#47064"
     },
     {
       "key": "{\"sku\":\"AACC0034B\",\"quantity\":1,\"dimensions\":{\"length\":470,\"width\":376,\"height\":147,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0132A\",\"quantity\":1,\"dimensions\":{\"length\":455,\"width\":370,\"height\":155,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -3269,7 +3341,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877276999779; order WS-#46995."
+      "sourceNote": "Imported from Surpath shipment 877276999779; order WS-#46995.",
+      "sourceOrderNumber": "WS-#46995"
     },
     {
       "key": "{\"sku\":\"AACC0027B\",\"quantity\":1,\"dimensions\":{\"length\":512,\"width\":408,\"height\":204,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -3306,7 +3379,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877277047523; order WS-#46995."
+      "sourceNote": "Imported from Surpath shipment 877277047523; order WS-#46995.",
+      "sourceOrderNumber": "WS-#46995"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":4,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0099B\",\"quantity\":4,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -3343,7 +3417,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877277043068; order WS-#47055."
+      "sourceNote": "Imported from Surpath shipment 877277043068; order WS-#47055.",
+      "sourceOrderNumber": "WS-#47055"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":4,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0029A\",\"quantity\":2,\"dimensions\":{\"length\":155,\"width\":155,\"height\":50,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0099B\",\"quantity\":2,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -3390,7 +3465,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877276976355; order WS-#47064."
+      "sourceNote": "Imported from Surpath shipment 877276976355; order WS-#47064.",
+      "sourceOrderNumber": "WS-#47064"
     },
     {
       "key": "{\"sku\":\"AACC0027B\",\"quantity\":1,\"dimensions\":{\"length\":512,\"width\":408,\"height\":204,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0099B\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -3427,7 +3503,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877276955130; order WS-#47080."
+      "sourceNote": "Imported from Surpath shipment 877276955130; order WS-#47080.",
+      "sourceOrderNumber": "WS-#47080"
     },
     {
       "key": "{\"sku\":\"AACC0119A\",\"quantity\":1,\"dimensions\":{\"length\":350,\"width\":240,\"height\":190,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0131A\",\"quantity\":2,\"dimensions\":{\"length\":810,\"width\":235,\"height\":125,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -3464,7 +3541,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877264667175; order WS-#47140."
+      "sourceNote": "Imported from Surpath shipment 877264667175; order WS-#47140.",
+      "sourceOrderNumber": "WS-#47140"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":6,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":4,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -3521,7 +3599,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877258786432; order WS-#47042."
+      "sourceNote": "Imported from Surpath shipment 877258786432; order WS-#47042.",
+      "sourceOrderNumber": "WS-#47042"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":1,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0096A\",\"quantity\":1,\"dimensions\":{\"length\":250,\"width\":95,\"height\":95,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":2,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -3568,7 +3647,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877321504546; order WS-#47320."
+      "sourceNote": "Imported from Surpath shipment 877321504546; order WS-#47320.",
+      "sourceOrderNumber": "WS-#47320"
     },
     {
       "key": "{\"sku\":\"AACC0135A\",\"quantity\":3,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0183A-D\",\"quantity\":1,\"dimensions\":{\"length\":430,\"width\":460,\"height\":245,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -3605,7 +3685,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877309236244; order WS-#47263."
+      "sourceNote": "Imported from Surpath shipment 877309236244; order WS-#47263.",
+      "sourceOrderNumber": "WS-#47263"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":1,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -3642,7 +3723,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877305417308; order WS-#47166."
+      "sourceNote": "Imported from Surpath shipment 877305417308; order WS-#47166.",
+      "sourceOrderNumber": "WS-#47166"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":1,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0099B\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":1,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -3689,7 +3771,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877305029057; order WS-#47287."
+      "sourceNote": "Imported from Surpath shipment 877305029057; order WS-#47287.",
+      "sourceOrderNumber": "WS-#47287"
     },
     {
       "key": "{\"sku\":\"AACC0120A\",\"quantity\":1,\"dimensions\":{\"length\":500,\"width\":260,\"height\":250,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -3726,7 +3809,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877353838294; order WS-#47155."
+      "sourceNote": "Imported from Surpath shipment 877353838294; order WS-#47155.",
+      "sourceOrderNumber": "WS-#47155"
     },
     {
       "key": "{\"sku\":\"AACC0095A\",\"quantity\":2,\"dimensions\":{\"length\":250,\"width\":95,\"height\":95,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0096A\",\"quantity\":1,\"dimensions\":{\"length\":250,\"width\":95,\"height\":95,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -3763,7 +3847,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877353706024; order WS-#47313."
+      "sourceNote": "Imported from Surpath shipment 877353706024; order WS-#47313.",
+      "sourceOrderNumber": "WS-#47313"
     },
     {
       "key": "{\"sku\":\"AACC0019B\",\"quantity\":2,\"dimensions\":{\"length\":170,\"width\":85,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0125A\",\"quantity\":1,\"dimensions\":{\"length\":177,\"width\":100,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -3847,7 +3932,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877333584617; order WS-#46939."
+      "sourceNote": "Imported from Surpath shipment 877333584617; order WS-#46939.",
+      "sourceOrderNumber": "WS-#46939"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":4,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0119A\",\"quantity\":2,\"dimensions\":{\"length\":350,\"width\":240,\"height\":190,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -3884,7 +3970,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877324938728; order WS-#47284."
+      "sourceNote": "Imported from Surpath shipment 877324938728; order WS-#47284.",
+      "sourceOrderNumber": "WS-#47284"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0125A\",\"quantity\":1,\"dimensions\":{\"length\":177,\"width\":100,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -3931,7 +4018,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877426736081; order WS-#47626."
+      "sourceNote": "Imported from Surpath shipment 877426736081; order WS-#47626.",
+      "sourceOrderNumber": "WS-#47626"
     },
     {
       "key": "{\"sku\":\"AACC0095A\",\"quantity\":1,\"dimensions\":{\"length\":250,\"width\":95,\"height\":95,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0096A\",\"quantity\":1,\"dimensions\":{\"length\":250,\"width\":95,\"height\":95,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0099B\",\"quantity\":2,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -3978,7 +4066,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877420414301; order WS-#47669."
+      "sourceNote": "Imported from Surpath shipment 877420414301; order WS-#47669.",
+      "sourceOrderNumber": "WS-#47669"
     },
     {
       "key": "{\"sku\":\"AACC0103A\",\"quantity\":1,\"dimensions\":{\"length\":250,\"width\":160,\"height\":65,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":3,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -4025,7 +4114,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877412526321; order WS-#47582."
+      "sourceNote": "Imported from Surpath shipment 877412526321; order WS-#47582.",
+      "sourceOrderNumber": "WS-#47582"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":6,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0131A\",\"quantity\":2,\"dimensions\":{\"length\":810,\"width\":235,\"height\":125,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -4062,7 +4152,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877384855296; order WS-#47529."
+      "sourceNote": "Imported from Surpath shipment 877384855296; order WS-#47529.",
+      "sourceOrderNumber": "WS-#47529"
     },
     {
       "key": "{\"sku\":\"AACC0130A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":2,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -4099,7 +4190,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877382509918; order WS-#47528."
+      "sourceNote": "Imported from Surpath shipment 877382509918; order WS-#47528.",
+      "sourceOrderNumber": "WS-#47528"
     },
     {
       "key": "{\"sku\":\"AACC0120A\",\"quantity\":1,\"dimensions\":{\"length\":500,\"width\":260,\"height\":250,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0125A\",\"quantity\":1,\"dimensions\":{\"length\":177,\"width\":100,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0132A\",\"quantity\":1,\"dimensions\":{\"length\":455,\"width\":370,\"height\":155,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -4146,7 +4238,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877381471010; order WS-#47285."
+      "sourceNote": "Imported from Surpath shipment 877381471010; order WS-#47285.",
+      "sourceOrderNumber": "WS-#47285"
     },
     {
       "key": "{\"sku\":\"AACC0073A\",\"quantity\":2,\"dimensions\":{\"length\":150,\"width\":75,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0132A\",\"quantity\":1,\"dimensions\":{\"length\":455,\"width\":370,\"height\":155,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0153A\",\"quantity\":1,\"dimensions\":{\"length\":425,\"width\":300,\"height\":210,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -4193,7 +4286,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877381464500; order WS-#47535."
+      "sourceNote": "Imported from Surpath shipment 877381464500; order WS-#47535.",
+      "sourceOrderNumber": "WS-#47535"
     },
     {
       "key": "{\"sku\":\"AACC0095A\",\"quantity\":1,\"dimensions\":{\"length\":250,\"width\":95,\"height\":95,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":1,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":2,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -4240,7 +4334,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877506621102; order WS-#47812."
+      "sourceNote": "Imported from Surpath shipment 877506621102; order WS-#47812.",
+      "sourceOrderNumber": "WS-#47812"
     },
     {
       "key": "{\"sku\":\"AACC0028A\",\"quantity\":1,\"dimensions\":{\"length\":447,\"width\":188,\"height\":90,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0029A\",\"quantity\":2,\"dimensions\":{\"length\":155,\"width\":155,\"height\":50,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -4277,7 +4372,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877505727541; order WS-#47476."
+      "sourceNote": "Imported from Surpath shipment 877505727541; order WS-#47476.",
+      "sourceOrderNumber": "WS-#47476"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":2,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":4,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -4314,7 +4410,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877504550640; order WS-#47814."
+      "sourceNote": "Imported from Surpath shipment 877504550640; order WS-#47814.",
+      "sourceOrderNumber": "WS-#47814"
     },
     {
       "key": "{\"sku\":\"AACC0028A\",\"quantity\":1,\"dimensions\":{\"length\":447,\"width\":188,\"height\":90,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0029A\",\"quantity\":2,\"dimensions\":{\"length\":155,\"width\":155,\"height\":50,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0091A\",\"quantity\":1,\"dimensions\":{\"length\":500,\"width\":290,\"height\":50,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0092A\",\"quantity\":1,\"dimensions\":{\"length\":325,\"width\":125,\"height\":145,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -4371,7 +4468,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877441187053; order WS-#47776."
+      "sourceNote": "Imported from Surpath shipment 877441187053; order WS-#47776.",
+      "sourceOrderNumber": "WS-#47776"
     },
     {
       "key": "{\"sku\":\"AACC0130A\",\"quantity\":2,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":2,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -4408,7 +4506,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877436502825; order WS-#47632."
+      "sourceNote": "Imported from Surpath shipment 877436502825; order WS-#47632.",
+      "sourceOrderNumber": "WS-#47632"
     },
     {
       "key": "{\"sku\":\"AACC0078A\",\"quantity\":2,\"dimensions\":{\"length\":430,\"width\":335,\"height\":80,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0099B\",\"quantity\":2,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0103A\",\"quantity\":2,\"dimensions\":{\"length\":250,\"width\":160,\"height\":65,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -4455,7 +4554,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877548877276; order WS-#47815."
+      "sourceNote": "Imported from Surpath shipment 877548877276; order WS-#47815.",
+      "sourceOrderNumber": "WS-#47815"
     },
     {
       "key": "{\"sku\":\"AACC0034B\",\"quantity\":1,\"dimensions\":{\"length\":470,\"width\":376,\"height\":147,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0119A\",\"quantity\":1,\"dimensions\":{\"length\":350,\"width\":240,\"height\":190,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -4502,7 +4602,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877548640067; order WS-#47598."
+      "sourceNote": "Imported from Surpath shipment 877548640067; order WS-#47598.",
+      "sourceOrderNumber": "WS-#47598"
     },
     {
       "key": "{\"sku\":\"AACC0132A\",\"quantity\":1,\"dimensions\":{\"length\":455,\"width\":370,\"height\":155,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0140A\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -4539,7 +4640,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877539848036; order WS-#47987."
+      "sourceNote": "Imported from Surpath shipment 877539848036; order WS-#47987.",
+      "sourceOrderNumber": "WS-#47987"
     },
     {
       "key": "{\"sku\":\"AACC0078A\",\"quantity\":2,\"dimensions\":{\"length\":430,\"width\":335,\"height\":80,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0132A\",\"quantity\":2,\"dimensions\":{\"length\":455,\"width\":370,\"height\":155,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -4576,7 +4678,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877539189107; order WS-#47973."
+      "sourceNote": "Imported from Surpath shipment 877539189107; order WS-#47973.",
+      "sourceOrderNumber": "WS-#47973"
     },
     {
       "key": "{\"sku\":\"AACC0034B\",\"quantity\":1,\"dimensions\":{\"length\":470,\"width\":376,\"height\":147,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0099B\",\"quantity\":3,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":3,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -4623,7 +4726,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877535597784; order WS-#47791."
+      "sourceNote": "Imported from Surpath shipment 877535597784; order WS-#47791.",
+      "sourceOrderNumber": "WS-#47791"
     },
     {
       "key": "{\"sku\":\"AACC0103A\",\"quantity\":2,\"dimensions\":{\"length\":250,\"width\":160,\"height\":65,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0125A\",\"quantity\":4,\"dimensions\":{\"length\":177,\"width\":100,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0132A\",\"quantity\":2,\"dimensions\":{\"length\":455,\"width\":370,\"height\":155,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -4670,7 +4774,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877532001053; order WS-#47311."
+      "sourceNote": "Imported from Surpath shipment 877532001053; order WS-#47311.",
+      "sourceOrderNumber": "WS-#47311"
     },
     {
       "key": "{\"sku\":\"AACC0073A\",\"quantity\":4,\"dimensions\":{\"length\":150,\"width\":75,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0078A\",\"quantity\":2,\"dimensions\":{\"length\":430,\"width\":335,\"height\":80,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -4707,7 +4812,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877530974006; order WS-#47821."
+      "sourceNote": "Imported from Surpath shipment 877530974006; order WS-#47821.",
+      "sourceOrderNumber": "WS-#47821"
     },
     {
       "key": "{\"sku\":\"AACC0119A\",\"quantity\":4,\"dimensions\":{\"length\":350,\"width\":240,\"height\":190,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -4744,7 +4850,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877519161834; order WS-#47798."
+      "sourceNote": "Imported from Surpath shipment 877519161834; order WS-#47798.",
+      "sourceOrderNumber": "WS-#47798"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":2,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -4791,7 +4898,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877595956254; order WS-#48165."
+      "sourceNote": "Imported from Surpath shipment 877595956254; order WS-#48165.",
+      "sourceOrderNumber": "WS-#48165"
     },
     {
       "key": "{\"sku\":\"AACC0029A\",\"quantity\":2,\"dimensions\":{\"length\":155,\"width\":155,\"height\":50,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0091A\",\"quantity\":2,\"dimensions\":{\"length\":500,\"width\":290,\"height\":50,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0092A\",\"quantity\":1,\"dimensions\":{\"length\":325,\"width\":125,\"height\":145,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -4838,7 +4946,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877582265352; order WS-#48093."
+      "sourceNote": "Imported from Surpath shipment 877582265352; order WS-#48093.",
+      "sourceOrderNumber": "WS-#48093"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":2,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0132A\",\"quantity\":2,\"dimensions\":{\"length\":455,\"width\":370,\"height\":155,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -4875,7 +4984,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877576278828; order WS-#48024."
+      "sourceNote": "Imported from Surpath shipment 877576278828; order WS-#48024.",
+      "sourceOrderNumber": "WS-#48024"
     },
     {
       "key": "{\"sku\":\"AACC0073A\",\"quantity\":1,\"dimensions\":{\"length\":150,\"width\":75,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0091A\",\"quantity\":2,\"dimensions\":{\"length\":500,\"width\":290,\"height\":50,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0120A\",\"quantity\":2,\"dimensions\":{\"length\":500,\"width\":260,\"height\":250,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -4922,7 +5032,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877615520843; order WS-#48005."
+      "sourceNote": "Imported from Surpath shipment 877615520843; order WS-#48005.",
+      "sourceOrderNumber": "WS-#48005"
     },
     {
       "key": "{\"sku\":\"AACC0078A\",\"quantity\":1,\"dimensions\":{\"length\":430,\"width\":335,\"height\":80,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0079A\",\"quantity\":1,\"dimensions\":{\"length\":660,\"width\":340,\"height\":100,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -4959,7 +5070,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877613021648; order WS-#48213."
+      "sourceNote": "Imported from Surpath shipment 877613021648; order WS-#48213.",
+      "sourceOrderNumber": "WS-#48213"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":2,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -4996,7 +5108,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877602973712; order WS-#48173."
+      "sourceNote": "Imported from Surpath shipment 877602973712; order WS-#48173.",
+      "sourceOrderNumber": "WS-#48173"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0125A\",\"quantity\":1,\"dimensions\":{\"length\":177,\"width\":100,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -5043,7 +5156,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877602995820; order WS-#48210."
+      "sourceNote": "Imported from Surpath shipment 877602995820; order WS-#48210.",
+      "sourceOrderNumber": "WS-#48210"
     },
     {
       "key": "{\"sku\":\"AACC0034B\",\"quantity\":1,\"dimensions\":{\"length\":470,\"width\":376,\"height\":147,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0120A\",\"quantity\":1,\"dimensions\":{\"length\":500,\"width\":260,\"height\":250,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -5080,7 +5194,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877680668180; order WS-#48115."
+      "sourceNote": "Imported from Surpath shipment 877680668180; order WS-#48115.",
+      "sourceOrderNumber": "WS-#48115"
     },
     {
       "key": "{\"sku\":\"AACC0027B\",\"quantity\":1,\"dimensions\":{\"length\":512,\"width\":408,\"height\":204,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0034B\",\"quantity\":1,\"dimensions\":{\"length\":470,\"width\":376,\"height\":147,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0121A\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -5127,7 +5242,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877680790276; order WS-#48202."
+      "sourceNote": "Imported from Surpath shipment 877680790276; order WS-#48202.",
+      "sourceOrderNumber": "WS-#48202"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0119A\",\"quantity\":1,\"dimensions\":{\"length\":350,\"width\":240,\"height\":190,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0120A\",\"quantity\":1,\"dimensions\":{\"length\":500,\"width\":260,\"height\":250,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":1,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -5184,7 +5300,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877680522601; order WS-#48266."
+      "sourceNote": "Imported from Surpath shipment 877680522601; order WS-#48266.",
+      "sourceOrderNumber": "WS-#48266"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":3,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":3,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -5221,7 +5338,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877722580545; order WS-#48492."
+      "sourceNote": "Imported from Surpath shipment 877722580545; order WS-#48492.",
+      "sourceOrderNumber": "WS-#48492"
     },
     {
       "key": "{\"sku\":\"AACC0028A\",\"quantity\":1,\"dimensions\":{\"length\":447,\"width\":188,\"height\":90,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0029A\",\"quantity\":1,\"dimensions\":{\"length\":155,\"width\":155,\"height\":50,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0091A\",\"quantity\":1,\"dimensions\":{\"length\":500,\"width\":290,\"height\":50,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -5268,7 +5386,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877705819736; order WS-#48422."
+      "sourceNote": "Imported from Surpath shipment 877705819736; order WS-#48422.",
+      "sourceOrderNumber": "WS-#48422"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":5,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":3,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -5305,7 +5424,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877762712128; order WS-#48636."
+      "sourceNote": "Imported from Surpath shipment 877762712128; order WS-#48636.",
+      "sourceOrderNumber": "WS-#48636"
     },
     {
       "key": "{\"sku\":\"AACC0073A\",\"quantity\":2,\"dimensions\":{\"length\":150,\"width\":75,\"height\":45,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":7,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -5342,7 +5462,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877766798666; order WS-#48552."
+      "sourceNote": "Imported from Surpath shipment 877766798666; order WS-#48552.",
+      "sourceOrderNumber": "WS-#48552"
     },
     {
       "key": "{\"sku\":\"AACC0119A\",\"quantity\":1,\"dimensions\":{\"length\":350,\"width\":240,\"height\":190,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0153A\",\"quantity\":1,\"dimensions\":{\"length\":425,\"width\":300,\"height\":210,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -5399,7 +5520,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877764359654; order WS-#48626."
+      "sourceNote": "Imported from Surpath shipment 877764359654; order WS-#48626.",
+      "sourceOrderNumber": "WS-#48626"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":2,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":4,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -5436,7 +5558,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877840970400; order WS-#48771."
+      "sourceNote": "Imported from Surpath shipment 877840970400; order WS-#48771.",
+      "sourceOrderNumber": "WS-#48771"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":4,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":4,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0132A\",\"quantity\":1,\"dimensions\":{\"length\":455,\"width\":370,\"height\":155,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -5483,7 +5606,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877839033500; order WS-#48369."
+      "sourceNote": "Imported from Surpath shipment 877839033500; order WS-#48369.",
+      "sourceOrderNumber": "WS-#48369"
     },
     {
       "key": "{\"sku\":\"AACC0034B\",\"quantity\":1,\"dimensions\":{\"length\":470,\"width\":376,\"height\":147,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":3,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -5520,7 +5644,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877816152677; order WS-#48604."
+      "sourceNote": "Imported from Surpath shipment 877816152677; order WS-#48604.",
+      "sourceOrderNumber": "WS-#48604"
     },
     {
       "key": "{\"sku\":\"AACC0032A\",\"quantity\":1,\"dimensions\":{\"length\":235,\"width\":85,\"height\":75,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0121A\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -5557,7 +5682,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877779572421; order WS-#48658."
+      "sourceNote": "Imported from Surpath shipment 877779572421; order WS-#48658.",
+      "sourceOrderNumber": "WS-#48658"
     },
     {
       "key": "{\"sku\":\"AACC0034B\",\"quantity\":2,\"dimensions\":{\"length\":470,\"width\":376,\"height\":147,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0095A\",\"quantity\":1,\"dimensions\":{\"length\":250,\"width\":95,\"height\":95,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0096A\",\"quantity\":1,\"dimensions\":{\"length\":250,\"width\":95,\"height\":95,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0099B\",\"quantity\":2,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":2,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -5624,7 +5750,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877779245599; order WS-#48711."
+      "sourceNote": "Imported from Surpath shipment 877779245599; order WS-#48711.",
+      "sourceOrderNumber": "WS-#48711"
     },
     {
       "key": "{\"sku\":\"AACC0126A\",\"quantity\":1,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0153A\",\"quantity\":1,\"dimensions\":{\"length\":425,\"width\":300,\"height\":210,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -5671,7 +5798,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877777123934; order WS-#48302."
+      "sourceNote": "Imported from Surpath shipment 877777123934; order WS-#48302.",
+      "sourceOrderNumber": "WS-#48302"
     },
     {
       "key": "{\"sku\":\"AACC0027B\",\"quantity\":1,\"dimensions\":{\"length\":512,\"width\":408,\"height\":204,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0099B\",\"quantity\":4,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":3,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -5718,7 +5846,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877773543839; order WS-#48574."
+      "sourceNote": "Imported from Surpath shipment 877773543839; order WS-#48574.",
+      "sourceOrderNumber": "WS-#48574"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":6,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":4,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -5755,7 +5884,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877888048913; order WS-#48843."
+      "sourceNote": "Imported from Surpath shipment 877888048913; order WS-#48843.",
+      "sourceOrderNumber": "WS-#48843"
     },
     {
       "key": "{\"sku\":\"AACC0027B\",\"quantity\":1,\"dimensions\":{\"length\":512,\"width\":408,\"height\":204,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0078A\",\"quantity\":4,\"dimensions\":{\"length\":430,\"width\":335,\"height\":80,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0103A\",\"quantity\":1,\"dimensions\":{\"length\":250,\"width\":160,\"height\":65,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0130A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":2,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -5822,7 +5952,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877878885698; order WS-#48951."
+      "sourceNote": "Imported from Surpath shipment 877878885698; order WS-#48951.",
+      "sourceOrderNumber": "WS-#48951"
     },
     {
       "key": "{\"sku\":\"AACC0078A\",\"quantity\":1,\"dimensions\":{\"length\":430,\"width\":335,\"height\":80,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0099B\",\"quantity\":2,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0103A\",\"quantity\":2,\"dimensions\":{\"length\":250,\"width\":160,\"height\":65,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -5869,7 +6000,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877878281343; order WS-#48948."
+      "sourceNote": "Imported from Surpath shipment 877878281343; order WS-#48948.",
+      "sourceOrderNumber": "WS-#48948"
     },
     {
       "key": "{\"sku\":\"AACC0126A\",\"quantity\":2,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -5906,7 +6038,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877877440158; order WS-#48838."
+      "sourceNote": "Imported from Surpath shipment 877877440158; order WS-#48838.",
+      "sourceOrderNumber": "WS-#48838"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":2,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0121A\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -5943,7 +6076,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877877367151; order WS-#48906."
+      "sourceNote": "Imported from Surpath shipment 877877367151; order WS-#48906.",
+      "sourceOrderNumber": "WS-#48906"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0124B\",\"quantity\":1,\"dimensions\":{\"length\":175,\"width\":120,\"height\":60,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":1,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -5990,7 +6124,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877874488110; order WS-#48935."
+      "sourceNote": "Imported from Surpath shipment 877874488110; order WS-#48935.",
+      "sourceOrderNumber": "WS-#48935"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0124B\",\"quantity\":1,\"dimensions\":{\"length\":175,\"width\":120,\"height\":60,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -6027,7 +6162,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877859194014; order WS-#48818."
+      "sourceNote": "Imported from Surpath shipment 877859194014; order WS-#48818.",
+      "sourceOrderNumber": "WS-#48818"
     },
     {
       "key": "{\"sku\":\"AACC0096A\",\"quantity\":1,\"dimensions\":{\"length\":250,\"width\":95,\"height\":95,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0099B\",\"quantity\":1,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":1,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -6074,7 +6210,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877858946143; order WS-#48876."
+      "sourceNote": "Imported from Surpath shipment 877858946143; order WS-#48876.",
+      "sourceOrderNumber": "WS-#48876"
     },
     {
       "key": "{\"sku\":\"AACC0034B\",\"quantity\":1,\"dimensions\":{\"length\":470,\"width\":376,\"height\":147,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0096A\",\"quantity\":1,\"dimensions\":{\"length\":250,\"width\":95,\"height\":95,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -6111,7 +6248,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877858481943; order WS-#48889."
+      "sourceNote": "Imported from Surpath shipment 877858481943; order WS-#48889.",
+      "sourceOrderNumber": "WS-#48889"
     },
     {
       "key": "{\"sku\":\"AACC0034B\",\"quantity\":1,\"dimensions\":{\"length\":470,\"width\":376,\"height\":147,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0135A\",\"quantity\":1,\"dimensions\":{\"length\":420,\"width\":210,\"height\":70,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -6148,7 +6286,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877924016894; order WS-#48993."
+      "sourceNote": "Imported from Surpath shipment 877924016894; order WS-#48993.",
+      "sourceOrderNumber": "WS-#48993"
     },
     {
       "key": "{\"sku\":\"AACC0126A\",\"quantity\":1,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0153A\",\"quantity\":1,\"dimensions\":{\"length\":425,\"width\":300,\"height\":210,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -6185,7 +6324,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877913091116; order WS-#48956."
+      "sourceNote": "Imported from Surpath shipment 877913091116; order WS-#48956.",
+      "sourceOrderNumber": "WS-#48956"
     },
     {
       "key": "{\"sku\":\"AACC0099B\",\"quantity\":8,\"dimensions\":{\"length\":395,\"width\":134,\"height\":89,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}|{\"sku\":\"AACC0126A\",\"quantity\":4,\"dimensions\":{\"length\":295,\"width\":235,\"height\":140,\"unit\":\"mm\"},\"packGroup\":\"standard\",\"canPackWith\":null}",
@@ -6222,7 +6362,8 @@
       "useCount": 0,
       "provenance": "historical_import",
       "warehouseId": "LA-SPI1",
-      "sourceNote": "Imported from Surpath shipment 877909942110; order WS-#48746."
+      "sourceNote": "Imported from Surpath shipment 877909942110; order WS-#48746.",
+      "sourceOrderNumber": "WS-#48746"
     }
   ]
 }

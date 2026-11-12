@@ -2,15 +2,21 @@ import { readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadDv1PlanningData } from "./data.js";
-import { hydrateCartonsFromReferenceCatalog, hydrateOrderFromReferenceCatalog } from "./core/domain/reference-catalog.js";
-import { soloShippingCostLookup } from "./core/domain/solo-shipping-costs.js";
-import { JsonFileKnownCombinationStore } from "./core/planner/known-combinations.js";
-import { planShipments } from "./core/planner/shipment-planner.js";
-import { DEFAULT_WAREHOUSE_ORIGINS } from "./core/domain/shipping-rates.js";
+import {
+  DEFAULT_WAREHOUSE_ORIGINS,
+  hydrateCartonsFromReferenceCatalog,
+  hydrateOrderFromReferenceCatalog,
+  JsonFileKnownCombinationStore,
+  planShipments,
+  soloShippingCostLookup,
+} from "@lantern/delineator";
 
 const dataDirectory = join(dirname(fileURLToPath(import.meta.url)), "data");
+export const dv1CatalogBaselinePath = join(dataDirectory, "reference-catalog.json");
+export const dv1CostsBaselinePath = join(dataDirectory, "solo-shipping-costs.json");
+export const dv1SourceSnapshotPath = fileURLToPath(new URL("../../var/dv1/source-snapshot.json", import.meta.url));
 const knownCombinationsPath = process.env.DV1_KNOWN_COMBINATIONS_PATH || join(dataDirectory, "known-combinations.json");
-const historicalKnownCombinationsPath = join(dataDirectory, "historical-known-combinations.json");
+export const historicalKnownCombinationsPath = join(dataDirectory, "historical-known-combinations.json");
 let publishedRateConfigPromise;
 
 async function readJson(path) {
@@ -23,15 +29,17 @@ export async function planDv1Order({ orderNumber, shopifyConfig, surpathConfig, 
     return null;
   }
 
-  const catalog = await readJson(join(dataDirectory, "reference-catalog.json"));
+  return planDv1Data(liveData, { knownCombinations });
+}
+
+export async function planDv1Data(liveData, { knownCombinations, sourceSnapshotPath = dv1SourceSnapshotPath } = {}) {
+  const { referenceCatalog: catalog, soloShippingCosts: costs } = await loadSourceSnapshot(sourceSnapshotPath);
   const order = hydrateOrderFromReferenceCatalog(liveData.order, catalog);
   const inventory = {
     ...liveData.inventory,
     items: hydrateCartonsFromReferenceCatalog(liveData.inventory.items, catalog),
   };
-  const soloShippingCosts = soloShippingCostLookup(
-    await readJson(join(dataDirectory, "solo-shipping-costs.json")),
-  );
+  const soloShippingCosts = soloShippingCostLookup(costs);
   const rateConfig = await loadPublishedRateConfig();
   const plan = planShipments(order, inventory, {
     knownCombinations: knownCombinations || new JsonFileKnownCombinationStore(knownCombinationsPath, [historicalKnownCombinationsPath]),
@@ -49,6 +57,19 @@ export async function planDv1Order({ orderNumber, shopifyConfig, surpathConfig, 
       "FedEx Ground and Express Saver are compared with published list-rate tables and origin zone maps; this is a comparative planning model, not a carrier quote.",
     ],
   };
+}
+
+async function loadSourceSnapshot(snapshotPath) {
+  try {
+    return await readJson(snapshotPath);
+  } catch (error) {
+    if (error.code !== "ENOENT") throw error;
+  }
+  const [referenceCatalog, soloShippingCosts] = await Promise.all([
+    readJson(dv1CatalogBaselinePath),
+    readJson(dv1CostsBaselinePath),
+  ]);
+  return { referenceCatalog, soloShippingCosts };
 }
 
 async function loadPublishedRateConfig() {

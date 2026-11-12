@@ -2,6 +2,9 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { createLanternServer } from "../src/server/http.js";
 
+process.env.SHOPIFY_SHOP_DOMAIN = "shopify.example";
+process.env.SURPATH_MCP_URL = "https://surpath.example/mcp";
+
 function listen(server) {
   return new Promise((resolve) => {
     server.listen(0, () => resolve(server.address().port));

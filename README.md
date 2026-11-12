@@ -71,7 +71,7 @@ Lantern can also run as a small web service. This is the path for moving it off 
 
 The Lantern service also exposes a protected read-only data gateway for DV1. It reuses the existing Shopify credentials, Surpath MCP connection, and retry behavior, then returns normalized order lines plus Surpath inventory and warehouse locations. It does not split orders, change shipping channels, or mutate either system.
 
-Configure `DV1_DATA_API_SECRET` in Render and give the same value to the DV1 planning service. The endpoint is:
+Clients of the data gateway authenticate with `DV1_DATA_API_SECRET`. Lantern’s hosted DV1 planning screen calls the same data loader in-process. The endpoint is:
 
 ```text
 POST /dv1/data
@@ -85,11 +85,28 @@ The same Lantern service can serve the DV1 operator screen at `/dv1`. Set `DV1_U
 
 DV1 known solutions are durably archived in the Feishu sheet `Delineator DV1 Known Solutions`. Lantern reuses its existing `FEISHU_APP_ID` and `FEISHU_APP_SECRET` credentials, hydrates the archive at startup, flushes new records hourly, retries failed syncs, and attempts a final flush during shutdown. Set `DV1_FEISHU_SPREADSHEET_TOKEN` and `DV1_FEISHU_SHEET_ID` to enable the archive.
 
-DV1 can refresh its two Feishu-backed data snapshots once per week. Set `DV1_SOURCE_REFRESH_ENABLED=true` (the Render configuration enables this), with `DV1_SOURCE_REFRESH_INTERVAL_HOURS=168`. The updater reads the SKU catalog and the `派送费明细 （Fedex）2026` tab through the existing Feishu app connection, validates that both produce usable records, and then replaces both snapshots atomically. If either source fails, the previous snapshots remain active. The updater retains the carton definitions already stored in the catalog snapshot.
+DV1 refreshes its Feishu catalog and solo-cost inputs together when `DV1_SOURCE_REFRESH_ENABLED=true`. Render enables this on startup and every 168 hours. The updater validates dimensions, duplicate definitions, representative SKUs, all seven carton definitions, and retained SKU coverage in each source before atomically publishing `var/dv1/source-snapshot.json`. Set `DV1_SOURCE_REFRESH_MIN_COVERAGE` to a fraction greater than zero and at most one. It defaults to `0.8`. The first refresh compares against the checked-in catalog and cost files, then subsequent refreshes compare against the active snapshot.
 
-Local smoke test:
+Set `DV1_SOURCE_REFRESH_ALERT_CHAT_ID` to a Feishu chat that the Lantern app can message. A rejected candidate sends one summary to that chat and leaves the active snapshot unchanged. With no chat configured, rejections are logged. Refresh and alert-delivery failures are logged separately. A service instance without a saved runtime snapshot uses the checked-in baselines.
+
+### Developing and deploying DV1
+
+The portable TypeScript optimizer lives in [packages/delineator](packages/delineator/README.md). Lantern owns the DV1 UI, integrations, and planning data in `src/dv1` and `public/dv1`. Both the hosted route and the local fixture runner call the same planning code and read the same checked-in baseline data. The Feishu refresh can supply newer inputs while a service is running.
 
 ```bash
+npm ci --include=dev
+npm test
+npm run plan:dv1
+```
+
+To plan with your own normalized inputs, use `npm run plan:dv1 -- path/to/order.json path/to/inventory.json`. The fixture runner uses an in-memory solution store.
+
+Commit DV1 changes in this repository. When publishing DV1, push Lantern’s `main` branch to `origin`; Render auto-deploys from that branch and builds the optimizer from the same commit. Verify the deployed commit and `/health` after a push.
+
+Local server smoke test:
+
+```bash
+npm run build
 FEISHU_APP_ID=dummy FEISHU_APP_SECRET=dummy npm start
 ```
 
@@ -123,7 +140,7 @@ Use `render.yaml` as the service blueprint, or create the same service manually:
 
 - Service type: Web Service
 - Runtime: Node
-- Build command: `npm ci`
+- Build command: `npm ci --include=dev && npm run build`
 - Start command: `npm start`
 - Health check path: `/health`
 - Instance size: the smallest paid web service is enough for this workload

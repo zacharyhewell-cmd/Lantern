@@ -72,20 +72,27 @@ export async function loadDv1PlanningData({
   }
 
   const shopifyOrders = await shopifyClient.findOrdersForTracking(orderIdentifier);
-  if (!shopifyOrders.length) {
-    return null;
+  const candidateNames = new Set(orderIdentifier.candidates.map((name) => name.toUpperCase()));
+  const matches = shopifyOrders.filter((order) => candidateNames.has(order.name?.trim().toUpperCase()));
+  if (!matches.length) return null;
+  if (matches.length > 1) {
+    throw new Error(`More than one Shopify order matches ${orderIdentifier.orderCanonical}. Resolve the order number before planning.`);
   }
 
-  const shopifyOrder = shopifyOrders.find((order) => (
-    order.name?.toUpperCase() === orderIdentifier.canonical.toUpperCase()
-  )) || shopifyOrders[0];
+  const [shopifyOrder] = matches;
+  const lineItems = shopifyOrder.lineItems;
+  if (!Array.isArray(lineItems?.nodes) ||
+      lineItems.pageInfo?.hasNextPage ||
+      (lineItems.pageInfo?.hasNextPage !== false && lineItems.nodes.length >= 250)) {
+    throw new Error(`Shopify returned an incomplete line-item list for ${shopifyOrder.name}. DV1 cannot plan this order.`);
+  }
   const lines = planningLines(shopifyOrder);
-  const requestedSkus = [...new Set(lines.map((line) => line.sku))];
-  const response = await loadInventory(surpathClient, [...requestedSkus, ...requestedCartonSkus()]);
-  const inventory = normalizeInventoryRows(response.data);
+  const requestedSkus = [...new Set([...lines.map((line) => line.sku), ...requestedCartonSkus()])];
   const warehouseId = process.env.DV1_DEFAULT_WAREHOUSE || "unknown";
 
   try {
+    const response = await surpathClient.querySkuInventory({ skuList: requestedSkus });
+    const inventory = normalizeInventoryRows(response.data);
     return {
       order: {
         orderId: shopifyOrder.id,
@@ -104,14 +111,5 @@ export async function loadDv1PlanningData({
     };
   } finally {
     await surpathClient.close?.();
-  }
-}
-
-async function loadInventory(surpathClient, skus) {
-  try {
-    return await surpathClient.querySkuInventory({ skuList: [...new Set(skus)] });
-  } catch (error) {
-    await surpathClient.close?.();
-    throw error;
   }
 }

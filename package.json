@@ -12,13 +12,19 @@
     "watchtower:outbound-delay": "node src/cli/watchtower-outbound-delay.js",
     "server": "node src/cli/server.js",
     "start": "node src/cli/server.js",
-    "test": "node --test"
+    "test": "npm run build && npm run test --workspace @lantern/delineator && node --test test/*.test.js",
+    "build": "npm run build --workspace @lantern/delineator",
+    "plan:dv1": "npm run build --silent && node src/cli/plan-dv1.js"
   },
   "engines": {
     "node": ">=20"
   },
   "dependencies": {
+    "@lantern/delineator": "0.1.0",
     "@modelcontextprotocol/sdk": "^1.29.0",
     "exceljs": "^4.4.0"
-  }
+  },
+  "workspaces": [
+    "packages/delineator"
+  ]
 }

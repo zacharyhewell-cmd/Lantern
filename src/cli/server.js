@@ -4,8 +4,7 @@ import { createLanternServer } from "../server/http.js";
 import { startWatchtowerScheduler } from "../watchtower/scheduler.js";
 import { refreshDv1SourceSnapshots, startDv1SourceRefreshScheduler } from "../dv1/sourceUpdater.js";
 import { createDv1KnownCombinationStore } from "../dv1/knownSolutionArchive.js";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { dv1CatalogBaselinePath, dv1CostsBaselinePath, dv1SourceSnapshotPath } from "../dv1/plan.js";
 
 const config = getServerConfig();
 const feishuConfig = getFeishuConfig();
@@ -39,10 +38,13 @@ const watchtowerScheduler = startWatchtowerScheduler({
   watchtowerConfig,
   replyClient,
 });
-const lanternRoot = join(dirname(fileURLToPath(import.meta.url)), "../..");
+const { alertChatId } = dv1SourceRefreshConfig;
 const dv1SourceScheduler = startDv1SourceRefreshScheduler({
   enabled: dv1SourceRefreshConfig.enabled,
   intervalMs: dv1SourceRefreshConfig.intervalMs,
+  sendRejectionAlert: alertChatId
+    ? (message, options) => replyClient.sendTextMessage(alertChatId, message, options)
+    : undefined,
   refresh: () => refreshDv1SourceSnapshots({
     feishuClient: replyClient,
     catalog: {
@@ -55,8 +57,10 @@ const dv1SourceScheduler = startDv1SourceRefreshScheduler({
       sheetId: dv1SourceRefreshConfig.fedexSheetId,
       maxRows: dv1SourceRefreshConfig.maxRows,
     },
-    catalogOutputPath: join(lanternRoot, "src/dv1/data/reference-catalog.json"),
-    soloShippingOutputPath: join(lanternRoot, "src/dv1/data/solo-shipping-costs.json"),
+    catalogBaselinePath: dv1CatalogBaselinePath,
+    costsBaselinePath: dv1CostsBaselinePath,
+    minCoverage: dv1SourceRefreshConfig.minCoverage,
+    snapshotPath: dv1SourceSnapshotPath,
   }),
 });
 const dv1KnownSolutionTimer = setInterval(async () => {

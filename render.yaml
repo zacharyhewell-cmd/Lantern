@@ -3,7 +3,7 @@ services:
     name: lantern
     runtime: node
     plan: starter
-    buildCommand: npm ci
+    buildCommand: npm ci --include=dev && npm run build
     startCommand: npm start
     healthCheckPath: /health
     autoDeployTrigger: commit
@@ -78,6 +78,10 @@ services:
         value: "168"
       - key: DV1_SOURCE_REFRESH_MAX_ROWS
         value: "250000"
+      - key: DV1_SOURCE_REFRESH_MIN_COVERAGE
+        value: "0.8"
+      - key: DV1_SOURCE_REFRESH_ALERT_CHAT_ID
+        sync: false
       - key: DV1_CATALOG_SPREADSHEET_TOKEN
         sync: false
       - key: DV1_CATALOG_SHEET_ID

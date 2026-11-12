@@ -1,5 +1,13 @@
+import { randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
+import {
+  DEFAULT_SOURCE_MIN_COVERAGE,
+  Dv1SourceValidationError,
+  formatSourceRejection,
+  isSourceSku,
+  validateSourceSnapshot,
+} from "./sourceValidation.js";
 
 const DEFAULT_CATALOG = {
   spreadsheetToken: "UsMXsBUuKha13jt0W4jciGgyn6g",
@@ -19,16 +27,25 @@ const PAGE_SIZE = 10_000;
 
 export async function refreshDv1SourceSnapshots({
   feishuClient,
-  catalog = DEFAULT_CATALOG,
-  fedex = DEFAULT_FEDEX,
-  catalogOutputPath,
-  soloShippingOutputPath,
+  catalog: catalogOptions,
+  fedex: fedexOptions,
+  catalogBaselinePath,
+  costsBaselinePath,
+  snapshotPath,
+  minCoverage = DEFAULT_SOURCE_MIN_COVERAGE,
   now = () => new Date(),
 } = {}) {
   if (!feishuClient?.readSheetRange) {
     throw new Error("Missing Feishu Sheet client for DV1 source refresh");
   }
 
+  if (!Number.isFinite(minCoverage) || minCoverage <= 0 || minCoverage > 1) {
+    throw new Error("DV1 source minimum coverage must be greater than 0 and at most 1");
+  }
+
+  const catalog = { ...DEFAULT_CATALOG, ...catalogOptions };
+  const fedex = { ...DEFAULT_FEDEX, ...fedexOptions };
+  const generatedAt = now().toISOString();
   const [catalogRows, fedexRows] = await Promise.all([
     readAllRows(feishuClient, catalog.spreadsheetToken, catalog.sheetId, catalog.columns, catalog.maxRows),
     readAllRows(feishuClient, fedex.spreadsheetToken, fedex.sheetId, fedex.columns, fedex.maxRows),
@@ -36,38 +53,41 @@ export async function refreshDv1SourceSnapshots({
 
   const referenceCatalog = buildReferenceCatalog(catalogRows, {
     ...catalog,
-    fetchedAt: now().toISOString(),
+    fetchedAt: generatedAt,
   });
   const soloShippingCosts = buildSoloShippingCosts(fedexRows, {
     ...fedex,
-    generatedAt: now().toISOString().slice(0, 10),
+    generatedAt: generatedAt.slice(0, 10),
   });
 
-  if (!referenceCatalog.skus.length) {
-    throw new Error("DV1 SKU source refresh produced no usable SKU records");
-  }
-  if (!soloShippingCosts.costs.length) {
-    throw new Error("DV1 FedEx source refresh produced no usable AA solo-cost records");
-  }
-
-  const existingCatalog = await readJsonIfPresent(catalogOutputPath);
-  referenceCatalog.cartons = existingCatalog?.cartons || [];
-  await atomicWriteJson(catalogOutputPath, referenceCatalog);
-  await atomicWriteJson(soloShippingOutputPath, soloShippingCosts);
-
-  return {
-    catalogRows: Math.max(0, catalogRows.length - 1),
-    catalogSkus: referenceCatalog.skus.length,
-    fedexRows: Math.max(0, fedexRows.length - 1),
-    soloSkuBaselines: soloShippingCosts.costs.length,
-    generatedAt: now().toISOString(),
+  const baseline = await readJson(catalogBaselinePath);
+  referenceCatalog.cartons = baseline.cartons ?? [];
+  const active = await readJson(snapshotPath).catch((error) => {
+    if (error.code !== "ENOENT") throw error;
+    return undefined;
+  });
+  const previous = active ?? {
+    referenceCatalog: baseline,
+    soloShippingCosts: await readJson(costsBaselinePath),
   };
+  const candidate = { generatedAt, referenceCatalog, soloShippingCosts };
+  const summary = validateSourceSnapshot(previous, candidate, {
+    minCoverage,
+    baselineKind: active ? "active" : "checked-in",
+  });
+  await atomicWriteJson(snapshotPath, candidate);
+  return summary;
+}
+
+async function readJson(filePath) {
+  return JSON.parse(await fs.readFile(filePath, "utf8"));
 }
 
 export function startDv1SourceRefreshScheduler({
   enabled,
   intervalMs,
   refresh,
+  sendRejectionAlert,
   logger = console,
   initialDelayMs = 5_000,
 } = {}) {
@@ -81,7 +101,17 @@ export function startDv1SourceRefreshScheduler({
       const result = await refresh();
       logger.error?.(`[dv1] source refresh complete: ${JSON.stringify(result)}`);
     } catch (error) {
-      logger.error?.(`[dv1] source refresh failed; previous snapshots remain active: ${error.message}`);
+      if (error instanceof Dv1SourceValidationError) {
+        const message = formatSourceRejection(error);
+        logger.error?.(`[dv1] ${message}`);
+        try {
+          await sendRejectionAlert?.(message, { idempotencyKey: randomUUID() });
+        } catch (alertError) {
+          logger.error?.(`[dv1] source refresh rejection alert failed: ${alertError.message}`);
+        }
+      } else {
+        logger.error?.(`[dv1] source refresh failed; previous snapshots remain active: ${error.message}`);
+      }
     } finally {
       running = false;
     }
@@ -89,9 +119,10 @@ export function startDv1SourceRefreshScheduler({
 
   const timer = setInterval(run, intervalMs);
   timer.unref?.();
-  setTimeout(run, initialDelayMs).unref?.();
+  const startup = setTimeout(run, initialDelayMs);
+  startup.unref?.();
   logger.error?.(`[dv1] source refresh enabled every ${intervalMs}ms`);
-  return { stop() { clearInterval(timer); } };
+  return { run, stop() { clearInterval(timer); clearTimeout(startup); } };
 }
 
 export async function readAllRows(client, spreadsheetToken, sheetId, columns, maxRows = 250_000) {
@@ -108,44 +139,74 @@ export async function readAllRows(client, spreadsheetToken, sheetId, columns, ma
 }
 
 export function buildReferenceCatalog(rows, metadata = {}) {
-  const sourceRows = rows.slice(1).filter((row) => row?.slice(0, 7).some((value) => value !== null && value !== ""));
-  const skus = [];
+  const definitions = new Map();
+  const invalidDimensionSkus = new Set();
+  const conflictingSkus = [];
   let previousName;
+  let sourceRowCount = 0;
   let skippedRows = 0;
+  let blankDimensionRows = 0;
+  let malformedSkuRows = 0;
+  let invalidDimensionRows = 0;
 
-  sourceRows.forEach((rawRow, index) => {
-    const row = [...rawRow, null, null, null, null, null, null, null].slice(0, 7);
+  rows.slice(1).forEach((rawRow, index) => {
+    const row = Array.isArray(rawRow) ? rawRow : [];
+    if (!row.slice(0, 7).some((value) => compact(value))) return;
+    sourceRowCount += 1;
     let name = compact(row[1]);
-    const originalSku = compact(row[2]);
-    if (!originalSku) return;
-    const sku = canonicalizeSku(originalSku);
-    const bulk = sku.replace(/\s/g, "").endsWith("-D");
-    const dimensions = parseDimensions(bulk ? row[5] : row[3]);
+    const sku = canonicalizeSku(row[2]);
+    const bulk = sku.endsWith("-D");
+    const dimensionCell = compact(bulk ? row[5] : row[3]);
+    const expandedSkus = sku ? expandSku(sku) : [];
+    if (!expandedSkus.length || expandedSkus.some((value) => !isSourceSku(value))) {
+      if (sku || compact(row[3]) || compact(row[5])) malformedSkuRows += 1;
+      skippedRows += 1;
+      return;
+    }
+    if (!dimensionCell) {
+      blankDimensionRows += 1;
+      skippedRows += 1;
+      return;
+    }
+    const dimensions = parseDimensions(dimensionCell);
     if (!dimensions) {
+      invalidDimensionRows += 1;
+      for (const value of expandedSkus) invalidDimensionSkus.add(value);
       skippedRows += 1;
       return;
     }
     if (name) previousName = name;
     else if (bulk) name = previousName;
     const weight = parseWeightKg(bulk ? row[6] : row[4]);
-    for (const expandedSku of expandSku(sku)) {
-      skus.push({
+    for (const expandedSku of expandedSkus) {
+      const expanded = expandedSku !== sku;
+      const record = {
         sku: expandedSku,
         ...(name ? { name } : {}),
         dimensions,
         ...(weight ? { weight } : {}),
         packGroup: "standard",
-        sourceNote: `Imported from Feishu Accessories Package Dimension columns A-G. Source row ${index + 2}; source SKU ${sku}; dimensions from column ${bulk ? "F" : "D"}${weight ? `; weight from column ${bulk ? "G" : "E"}.` : "."}${expandedSku !== sku ? ` Expanded from source SKU ${sku}.` : ""}`,
-      });
+        sourceNote: `Imported from Feishu Accessories Package Dimension columns A-G. Source row ${index + 2}; source SKU ${sku}; dimensions from column ${bulk ? "F" : "D"}${weight ? `; weight from column ${bulk ? "G" : "E"}.` : "."}${expanded ? ` Expanded from source SKU ${sku}.` : ""}`,
+      };
+      const existing = definitions.get(expandedSku);
+      if (!existing || (existing.expanded && !expanded)) {
+        definitions.set(expandedSku, { expanded, records: [record] });
+      } else if (existing.expanded === expanded) {
+        existing.records.push(record);
+      }
     }
   });
 
   const bySku = new Map();
-  for (const record of skus) {
-    const existing = bySku.get(record.sku);
-    const expanded = record.sourceNote.includes("Expanded from source SKU");
-    const existingExpanded = existing?.sourceNote?.includes("Expanded from source SKU");
-    if (!existing || (existingExpanded && !expanded)) bySku.set(record.sku, record);
+  for (const [sku, { records }] of definitions) {
+    const chosen = records.find((record) => record.weight) ?? records[0];
+    if (records.some((record) =>
+      JSON.stringify(record.dimensions) !== JSON.stringify(chosen.dimensions) ||
+      (record.weight && record.weight.value !== chosen.weight?.value)
+    )) {
+      conflictingSkus.push(sku);
+    }
+    bySku.set(sku, chosen);
   }
 
   // Product-team/catalog update lag: until a source row is supplied, treat
@@ -165,9 +226,14 @@ export function buildReferenceCatalog(rows, metadata = {}) {
       fetchedAt: metadata.fetchedAt,
       sourceColumns: ["A", "B", "C", "D", "E", "F", "G"],
       excludedColumns: ["H"],
-      sourceRowCount: sourceRows.length,
-      includedSourceRows: sourceRows.length - skippedRows,
+      sourceRowCount,
+      includedSourceRows: sourceRowCount - skippedRows,
       skippedSourceRows: skippedRows,
+      blankDimensionRows,
+      malformedSkuRows,
+      invalidDimensionRows,
+      invalidDimensionSkus: [...invalidDimensionSkus].sort(),
+      conflictingSkus: conflictingSkus.sort(),
     },
     skus: [...bySku.values()],
     cartons: [],
@@ -178,6 +244,7 @@ export function buildSoloShippingCosts(rows, metadata = {}) {
   const dataRows = rows.slice(1);
   const byTracking = new Map();
   let aaRows = 0;
+  let malformedSkuRows = 0;
   let excludedMissingTrackingOrCharge = 0;
 
   for (const rawRow of dataRows) {
@@ -186,6 +253,10 @@ export function buildSoloShippingCosts(rows, metadata = {}) {
     const sku = canonicalizeSku(row[6]);
     const charge = Number(row[12]) || 0;
     if (!sku.startsWith("AA")) continue;
+    if (!isSourceSku(sku)) {
+      malformedSkuRows += 1;
+      continue;
+    }
     aaRows += 1;
     if (!tracking || charge <= 0) excludedMissingTrackingOrCharge += 1;
     if (tracking) {
@@ -232,6 +303,7 @@ export function buildSoloShippingCosts(rows, metadata = {}) {
       sourceColumns: [..."ABCDEFGHIJKLM"],
       scannedRows: dataRows.length,
       aaRows,
+      malformedSkuRows,
       singleSkuTrackingObservations: costs.reduce((sum, cost) => sum + cost.shipmentCount, 0),
       mixedSkuTrackingObservations: mixedTrackingCount,
       excludedMissingTrackingOrChargeRows: excludedMissingTrackingOrCharge,
@@ -269,25 +341,24 @@ function expandSku(sku) {
   const endPrefix = endDigits.length < startDigits.length ? startDigits.slice(0, -endDigits.length) : "";
   const end = Number(`${endPrefix}${endDigits}`);
   const start = Number(startDigits);
-  if (end < start) return [sku];
+  if (!Number.isSafeInteger(start) || !Number.isSafeInteger(end) || end < start || end - start >= PAGE_SIZE) return [];
   return Array.from({ length: end - start + 1 }, (_, index) => `${prefix}${String(start + index).padStart(startDigits.length, "0")}${suffix}`);
 }
 
 function parseDimensions(value) {
-  const numbers = String(value ?? "").match(/\d+(?:\.\d+)?/g);
-  if (!numbers || numbers.length !== 3) return null;
-  return { length: numberValue(numbers[0]), width: numberValue(numbers[1]), height: numberValue(numbers[2]), unit: "mm" };
+  // The saved sheet has one redundant "mmmm" suffix. Both spellings identify millimeters.
+  const match = value.match(/^(\d+(?:\.\d+)?)\s*[x×*]\s*(\d+(?:\.\d+)?)\s*[x×*]\s*(\d+(?:\.\d+)?)\s*(?:mm|mmmm)?$/iu);
+  if (!match) return null;
+  const [length, width, height] = match.slice(1).map(Number);
+  if (![length, width, height].every((side) => Number.isFinite(side) && side > 0)) return null;
+  return { length, width, height, unit: "mm" };
 }
 
 function parseWeightKg(value) {
   if (value === null || value === undefined || value === "" || value === "/") return null;
   const kilograms = Number(value);
-  return Number.isFinite(kilograms) ? { value: Math.round(kilograms * 2.20462262185 * 1000) / 1000, unit: "lb" } : null;
-}
-
-function numberValue(value) {
-  const number = Number(value);
-  return Number.isInteger(number) ? number : number;
+  const pounds = Math.round(kilograms * 2.20462262185 * 1000) / 1000;
+  return Number.isFinite(pounds) && pounds > 0 ? { value: pounds, unit: "lb" } : null;
 }
 
 function mean(values) { return values.reduce((sum, value) => sum + value, 0) / values.length; }
@@ -300,16 +371,11 @@ function round(value) { return Math.round(value * 100) / 100; }
 
 async function atomicWriteJson(filePath, value) {
   await fs.mkdir(path.dirname(filePath), { recursive: true });
-  const temporaryPath = `${filePath}.tmp-${process.pid}-${Date.now()}`;
-  await fs.writeFile(temporaryPath, `${JSON.stringify(value, null, 2)}\n`);
-  await fs.rename(temporaryPath, filePath);
-}
-
-async function readJsonIfPresent(filePath) {
+  const temporaryPath = `${filePath}.tmp-${randomUUID()}`;
   try {
-    return JSON.parse(await fs.readFile(filePath, "utf8"));
-  } catch (error) {
-    if (error.code === "ENOENT") return null;
-    throw error;
+    await fs.writeFile(temporaryPath, `${JSON.stringify(value, null, 2)}\n`);
+    await fs.rename(temporaryPath, filePath);
+  } finally {
+    await fs.rm(temporaryPath, { force: true });
   }
 }

@@ -1,0 +1,15 @@
+{
+  "warehouseId": "LA-SPI1",
+  "items": [
+    { "sku": "AACC0019B", "available": 10 },
+    { "sku": "AACC0073A", "available": 5 },
+    { "sku": "AACC0036A", "available": 2 },
+    { "sku": "ABOX0001", "available": 3 },
+    { "sku": "ABOX0002", "available": 2 },
+    { "sku": "ABOX0003", "available": 2 },
+    { "sku": "ABOX0004", "available": 1 },
+    { "sku": "ABOX0005", "available": 1 },
+    { "sku": "ABOX0006", "available": 1 },
+    { "sku": "ABOX0007", "available": 1 }
+  ]
+}

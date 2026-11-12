@@ -1,14 +1,28 @@
-const DELINEATOR_SKU_PREFIX = "AA";
-const CARTON_SKU_PREFIX = "ABOX";
-function hydrateOrderFromReferenceCatalog(order, catalog) {
+import type {
+  CartonReference,
+  ContainerDefinition,
+  InventoryItem,
+  NormalizedOrder,
+  OrderLine,
+  ReferenceCatalog,
+  SkuReference
+} from "./types.js";
+
+export const DELINEATOR_SKU_PREFIX = "AA";
+export const CARTON_SKU_PREFIX = "ABOX";
+
+export function hydrateOrderFromReferenceCatalog(order: NormalizedOrder, catalog: ReferenceCatalog): NormalizedOrder {
   const referenceBySku = new Map(catalog.skus.map((sku) => [sku.sku, sku]));
+
   return {
     ...order,
     lines: order.lines.map((line) => {
       const reference = referenceBySku.get(line.sku);
+
       if (!reference) {
         return line;
       }
+
       return {
         ...line,
         dimensions: line.dimensions ?? reference.dimensions,
@@ -19,50 +33,68 @@ function hydrateOrderFromReferenceCatalog(order, catalog) {
     })
   };
 }
-function hydrateCartonsFromReferenceCatalog(inventoryItems, catalog) {
+
+export function hydrateCartonsFromReferenceCatalog(
+  inventoryItems: InventoryItem[],
+  catalog: ReferenceCatalog
+): InventoryItem[] {
   const cartonBySku = new Map(catalog.cartons.map((carton) => [carton.sku, carton]));
+
   return inventoryItems.map((item) => {
     if (item.container || !item.sku.startsWith(CARTON_SKU_PREFIX)) {
       return item;
     }
+
     const reference = cartonBySku.get(item.sku);
+
     return reference ? { ...item, container: cartonToContainer(reference) } : item;
   });
 }
-function isDelineatorSku(line) {
+
+export function isDelineatorSku(line: OrderLine): boolean {
   return line.sku.startsWith(DELINEATOR_SKU_PREFIX);
 }
-function expandCompactSkuReference(reference) {
+
+export function expandCompactSkuReference(reference: SkuReference): SkuReference[] {
   const expandedSkus = expandCompactSku(reference.sku);
+
   if (expandedSkus.length === 1 && expandedSkus[0] === reference.sku) {
     return [reference];
   }
+
   return expandedSkus.map((sku) => ({
     ...reference,
     sku,
     sourceNote: `${reference.sourceNote ?? "Imported from source catalog."} Expanded from source SKU ${reference.sku}.`
   }));
 }
-function expandCompactSku(sku) {
+
+export function expandCompactSku(sku: string): string[] {
   if (sku.includes("/")) {
     return expandSkuList(sku);
   }
+
   return expandSkuRange(sku);
 }
-function cartonToContainer(carton) {
+
+function cartonToContainer(carton: CartonReference): ContainerDefinition {
   return {
     innerDimensions: carton.innerDimensions,
-    maxWeight: carton.maxWeight
+    ...(carton.maxWeight ? { maxWeight: carton.maxWeight } : {})
   };
 }
-function expandSkuList(sku) {
+
+function expandSkuList(sku: string): string[] {
   const [first, ...rest] = sku.split("/");
   const firstMatch = first.match(/^([A-Z]+)(\d+)([A-Z])$/);
+
   if (!firstMatch) {
     return [sku];
   }
+
   const [, prefix, firstDigits] = firstMatch;
   const width = firstDigits.length;
+
   return [
     first,
     ...rest.map((part) => {
@@ -71,32 +103,30 @@ function expandSkuList(sku) {
     })
   ];
 }
-function expandSkuRange(sku) {
+
+function expandSkuRange(sku: string): string[] {
   const match = sku.match(/^([A-Z]+)(\d+)([A-Z])-(\d+)([A-Z])$/);
+
   if (!match) {
     return [sku];
   }
+
   const [, prefix, startDigits, startSuffix, endDigits, endSuffix] = match;
+
   if (startSuffix !== endSuffix) {
     return [sku];
   }
+
   const start = Number(startDigits);
   const endPrefix = startDigits.slice(0, startDigits.length - endDigits.length);
   const end = Number(`${endPrefix}${endDigits}`);
+
   if (!Number.isInteger(start) || !Number.isInteger(end) || end < start) {
     return [sku];
   }
+
   return Array.from({ length: end - start + 1 }, (_, index) => {
     const digits = String(start + index).padStart(startDigits.length, "0");
     return `${prefix}${digits}${startSuffix}`;
   });
 }
-export {
-  CARTON_SKU_PREFIX,
-  DELINEATOR_SKU_PREFIX,
-  expandCompactSku,
-  expandCompactSkuReference,
-  hydrateCartonsFromReferenceCatalog,
-  hydrateOrderFromReferenceCatalog,
-  isDelineatorSku
-};

@@ -24,6 +24,7 @@ const ORDER_TRACKING_QUERY = `#graphql
           phone
         }
         lineItems(first: 250) {
+          pageInfo { hasNextPage }
           nodes {
             id
             name

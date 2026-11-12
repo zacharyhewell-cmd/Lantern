@@ -56,3 +56,23 @@ test("DV1 planning data queries Shopify order lines and Surpath inventory", asyn
   assert.equal(result.inventory.items[0].warehouseId, "LA-SPI1");
   assert.ok(calls[0].skuList.includes("ABOX0003"));
 });
+
+test("DV1 accepts exact aliases and rejects unrelated, ambiguous, and incomplete Shopify results", async () => {
+  const complete = (name) => ({ name, lineItems: { nodes: [], pageInfo: { hasNextPage: false } } });
+  let inventoryCalls = 0;
+  const load = (orders) => loadDv1PlanningData({
+    orderNumber: "10001",
+    shopifyClient: { findOrdersForTracking: async () => orders },
+    surpathClient: { querySkuInventory: async () => { inventoryCalls += 1; return { data: [] }; } },
+  });
+
+  assert.equal(await load([complete("WS-#100010")]), null);
+  await assert.rejects(load([complete("WS-#10001"), complete("#10001")]), /More than one Shopify order/);
+  await assert.rejects(load([{
+    ...complete("WS-#10001"),
+    lineItems: { nodes: [], pageInfo: { hasNextPage: true } },
+  }]), /incomplete line-item list/);
+  assert.equal(inventoryCalls, 0);
+  assert.equal((await load([complete("WS-#100010"), complete("WS-#10001")])).order.orderNumber, "WS-#10001");
+  assert.equal(inventoryCalls, 1);
+});
