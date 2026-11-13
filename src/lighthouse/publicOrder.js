@@ -1,8 +1,10 @@
 import { itemDisplayName } from "../items/skuAliases.js";
+import { toPublicEnglishText } from "./englishText.js";
 
 function publicItem(item) {
+  const fallback = String(item?.sku || "").trim() || "Item";
   return {
-    name: itemDisplayName(item),
+    name: toPublicEnglishText(itemDisplayName(item), { fallback }),
     quantity: Number(item.quantity || 0),
   };
 }
@@ -13,23 +15,37 @@ function isLtlShipment(shipment) {
 }
 
 function publicStatus(shipment) {
-  return isLtlShipment(shipment) && shipment.rawStatus
-    ? `${shipment.status} - ${shipment.rawStatus}`
-    : shipment.status;
+  const status = toPublicEnglishText(shipment.status, {
+    fallback: "Shipment status unavailable",
+  });
+  if (!isLtlShipment(shipment) || !shipment.rawStatus) {
+    return status;
+  }
+
+  const detail = toPublicEnglishText(shipment.rawStatus);
+  if (!detail || detail.localeCompare(status, undefined, { sensitivity: "accent" }) === 0) {
+    return status;
+  }
+
+  return `${status} - ${detail}`;
 }
 
 function publicLatestUpdate(tracking) {
   if (tracking.fedEx?.latestEvent) {
     return {
-      description: tracking.fedEx.latestEvent.description || null,
-      location: tracking.fedEx.latestEvent.location || null,
-      time: tracking.fedEx.latestEvent.scanTime || null,
+      description: toPublicEnglishText(tracking.fedEx.latestEvent.description, {
+        fallback: "Carrier update received",
+      }),
+      location: toPublicEnglishText(tracking.fedEx.latestEvent.location),
+      time: toPublicEnglishText(tracking.fedEx.latestEvent.scanTime),
     };
   }
 
   if (tracking.fedEx?.status) {
     return {
-      description: tracking.fedEx.status,
+      description: toPublicEnglishText(tracking.fedEx.status, {
+        fallback: "Carrier update received",
+      }),
       location: null,
       time: null,
     };
@@ -37,9 +53,11 @@ function publicLatestUpdate(tracking) {
 
   if (tracking.latestUpdate?.description) {
     return {
-      description: tracking.latestUpdate.description,
-      location: tracking.latestUpdate.location || null,
-      time: tracking.latestUpdate.time || null,
+      description: toPublicEnglishText(tracking.latestUpdate.description, {
+        fallback: "Carrier update received",
+      }),
+      location: toPublicEnglishText(tracking.latestUpdate.location),
+      time: toPublicEnglishText(tracking.latestUpdate.time),
     };
   }
 
@@ -60,11 +78,12 @@ function publicTrackingUrl(value) {
 }
 
 function publicTracking(tracking) {
+  const carrier = toPublicEnglishText(tracking.carrier, { fallback: "Carrier" });
   return {
     carrier: tracking.carrierConfidence === "likely"
-      ? `${tracking.carrier} (likely)`
-      : tracking.carrier,
-    trackingNumber: tracking.trackingNumber || null,
+      ? `${carrier} (likely)`
+      : carrier,
+    trackingNumber: toPublicEnglishText(tracking.trackingNumber),
     trackingUrl: publicTrackingUrl(tracking.trackingUrl),
     latestUpdate: publicLatestUpdate(tracking),
   };
@@ -73,8 +92,8 @@ function publicTracking(tracking) {
 function publicShipment(shipment) {
   return {
     status: publicStatus(shipment),
-    deliveredAt: shipment.deliveredAt || null,
-    estimatedDeliveryAt: shipment.estimatedDeliveryAt || null,
+    deliveredAt: toPublicEnglishText(shipment.deliveredAt),
+    estimatedDeliveryAt: toPublicEnglishText(shipment.estimatedDeliveryAt),
     items: (shipment.items || []).map(publicItem),
     tracking: (shipment.tracking || []).map(publicTracking),
   };
@@ -101,12 +120,17 @@ function sortShipments(shipments) {
 }
 
 export function toLighthouseOrder(summary) {
+  const requestedOrder = toPublicEnglishText(summary.requestedOrder);
   return {
     found: Boolean(summary.found),
-    orderNumber: summary.orderName || summary.requestedOrder || null,
-    cancelledAt: summary.cancelledAt || null,
+    orderNumber: toPublicEnglishText(summary.orderName, { fallback: requestedOrder }),
+    cancelledAt: toPublicEnglishText(summary.cancelledAt),
     unfulfilledItems: (summary.unfulfilledItems || []).map(publicItem),
     shipments: sortShipments(summary.shipments || []).map(publicShipment),
-    warnings: [...(summary.warnings || [])],
+    warnings: [...new Set((summary.warnings || []).map((warning) => (
+      toPublicEnglishText(warning, {
+        fallback: "Additional shipment information is available.",
+      })
+    )).filter(Boolean))],
   };
 }
