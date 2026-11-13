@@ -72,6 +72,11 @@ function parseWatchtowerSheetTabs(value) {
     .filter((entry) => entry?.[0] && entry?.[1]));
 }
 
+function positiveNumber(value, fallback, minimum = 1) {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? Math.max(minimum, parsed) : fallback;
+}
+
 export function sheetTokenFromUrl(url) {
   const match = String(url || "").match(/\/sheets\/([A-Za-z0-9]+)/);
   return match?.[1] || "";
@@ -131,6 +136,12 @@ export function getServerConfig() {
     dv1PlanPath: process.env.DV1_PLAN_PATH || "/dv1/plan",
     dv1UiUsername: process.env.DV1_UI_USERNAME || "",
     dv1UiPassword: process.env.DV1_UI_PASSWORD || "",
+    lighthouseLookupPath: process.env.LIGHTHOUSE_LOOKUP_PATH || "/lighthouse/lookup",
+    lighthousePublicEnabled: process.env.LIGHTHOUSE_PUBLIC_ENABLED === "true",
+    lighthouseUiUsername: process.env.LIGHTHOUSE_UI_USERNAME || "",
+    lighthouseUiPassword: process.env.LIGHTHOUSE_UI_PASSWORD || "",
+    lighthouseRateLimitMax: positiveNumber(process.env.LIGHTHOUSE_RATE_LIMIT_MAX, 10),
+    lighthouseRateLimitWindowMs: positiveNumber(process.env.LIGHTHOUSE_RATE_LIMIT_WINDOW_MS, 60_000, 1_000),
   };
 }
 

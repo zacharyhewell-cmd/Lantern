@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Review an order's latest fulfillment and tracking status." />
+    <title>Lighthouse | Order tracking</title>
+    <link rel="stylesheet" href="/lighthouse/styles.css" />
+  </head>
+  <body>
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div class="brand-mark" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <p class="eyebrow">Order visibility</p>
+        <h1 id="page-title">Lighthouse</h1>
+        <p class="intro">Enter an order number and shipping postal code to review its latest fulfillment and tracking details.</p>
+
+        <form id="lookup-form">
+          <div class="lookup-row">
+            <div class="field">
+              <label for="order-number">Order number</label>
+              <input id="order-number" name="orderNumber" placeholder="WS-#12345" maxlength="64" autocomplete="off" required />
+            </div>
+            <div class="field">
+              <label for="postal-code">Shipping postal code</label>
+              <input id="postal-code" name="postalCode" placeholder="12345" maxlength="32" autocomplete="postal-code" required />
+            </div>
+            <button type="submit">Find order</button>
+          </div>
+        </form>
+      </section>
+
+      <section id="status" class="status-panel" aria-live="polite" hidden></section>
+      <section id="result" class="result" aria-live="polite" hidden></section>
+    </main>
+
+    <footer>Current shipment information from Lighthouse.</footer>
+    <script type="module" src="/lighthouse/app.js"></script>
+  </body>
+</html>

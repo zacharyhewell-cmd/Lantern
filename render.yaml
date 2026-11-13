@@ -68,6 +68,16 @@ services:
         sync: false
       - key: DV1_UI_PASSWORD
         sync: false
+      - key: LIGHTHOUSE_UI_USERNAME
+        sync: false
+      - key: LIGHTHOUSE_UI_PASSWORD
+        sync: false
+      - key: LIGHTHOUSE_PUBLIC_ENABLED
+        value: "false"
+      - key: LIGHTHOUSE_RATE_LIMIT_MAX
+        value: "10"
+      - key: LIGHTHOUSE_RATE_LIMIT_WINDOW_MS
+        value: "60000"
       - key: DV1_DEFAULT_WAREHOUSE
         value: LA-SPI1
       - key: DV1_CARTON_SKUS

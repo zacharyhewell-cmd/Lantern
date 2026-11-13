@@ -2,6 +2,16 @@
 
 Lantern answers Feishu requests that begin with `Lantern` and an order number, then returns order tracking information in a threaded reply.
 
+## Lighthouse development preview
+
+Lighthouse is a separate browser presentation of Lantern's structured order-tracking lookup. It has its own public response allowlist and frontend, so Lighthouse display changes do not change Lantern's Feishu replies.
+
+Set `LIGHTHOUSE_UI_USERNAME` and `LIGHTHOUSE_UI_PASSWORD`, start the service, and open `/lighthouse`. During development the page is protected with HTTP Basic authentication. Its lookup route is `POST /lighthouse/lookup` and uses the same credentials. Lookups require both `orderNumber` and the shipping `postalCode`; missing orders and postal-code mismatches return the same generic response. The development response includes order status, item names, tracking links, and shipment updates; it excludes customer addresses, postal codes, Shopify IDs, financial status, warehouse codes, and raw carrier payloads.
+
+`LIGHTHOUSE_PUBLIC_ENABLED` defaults to `false`. Leave it disabled during development; setting it to `true` removes the shared Basic-authentication gate while retaining postal-code verification, throttling, and the public response allowlist.
+
+Lighthouse lookup responses are not cached, use restrictive browser security headers, and are throttled per client address. `LIGHTHOUSE_RATE_LIMIT_MAX` defaults to 10 requests per `LIGHTHOUSE_RATE_LIMIT_WINDOW_MS`, which defaults to 60000 milliseconds. This in-process limiter is appropriate for the current single-instance development service; use a shared rate-limit store before horizontally scaling Lighthouse.
+
 ## Current Scope
 
 - Trigger: messages that begin with `Lantern`, case-insensitive

@@ -2,19 +2,32 @@ import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { getFeishuConfig, getServerConfig, getShopifyConfig, getSurpathConfig, getWatchtowerConfig } from "../config.js";
+import { getFedExConfig, getFeishuConfig, getServerConfig, getShopifyConfig, getSurpathConfig, getWatchtowerConfig } from "../config.js";
 import { FeishuOpenApiClient } from "../feishu/openApi.js";
 import { createFeishuWebhookProcessor } from "../feishu/webhook.js";
 import { runWatchtowerOutboundDelayReport } from "../watchtower/runOutboundDelayReport.js";
 import { isoDate, runAndPostWatchtowerReport } from "../watchtower/feishuReportJob.js";
 import { loadDv1PlanningData } from "../dv1/data.js";
 import { planDv1Order } from "../dv1/plan.js";
+import { lookupOrderTracking } from "../tracking/surpathTracking.js";
+import { toLighthouseOrder } from "../lighthouse/publicOrder.js";
+import { createLighthouseRateLimiter } from "../lighthouse/rateLimit.js";
+import { matchesShippingPostalCode } from "../lighthouse/verification.js";
 
-const publicDirectory = join(dirname(fileURLToPath(import.meta.url)), "../../public/dv1");
+const publicRoot = join(dirname(fileURLToPath(import.meta.url)), "../../public");
+const dv1PublicDirectory = join(publicRoot, "dv1");
+const lighthousePublicDirectory = join(publicRoot, "lighthouse");
 
-async function readJsonBody(request) {
+async function readJsonBody(request, { maxBytes = 1024 * 1024 } = {}) {
   const chunks = [];
+  let totalBytes = 0;
   for await (const chunk of request) {
+    totalBytes += chunk.length;
+    if (totalBytes > maxBytes) {
+      const error = new Error("Request body is too large.");
+      error.code = "PAYLOAD_TOO_LARGE";
+      throw error;
+    }
     chunks.push(chunk);
   }
 
@@ -25,13 +38,30 @@ async function readJsonBody(request) {
   return JSON.parse(Buffer.concat(chunks).toString("utf8"));
 }
 
-function sendJson(response, status, body) {
-  response.writeHead(status, { "Content-Type": "application/json" });
+function sendJson(response, status, body, headers = {}) {
+  response.writeHead(status, { "Content-Type": "application/json", ...headers });
   response.end(JSON.stringify(body));
 }
 
 function requestPath(request) {
   return new URL(request.url, "http://localhost").pathname;
+}
+
+const LIGHTHOUSE_SECURITY_HEADERS = {
+  "Cache-Control": "no-store",
+  "Content-Security-Policy": "default-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'",
+  "Permissions-Policy": "camera=(), geolocation=(), microphone=()",
+  "Referrer-Policy": "no-referrer",
+  "X-Content-Type-Options": "nosniff",
+};
+
+function sendLighthouseJson(response, status, body, headers = {}) {
+  sendJson(response, status, body, { ...LIGHTHOUSE_SECURITY_HEADERS, ...headers });
+}
+
+function requestClientAddress(request) {
+  const forwardedFor = String(request.headers["x-forwarded-for"] || "").split(",")[0].trim();
+  return forwardedFor || request.socket.remoteAddress || "unknown";
 }
 
 function isAuthorizedWatchtowerRequest(request, watchtowerConfig) {
@@ -76,8 +106,42 @@ function requireDv1Ui(request, response, serverConfig) {
 }
 
 async function sendDv1Asset(response, fileName, contentType) {
-  const contents = await readFile(join(publicDirectory, fileName));
+  const contents = await readFile(join(dv1PublicDirectory, fileName));
   response.writeHead(200, { "Content-Type": contentType });
+  response.end(contents);
+}
+
+function isAuthorizedLighthouseUi(request, serverConfig) {
+  if (serverConfig.lighthousePublicEnabled) {
+    return true;
+  }
+
+  if (!serverConfig.lighthouseUiUsername || !serverConfig.lighthouseUiPassword) {
+    return false;
+  }
+
+  const header = request.headers.authorization || "";
+  if (!header.startsWith("Basic ")) {
+    return false;
+  }
+
+  const decoded = Buffer.from(header.slice(6), "base64").toString("utf8");
+  return decoded === `${serverConfig.lighthouseUiUsername}:${serverConfig.lighthouseUiPassword}`;
+}
+
+function requireLighthouseUi(request, response, serverConfig) {
+  if (isAuthorizedLighthouseUi(request, serverConfig)) {
+    return true;
+  }
+
+  response.writeHead(401, { "WWW-Authenticate": 'Basic realm="Lighthouse"' });
+  response.end("Lighthouse authentication required.");
+  return false;
+}
+
+async function sendLighthouseAsset(response, fileName, contentType) {
+  const contents = await readFile(join(lighthousePublicDirectory, fileName));
+  response.writeHead(200, { "Content-Type": contentType, ...LIGHTHOUSE_SECURITY_HEADERS });
   response.end(contents);
 }
 
@@ -91,8 +155,15 @@ export function createLanternServer({
   dv1PlanRunner = planDv1Order,
   dv1KnownCombinations,
   dv1KnownSolutionArchiveEnabled,
+  lighthouseLookup = lookupOrderTracking,
+  lighthousePresenter = toLighthouseOrder,
+  lighthouseRateLimiter,
   processor,
 } = {}) {
+  const rateLimiter = lighthouseRateLimiter || createLighthouseRateLimiter({
+    maxRequests: serverConfig.lighthouseRateLimitMax,
+    windowMs: serverConfig.lighthouseRateLimitWindowMs,
+  });
   const webhookProcessor = processor || createFeishuWebhookProcessor({
     allowedChatIds: feishuConfig.allowedChatIds,
     verificationToken: feishuConfig.verificationToken,
@@ -223,6 +294,88 @@ export function createLanternServer({
         }
 
         sendJson(response, 200, result);
+        return;
+      }
+
+      if (pathname === "/lighthouse" || pathname === "/lighthouse/" || pathname === "/lighthouse/index.html") {
+        if (!requireLighthouseUi(request, response, serverConfig)) {
+          return;
+        }
+        await sendLighthouseAsset(response, "index.html", "text/html; charset=utf-8");
+        return;
+      }
+
+      if (pathname === "/lighthouse/app.js") {
+        if (!requireLighthouseUi(request, response, serverConfig)) {
+          return;
+        }
+        await sendLighthouseAsset(response, "app.js", "text/javascript; charset=utf-8");
+        return;
+      }
+
+      if (pathname === "/lighthouse/styles.css") {
+        if (!requireLighthouseUi(request, response, serverConfig)) {
+          return;
+        }
+        await sendLighthouseAsset(response, "styles.css", "text/css; charset=utf-8");
+        return;
+      }
+
+      if (request.method === "POST" && pathname === serverConfig.lighthouseLookupPath) {
+        if (!requireLighthouseUi(request, response, serverConfig)) {
+          return;
+        }
+
+        const rateLimit = rateLimiter.check(requestClientAddress(request));
+        if (!rateLimit.allowed) {
+          sendLighthouseJson(response, 429, {
+            error: "Too many lookup requests. Please wait a moment and try again.",
+          }, {
+            "Retry-After": String(rateLimit.retryAfterSeconds),
+          });
+          return;
+        }
+
+        let payload;
+        try {
+          payload = await readJsonBody(request, { maxBytes: 16 * 1024 });
+        } catch (error) {
+          sendLighthouseJson(response, error.code === "PAYLOAD_TOO_LARGE" ? 413 : 400, {
+            error: "Enter a valid order number and shipping postal code.",
+          });
+          return;
+        }
+        const orderNumber = String(payload.orderNumber || "").trim();
+        const postalCode = String(payload.postalCode || "").trim();
+        if (!orderNumber || orderNumber.length > 64 || !postalCode || postalCode.length > 32) {
+          sendLighthouseJson(response, 400, { error: "Enter a valid order number and shipping postal code." });
+          return;
+        }
+
+        let summary;
+        try {
+          summary = await lighthouseLookup({
+            orderText: orderNumber,
+            shopifyConfig: getShopifyConfig(),
+            surpathConfig: getSurpathConfig(),
+            fedExConfig: getFedExConfig(),
+          });
+        } catch (error) {
+          console.error(`Lighthouse lookup failed: ${error.message}`);
+          sendLighthouseJson(response, 503, {
+            error: "We could not retrieve that order right now. Please try again shortly.",
+          });
+          return;
+        }
+
+        if (!summary?.found || !matchesShippingPostalCode(summary, postalCode)) {
+          sendLighthouseJson(response, 404, {
+            error: "We could not verify an order with those details.",
+          });
+          return;
+        }
+
+        sendLighthouseJson(response, 200, lighthousePresenter(summary));
         return;
       }
 

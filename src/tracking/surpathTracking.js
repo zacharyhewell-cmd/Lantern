@@ -3,7 +3,6 @@ import { ShopifyClient } from "../shopify/client.js";
 import { normalizeShopifyTracking } from "../shopify/normalize.js";
 import { SurpathMcpClient } from "../surpath/client.js";
 import { exactRowsForTracking, normalizeSurpathRows } from "../surpath/normalize.js";
-import { formatTrackingReply } from "../formatters/trackingReply.js";
 import { enrichSummaryWithFedEx } from "../fedex/enrich.js";
 
 function unique(values) {
@@ -45,6 +44,19 @@ function dedupeRows(rows) {
     seen.add(key);
     return true;
   });
+}
+
+function withTrackingVerification(summary, { shopifySummary, surpathRows = [] } = {}) {
+  const shippingPostalCode = shopifySummary?.shippingAddress?.zip ||
+    surpathRows.find((row) => row.zip)?.zip ||
+    null;
+
+  return {
+    ...summary,
+    verification: {
+      shippingPostalCode,
+    },
+  };
 }
 
 const SURPATH_LOOKUP_PAGE_SIZE = 100;
@@ -322,9 +334,9 @@ async function loadShopifySummary(shopifyConfig, orderIdentifier) {
   return normalizeShopifyTracking(shopifyOrders, orderIdentifier);
 }
 
-async function tryLoadShopifySummary(shopifyConfig, orderIdentifier) {
+async function tryLoadShopifySummary(shopifyConfig, orderIdentifier, loadShopify = loadShopifySummary) {
   try {
-    return await loadShopifySummary(shopifyConfig, orderIdentifier);
+    return await loadShopify(shopifyConfig, orderIdentifier);
   } catch (error) {
     console.error(`Shopify enrichment unavailable: ${error.message}`);
     return {
@@ -376,30 +388,34 @@ export function mergeShopifyGaps(surpathSummary, shopifySummary, surpathTracking
   };
 }
 
-export async function buildSurpathTrackingReply({
+export async function lookupOrderTracking({
   orderText,
   shopifyConfig,
   surpathConfig,
   fedExConfig,
-}) {
+}, {
+  createSurpathClient = (config) => new SurpathMcpClient(config),
+  loadShopify = loadShopifySummary,
+  enrichWithFedEx = enrichSummaryWithFedEx,
+} = {}) {
   const orderIdentifier = normalizeOrderIdentifier(orderText);
   if (!orderIdentifier) {
-    return "Please include an order number like WS-12345 or 12345.";
+    return null;
   }
 
   let shopifySummary;
 
-  const surpathClient = new SurpathMcpClient(surpathConfig);
+  const surpathClient = createSurpathClient(surpathConfig);
   if (!surpathClient.isConfigured()) {
-    shopifySummary = await loadShopifySummary(shopifyConfig, orderIdentifier);
-    const enrichedShopifySummary = await enrichSummaryWithFedEx(shopifySummary, fedExConfig);
-    return formatTrackingReply(enrichedShopifySummary);
+    shopifySummary = await loadShopify(shopifyConfig, orderIdentifier);
+    const enrichedSummary = await enrichWithFedEx(shopifySummary, fedExConfig);
+    return withTrackingVerification(enrichedSummary, { shopifySummary });
   }
 
   try {
     let surpathRows = [];
     if (orderIdentifier.fulfillmentName) {
-      shopifySummary = await loadShopifySummary(shopifyConfig, orderIdentifier);
+      shopifySummary = await loadShopify(shopifyConfig, orderIdentifier);
       surpathRows = [
         ...await findSurpathRowsByTracking(surpathClient, trackingNumbersFromSummary(shopifySummary)),
         ...await findSurpathRowsByNoTrackingShopifyShipments(surpathClient, shopifySummary),
@@ -407,21 +423,21 @@ export async function buildSurpathTrackingReply({
     } else {
       surpathRows = await findDirectSurpathRows(surpathClient, orderIdentifier);
       if (!surpathRows.length) {
-        shopifySummary = await loadShopifySummary(shopifyConfig, orderIdentifier);
+        shopifySummary = await loadShopify(shopifyConfig, orderIdentifier);
         surpathRows = [
           ...await findSurpathRowsByTracking(surpathClient, trackingNumbersFromSummary(shopifySummary)),
           ...await findSurpathRowsByNoTrackingShopifyShipments(surpathClient, shopifySummary),
           ...await findSurpathRowsByUnfulfilledItems(surpathClient, shopifySummary),
         ];
       } else {
-        shopifySummary = await tryLoadShopifySummary(shopifyConfig, orderIdentifier);
+        shopifySummary = await tryLoadShopifySummary(shopifyConfig, orderIdentifier, loadShopify);
       }
     }
     surpathRows = enrichSurpathRowsWithShopifyItemNames(dedupeRows(surpathRows), shopifySummary);
 
     if (!surpathRows.length) {
-      const enrichedShopifySummary = await enrichSummaryWithFedEx(shopifySummary, fedExConfig);
-      return formatTrackingReply(enrichedShopifySummary);
+      const enrichedSummary = await enrichWithFedEx(shopifySummary, fedExConfig);
+      return withTrackingVerification(enrichedSummary, { shopifySummary });
     }
 
     const surpathTrackingNumbers = new Set(surpathRows.map((row) => row.expressNumber || row.bolCode).filter(Boolean));
@@ -431,8 +447,8 @@ export async function buildSurpathTrackingReply({
       warnings: shopifySummary.found ? [] : [`No Shopify order matched ${orderIdentifier.raw}; showing Surpath data only.`],
     });
     const mergedSummary = mergeShopifyGaps(surpathSummary, shopifySummary, surpathTrackingNumbers);
-    const enrichedSummary = await enrichSummaryWithFedEx(mergedSummary, fedExConfig);
-    return formatTrackingReply(enrichedSummary);
+    const enrichedSummary = await enrichWithFedEx(mergedSummary, fedExConfig);
+    return withTrackingVerification(enrichedSummary, { shopifySummary, surpathRows });
   } finally {
     await surpathClient.close();
   }

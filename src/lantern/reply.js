@@ -1,6 +1,6 @@
 import { getFedExConfig, getShopifyConfig, getSurpathConfig } from "../config.js";
 import { extractOrderIdentifier } from "../orderIds.js";
-import { buildSurpathTrackingReply } from "../tracking/surpathTracking.js";
+import { buildSurpathTrackingReply } from "../tracking/surpathTrackingReply.js";
 
 export const LANTERN_SPELLING_REPLY = "Lantern. L A N T E R N. Lantern.";
 

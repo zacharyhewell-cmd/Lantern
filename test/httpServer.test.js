@@ -222,3 +222,164 @@ test("serves the protected DV1 planning screen and plan route", async () => {
     await close(server);
   }
 });
+
+test("serves the protected Lighthouse page and structured lookup route", async () => {
+  const lookupCalls = [];
+  let lookupError = null;
+  const server = createLanternServer({
+    serverConfig: {
+      port: 0,
+      feishuWebhookPath: "/feishu/events",
+      lighthouseLookupPath: "/lighthouse/lookup",
+      lighthouseUiUsername: "reviewer",
+      lighthouseUiPassword: "password",
+    },
+    feishuConfig: {
+      appId: "app-id",
+      appSecret: "app-secret",
+      verificationToken: "verify-token",
+      lanternChatId: "oc_test",
+    },
+    replyClient: { async replyInThread() {} },
+    lighthouseLookup: async (options) => {
+      if (lookupError) {
+        throw lookupError;
+      }
+      lookupCalls.push(options);
+      return {
+        found: true,
+        orderName: "WS-#32303",
+        verification: { shippingPostalCode: "97214" },
+        shipments: [],
+        unfulfilledItems: [],
+        warnings: [],
+      };
+    },
+  });
+
+  const port = await listen(server);
+  const authorization = `Basic ${Buffer.from("reviewer:password").toString("base64")}`;
+  try {
+    const unauthorizedPage = await fetch(`http://127.0.0.1:${port}/lighthouse`);
+    assert.equal(unauthorizedPage.status, 401);
+
+    const page = await fetch(`http://127.0.0.1:${port}/lighthouse`, {
+      headers: { Authorization: authorization },
+    });
+    assert.equal(page.status, 200);
+    assert.match(await page.text(), /Lighthouse/);
+
+    const unauthorizedLookup = await fetch(`http://127.0.0.1:${port}/lighthouse/lookup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ orderNumber: "32303", postalCode: "97214" }),
+    });
+    assert.equal(unauthorizedLookup.status, 401);
+
+    const malformedLookup = await fetch(`http://127.0.0.1:${port}/lighthouse/lookup`, {
+      method: "POST",
+      headers: {
+        Authorization: authorization,
+        "Content-Type": "application/json",
+      },
+      body: "{",
+    });
+    assert.equal(malformedLookup.status, 400);
+    assert.deepEqual(await malformedLookup.json(), {
+      error: "Enter a valid order number and shipping postal code.",
+    });
+    assert.equal(lookupCalls.length, 0);
+
+    const lookup = await fetch(`http://127.0.0.1:${port}/lighthouse/lookup`, {
+      method: "POST",
+      headers: {
+        Authorization: authorization,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ orderNumber: "32303", postalCode: "97214" }),
+    });
+    assert.equal(lookup.status, 200);
+    assert.equal(lookup.headers.get("cache-control"), "no-store");
+    assert.match(lookup.headers.get("content-security-policy"), /frame-ancestors 'none'/);
+    assert.deepEqual(await lookup.json(), {
+      found: true,
+      orderNumber: "WS-#32303",
+      cancelledAt: null,
+      unfulfilledItems: [],
+      shipments: [],
+      warnings: [],
+    });
+    assert.equal(lookupCalls.length, 1);
+    assert.equal(lookupCalls[0].orderText, "32303");
+
+    const mismatch = await fetch(`http://127.0.0.1:${port}/lighthouse/lookup`, {
+      method: "POST",
+      headers: {
+        Authorization: authorization,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ orderNumber: "32303", postalCode: "00000" }),
+    });
+    assert.equal(mismatch.status, 404);
+    const mismatchBody = await mismatch.json();
+    assert.match(mismatchBody.error, /could not verify/i);
+    assert.doesNotMatch(JSON.stringify(mismatchBody), /32303|97214/);
+
+    lookupError = new Error("private upstream detail");
+    const failedLookup = await fetch(`http://127.0.0.1:${port}/lighthouse/lookup`, {
+      method: "POST",
+      headers: {
+        Authorization: authorization,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ orderNumber: "32303", postalCode: "97214" }),
+    });
+    assert.equal(failedLookup.status, 503);
+    const failureBody = await failedLookup.json();
+    assert.match(failureBody.error, /could not retrieve/i);
+    assert.doesNotMatch(JSON.stringify(failureBody), /private upstream detail/);
+  } finally {
+    await close(server);
+  }
+});
+
+test("requires an explicit switch before Lighthouse accepts public requests", async () => {
+  const server = createLanternServer({
+    serverConfig: {
+      port: 0,
+      feishuWebhookPath: "/feishu/events",
+      lighthouseLookupPath: "/lighthouse/lookup",
+      lighthousePublicEnabled: true,
+    },
+    feishuConfig: {
+      appId: "app-id",
+      appSecret: "app-secret",
+      verificationToken: "verify-token",
+      lanternChatId: "oc_test",
+    },
+    replyClient: { async replyInThread() {} },
+    lighthouseLookup: async () => ({
+      found: true,
+      orderName: "WS-#32303",
+      verification: { shippingPostalCode: "97214" },
+      shipments: [],
+      unfulfilledItems: [],
+      warnings: [],
+    }),
+  });
+
+  const port = await listen(server);
+  try {
+    const page = await fetch(`http://127.0.0.1:${port}/lighthouse`);
+    assert.equal(page.status, 200);
+
+    const lookup = await fetch(`http://127.0.0.1:${port}/lighthouse/lookup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ orderNumber: "32303", postalCode: "97214" }),
+    });
+    assert.equal(lookup.status, 200);
+  } finally {
+    await close(server);
+  }
+});
