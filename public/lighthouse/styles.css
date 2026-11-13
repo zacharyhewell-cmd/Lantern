@@ -50,7 +50,7 @@ main {
 }
 
 .brand { margin: 0 0 20px; }
-.brand img { display: block; max-width: 100%; height: auto; }
+.brand img { display: block; width: 308.75px; max-width: 100%; height: auto; }
 
 h1, h2, h3, .eyebrow, .shipment-label {
   font-family: "Lighthouse Inter", Inter, ui-sans-serif, system-ui, sans-serif;
@@ -112,9 +112,16 @@ button:disabled { cursor: wait; opacity: .65; }
 .shipment-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
 .shipment-label { margin: 4px 0 0; color: var(--muted); font-size: 13px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .status-chip { max-width: 70%; padding: 7px 10px; border-radius: 999px; color: #65430c; background: var(--signal-soft); font-size: 12px; font-weight: 800; text-align: right; }
-.detail { margin-bottom: 9px; line-height: 1.45; }
+.detail {
+  display: grid;
+  grid-template-columns: 144px minmax(0, 1fr);
+  column-gap: 8px;
+  margin-bottom: 9px;
+  line-height: 1.45;
+}
 .detail:last-child { margin-bottom: 0; }
-.detail-label { display: inline-block; min-width: 144px; color: var(--muted); font-size: 13px; font-weight: 750; }
+.detail-label { color: var(--muted); font-size: 13px; font-weight: 750; }
+.detail-value { overflow-wrap: anywhere; }
 a { color: var(--navy); font-weight: 700; text-underline-offset: 3px; }
 
 .notice, .notes { margin-top: 20px; padding: 18px 20px; border-radius: 14px; background: #f1eee7; }
@@ -132,5 +139,5 @@ footer { padding: 0 16px 30px; color: var(--muted); font-size: 12px; text-align:
   button { width: 100%; }
   .shipment-header { display: grid; }
   .status-chip { max-width: 100%; text-align: left; }
-  .detail-label { display: block; min-width: 0; margin-bottom: 2px; }
+  .detail { grid-template-columns: minmax(0, 1fr); row-gap: 2px; }
 }

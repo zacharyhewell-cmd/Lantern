@@ -131,7 +131,7 @@ test("consolidates Lighthouse statuses into a closed public lifecycle", () => {
     { status: "Shipping from China - see tracking", rawStatus: "运输途中", expected: "In Transit" },
     { status: "Fulfilled - LtL processing", rawStatus: "清关完成", expected: "In Transit" },
     { status: "In Transit", rawStatus: "已揽收", expected: "In Transit" },
-    { status: "In Transit", rawStatus: "派送中", expected: "Out for delivery" },
+    { status: "In Transit", rawStatus: "派送中", expected: "In Transit" },
     { status: "Delivered", rawStatus: "已签收", expected: "Delivered" },
     { status: "Fulfilled - LtL processing", rawStatus: "已取消", expected: "Canceled" },
   ];
@@ -149,6 +149,24 @@ test("consolidates Lighthouse statuses into a closed public lifecycle", () => {
     });
 
     assert.equal(order.shipments[0].status, entry.expected, entry.rawStatus);
+  }
+});
+
+test("requires a carrier update to show out for delivery", () => {
+  for (const [description, expected] of [
+    ["Shipment Status changed to: ON HAND DESTINATION AGENT", "In Transit"],
+    ["Not out for delivery", "In Transit"],
+    ["Shipment Status changed to: OUT FOR DELIVERY", "Out for delivery"],
+  ]) {
+    const order = toLighthouseOrder({
+      shipments: [{
+        source: "surpath",
+        status: "In Transit",
+        rawStatus: "派送中",
+        tracking: [{ carrier: "Alliance Air Freight", latestUpdate: { description } }],
+      }],
+    });
+    assert.equal(order.shipments[0].status, expected, description);
   }
 });
 

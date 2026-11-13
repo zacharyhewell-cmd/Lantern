@@ -36,7 +36,9 @@ function formatDate(value, includeTime = false) {
 function addDetail(container, label, value) {
   if (!value) return;
   const row = element("p", "detail");
-  row.append(element("span", "detail-label", label), document.createTextNode(value));
+  const detailValue = element("span", "detail-value");
+  detailValue.append(value);
+  row.append(element("span", "detail-label", label), detailValue);
   container.append(row);
 }
 
@@ -48,18 +50,15 @@ function renderTracking(container, tracking) {
   addDetail(container, "Carrier", tracking.carrier);
 
   if (tracking.trackingNumber) {
-    const row = element("p", "detail");
-    row.append(element("span", "detail-label", "Tracking"));
     if (tracking.trackingUrl) {
       const link = element("a", null, tracking.trackingNumber);
       link.href = tracking.trackingUrl;
       link.target = "_blank";
       link.rel = "noreferrer";
-      row.append(link);
+      addDetail(container, "Tracking", link);
     } else {
-      row.append(document.createTextNode(tracking.trackingNumber));
+      addDetail(container, "Tracking", tracking.trackingNumber);
     }
-    container.append(row);
   }
 
   if (tracking.latestUpdate) {

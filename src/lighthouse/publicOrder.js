@@ -9,6 +9,13 @@ function publicItem(item) {
   };
 }
 
+function confirmsOutForDelivery(tracking) {
+  const description = tracking.fedEx?.latestEvent?.description ||
+    tracking.fedEx?.status || tracking.latestUpdate?.description || "";
+  return /^(?:(?:shipment status changed to:\s*)?(?:package\s+|on fedex vehicle )?out for delivery[.!]?|(?:包裹)?正在派送[。]?)$/i
+    .test(description.trim());
+}
+
 function publicStatus(shipment) {
   const status = toPublicEnglishText(shipment.status, { fallback: "" });
   const rawStatus = toPublicEnglishText(shipment.rawStatus, { fallback: "" });
@@ -22,7 +29,7 @@ function publicStatus(shipment) {
     return "Delivered";
   }
 
-  if (combined.includes("out for delivery")) {
+  if (shipment.tracking?.some(confirmsOutForDelivery)) {
     return "Out for delivery";
   }
 
@@ -41,6 +48,7 @@ function publicStatus(shipment) {
 
   if (
     combined.includes("in transit") ||
+    combined.includes("out for delivery") ||
     combined.includes("shipping from china") ||
     combined.includes("picked up by carrier") ||
     combined.includes("shipped from warehouse") ||

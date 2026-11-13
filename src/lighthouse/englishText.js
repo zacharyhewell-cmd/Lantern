@@ -5,7 +5,7 @@ const PHRASE_TRANSLATIONS = [
   ["已出库-待上网", "Shipped - awaiting carrier scan"],
   ["运输途中", "In transit"],
   ["正在派送", "Out for delivery"],
-  ["派送中", "Out for delivery"],
+  ["派送中", "In transit"],
   ["已妥投", "Delivered"],
   ["已签收", "Signed for"],
   ["已送达", "Delivered"],
