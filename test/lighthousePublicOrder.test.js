@@ -44,7 +44,7 @@ test("maps tracking data to an explicit Lighthouse allowlist", () => {
     cancelledAt: null,
     unfulfilledItems: [{ name: "Rear Rack", quantity: 1 }],
     shipments: [{
-      status: "Fulfilled - LtL processing - Pending outbound",
+      status: "Processing",
       deliveredAt: null,
       estimatedDeliveryAt: null,
       items: [{ name: "Rear Rack", quantity: 1 }],
@@ -104,24 +104,52 @@ test("translates Chinese public fields and never returns Chinese characters", ()
     warnings: ["请联系承运商"],
   });
 
-  const inTransit = order.shipments.find((shipment) => shipment.status === "In Transit");
-  const pendingOutbound = order.shipments.find((shipment) => (
-    shipment.status === "Fulfilled - LtL processing - Pending outbound"
-  ));
+  const outForDelivery = order.shipments.find((shipment) => shipment.status === "Out for delivery");
+  const processing = order.shipments.find((shipment) => shipment.status === "Processing");
 
   assert.equal(order.unfulfilledItems[0].name, "Freewheel");
-  assert.ok(inTransit);
-  assert.equal(inTransit.items[0].name, "Charger");
-  assert.equal(inTransit.tracking[0].carrier, "4PX");
-  assert.equal(inTransit.tracking[0].latestUpdate.description, "Package Out for delivery");
-  assert.equal(inTransit.tracking[0].latestUpdate.location, "China Shenzhen");
-  assert.ok(pendingOutbound);
-  assert.equal(pendingOutbound.items[0].name, "PART40001");
-  assert.equal(pendingOutbound.tracking[0].carrier, "Carrier");
-  assert.equal(pendingOutbound.tracking[0].latestUpdate.description, "Carrier update received");
-  assert.equal(pendingOutbound.tracking[0].latestUpdate.location, null);
+  assert.ok(outForDelivery);
+  assert.equal(outForDelivery.items[0].name, "Charger");
+  assert.equal(outForDelivery.tracking[0].carrier, "4PX");
+  assert.equal(outForDelivery.tracking[0].latestUpdate.description, "Package Out for delivery");
+  assert.equal(outForDelivery.tracking[0].latestUpdate.location, "China Shenzhen");
+  assert.ok(processing);
+  assert.equal(processing.items[0].name, "PART40001");
+  assert.equal(processing.tracking[0].carrier, "Carrier");
+  assert.equal(processing.tracking[0].latestUpdate.description, "Carrier update received");
+  assert.equal(processing.tracking[0].latestUpdate.location, null);
   assert.deepEqual(order.warnings, ["Additional shipment information is available."]);
   assert.doesNotMatch(JSON.stringify(order), /\p{Script=Han}/u);
+});
+
+test("consolidates Lighthouse statuses into a closed public lifecycle", () => {
+  const cases = [
+    { status: "Unfulfilled", rawStatus: "待出库", expected: "Processing" },
+    { status: "Fulfilled - LtL processing", rawStatus: "未出库", expected: "Processing" },
+    { status: "Waiting for pickup", rawStatus: "已出库-待上网", expected: "Waiting for pickup" },
+    { status: "Waiting for pickup", rawStatus: "待提货", expected: "Waiting for pickup" },
+    { status: "Shipping from China - see tracking", rawStatus: "运输途中", expected: "In Transit" },
+    { status: "Fulfilled - LtL processing", rawStatus: "清关完成", expected: "In Transit" },
+    { status: "In Transit", rawStatus: "已揽收", expected: "In Transit" },
+    { status: "In Transit", rawStatus: "派送中", expected: "Out for delivery" },
+    { status: "Delivered", rawStatus: "已签收", expected: "Delivered" },
+    { status: "Fulfilled - LtL processing", rawStatus: "已取消", expected: "Canceled" },
+  ];
+
+  for (const entry of cases) {
+    const order = toLighthouseOrder({
+      found: true,
+      shipments: [{
+        source: "surpath",
+        status: entry.status,
+        rawStatus: entry.rawStatus,
+        items: [],
+        tracking: [],
+      }],
+    });
+
+    assert.equal(order.shipments[0].status, entry.expected, entry.rawStatus);
+  }
 });
 
 test("drops non-web tracking links from Lighthouse responses", () => {

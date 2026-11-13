@@ -9,25 +9,49 @@ function publicItem(item) {
   };
 }
 
-function isLtlShipment(shipment) {
-  return shipment.source === "surpath" &&
-    !shipment.tracking?.some((tracking) => tracking.carrier === "FedEx");
-}
-
 function publicStatus(shipment) {
-  const status = toPublicEnglishText(shipment.status, {
-    fallback: "Shipment status unavailable",
-  });
-  if (!isLtlShipment(shipment) || !shipment.rawStatus) {
-    return status;
+  const status = toPublicEnglishText(shipment.status, { fallback: "" });
+  const rawStatus = toPublicEnglishText(shipment.rawStatus, { fallback: "" });
+  const combined = `${status} ${rawStatus}`.toLowerCase();
+
+  if (combined.includes("canceled") || combined.includes("cancelled")) {
+    return "Canceled";
   }
 
-  const detail = toPublicEnglishText(shipment.rawStatus);
-  if (!detail || detail.localeCompare(status, undefined, { sensitivity: "accent" }) === 0) {
-    return status;
+  if (combined.includes("delivered") || combined.includes("signed for")) {
+    return "Delivered";
   }
 
-  return `${status} - ${detail}`;
+  if (combined.includes("out for delivery")) {
+    return "Out for delivery";
+  }
+
+  if (
+    combined.includes("waiting for pickup") ||
+    combined.includes("awaiting carrier pickup") ||
+    combined.includes("awaiting pickup") ||
+    combined.includes("awaiting carrier scan") ||
+    combined.includes("not picked up") ||
+    combined.includes("not pickup") ||
+    combined.includes("shipment information sent") ||
+    combined.includes("label created")
+  ) {
+    return "Waiting for pickup";
+  }
+
+  if (
+    combined.includes("in transit") ||
+    combined.includes("shipping from china") ||
+    combined.includes("picked up by carrier") ||
+    combined.includes("shipped from warehouse") ||
+    combined.includes("customs clearance") ||
+    combined.includes("arrived") ||
+    combined.includes("departed")
+  ) {
+    return "In Transit";
+  }
+
+  return "Processing";
 }
 
 function publicLatestUpdate(tracking) {
@@ -100,12 +124,12 @@ function publicShipment(shipment) {
 }
 
 const SHIPMENT_STATUS_RANK = new Map([
-  ["Unfulfilled", 0],
-  ["Fulfilled - LtL processing", 1],
+  ["Processing", 0],
   ["Waiting for pickup", 1],
-  ["Shipping from China - see tracking", 1],
   ["In Transit", 2],
-  ["Delivered", 3],
+  ["Out for delivery", 3],
+  ["Delivered", 4],
+  ["Canceled", 5],
 ]);
 
 function sortShipments(shipments) {
@@ -126,7 +150,7 @@ export function toLighthouseOrder(summary) {
     orderNumber: toPublicEnglishText(summary.orderName, { fallback: requestedOrder }),
     cancelledAt: toPublicEnglishText(summary.cancelledAt),
     unfulfilledItems: (summary.unfulfilledItems || []).map(publicItem),
-    shipments: sortShipments(summary.shipments || []).map(publicShipment),
+    shipments: sortShipments((summary.shipments || []).map(publicShipment)),
     warnings: [...new Set((summary.warnings || []).map((warning) => (
       toPublicEnglishText(warning, {
         fallback: "Additional shipment information is available.",

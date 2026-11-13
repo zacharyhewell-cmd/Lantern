@@ -17,6 +17,10 @@ import { matchesShippingPostalCode } from "../lighthouse/verification.js";
 const publicRoot = join(dirname(fileURLToPath(import.meta.url)), "../../public");
 const dv1PublicDirectory = join(publicRoot, "dv1");
 const lighthousePublicDirectory = join(publicRoot, "lighthouse");
+const lighthouseBrandAssets = new Map([
+  ["/lighthouse/logo.svg", ["logo.svg", "image/svg+xml"]],
+  ["/lighthouse/inter-variable.woff2", ["inter-variable.woff2", "font/woff2"]],
+]);
 
 async function readJsonBody(request, { maxBytes = 1024 * 1024 } = {}) {
   const chunks = [];
@@ -318,6 +322,15 @@ export function createLanternServer({
           return;
         }
         await sendLighthouseAsset(response, "styles.css", "text/css; charset=utf-8");
+        return;
+      }
+
+      const brandAsset = lighthouseBrandAssets.get(pathname);
+      if (brandAsset) {
+        if (!requireLighthouseUi(request, response, serverConfig)) {
+          return;
+        }
+        await sendLighthouseAsset(response, ...brandAsset);
         return;
       }
 

@@ -267,7 +267,19 @@ test("serves the protected Lighthouse page and structured lookup route", async (
       headers: { Authorization: authorization },
     });
     assert.equal(page.status, 200);
-    assert.match(await page.text(), /Lighthouse/);
+    assert.match(await page.text(), /<img src="\/lighthouse\/logo\.svg" alt="Velotric Order Tracker"/);
+
+    for (const [asset, contentType] of [
+      ["logo.svg", "image/svg+xml"],
+      ["inter-variable.woff2", "font/woff2"],
+    ]) {
+      const url = `http://127.0.0.1:${port}/lighthouse/${asset}`;
+      const unauthorizedAsset = await fetch(url);
+      assert.equal(unauthorizedAsset.status, 401);
+      const authorizedAsset = await fetch(url, { headers: { Authorization: authorization } });
+      assert.equal(authorizedAsset.status, 200);
+      assert.equal(authorizedAsset.headers.get("content-type"), contentType);
+    }
 
     const unauthorizedLookup = await fetch(`http://127.0.0.1:${port}/lighthouse/lookup`, {
       method: "POST",
