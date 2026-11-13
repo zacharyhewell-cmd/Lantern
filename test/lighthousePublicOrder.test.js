@@ -189,3 +189,17 @@ test("drops non-web tracking links from Lighthouse responses", () => {
 
   assert.equal(order.shipments[0].tracking[0].trackingUrl, null);
 });
+
+test("hides carton SKUs from shipped and unfulfilled items", () => {
+  const items = [
+    { sku: "ABOX0001", name: "Shipping carton", quantity: 1 },
+    { sku: "AA0001", name: "Rear rack", quantity: 2 },
+    { sku: " abox0002 ", name: "Second carton", quantity: 1 },
+    { name: "Mounting kit", quantity: 1 },
+  ];
+  const order = toLighthouseOrder({ unfulfilledItems: items, shipments: [{ items }] });
+  const expected = [{ name: "Rear rack", quantity: 2 }, { name: "Mounting kit", quantity: 1 }];
+
+  assert.deepEqual(order.shipments[0].items, expected);
+  assert.deepEqual(order.unfulfilledItems, expected);
+});

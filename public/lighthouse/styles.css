@@ -122,6 +122,7 @@ button:disabled { cursor: wait; opacity: .65; }
 .detail:last-child { margin-bottom: 0; }
 .detail-label { color: var(--muted); font-size: 13px; font-weight: 750; }
 .detail-value { overflow-wrap: anywhere; }
+.item-lines { white-space: pre-line; overflow-wrap: anywhere; }
 a { color: var(--navy); font-weight: 700; text-underline-offset: 3px; }
 
 .notice, .notes { margin-top: 20px; padding: 18px 20px; border-radius: 14px; background: #f1eee7; }

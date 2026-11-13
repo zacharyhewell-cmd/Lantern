@@ -9,6 +9,12 @@ function publicItem(item) {
   };
 }
 
+function publicItems(items) {
+  return (items ?? [])
+    .filter((item) => !/^abox/i.test(String(item.sku ?? "").trim()))
+    .map(publicItem);
+}
+
 function confirmsOutForDelivery(tracking) {
   const description = tracking.fedEx?.latestEvent?.description ||
     tracking.fedEx?.status || tracking.latestUpdate?.description || "";
@@ -126,7 +132,7 @@ function publicShipment(shipment) {
     status: publicStatus(shipment),
     deliveredAt: toPublicEnglishText(shipment.deliveredAt),
     estimatedDeliveryAt: toPublicEnglishText(shipment.estimatedDeliveryAt),
-    items: (shipment.items || []).map(publicItem),
+    items: publicItems(shipment.items),
     tracking: (shipment.tracking || []).map(publicTracking),
   };
 }
@@ -157,7 +163,7 @@ export function toLighthouseOrder(summary) {
     found: Boolean(summary.found),
     orderNumber: toPublicEnglishText(summary.orderName, { fallback: requestedOrder }),
     cancelledAt: toPublicEnglishText(summary.cancelledAt),
-    unfulfilledItems: (summary.unfulfilledItems || []).map(publicItem),
+    unfulfilledItems: publicItems(summary.unfulfilledItems),
     shipments: sortShipments((summary.shipments || []).map(publicShipment)),
     warnings: [...new Set((summary.warnings || []).map((warning) => (
       toPublicEnglishText(warning, {

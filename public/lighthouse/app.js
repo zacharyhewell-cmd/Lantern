@@ -42,8 +42,10 @@ function addDetail(container, label, value) {
   container.append(row);
 }
 
-function itemText(items) {
-  return items.map((item) => `${item.quantity}x ${item.name}`).join(", ");
+function itemLines(items) {
+  return element("span", "item-lines", items.map((item) => (
+    `${item.quantity}x ${item.name}`
+  )).join("\n"));
 }
 
 function renderTracking(container, tracking) {
@@ -77,7 +79,7 @@ function renderShipment(shipment, index, total) {
   );
   card.append(header);
 
-  if (shipment.items.length) addDetail(card, "Items", itemText(shipment.items));
+  if (shipment.items.length) addDetail(card, "Items", itemLines(shipment.items));
   if (shipment.deliveredAt) {
     addDetail(card, "Delivered", formatDate(shipment.deliveredAt, true));
   } else if (shipment.estimatedDeliveryAt) {
@@ -110,7 +112,9 @@ function renderOrder(order) {
 
   if (order.unfulfilledItems.length) {
     const unfulfilled = element("section", "notice");
-    unfulfilled.append(element("h3", null, "Unfulfilled items"), element("p", null, itemText(order.unfulfilledItems)));
+    const items = element("p");
+    items.append(itemLines(order.unfulfilledItems));
+    unfulfilled.append(element("h3", null, "Unfulfilled items"), items);
     result.append(unfulfilled);
   }
 
