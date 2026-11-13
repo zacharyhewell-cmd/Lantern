@@ -1,4 +1,5 @@
 import { itemDisplayName } from "../items/skuAliases.js";
+import { truncateTrackingUpdate } from "../formatters/trackingUpdate.js";
 import { toPublicEnglishText } from "./englishText.js";
 
 function publicItem(item) {
@@ -68,12 +69,16 @@ function publicStatus(shipment) {
   return "Processing";
 }
 
+function publicUpdateDescription(description) {
+  return truncateTrackingUpdate(toPublicEnglishText(description, {
+    fallback: "Carrier update received",
+  }));
+}
+
 function publicLatestUpdate(tracking) {
   if (tracking.fedEx?.latestEvent) {
     return {
-      description: toPublicEnglishText(tracking.fedEx.latestEvent.description, {
-        fallback: "Carrier update received",
-      }),
+      description: publicUpdateDescription(tracking.fedEx.latestEvent.description),
       location: toPublicEnglishText(tracking.fedEx.latestEvent.location),
       time: toPublicEnglishText(tracking.fedEx.latestEvent.scanTime),
     };
@@ -81,9 +86,7 @@ function publicLatestUpdate(tracking) {
 
   if (tracking.fedEx?.status) {
     return {
-      description: toPublicEnglishText(tracking.fedEx.status, {
-        fallback: "Carrier update received",
-      }),
+      description: publicUpdateDescription(tracking.fedEx.status),
       location: null,
       time: null,
     };
@@ -91,9 +94,7 @@ function publicLatestUpdate(tracking) {
 
   if (tracking.latestUpdate?.description) {
     return {
-      description: toPublicEnglishText(tracking.latestUpdate.description, {
-        fallback: "Carrier update received",
-      }),
+      description: publicUpdateDescription(tracking.latestUpdate.description),
       location: toPublicEnglishText(tracking.latestUpdate.location),
       time: toPublicEnglishText(tracking.latestUpdate.time),
     };

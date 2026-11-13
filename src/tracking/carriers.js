@@ -36,6 +36,10 @@ function normalizeKnownCarrierName(company) {
     return "DHL";
   }
 
+  if (/\bxpo\b/i.test(company)) {
+    return "XPO";
+  }
+
   if (includesAny(company, ["ltl"])) {
     return "LTL";
   }

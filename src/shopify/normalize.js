@@ -19,7 +19,7 @@ function normalizeTrackingInfo(trackingInfo = []) {
         trackingNumber,
         trackingUrl: carrier === "4PX"
           ? ltlTrackingUrl({ carrier, trackingNumber })
-          : compact(tracking.url),
+          : compact(tracking.url) || (carrier === "XPO" ? ltlTrackingUrl({ carrier, trackingNumber }) : null),
         carrier,
       };
     })

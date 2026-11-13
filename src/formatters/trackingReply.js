@@ -1,4 +1,5 @@
 import { itemDisplayName } from "../items/skuAliases.js";
+import { truncateTrackingUpdate } from "./trackingUpdate.js";
 
 function formatDateTime(value) {
   if (!value) {
@@ -36,7 +37,7 @@ function formatDate(value) {
 function formatLatestUpdate({ description, location, time }) {
   const locationText = location ? `, ${location}` : "";
   const timeText = time ? `, ${formatDateTime(time)}` : "";
-  return `${description}${locationText}${timeText}`;
+  return `${truncateTrackingUpdate(description)}${locationText}${timeText}`;
 }
 
 function isLtlShipment(shipment) {
@@ -80,7 +81,7 @@ function formatTrackingLatestUpdate(tracking) {
   }
 
   if (tracking.fedEx?.status) {
-    return `Latest update: ${tracking.fedEx.status}`;
+    return `Latest update: ${formatLatestUpdate({ description: tracking.fedEx.status })}`;
   }
 
   if (tracking.latestUpdate?.description) {

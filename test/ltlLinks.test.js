@@ -2,6 +2,14 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { ltlTrackingUrl } from "../src/tracking/ltlLinks.js";
 
+test("links XPO shipments to the public PRO tracker when a number is available", () => {
+  assert.equal(
+    ltlTrackingUrl({ carrier: "XPO Logistics", trackingNumber: "599868150" }),
+    "https://ext-web.ltl-xpo.com/public-app/shipments?referenceNumber=599868150",
+  );
+  assert.equal(ltlTrackingUrl({ carrier: "XPO" }), null);
+});
+
 test("links recognized ABF Freight shipments to ArcBest tracking", () => {
   assert.equal(
     ltlTrackingUrl({ carrier: "ABF Freight", trackingNumber: "150968194" }),

@@ -1,6 +1,29 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { toLighthouseOrder } from "../src/lighthouse/publicOrder.js";
+import { formatTrackingReply } from "../src/formatters/trackingReply.js";
+
+test("shortens long carrier descriptions in Lighthouse and Lantern", () => {
+  const prefix = "0123456789".repeat(5);
+  for (const [description, expected] of [[prefix, prefix], [prefix + " extra", prefix + "..."]]) {
+    const summary = {
+      found: true,
+      orderName: "WS-#12345",
+      shipments: [{
+        status: "In Transit",
+        items: [],
+        tracking: [{ carrier: "XPO", latestUpdate: { description, location: "Chicago" } }],
+      }],
+      unfulfilledItems: [],
+      warnings: [],
+    };
+
+    const update = toLighthouseOrder(summary).shipments[0].tracking[0].latestUpdate;
+    assert.equal(update.description, expected);
+    assert.equal(update.location, "Chicago");
+    assert.ok(formatTrackingReply(summary).split("\n").includes(`Latest update: ${expected}, Chicago`));
+  }
+});
 
 test("maps tracking data to an explicit Lighthouse allowlist", () => {
   const order = toLighthouseOrder({
