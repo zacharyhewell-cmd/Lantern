@@ -142,6 +142,10 @@ export function getServerConfig() {
     lighthouseUiPassword: process.env.LIGHTHOUSE_UI_PASSWORD || "",
     lighthouseAccountsDirectory: process.env.LIGHTHOUSE_ACCOUNTS_DIRECTORY || "",
     lighthouseSetupSecret: process.env.LIGHTHOUSE_SETUP_SECRET || "",
+    lighthousePageUrl: process.env.LIGHTHOUSE_PAGE_URL ||
+      (process.env.RENDER_EXTERNAL_URL ? new URL("/lighthouse", process.env.RENDER_EXTERNAL_URL).href : ""),
+    lighthouseInviteOperatorIds: (process.env.LIGHTHOUSE_INVITE_OPERATOR_IDS || "")
+      .split(",").map((id) => id.trim()).filter(Boolean),
     lighthouseRateLimitMax: positiveNumber(process.env.LIGHTHOUSE_RATE_LIMIT_MAX, 10),
     lighthouseRateLimitWindowMs: positiveNumber(process.env.LIGHTHOUSE_RATE_LIMIT_WINDOW_MS, 60_000, 1_000),
   };

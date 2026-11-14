@@ -76,6 +76,8 @@ services:
         sync: false
       - key: LIGHTHOUSE_SETUP_SECRET
         sync: false
+      - key: LIGHTHOUSE_INVITE_OPERATOR_IDS
+        sync: false
       - key: LIGHTHOUSE_PUBLIC_ENABLED
         value: "false"
       - key: LIGHTHOUSE_RATE_LIMIT_MAX

@@ -15,6 +15,7 @@ import { createLighthouseRateLimiter } from "../lighthouse/rateLimit.js";
 import { matchesShippingPostalCode, normalizeCustomerEmail } from "../lighthouse/verification.js";
 import { createLighthouseSessions, lighthouseSessionCookie } from "../lighthouse/auth.js";
 import { createLighthouseAccounts, validLighthousePassword } from "../lighthouse/accounts.js";
+import { createLighthouseSetupLink } from "../lighthouse/invite.js";
 
 const publicRoot = join(dirname(fileURLToPath(import.meta.url)), "../../public");
 const dv1PublicDirectory = join(publicRoot, "dv1");
@@ -176,6 +177,10 @@ export function createLanternServer({
     allowedChatIds: feishuConfig.allowedChatIds,
     verificationToken: feishuConfig.verificationToken,
     replyClient,
+    lighthouseInviteOperatorIds: serverConfig.lighthouseInviteOperatorIds,
+    lighthouseInviteHandler: (email) => createLighthouseSetupLink(
+      email, serverConfig.lighthousePageUrl, serverConfig.lighthouseSetupSecret,
+    ),
     watchtowerRefreshHandler: async () => runAndPostWatchtowerReport({
       watchtowerConfig,
       replyClient,

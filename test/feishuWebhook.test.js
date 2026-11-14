@@ -6,6 +6,61 @@ import {
   isWatchtowerRefreshTrigger,
   verificationResponse,
 } from "../src/feishu/webhook.js";
+import { createLighthouseSetupLink } from "../src/lighthouse/invite.js";
+
+test("issues a Lighthouse setup link only to an approved operator in a verified Feishu DM", async () => {
+  const replies = [];
+  const processor = createFeishuWebhookProcessor({
+    allowedChatId: "oc_existing_group",
+    verificationToken: "verify-token",
+    lighthouseInviteOperatorIds: ["ou_allowed"],
+    lighthouseInviteHandler: (email) => createLighthouseSetupLink(
+      email, "https://lighthouse.example/lighthouse", "example-test-secret-at-least-32-bytes",
+    ),
+    replyClient: { async replyInThread(...args) { replies.push(args); } },
+    logger: {},
+  });
+  const request = ({
+    chatType = "p2p", openId = "ou_allowed", token = "verify-token",
+    content = "Lighthouse invite Dealer@Example.com", messageId = "om_test",
+  } = {}) => ({
+    header: { event_type: "im.message.receive_v1", token },
+    event: {
+      sender: { sender_type: "user", sender_id: { open_id: openId } },
+      message: {
+        message_id: messageId, chat_id: "oc_direct", chat_type: chatType, message_type: "text",
+        content: JSON.stringify({ text: content }),
+      },
+    },
+  });
+
+  for (const overrides of [
+    { chatType: "group" }, { openId: "ou_unapproved" }, { token: "" }, { token: "wrong" },
+  ]) {
+    const denied = await processor(request(overrides));
+    assert.equal(denied.afterResponse, undefined);
+  }
+  assert.deepEqual(replies, []);
+
+  const idLookup = await processor(request({
+    openId: "ou_unapproved", content: "Lighthouse invite-id", messageId: "om_id",
+  }));
+  await idLookup.afterResponse;
+  assert.deepEqual(replies.shift(), ["om_id", "Your Lantern bot ID is ou_unapproved.", { replyInThread: false }]);
+
+  const accepted = await processor(request());
+  await accepted.afterResponse;
+  assert.equal(replies.length, 1);
+  const [messageId, text, options] = replies[0];
+  assert.equal(messageId, "om_test");
+  assert.deepEqual(options, { replyInThread: false });
+  const link = new URL(text.split("\n").at(-1));
+  assert.equal(link.origin + link.pathname, "https://lighthouse.example/lighthouse");
+  const token = new URLSearchParams(link.hash.slice(1)).get("setup");
+  const claims = JSON.parse(Buffer.from(token.split(".")[0], "base64url"));
+  assert.equal(claims.email, "dealer@example.com");
+  assert.equal((await processor(request())).body.duplicate, true);
+});
 
 test("responds to Feishu URL verification challenge", () => {
   assert.deepEqual(verificationResponse({

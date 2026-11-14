@@ -110,9 +110,10 @@ export class FeishuOpenApiClient {
     return this.token;
   }
 
-  async replyInThread(messageId, text, _options = {}) {
+  async replyInThread(messageId, text, { replyInThread = true } = {}) {
     const token = await this.getTenantAccessToken();
     const body = buildReplyMessageBody(text);
+    body.reply_in_thread = replyInThread;
 
     const response = await this.fetch(
       `${this.config.apiBaseUrl}/open-apis/im/v1/messages/${encodeURIComponent(messageId)}/reply`,

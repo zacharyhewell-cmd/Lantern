@@ -1,7 +1,10 @@
 import { buildLanternReply, isLanternRequestTrigger } from "../lantern/reply.js";
 import { buildWtfSheetReply, isWtfSheetLookupTrigger } from "../lantern/wtfSheetLookup.js";
+import { normalizeCustomerEmail } from "../lighthouse/verification.js";
 
 const WATCHTOWER_REFRESH_PATTERN = /^\s*watchtower\s+refresh\s*$/i;
+const LIGHTHOUSE_INVITE_PATTERN = /^\s*lighthouse\s+invite(?:\s+(.*))?\s*$/i;
+const LIGHTHOUSE_INVITE_ID_PATTERN = /^\s*lighthouse\s+invite-id\s*$/i;
 
 function parseContent(content) {
   if (content == null) {
@@ -81,6 +84,8 @@ export function createFeishuWebhookProcessor({
   buildReply = buildLanternReply,
   buildWtfReply = (content) => buildWtfSheetReply(content, { feishuClient: replyClient }),
   watchtowerRefreshHandler,
+  lighthouseInviteOperatorIds = [],
+  lighthouseInviteHandler,
   processedIds = new Set(),
   logger = console,
 } = {}) {
@@ -92,6 +97,7 @@ export function createFeishuWebhookProcessor({
     allowedChatId,
     ...(allowedChatIds || []),
   ].filter(Boolean));
+  const inviteOperators = new Set(lighthouseInviteOperatorIds);
 
   return async function processFeishuWebhook(payload) {
     const verification = verificationResponse(payload, verificationToken);
@@ -116,7 +122,21 @@ export function createFeishuWebhookProcessor({
       return { status: 200, body: { ok: true, ignored: "event_type" } };
     }
 
-    if (allowedChats.size && !allowedChats.has(event.chatId)) {
+    const inviteCommand = String(event.content).match(LIGHTHOUSE_INVITE_PATTERN);
+    const inviteIdCommand = LIGHTHOUSE_INVITE_ID_PATTERN.test(event.content);
+    const isLighthouseCommand = inviteCommand || inviteIdCommand;
+    const senderOpenId = payload.event?.sender?.sender_id?.open_id;
+    if (isLighthouseCommand) {
+      const { sender, message } = payload.event || {};
+      if (!verificationToken || payload.header?.token !== verificationToken ||
+        payload.header?.event_type !== "im.message.receive_v1" ||
+        message?.chat_type !== "p2p" || message.message_type !== "text" ||
+        !message.message_id || sender?.sender_type !== "user" ||
+        typeof senderOpenId !== "string" || !senderOpenId.startsWith("ou_") ||
+        (inviteCommand && !inviteOperators.has(senderOpenId))) {
+        return { status: 200, body: { ok: true, ignored: "invite_access" } };
+      }
+    } else if (allowedChats.size && !allowedChats.has(event.chatId)) {
       logger.info?.(`Feishu webhook ignored event: chat=${event.chatId || "missing"}`);
       return { status: 200, body: { ok: true, ignored: "chat" } };
     }
@@ -130,7 +150,7 @@ export function createFeishuWebhookProcessor({
     const isWtfSheetLookupRequest = isWtfSheetLookupTrigger(event.content);
     const isWatchtowerRefreshRequest = isWatchtowerRefreshTrigger(event.content);
 
-    if (!event.messageId || (!isLanternRequest && !isWtfSheetLookupRequest && !isWatchtowerRefreshRequest)) {
+    if (!event.messageId || (!isLighthouseCommand && !isLanternRequest && !isWtfSheetLookupRequest && !isWatchtowerRefreshRequest)) {
       logger.info?.(
         `Feishu webhook ignored event: trigger message_id=${event.messageId ? "present" : "missing"}`,
       );
@@ -143,10 +163,35 @@ export function createFeishuWebhookProcessor({
       return { status: 200, body: { ok: true, duplicate: true } };
     }
     processedIds.add(dedupeKey);
-    const requestLabel = isWatchtowerRefreshRequest ? "Watchtower refresh" : isWtfSheetLookupRequest ? "WTF sheet lookup" : "Lantern";
+    const requestLabel = isLighthouseCommand ? "Lighthouse invite" :
+      isWatchtowerRefreshRequest ? "Watchtower refresh" : isWtfSheetLookupRequest ? "WTF sheet lookup" : "Lantern";
     logger.info?.(`Feishu webhook accepted ${requestLabel} request: event=${dedupeKey}`);
 
     const afterResponse = (async () => {
+      if (inviteIdCommand) {
+        await replyClient.replyInThread(event.messageId, `Your Lantern bot ID is ${senderOpenId}.`, {
+          replyInThread: false,
+        });
+        return;
+      }
+      if (inviteCommand) {
+        const email = normalizeCustomerEmail(inviteCommand[1]);
+        let reply = "Usage: Lighthouse invite dealer@example.com";
+        if (email) {
+          reply = "Lighthouse invites are unavailable. Ask your Lantern administrator to check the configuration.";
+          try {
+            const link = await lighthouseInviteHandler?.(email);
+            if (link) {
+              reply = `One-time Lighthouse link for ${email}. It expires in 24 hours. Share it privately with that address.\n\n${link}`;
+            }
+          } catch {
+            logger.warn?.("Lighthouse invite configuration is unavailable");
+          }
+        }
+        await replyClient.replyInThread(event.messageId, reply, { replyInThread: false });
+        return;
+      }
+
       if (isWatchtowerRefreshRequest) {
         if (!watchtowerRefreshHandler) {
           await tryReplyInThread(
@@ -198,7 +243,11 @@ export function createFeishuWebhookProcessor({
       }
     })().catch((error) => {
       processedIds.delete(dedupeKey);
-      logger.error?.(`Feishu webhook processing failed: ${error.message}`);
+      if (isLighthouseCommand) {
+        logger.error?.("Feishu Lighthouse invite reply failed");
+      } else {
+        logger.error?.(`Feishu webhook processing failed: ${error.message}`);
+      }
     });
 
     return { status: 200, body: { ok: true }, afterResponse };
