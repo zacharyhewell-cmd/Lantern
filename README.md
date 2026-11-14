@@ -6,11 +6,21 @@ Lantern answers Feishu requests that begin with `Lantern` and an order number, t
 
 Lighthouse is a separate browser presentation of Lantern's structured order-tracking lookup. It has its own public response allowlist and frontend, so Lighthouse display changes do not change Lantern's Feishu replies.
 
-Set `LIGHTHOUSE_UI_USERNAME` and `LIGHTHOUSE_UI_PASSWORD`, start the service, and open `/lighthouse`. During development the page is protected with HTTP Basic authentication. Its lookup route is `POST /lighthouse/lookup` and uses the same credentials. Lookups require both `orderNumber` and the shipping `postalCode`; missing orders and postal-code mismatches return the same generic response. The development response includes order status, item names, tracking links, and shipment updates; it excludes customer addresses, postal codes, Shopify IDs, financial status, warehouse codes, and raw carrier payloads.
+Set `LIGHTHOUSE_UI_USERNAME` and `LIGHTHOUSE_UI_PASSWORD`, start the service, and open `/lighthouse`. The shared preview gate controls access to the page. Customers then sign in using the email on their Shopify orders and a separate password they set in Lighthouse. Lighthouse uses Shopify only for order lookups.
 
-`LIGHTHOUSE_PUBLIC_ENABLED` defaults to `false`. Leave it disabled during development; setting it to `true` removes the shared Basic-authentication gate while retaining postal-code verification, throttling, and the public response allowlist.
+Set `LIGHTHOUSE_ACCOUNTS_DIRECTORY` to an absolute directory on persistent storage (for example, `/var/data/lighthouse-accounts` on a Render disk mounted at `/var/data`). Set `LIGHTHOUSE_SETUP_SECRET` to a randomly generated secret of at least 32 bytes. The existing Shopify Admin API connection needs `read_orders` and access to the protected order email field; it does not need customer login access.
 
-Lighthouse lookup responses are not cached, use restrictive browser security headers, and are throttled per client address. `LIGHTHOUSE_RATE_LIMIT_MAX` defaults to 10 requests per `LIGHTHOUSE_RATE_LIMIT_WINDOW_MS`, which defaults to 60000 milliseconds. This in-process limiter is appropriate for the current single-instance development service; use a shared rate-limit store before horizontally scaling Lighthouse.
+After verifying the customer's email, run this from a trusted shell with the same setup secret and send the resulting link only to the approved address:
+
+```sh
+node src/cli/lighthouse-invite.js approved@example.com https://YOUR_HOST/lighthouse
+```
+
+The link is valid for 24 hours and can be used once. Customers choose their own password; Lighthouse stores only a salted password hash. Use the same workflow for a reset. Completing a reset invalidates that customer's current sessions.
+
+`POST /lighthouse/lookup` requires a session, an order number, and the shipping postal code. It matches the session email against the exact Shopify order's email before shipment enrichment. Missing orders, orders owned by another email, and postal code mismatches return the same generic response. Shopify supplies the shipment and item list; Surpath can supplement a shipment when its tracking number and destination match. Lantern's internal lookup is unchanged.
+
+`LIGHTHOUSE_PUBLIC_ENABLED` defaults to `false`. Setting it to `true` removes the shared preview gate only; customer sign-in and order verification still apply. Responses are not cached and use restrictive browser security headers. Lookups are throttled per customer (`LIGHTHOUSE_RATE_LIMIT_MAX` defaults to 10 per `LIGHTHOUSE_RATE_LIMIT_WINDOW_MS`, which defaults to 60000 milliseconds). Sign-in is also throttled. Sessions last 30 minutes and are lost on restart. The account store, sessions, and rate limits assume a single service instance.
 
 ## Current Scope
 

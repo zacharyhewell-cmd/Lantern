@@ -1,10 +1,12 @@
 import { buildShopifyOrderSearchQuery } from "../orderIds.js";
 
-const ORDER_TRACKING_QUERY = `#graphql
-  query LanternOrderTracking($query: String!) {
+const orderTrackingQuery = ({ forLighthouse = false } = {}) => `#graphql
+  query ${forLighthouse ? "LighthouseOrderTracking" : "LanternOrderTracking"}($query: String!) {
     orders(first: 10, query: $query, sortKey: CREATED_AT, reverse: true) {
+      ${forLighthouse ? "pageInfo { hasNextPage }" : ""}
       nodes {
         id
+        ${forLighthouse ? "email" : ""}
         name
         createdAt
         cancelledAt
@@ -124,7 +126,14 @@ export class ShopifyClient {
 
   async findOrdersForTracking(orderIdentifier) {
     const query = buildShopifyOrderSearchQuery(orderIdentifier);
-    const data = await this.graphql(ORDER_TRACKING_QUERY, { query });
+    const data = await this.graphql(orderTrackingQuery(), { query });
     return data.orders.nodes;
+  }
+
+  async findOrdersForLighthouse(orderIdentifier) {
+    const query = buildShopifyOrderSearchQuery(orderIdentifier);
+    const data = await this.graphql(orderTrackingQuery({ forLighthouse: true }), { query });
+    // A partial result set can't establish that the order name is unique.
+    return data.orders.pageInfo.hasNextPage ? [] : data.orders.nodes;
   }
 }

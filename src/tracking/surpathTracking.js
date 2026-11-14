@@ -4,6 +4,7 @@ import { normalizeShopifyTracking } from "../shopify/normalize.js";
 import { SurpathMcpClient } from "../surpath/client.js";
 import { exactRowsForTracking, normalizeSurpathRows } from "../surpath/normalize.js";
 import { enrichSummaryWithFedEx } from "../fedex/enrich.js";
+import { matchesShippingPostalCode, normalizeCustomerEmail } from "../lighthouse/verification.js";
 
 function unique(values) {
   return [...new Set(values.filter(Boolean))];
@@ -386,6 +387,70 @@ export function mergeShopifyGaps(surpathSummary, shopifySummary, surpathTracking
       ...(missingShopifyShipments.length ? ["Some tracked shipments were not found in Surpath yet; Shopify filled those gaps."] : []),
     ],
   };
+}
+
+// Customer lookups must authorize the exact Shopify order before consulting
+// any other source. Lantern's internal fallback and heuristic joins stay separate.
+export async function lookupOwnedOrderTracking({
+  orderText, ownerEmail, postalCode, shopifyConfig, surpathConfig, fedExConfig,
+}, {
+  loadOrders = (config, identifier) => new ShopifyClient(config).findOrdersForLighthouse(identifier),
+  createSurpathClient = (config) => new SurpathMcpClient(config),
+  enrichWithFedEx = enrichSummaryWithFedEx,
+} = {}) {
+  const identifier = normalizeOrderIdentifier(orderText);
+  const email = normalizeCustomerEmail(ownerEmail);
+  if (!identifier || !email) return null;
+
+  const candidates = new Set(identifier.candidates.map((candidate) => candidate.toUpperCase()));
+  const orders = (await loadOrders(shopifyConfig, identifier))
+    .filter((order) => candidates.has(String(order.name).toUpperCase()));
+  if (orders.length !== 1 || normalizeCustomerEmail(orders[0].email) !== email) return null;
+
+  const shopifySummary = normalizeShopifyTracking(orders, identifier);
+  const verifiedSummary = withTrackingVerification(shopifySummary, { shopifySummary });
+  if (!matchesShippingPostalCode(verifiedSummary, postalCode)) return null;
+
+  // Keep Shopify's items and shipment membership. Surpath can supplement
+  // a shipment only when Shopify supplied its exact tracking number.
+  let summary = verifiedSummary;
+  const trackingNumbers = trackingNumbersFromSummary(shopifySummary);
+  if (trackingNumbers.length) {
+    const surpath = createSurpathClient(surpathConfig);
+    if (surpath.isConfigured()) {
+      try {
+        const street = normalizeMatchText(shopifySummary.shippingAddress?.address1);
+        const rows = dedupeRows(await findSurpathRowsByTracking(surpath, trackingNumbers))
+          .filter((row) => {
+            return street && normalizeMatchText(row.street1) === street &&
+              matchesShippingPostalCode(verifiedSummary, row.zip);
+          });
+        const trackingByNumber = new Map(normalizeSurpathRows(rows).shipments.flatMap(
+          (shipment) => shipment.tracking.map((tracking) => [tracking.trackingNumber, { tracking, shipment }]),
+        ));
+        summary = {
+          ...summary,
+          shipments: summary.shipments.map((shipment) => {
+            const match = trackingByNumber.get(shipment.tracking[0]?.trackingNumber);
+            if (!match) return shipment;
+            return {
+              ...shipment,
+              status: match.shipment.status,
+              tracking: shipment.tracking.map((tracking) => {
+                const extra = trackingByNumber.get(tracking.trackingNumber)?.tracking;
+                return extra ? { ...tracking, ...extra, trackingUrl: extra.trackingUrl || tracking.trackingUrl } : tracking;
+              }),
+            };
+          }),
+        };
+      } catch {
+        console.error("Lighthouse Surpath enrichment unavailable");
+      } finally {
+        await surpath.close().catch(() => console.error("Lighthouse Surpath connection cleanup failed"));
+      }
+    }
+  }
+  return enrichWithFedEx(summary, fedExConfig);
 }
 
 export async function lookupOrderTracking({

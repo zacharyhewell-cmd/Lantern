@@ -4,6 +4,116 @@ const postalCodeInput = document.querySelector("#postal-code");
 const button = form.querySelector("button");
 const statusPanel = document.querySelector("#status");
 const result = document.querySelector("#result");
+const loginForm = document.querySelector("#login-form");
+const logoutButton = document.querySelector("#sign-out");
+const instructions = document.querySelector("#instructions");
+const setupForm = document.querySelector("#setup-form");
+const setupToken = new URLSearchParams(window.location.hash.slice(1)).get("setup");
+let viewVersion = 0;
+
+function setSignedIn(signedIn) {
+  viewVersion += 1;
+  form.hidden = !signedIn;
+  logoutButton.hidden = !signedIn;
+  loginForm.hidden = signedIn;
+  instructions.textContent = signedIn
+    ? "Enter an order number and shipping postal code to review its tracking details."
+    : "Sign in to Lighthouse to track your orders.";
+  if (!signedIn) {
+    form.reset();
+    result.replaceChildren();
+    result.hidden = true;
+  }
+}
+
+async function changeSession(method, body) {
+  const response = await fetch("/lighthouse/session", {
+    method,
+    headers: { "Content-Type": "application/json" },
+    ...(body ? { body: JSON.stringify(body) } : {}),
+  });
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.error || "We could not update your sign-in.");
+  return data;
+}
+
+loginForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const submit = loginForm.querySelector("button");
+  const email = loginForm.elements.email.value;
+  const password = loginForm.elements.password.value;
+  loginForm.elements.password.value = "";
+  submit.disabled = true;
+  showStatus("Signing in…");
+  try {
+    const { signedIn } = await changeSession("POST", { email, password });
+    setSignedIn(signedIn);
+    hideStatus();
+    input.focus();
+  } catch (error) {
+    showStatus(error.message, "error");
+    loginForm.elements.password.focus();
+  } finally {
+    submit.disabled = false;
+  }
+});
+
+logoutButton.addEventListener("click", async () => {
+  logoutButton.disabled = true;
+  button.disabled = true;
+  viewVersion += 1;
+  result.replaceChildren();
+  result.hidden = true;
+  try {
+    await changeSession("DELETE");
+    setSignedIn(false);
+    hideStatus();
+    loginForm.elements.email.focus();
+  } catch (error) {
+    showStatus(error.message, "error");
+  } finally {
+    logoutButton.disabled = false;
+    button.disabled = false;
+  }
+});
+
+if (setupToken) {
+  history.replaceState(null, "", location.pathname + location.search);
+  setupForm.hidden = false;
+  instructions.textContent = "Choose a password for Lighthouse. Use at least 15 characters.";
+} else {
+  changeSession("GET").then(({ signedIn }) => setSignedIn(signedIn)).catch(() => setSignedIn(false));
+}
+
+setupForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const password = setupForm.elements.password.value;
+  if (password !== setupForm.elements.confirmation.value) {
+    showStatus("The passwords don't match.", "error");
+    return;
+  }
+  const submit = setupForm.querySelector("button");
+  submit.disabled = true;
+  showStatus("Setting your password…");
+  try {
+    const response = await fetch("/lighthouse/setup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token: setupToken, password }),
+    });
+    const body = await response.json();
+    if (!response.ok) throw new Error(body.error);
+    setupForm.reset();
+    setupForm.hidden = true;
+    setSignedIn(false);
+    showStatus("Your Lighthouse password is set. Sign in to track your orders.");
+    loginForm.elements.email.focus();
+  } catch (error) {
+    showStatus(error.message || "We could not set your password.", "error");
+  } finally {
+    submit.disabled = false;
+  }
+});
 
 function element(tag, className, text) {
   const node = document.createElement(tag);
@@ -145,6 +255,7 @@ form.addEventListener("submit", async (event) => {
   const postalCode = postalCodeInput.value.trim();
   if (!orderNumber || !postalCode) return;
 
+  const version = viewVersion;
   button.disabled = true;
   result.hidden = true;
   showStatus("Verifying the latest order information…");
@@ -156,6 +267,8 @@ form.addEventListener("submit", async (event) => {
       body: JSON.stringify({ orderNumber, postalCode }),
     });
     const body = await response.json();
+    if (version !== viewVersion) return;
+    if (response.status === 401) setSignedIn(false);
 
     if (!response.ok) throw new Error(body.error || "The lookup could not be completed.");
     if (!body.found) {
@@ -166,7 +279,9 @@ form.addEventListener("submit", async (event) => {
     hideStatus();
     renderOrder(body);
   } catch (error) {
-    showStatus(error.message || "The lookup could not be completed.", "error");
+    if (version === viewVersion || form.hidden) {
+      showStatus(error.message || "The lookup could not be completed.", "error");
+    }
   } finally {
     button.disabled = false;
   }

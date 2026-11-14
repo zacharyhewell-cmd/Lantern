@@ -72,6 +72,10 @@ services:
         sync: false
       - key: LIGHTHOUSE_UI_PASSWORD
         sync: false
+      - key: LIGHTHOUSE_ACCOUNTS_DIRECTORY
+        sync: false
+      - key: LIGHTHOUSE_SETUP_SECRET
+        sync: false
       - key: LIGHTHOUSE_PUBLIC_ENABLED
         value: "false"
       - key: LIGHTHOUSE_RATE_LIMIT_MAX

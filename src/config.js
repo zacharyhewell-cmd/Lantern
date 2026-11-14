@@ -140,6 +140,8 @@ export function getServerConfig() {
     lighthousePublicEnabled: process.env.LIGHTHOUSE_PUBLIC_ENABLED === "true",
     lighthouseUiUsername: process.env.LIGHTHOUSE_UI_USERNAME || "",
     lighthouseUiPassword: process.env.LIGHTHOUSE_UI_PASSWORD || "",
+    lighthouseAccountsDirectory: process.env.LIGHTHOUSE_ACCOUNTS_DIRECTORY || "",
+    lighthouseSetupSecret: process.env.LIGHTHOUSE_SETUP_SECRET || "",
     lighthouseRateLimitMax: positiveNumber(process.env.LIGHTHOUSE_RATE_LIMIT_MAX, 10),
     lighthouseRateLimitWindowMs: positiveNumber(process.env.LIGHTHOUSE_RATE_LIMIT_WINDOW_MS, 60_000, 1_000),
   };

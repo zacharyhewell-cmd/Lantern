@@ -87,6 +87,7 @@ input:focus { outline: 3px solid rgba(252, 189, 2, .45); outline-offset: 2px; }
 button { padding: 0 24px; color: #231a0b; background: var(--signal); font-weight: 800; cursor: pointer; }
 button:hover { background: var(--signal); }
 button:disabled { cursor: wait; opacity: .65; }
+#sign-out { margin-top: 16px; }
 
 .status-panel, .result {
   margin-top: 22px;

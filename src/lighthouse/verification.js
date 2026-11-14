@@ -1,3 +1,9 @@
+export function normalizeCustomerEmail(value) {
+  if (typeof value !== "string") return null;
+  const email = value.trim().toLowerCase();
+  return email.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : null;
+}
+
 function normalizePostalCode(value) {
   return String(value || "")
     .toUpperCase()

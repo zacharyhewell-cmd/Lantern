@@ -13,9 +13,36 @@
         <h1 id="page-title" class="brand">
           <img src="/lighthouse/logo.svg" alt="Velotric Order Tracker" width="247" height="132" />
         </h1>
-        <p class="intro">Enter an order number and shipping postal code to review its latest fulfillment and tracking details.</p>
+        <p class="intro" id="instructions">Sign in to Lighthouse to track your orders.</p>
+        <form id="setup-form" method="post" hidden>
+          <div class="lookup-row">
+            <div class="field">
+              <label for="setup-password">New Lighthouse password</label>
+              <input id="setup-password" name="password" type="password" minlength="15" maxlength="128" autocomplete="new-password" required />
+            </div>
+            <div class="field">
+              <label for="confirm-password">Confirm password</label>
+              <input id="confirm-password" name="confirmation" type="password" minlength="15" maxlength="128" autocomplete="new-password" required />
+            </div>
+            <button type="submit">Set password</button>
+          </div>
+        </form>
+        <form id="login-form" method="post" hidden>
+          <div class="lookup-row">
+            <div class="field">
+              <label for="login-email">Email used for your orders</label>
+              <input id="login-email" name="email" type="email" maxlength="254" autocomplete="username" required />
+            </div>
+            <div class="field">
+              <label for="login-password">Password</label>
+              <input id="login-password" name="password" type="password" maxlength="128" autocomplete="current-password" required />
+            </div>
+            <button type="submit">Sign in</button>
+          </div>
+          <p>Need to set or reset your password? Ask your Velotric contact for a Lighthouse setup link.</p>
+        </form>
 
-        <form id="lookup-form">
+        <form id="lookup-form" method="post" hidden>
           <div class="lookup-row">
             <div class="field">
               <label for="order-number">Order number</label>
@@ -28,6 +55,7 @@
             <button type="submit">Find order</button>
           </div>
         </form>
+        <button id="sign-out" type="button" hidden>Sign out</button>
       </section>
 
       <section id="status" class="status-panel" aria-live="polite" hidden></section>

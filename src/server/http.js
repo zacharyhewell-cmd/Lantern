@@ -9,10 +9,12 @@ import { runWatchtowerOutboundDelayReport } from "../watchtower/runOutboundDelay
 import { isoDate, runAndPostWatchtowerReport } from "../watchtower/feishuReportJob.js";
 import { loadDv1PlanningData } from "../dv1/data.js";
 import { planDv1Order } from "../dv1/plan.js";
-import { lookupOrderTracking } from "../tracking/surpathTracking.js";
+import { lookupOwnedOrderTracking } from "../tracking/surpathTracking.js";
 import { toLighthouseOrder } from "../lighthouse/publicOrder.js";
 import { createLighthouseRateLimiter } from "../lighthouse/rateLimit.js";
-import { matchesShippingPostalCode } from "../lighthouse/verification.js";
+import { matchesShippingPostalCode, normalizeCustomerEmail } from "../lighthouse/verification.js";
+import { createLighthouseSessions, lighthouseSessionCookie } from "../lighthouse/auth.js";
+import { createLighthouseAccounts, validLighthousePassword } from "../lighthouse/accounts.js";
 
 const publicRoot = join(dirname(fileURLToPath(import.meta.url)), "../../public");
 const dv1PublicDirectory = join(publicRoot, "dv1");
@@ -61,11 +63,6 @@ const LIGHTHOUSE_SECURITY_HEADERS = {
 
 function sendLighthouseJson(response, status, body, headers = {}) {
   sendJson(response, status, body, { ...LIGHTHOUSE_SECURITY_HEADERS, ...headers });
-}
-
-function requestClientAddress(request) {
-  const forwardedFor = String(request.headers["x-forwarded-for"] || "").split(",")[0].trim();
-  return forwardedFor || request.socket.remoteAddress || "unknown";
 }
 
 function isAuthorizedWatchtowerRequest(request, watchtowerConfig) {
@@ -159,7 +156,12 @@ export function createLanternServer({
   dv1PlanRunner = planDv1Order,
   dv1KnownCombinations,
   dv1KnownSolutionArchiveEnabled,
-  lighthouseLookup = lookupOrderTracking,
+  lighthouseLookup = lookupOwnedOrderTracking,
+  lighthouseAccounts = createLighthouseAccounts({
+    directory: serverConfig.lighthouseAccountsDirectory,
+    setupSecret: serverConfig.lighthouseSetupSecret,
+  }),
+  lighthouseSessions = createLighthouseSessions(),
   lighthousePresenter = toLighthouseOrder,
   lighthouseRateLimiter,
   processor,
@@ -168,6 +170,8 @@ export function createLanternServer({
     maxRequests: serverConfig.lighthouseRateLimitMax,
     windowMs: serverConfig.lighthouseRateLimitWindowMs,
   });
+  const loginAccountLimiter = createLighthouseRateLimiter({ maxRequests: 8, windowMs: 60_000 });
+  const loginServiceLimiter = createLighthouseRateLimiter({ maxRequests: 100, windowMs: 60_000 });
   const webhookProcessor = processor || createFeishuWebhookProcessor({
     allowedChatIds: feishuConfig.allowedChatIds,
     verificationToken: feishuConfig.verificationToken,
@@ -334,12 +338,110 @@ export function createLanternServer({
         return;
       }
 
+      if (pathname === "/lighthouse/setup" && request.method === "POST") {
+        if (!requireLighthouseUi(request, response, serverConfig)) return;
+        if (!/^application\/json(?:\s*;|$)/i.test(request.headers["content-type"] || "")) {
+          sendLighthouseJson(response, 415, { error: "Expected a JSON request." });
+          return;
+        }
+        let payload;
+        try {
+          payload = await readJsonBody(request, { maxBytes: 4096 });
+        } catch (error) {
+          sendLighthouseJson(response, error.code === "PAYLOAD_TOO_LARGE" ? 413 : 400, { error: "Invalid setup request." });
+          return;
+        }
+        if (!validLighthousePassword(payload?.password)) {
+          sendLighthouseJson(response, 400, { error: "Use a password between 15 and 128 characters." });
+          return;
+        }
+        try {
+          const account = await lighthouseAccounts.setPassword(payload);
+          if (!account) {
+            sendLighthouseJson(response, 400, { error: "This setup link is invalid, expired, or already used." });
+            return;
+          }
+          lighthouseSessions.revokeEmail(account.email);
+          lighthouseSessions.revoke(request);
+          sendLighthouseJson(response, 200, { passwordSet: true }, { "Set-Cookie": lighthouseSessionCookie("") });
+        } catch (error) {
+          if (error.code !== "LIGHTHOUSE_AUTH_BUSY") console.error("Lighthouse password setup unavailable");
+          sendLighthouseJson(response, 503, { error: "Password setup is temporarily unavailable. Please try again." });
+        }
+        return;
+      }
+
+      if (pathname === "/lighthouse/session" && ["GET", "POST", "DELETE"].includes(request.method)) {
+        if (!requireLighthouseUi(request, response, serverConfig)) return;
+        if (request.method === "GET") {
+          sendLighthouseJson(response, 200, { signedIn: Boolean(lighthouseSessions.get(request)) });
+          return;
+        }
+        if (!/^application\/json(?:\s*;|$)/i.test(request.headers["content-type"] || "")) {
+          sendLighthouseJson(response, 415, { error: "Expected a JSON request." });
+          return;
+        }
+        if (request.method === "DELETE") {
+          lighthouseSessions.revoke(request);
+          sendLighthouseJson(response, 200, { signedIn: false }, { "Set-Cookie": lighthouseSessionCookie("") });
+          return;
+        }
+
+        let credentials;
+        try {
+          credentials = await readJsonBody(request, { maxBytes: 4096 });
+        } catch (error) {
+          sendLighthouseJson(response, error.code === "PAYLOAD_TOO_LARGE" ? 413 : 400, { error: "Enter your email and password." });
+          return;
+        }
+        const email = normalizeCustomerEmail(credentials?.email);
+        const password = credentials?.password;
+        if (!email || typeof password !== "string" || !password.length || password.length > 128) {
+          sendLighthouseJson(response, 400, { error: "Enter your email and password." });
+          return;
+        }
+        const serviceLimit = loginServiceLimiter.check("all");
+        const limit = serviceLimit.allowed ? loginAccountLimiter.check(email) : serviceLimit;
+        if (!limit.allowed) {
+          sendLighthouseJson(response, 429, { error: "Too many sign-in attempts. Please wait and try again." }, {
+            "Retry-After": String(limit.retryAfterSeconds),
+          });
+          return;
+        }
+
+        try {
+          const identity = await lighthouseAccounts.authenticate({ email, password });
+          if (!identity || normalizeCustomerEmail(identity.email) !== email) {
+            sendLighthouseJson(response, 401, { error: "We could not sign you in with that email and password." });
+            return;
+          }
+          lighthouseSessions.revoke(request);
+          const cookie = lighthouseSessions.issue(identity);
+          if (!cookie) throw new Error("Could not create Lighthouse session");
+          sendLighthouseJson(response, 200, { signedIn: true }, { "Set-Cookie": cookie });
+        } catch (error) {
+          if (error.code !== "LIGHTHOUSE_AUTH_BUSY") console.error("Lighthouse customer sign-in unavailable");
+          sendLighthouseJson(response, 503, { error: "Sign-in is temporarily unavailable. Please try again later." });
+        }
+        return;
+      }
+
       if (request.method === "POST" && pathname === serverConfig.lighthouseLookupPath) {
         if (!requireLighthouseUi(request, response, serverConfig)) {
           return;
         }
 
-        const rateLimit = rateLimiter.check(requestClientAddress(request));
+        const session = lighthouseSessions.get(request);
+        if (!session) {
+          sendLighthouseJson(response, 401, { error: "Please sign in to look up an order." });
+          return;
+        }
+        if (!/^application\/json(?:\s*;|$)/i.test(request.headers["content-type"] || "")) {
+          sendLighthouseJson(response, 415, { error: "Expected a JSON request." });
+          return;
+        }
+
+        const rateLimit = rateLimiter.check(session.email);
         if (!rateLimit.allowed) {
           sendLighthouseJson(response, 429, {
             error: "Too many lookup requests. Please wait a moment and try again.",
@@ -358,8 +460,8 @@ export function createLanternServer({
           });
           return;
         }
-        const orderNumber = String(payload.orderNumber || "").trim();
-        const postalCode = String(payload.postalCode || "").trim();
+        const orderNumber = typeof payload?.orderNumber === "string" ? payload.orderNumber.trim() : "";
+        const postalCode = typeof payload?.postalCode === "string" ? payload.postalCode.trim() : "";
         if (!orderNumber || orderNumber.length > 64 || !postalCode || postalCode.length > 32) {
           sendLighthouseJson(response, 400, { error: "Enter a valid order number and shipping postal code." });
           return;
@@ -369,18 +471,24 @@ export function createLanternServer({
         try {
           summary = await lighthouseLookup({
             orderText: orderNumber,
+            ownerEmail: session.email,
+            postalCode,
             shopifyConfig: getShopifyConfig(),
             surpathConfig: getSurpathConfig(),
             fedExConfig: getFedExConfig(),
           });
-        } catch (error) {
-          console.error(`Lighthouse lookup failed: ${error.message}`);
+        } catch {
+          console.error("Lighthouse lookup failed");
           sendLighthouseJson(response, 503, {
             error: "We could not retrieve that order right now. Please try again shortly.",
           });
           return;
         }
 
+        if (lighthouseSessions.get(request) !== session) {
+          sendLighthouseJson(response, 401, { error: "Please sign in to look up an order." });
+          return;
+        }
         if (!summary?.found || !matchesShippingPostalCode(summary, postalCode)) {
           sendLighthouseJson(response, 404, {
             error: "We could not verify an order with those details.",

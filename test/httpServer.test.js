@@ -241,11 +241,16 @@ test("serves the protected Lighthouse page and structured lookup route", async (
       lanternChatId: "oc_test",
     },
     replyClient: { async replyInThread() {} },
+    lighthouseAccounts: {
+      authenticate: async ({ email, password }) => password === "customer-password" ? { email } : null,
+      setPassword: async ({ token }) => token === "approved" ? { email: "owner@example.com" } : null,
+    },
     lighthouseLookup: async (options) => {
       if (lookupError) {
         throw lookupError;
       }
       lookupCalls.push(options);
+      if (options.ownerEmail !== "owner@example.com") return null;
       return {
         found: true,
         orderName: "WS-#32303",
@@ -288,10 +293,31 @@ test("serves the protected Lighthouse page and structured lookup route", async (
     });
     assert.equal(unauthorizedLookup.status, 401);
 
+    const base = `http://127.0.0.1:${port}/lighthouse`;
+    const headers = { Authorization: authorization, "Content-Type": "application/json" };
+    const signIn = (email, password) => fetch(`${base}/session`, {
+      method: "POST", headers, body: JSON.stringify({ email, password }),
+    });
+    const postLookup = (cookie, body) => fetch(`${base}/lookup`, {
+      method: "POST", headers: { ...headers, ...(cookie ? { Cookie: cookie } : {}) }, body: JSON.stringify(body),
+    });
+    const query = { orderNumber: "32303", postalCode: "97214" };
+    assert.equal((await postLookup(null, query)).status, 401);
+    assert.equal((await postLookup("__Host-lighthouse=" + "a".repeat(64), query)).status, 401);
+    const failedSignIn = await signIn("owner@example.com", "incorrect");
+    assert.equal(failedSignIn.status, 401);
+    assert.equal(failedSignIn.headers.get("set-cookie"), null);
+    const login = await signIn("Owner@Example.com", "customer-password");
+    assert.equal(login.status, 200);
+    const setCookie = login.headers.get("set-cookie");
+    assert.match(setCookie, /; Secure; HttpOnly; SameSite=Strict$/);
+    const cookie = setCookie.split(";")[0];
+
     const malformedLookup = await fetch(`http://127.0.0.1:${port}/lighthouse/lookup`, {
       method: "POST",
       headers: {
         Authorization: authorization,
+        Cookie: cookie,
         "Content-Type": "application/json",
       },
       body: "{",
@@ -306,6 +332,7 @@ test("serves the protected Lighthouse page and structured lookup route", async (
       method: "POST",
       headers: {
         Authorization: authorization,
+        Cookie: cookie,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ orderNumber: "32303", postalCode: "97214" }),
@@ -323,11 +350,13 @@ test("serves the protected Lighthouse page and structured lookup route", async (
     });
     assert.equal(lookupCalls.length, 1);
     assert.equal(lookupCalls[0].orderText, "32303");
+    assert.equal(lookupCalls[0].ownerEmail, "owner@example.com");
 
     const mismatch = await fetch(`http://127.0.0.1:${port}/lighthouse/lookup`, {
       method: "POST",
       headers: {
         Authorization: authorization,
+        Cookie: cookie,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ orderNumber: "32303", postalCode: "00000" }),
@@ -337,11 +366,18 @@ test("serves the protected Lighthouse page and structured lookup route", async (
     assert.match(mismatchBody.error, /could not verify/i);
     assert.doesNotMatch(JSON.stringify(mismatchBody), /32303|97214/);
 
+    const otherLogin = await signIn("other@example.com", "customer-password");
+    const otherCookie = otherLogin.headers.get("set-cookie").split(";")[0];
+    const wrongOwner = await postLookup(otherCookie, { ...query, email: "owner@example.com" });
+    assert.equal(wrongOwner.status, 404);
+    assert.deepEqual(await wrongOwner.json(), mismatchBody);
+
     lookupError = new Error("private upstream detail");
     const failedLookup = await fetch(`http://127.0.0.1:${port}/lighthouse/lookup`, {
       method: "POST",
       headers: {
         Authorization: authorization,
+        Cookie: cookie,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ orderNumber: "32303", postalCode: "97214" }),
@@ -350,12 +386,25 @@ test("serves the protected Lighthouse page and structured lookup route", async (
     const failureBody = await failedLookup.json();
     assert.match(failureBody.error, /could not retrieve/i);
     assert.doesNotMatch(JSON.stringify(failureBody), /private upstream detail/);
+    const setup = await fetch(`${base}/setup`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({ token: "approved", password: "new long customer password" }),
+    });
+    assert.equal(setup.status, 200);
+    assert.equal((await postLookup(cookie, query)).status, 401);
+
+    const newLogin = await signIn("owner@example.com", "customer-password");
+    const newCookie = newLogin.headers.get("set-cookie").split(";")[0];
+    const logout = await fetch(`${base}/session`, { method: "DELETE", headers: { ...headers, Cookie: newCookie } });
+    assert.equal(logout.status, 200);
+    assert.equal((await postLookup(newCookie, query)).status, 401);
   } finally {
     await close(server);
   }
 });
 
-test("requires an explicit switch before Lighthouse accepts public requests", async () => {
+test("opening the Lighthouse preview gate does not allow anonymous lookup", async () => {
   const server = createLanternServer({
     serverConfig: {
       port: 0,
@@ -390,7 +439,7 @@ test("requires an explicit switch before Lighthouse accepts public requests", as
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ orderNumber: "32303", postalCode: "97214" }),
     });
-    assert.equal(lookup.status, 200);
+    assert.equal(lookup.status, 401);
   } finally {
     await close(server);
   }
