@@ -84,7 +84,6 @@ export function createFeishuWebhookProcessor({
   buildReply = buildLanternReply,
   buildWtfReply = (content) => buildWtfSheetReply(content, { feishuClient: replyClient }),
   watchtowerRefreshHandler,
-  lighthouseInviteOperatorIds = [],
   lighthouseInviteHandler,
   processedIds = new Set(),
   logger = console,
@@ -97,7 +96,6 @@ export function createFeishuWebhookProcessor({
     allowedChatId,
     ...(allowedChatIds || []),
   ].filter(Boolean));
-  const inviteOperators = new Set(lighthouseInviteOperatorIds);
 
   return async function processFeishuWebhook(payload) {
     const verification = verificationResponse(payload, verificationToken);
@@ -132,8 +130,7 @@ export function createFeishuWebhookProcessor({
         payload.header?.event_type !== "im.message.receive_v1" ||
         message?.chat_type !== "p2p" || message.message_type !== "text" ||
         !message.message_id || sender?.sender_type !== "user" ||
-        typeof senderOpenId !== "string" || !senderOpenId.startsWith("ou_") ||
-        (inviteCommand && !inviteOperators.has(senderOpenId))) {
+        typeof senderOpenId !== "string" || !senderOpenId.startsWith("ou_")) {
         return { status: 200, body: { ok: true, ignored: "invite_access" } };
       }
     } else if (allowedChats.size && !allowedChats.has(event.chatId)) {

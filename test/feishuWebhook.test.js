@@ -8,12 +8,11 @@ import {
 } from "../src/feishu/webhook.js";
 import { createLighthouseSetupLink } from "../src/lighthouse/invite.js";
 
-test("issues a Lighthouse setup link only to an approved operator in a verified Feishu DM", async () => {
+test("issues a Lighthouse setup link to any Feishu user in a verified DM", async () => {
   const replies = [];
   const processor = createFeishuWebhookProcessor({
     allowedChatId: "oc_existing_group",
     verificationToken: "verify-token",
-    lighthouseInviteOperatorIds: ["ou_allowed"],
     lighthouseInviteHandler: (email) => createLighthouseSetupLink(
       email, "https://lighthouse.example/lighthouse", "example-test-secret-at-least-32-bytes",
     ),
@@ -21,7 +20,7 @@ test("issues a Lighthouse setup link only to an approved operator in a verified 
     logger: {},
   });
   const request = ({
-    chatType = "p2p", openId = "ou_allowed", token = "verify-token",
+    chatType = "p2p", openId = "ou_first_user", token = "verify-token",
     content = "Lighthouse invite Dealer@Example.com", messageId = "om_test",
   } = {}) => ({
     header: { event_type: "im.message.receive_v1", token },
@@ -35,7 +34,7 @@ test("issues a Lighthouse setup link only to an approved operator in a verified 
   });
 
   for (const overrides of [
-    { chatType: "group" }, { openId: "ou_unapproved" }, { token: "" }, { token: "wrong" },
+    { chatType: "group" }, { openId: "" }, { token: "" }, { token: "wrong" },
   ]) {
     const denied = await processor(request(overrides));
     assert.equal(denied.afterResponse, undefined);
@@ -43,10 +42,10 @@ test("issues a Lighthouse setup link only to an approved operator in a verified 
   assert.deepEqual(replies, []);
 
   const idLookup = await processor(request({
-    openId: "ou_unapproved", content: "Lighthouse invite-id", messageId: "om_id",
+    openId: "ou_second_user", content: "Lighthouse invite-id", messageId: "om_id",
   }));
   await idLookup.afterResponse;
-  assert.deepEqual(replies.shift(), ["om_id", "Your Lantern bot ID is ou_unapproved.", { replyInThread: false }]);
+  assert.deepEqual(replies.shift(), ["om_id", "Your Lantern bot ID is ou_second_user.", { replyInThread: false }]);
 
   const accepted = await processor(request());
   await accepted.afterResponse;
@@ -60,6 +59,11 @@ test("issues a Lighthouse setup link only to an approved operator in a verified 
   const claims = JSON.parse(Buffer.from(token.split(".")[0], "base64url"));
   assert.equal(claims.email, "dealer@example.com");
   assert.equal((await processor(request())).body.duplicate, true);
+
+  const secondInvite = await processor(request({ openId: "ou_second_user", messageId: "om_second" }));
+  await secondInvite.afterResponse;
+  assert.equal(replies[1][0], "om_second");
+  assert.match(replies[1][1], /#setup=/);
 });
 
 test("responds to Feishu URL verification challenge", () => {

@@ -177,7 +177,6 @@ export function createLanternServer({
     allowedChatIds: feishuConfig.allowedChatIds,
     verificationToken: feishuConfig.verificationToken,
     replyClient,
-    lighthouseInviteOperatorIds: serverConfig.lighthouseInviteOperatorIds,
     lighthouseInviteHandler: (email) => createLighthouseSetupLink(
       email, serverConfig.lighthousePageUrl, serverConfig.lighthouseSetupSecret,
     ),

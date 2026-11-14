@@ -18,9 +18,9 @@ node src/cli/lighthouse-invite.js approved@example.com https://YOUR_HOST/lightho
 
 The link is valid for 24 hours and can be used once. Customers choose their own password; Lighthouse stores only a salted password hash. Use the same workflow for a reset. Completing a reset invalidates that customer's current sessions.
 
-To issue links in Feishu, enable `im:message.p2p_msg:readonly` for the Lantern bot if needed and publish the Feishu app update. The bot uses its existing `im.message.receive_v1` webhook, which must have `FEISHU_VERIFICATION_TOKEN` configured. Each operator can DM the bot `Lighthouse invite-id` to get their bot-specific ID. Add approved IDs to `LIGHTHOUSE_INVITE_OPERATOR_IDS` in Render, separated by commas. Render supplies the default Lighthouse URL. Set `LIGHTHOUSE_PAGE_URL` to override it with the HTTPS Lighthouse page.
+To issue links in Feishu, enable `im:message.p2p_msg:readonly` for the Lantern bot if needed and publish the Feishu app update. The bot uses its existing `im.message.receive_v1` webhook, which must have `FEISHU_VERIFICATION_TOKEN` configured. Render supplies the default Lighthouse URL. Set `LIGHTHOUSE_PAGE_URL` to override it with the HTTPS Lighthouse page.
 
-An approved operator can DM `Lighthouse invite dealer@example.com` after verifying the customer's email. The bot replies in the same DM with a one-time link. Share the link privately with the approved recipient.
+Anyone who can DM the Lantern bot can use `Lighthouse invite dealer@example.com` after verifying the customer's email. The bot replies in the same DM with a single-use setup or password reset link. Share the link privately with the intended recipient.
 
 `POST /lighthouse/lookup` requires a session, an order number, and the shipping postal code. It matches the session email against the exact Shopify order's email before shipment enrichment. Missing orders, orders owned by another email, and postal code mismatches return the same generic response. Shopify supplies the shipment and item list; Surpath can supplement a shipment when its tracking number and destination match. Lantern's internal lookup is unchanged.
 
