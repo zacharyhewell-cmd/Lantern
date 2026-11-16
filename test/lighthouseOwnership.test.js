@@ -76,6 +76,8 @@ test("ownership requires an exact, unique Shopify order and rejects before enric
   });
 
   assert.equal(await lookup({ ownerEmail: "other@example.com" }), null);
+  assert.equal(await lookup({ ownerEmail: "staff@fakevelotric.bike" }), null);
+  assert.equal(await lookup({ ownerEmail: "staff@velotric.bike", postalCode: "00000" }), null);
   assert.equal(await lookup({ postalCode: "00000" }), null);
   orders = [{ ...order, name: "WS-#123456" }];
   assert.equal(await lookup(), null);
@@ -90,4 +92,6 @@ test("ownership requires an exact, unique Shopify order and rejects before enric
   assert.equal(summary.orderId, order.id);
   assert.equal(summary.email, undefined);
   assert.equal(enriched, 1);
+  const staffSummary = await lookup({ ownerEmail: "STAFF@VELOTRIC.BIKE" });
+  assert.equal(staffSummary.orderId, order.id);
 });

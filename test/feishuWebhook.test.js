@@ -60,10 +60,14 @@ test("issues a Lighthouse setup link to any Feishu user in a verified DM", async
   assert.equal(claims.email, "dealer@example.com");
   assert.equal((await processor(request())).body.duplicate, true);
 
-  const secondInvite = await processor(request({ openId: "ou_second_user", messageId: "om_second" }));
+  const secondInvite = await processor(request({
+    openId: "ou_second_user", messageId: "om_second", content: "Lighthouse invite Staff@Velotric.Bike",
+  }));
   await secondInvite.afterResponse;
   assert.equal(replies[1][0], "om_second");
-  assert.match(replies[1][1], /#setup=/);
+  const staffLink = new URL(replies[1][1].split("\n").at(-1));
+  const staffToken = new URLSearchParams(staffLink.hash.slice(1)).get("setup");
+  assert.equal(JSON.parse(Buffer.from(staffToken.split(".")[0], "base64url")).email, "staff@velotric.bike");
 });
 
 test("responds to Feishu URL verification challenge", () => {

@@ -4,7 +4,7 @@ import { normalizeShopifyTracking } from "../shopify/normalize.js";
 import { SurpathMcpClient } from "../surpath/client.js";
 import { exactRowsForTracking, normalizeSurpathRows } from "../surpath/normalize.js";
 import { enrichSummaryWithFedEx } from "../fedex/enrich.js";
-import { matchesShippingPostalCode, normalizeCustomerEmail } from "../lighthouse/verification.js";
+import { isVelotricEmail, matchesShippingPostalCode, normalizeCustomerEmail } from "../lighthouse/verification.js";
 
 function unique(values) {
   return [...new Set(values.filter(Boolean))];
@@ -405,7 +405,8 @@ export async function lookupOwnedOrderTracking({
   const candidates = new Set(identifier.candidates.map((candidate) => candidate.toUpperCase()));
   const orders = (await loadOrders(shopifyConfig, identifier))
     .filter((order) => candidates.has(String(order.name).toUpperCase()));
-  if (orders.length !== 1 || normalizeCustomerEmail(orders[0].email) !== email) return null;
+  const canViewAllOrders = isVelotricEmail(email);
+  if (orders.length !== 1 || (!canViewAllOrders && normalizeCustomerEmail(orders[0].email) !== email)) return null;
 
   const shopifySummary = normalizeShopifyTracking(orders, identifier);
   const verifiedSummary = withTrackingVerification(shopifySummary, { shopifySummary });

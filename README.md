@@ -22,7 +22,9 @@ To issue links in Feishu, enable `im:message.p2p_msg:readonly` for the Lantern b
 
 Anyone who can DM the Lantern bot can use `Lighthouse invite dealer@example.com` after verifying the customer's email. The bot replies in the same DM with a single-use setup or password reset link. Share the link privately with the intended recipient.
 
-`POST /lighthouse/lookup` requires a session, an order number, and the shipping postal code. It matches the session email against the exact Shopify order's email before shipment enrichment. Missing orders, orders owned by another email, and postal code mismatches return the same generic response. Shopify supplies the shipment and item list; Surpath can supplement a shipment when its tracking number and destination match. Lantern's internal lookup is unchanged.
+Staff use the same Feishu invite and password reset flow. Anyone signed in with an exact `@velotric.bike` address can look up orders under any Shopify email using the order number and shipping postal code. Existing staff accounts qualify with their current credentials.
+
+`POST /lighthouse/lookup` requires a session, an order number, and the shipping postal code. For customer accounts, it matches the session email against the exact Shopify order's email before shipment enrichment. Missing orders, failed ownership checks, and postal code mismatches return the same generic response. Shopify supplies the shipment and item list; Surpath can supplement a shipment when its tracking number and destination match. Lantern's internal lookup is unchanged.
 
 `LIGHTHOUSE_PUBLIC_ENABLED` defaults to `false`. Setting it to `true` removes the shared preview gate only; customer sign-in and order verification still apply. Responses are not cached and use restrictive browser security headers. Lookups are throttled per customer (`LIGHTHOUSE_RATE_LIMIT_MAX` defaults to 10 per `LIGHTHOUSE_RATE_LIMIT_WINDOW_MS`, which defaults to 60000 milliseconds). Sign-in is also throttled. Sessions last 30 minutes and are lost on restart. The account store, sessions, and rate limits assume a single service instance.
 

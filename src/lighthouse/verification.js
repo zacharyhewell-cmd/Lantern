@@ -4,6 +4,10 @@ export function normalizeCustomerEmail(value) {
   return email.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : null;
 }
 
+export function isVelotricEmail(value) {
+  return normalizeCustomerEmail(value)?.endsWith("@velotric.bike") === true;
+}
+
 function normalizePostalCode(value) {
   return String(value || "")
     .toUpperCase()
