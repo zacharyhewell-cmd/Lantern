@@ -166,11 +166,21 @@ function publicTracking(tracking) {
   };
 }
 
+const STATUSES_WITH_DELIVERY_ESTIMATE = new Set([
+  "In Transit",
+  "Out for delivery",
+  "Exception",
+  "Delivered",
+]);
+
 function publicShipment(shipment) {
+  const status = publicStatus(shipment);
   return {
-    status: publicStatus(shipment),
+    status,
     deliveredAt: toPublicEnglishText(shipment.deliveredAt),
-    estimatedDeliveryAt: toPublicEnglishText(shipment.estimatedDeliveryAt),
+    estimatedDeliveryAt: STATUSES_WITH_DELIVERY_ESTIMATE.has(status)
+      ? toPublicEnglishText(shipment.estimatedDeliveryAt)
+      : null,
     items: publicItems(shipment.items),
     tracking: (shipment.tracking || []).map(publicTracking),
   };

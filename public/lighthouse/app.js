@@ -192,6 +192,8 @@ function renderShipment(shipment, index, total) {
   if (shipment.items.length) addDetail(card, "Items", itemLines(shipment.items));
   if (shipment.deliveredAt) {
     addDetail(card, "Delivered", formatDate(shipment.deliveredAt, true));
+  } else if (shipment.status === "Processing" || shipment.status === "Waiting for pickup") {
+    addDetail(card, "Estimated delivery", "delivery estimate will be calculated once carrier makes pickup");
   } else if (shipment.estimatedDeliveryAt) {
     addDetail(card, "Estimated delivery", formatDate(shipment.estimatedDeliveryAt));
   }
