@@ -45,16 +45,18 @@ test("only an approved email can set a password; setup links expire and cannot b
   }
 });
 
-test("sessions expire after 30 minutes and password resets can revoke active sessions", () => {
+test("sessions expire eight hours after sign-in and password resets can revoke active sessions", () => {
   let now = 1_000;
   const sessions = createLighthouseSessions({ now: () => now });
   const email = "owner@example.com";
-  const issue = () => ({ headers: { cookie: sessions.issue({ email }).split(";")[0] } });
-  const request = issue();
+  const cookie = sessions.issue({ email });
+  assert.match(cookie, /; Max-Age=28800;/);
+  const request = { headers: { cookie: cookie.split(";")[0] } };
+  now += 8 * 60 * 60 * 1000 - 1;
   assert.equal(sessions.get(request).email, email);
-  now += 30 * 60 * 1000;
+  now += 1;
   assert.equal(sessions.get(request), null);
-  const second = issue();
+  const second = { headers: { cookie: sessions.issue({ email }).split(";")[0] } };
   sessions.revokeEmail(email);
   assert.equal(sessions.get(second), null);
 });

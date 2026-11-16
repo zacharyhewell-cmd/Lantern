@@ -2,6 +2,23 @@ import { itemDisplayName } from "../items/skuAliases.js";
 import { truncateTrackingUpdate } from "../formatters/trackingUpdate.js";
 import { toPublicEnglishText } from "./englishText.js";
 
+const UPS_OUT_FOR_DELIVERY = "out for delivery, out for delivery today";
+const FEDEX_UNABLE_TO_DELIVER = "shipment exception, unable to deliver";
+const UPS_EXCEPTION_UPDATES = new Set([
+  "a claim has been issued to the sender for your package. please contact the sender for more information.",
+  "ups has returned your package to the sender.",
+  "returned, package was returned to the sender",
+]);
+const UPS_UPDATE_TEXT = new Map([
+  ["label created, shipper created a label, ups has not received the package yet.", "Label Created"],
+  ["we have your package, arrived at facility", "On the Way, Arrived at Facility"],
+  [UPS_OUT_FOR_DELIVERY, "Out for Delivery"],
+  ["delivered, delivered", "Delivered"],
+  // A null replacement keeps the full carrier description.
+  ["delivery attempted, we tried to deliver to the business, but it was closed. a second attempt will be made the next business day.", null],
+  ["reschedule delivery requested, we received a request from the receiver to reschedule the delivery.", null],
+]);
+
 function publicItem(item) {
   const fallback = String(item?.sku || "").trim() || "Item";
   return {
@@ -19,8 +36,17 @@ function publicItems(items) {
 function confirmsOutForDelivery(tracking) {
   const description = tracking.fedEx?.latestEvent?.description ||
     tracking.fedEx?.status || tracking.latestUpdate?.description || "";
+  if (tracking.carrier === "UPS" && description.trim().toLowerCase() === UPS_OUT_FOR_DELIVERY) {
+    return true;
+  }
   return /^(?:(?:shipment status changed to:\s*)?(?:package\s+|on fedex vehicle )?out for delivery[.!]?|(?:包裹)?正在派送[。]?)$/i
     .test(description.trim());
+}
+
+function confirmsException({ carrier, latestUpdate }) {
+  const description = latestUpdate?.description?.trim().toLowerCase();
+  return (carrier === "UPS" && UPS_EXCEPTION_UPDATES.has(description)) ||
+    (carrier === "FedEx" && description === FEDEX_UNABLE_TO_DELIVER);
 }
 
 function publicStatus(shipment) {
@@ -34,6 +60,10 @@ function publicStatus(shipment) {
 
   if (combined.includes("delivered") || combined.includes("signed for")) {
     return "Delivered";
+  }
+
+  if (shipment.tracking?.some(confirmsException)) {
+    return "Exception";
   }
 
   if (shipment.tracking?.some(confirmsOutForDelivery)) {
@@ -69,10 +99,12 @@ function publicStatus(shipment) {
   return "Processing";
 }
 
-function publicUpdateDescription(description) {
-  return truncateTrackingUpdate(toPublicEnglishText(description, {
+function publicUpdateDescription(description, carrier) {
+  const english = toPublicEnglishText(description, {
     fallback: "Carrier update received",
-  }));
+  });
+  const replacement = carrier === "UPS" ? UPS_UPDATE_TEXT.get(english.toLowerCase()) : undefined;
+  return replacement === null ? english : replacement ?? truncateTrackingUpdate(english);
 }
 
 function publicLatestUpdate(tracking) {
@@ -94,7 +126,7 @@ function publicLatestUpdate(tracking) {
 
   if (tracking.latestUpdate?.description) {
     return {
-      description: publicUpdateDescription(tracking.latestUpdate.description),
+      description: publicUpdateDescription(tracking.latestUpdate.description, tracking.carrier),
       location: toPublicEnglishText(tracking.latestUpdate.location),
       time: toPublicEnglishText(tracking.latestUpdate.time),
     };
@@ -143,8 +175,9 @@ const SHIPMENT_STATUS_RANK = new Map([
   ["Waiting for pickup", 1],
   ["In Transit", 2],
   ["Out for delivery", 3],
-  ["Delivered", 4],
-  ["Canceled", 5],
+  ["Exception", 4],
+  ["Delivered", 5],
+  ["Canceled", 6],
 ]);
 
 function sortShipments(shipments) {

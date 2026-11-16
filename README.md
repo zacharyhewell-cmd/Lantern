@@ -26,7 +26,7 @@ Staff use the same Feishu invite and password reset flow. Anyone signed in with 
 
 `POST /lighthouse/lookup` requires a session, an order number, and the shipping postal code. For customer accounts, it matches the session email against the exact Shopify order's email before shipment enrichment. Missing orders, failed ownership checks, and postal code mismatches return the same generic response. Shopify supplies the shipment and item list; Surpath can supplement a shipment when its tracking number and destination match. Lantern's internal lookup is unchanged.
 
-`LIGHTHOUSE_PUBLIC_ENABLED` defaults to `false`. Setting it to `true` removes the shared preview gate only; customer sign-in and order verification still apply. Responses are not cached and use restrictive browser security headers. Lookups are throttled per customer (`LIGHTHOUSE_RATE_LIMIT_MAX` defaults to 10 per `LIGHTHOUSE_RATE_LIMIT_WINDOW_MS`, which defaults to 60000 milliseconds). Sign-in is also throttled. Sessions last 30 minutes and are lost on restart. The account store, sessions, and rate limits assume a single service instance.
+`LIGHTHOUSE_PUBLIC_ENABLED` defaults to `false`. Setting it to `true` removes the shared preview gate only; customer sign-in and order verification still apply. Responses are not cached and use restrictive browser security headers. Lookups are throttled per customer (`LIGHTHOUSE_RATE_LIMIT_MAX` defaults to 10 per `LIGHTHOUSE_RATE_LIMIT_WINDOW_MS`, which defaults to 60000 milliseconds). Sign-in is also throttled. Sessions last eight hours from sign-in and are lost on restart. The account store, sessions, and rate limits assume a single service instance.
 
 ## Current Scope
 

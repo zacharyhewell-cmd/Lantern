@@ -193,6 +193,66 @@ test("requires a carrier update to show out for delivery", () => {
   }
 });
 
+test("applies Lighthouse copy and badge rules to the selected UPS scans", () => {
+  const label = "Label Created, Shipper created a label, UPS has not received the package yet.";
+  const attempted = "Delivery Attempted, We tried to deliver to the business, but it was closed. A second attempt will be made the next business day.";
+  const rescheduled = "Reschedule Delivery Requested, We received a request from the receiver to reschedule the delivery.";
+  const claim = "A claim has been issued to the sender for your package. Please contact the sender for more information.";
+  const outForDelivery = "Out for Delivery, Out For Delivery Today";
+  const cases = [
+    ["UPS", "Waiting for pickup", label, "Label Created", "Waiting for pickup"],
+    ["UPS", "Unfulfilled", label, "Label Created", "Processing"],
+    ["UPS", "In Transit", "We have your Package, Arrived at Facility", "On the Way, Arrived at Facility", "In Transit"],
+    ["UPS", "In Transit", outForDelivery, "Out for Delivery", "Out for delivery"],
+    ["UPS", "In Transit", attempted, attempted, "In Transit"],
+    ["UPS", "In Transit", rescheduled, rescheduled, "In Transit"],
+    ["UPS", "Delivered", "Delivered, DELIVERED", "Delivered", "Delivered"],
+    ["UPS", "In Transit", claim, "A claim has been issued to the sender for your pac...", "Exception"],
+    ["XPO", "In Transit", claim, "A claim has been issued to the sender for your pac...", "In Transit"],
+    ["UPS", "In Transit", "Not out for delivery", "Not out for delivery", "In Transit"],
+    ["XPO", "In Transit", outForDelivery, outForDelivery, "In Transit"],
+  ];
+
+  for (const [carrier, status, description, expectedDescription, expectedStatus] of cases) {
+    const { shipments: [shipment] } = toLighthouseOrder({
+      shipments: [{ status, tracking: [{ carrier, latestUpdate: { description } }] }],
+    });
+    assert.equal(shipment.tracking[0].latestUpdate.description, expectedDescription);
+    assert.equal(shipment.status, expectedStatus);
+  }
+});
+
+test("shows the Exception badge for both UPS return confirmations", () => {
+  for (const description of [
+    "UPS has returned your package to the sender.",
+    "Returned, Package was returned to the sender",
+  ]) {
+    const { shipments } = toLighthouseOrder({
+      shipments: ["In Transit", "Unfulfilled"].map((status) => ({
+        status,
+        tracking: [{ carrier: "UPS", latestUpdate: { description } }],
+      })),
+    });
+    assert.deepEqual(shipments.map((shipment) => shipment.status), ["Exception", "Exception"]);
+  }
+});
+
+test("shows a FedEx Exception only for the specific unable-to-deliver update", () => {
+  const unableToDeliver = "Shipment exception, Unable to deliver";
+  for (const [carrier, description, expected] of [
+    ["FedEx", unableToDeliver, "Exception"],
+    ["FedEx", "Shipment exception", "In Transit"],
+    ["FedEx", "Shipment exception, Weather delay", "In Transit"],
+    ["FedEx", "Delivery exception, Future delivery requested", "In Transit"],
+    ["XPO", unableToDeliver, "In Transit"],
+  ]) {
+    const { shipments: [shipment] } = toLighthouseOrder({
+      shipments: [{ status: "In Transit", tracking: [{ carrier, latestUpdate: { description } }] }],
+    });
+    assert.equal(shipment.status, expected, description);
+  }
+});
+
 test("drops non-web tracking links from Lighthouse responses", () => {
   const order = toLighthouseOrder({
     found: true,

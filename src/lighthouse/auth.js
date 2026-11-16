@@ -2,7 +2,7 @@ import { randomBytes } from "node:crypto";
 import { normalizeCustomerEmail } from "./verification.js";
 
 const COOKIE_NAME = "__Host-lighthouse";
-const SESSION_SECONDS = 30 * 60;
+const SESSION_SECONDS = 8 * 60 * 60;
 
 export function lighthouseSessionCookie(token, maxAge = 0) {
   return `${COOKIE_NAME}=${token}; Path=/; Max-Age=${maxAge}; Secure; HttpOnly; SameSite=Strict`;
