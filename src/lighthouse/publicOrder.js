@@ -70,7 +70,11 @@ function publicStatus(shipment) {
     return "Out for delivery";
   }
 
+  const upsLabelCreated = shipment.tracking?.some(({ carrier, latestUpdate }) => (
+    carrier === "UPS" && /^label created(?:[.,:!?]|$)/i.test(latestUpdate?.description?.trim() ?? "")
+  ));
   if (
+    upsLabelCreated ||
     combined.includes("waiting for pickup") ||
     combined.includes("awaiting carrier pickup") ||
     combined.includes("awaiting pickup") ||
@@ -96,7 +100,9 @@ function publicStatus(shipment) {
     return "In Transit";
   }
 
-  return "Processing";
+  return shipment.source === "shopify" && shipment.rawStatus === "SUCCESS"
+    ? "Waiting for pickup"
+    : "Processing";
 }
 
 function publicUpdateDescription(description, carrier) {

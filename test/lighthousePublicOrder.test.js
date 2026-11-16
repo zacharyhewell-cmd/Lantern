@@ -149,6 +149,9 @@ test("consolidates Lighthouse statuses into a closed public lifecycle", () => {
   const cases = [
     { status: "Unfulfilled", rawStatus: "待出库", expected: "Processing" },
     { status: "Fulfilled - LtL processing", rawStatus: "未出库", expected: "Processing" },
+    { source: "shopify", status: "Unfulfilled", rawStatus: "SUCCESS", expected: "Waiting for pickup" },
+    { source: "shopify", status: "Unfulfilled", rawStatus: "OPEN", expected: "Processing" },
+    { source: "shopify", status: "In Transit", rawStatus: "SUCCESS", expected: "In Transit" },
     { status: "Waiting for pickup", rawStatus: "已出库-待上网", expected: "Waiting for pickup" },
     { status: "Waiting for pickup", rawStatus: "待提货", expected: "Waiting for pickup" },
     { status: "Shipping from China - see tracking", rawStatus: "运输途中", expected: "In Transit" },
@@ -163,7 +166,7 @@ test("consolidates Lighthouse statuses into a closed public lifecycle", () => {
     const order = toLighthouseOrder({
       found: true,
       shipments: [{
-        source: "surpath",
+        source: entry.source ?? "surpath",
         status: entry.status,
         rawStatus: entry.rawStatus,
         items: [],
@@ -201,7 +204,9 @@ test("applies Lighthouse copy and badge rules to the selected UPS scans", () => 
   const outForDelivery = "Out for Delivery, Out For Delivery Today";
   const cases = [
     ["UPS", "Waiting for pickup", label, "Label Created", "Waiting for pickup"],
-    ["UPS", "Unfulfilled", label, "Label Created", "Processing"],
+    ["UPS", "Unfulfilled", label, "Label Created", "Waiting for pickup"],
+    ["UPS", "In Transit", "Label Created", "Label Created", "Waiting for pickup"],
+    ["UPS", "Delivered", label, "Label Created", "Delivered"],
     ["UPS", "In Transit", "We have your Package, Arrived at Facility", "On the Way, Arrived at Facility", "In Transit"],
     ["UPS", "In Transit", outForDelivery, "Out for Delivery", "Out for delivery"],
     ["UPS", "In Transit", attempted, attempted, "In Transit"],
