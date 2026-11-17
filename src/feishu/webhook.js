@@ -123,12 +123,14 @@ export function createFeishuWebhookProcessor({
     const inviteCommand = String(event.content).match(LIGHTHOUSE_INVITE_PATTERN);
     const inviteIdCommand = LIGHTHOUSE_INVITE_ID_PATTERN.test(event.content);
     const isLighthouseCommand = inviteCommand || inviteIdCommand;
-    const senderOpenId = payload.event?.sender?.sender_id?.open_id;
+    const { sender, message } = payload.event || {};
+    const senderOpenId = sender?.sender_id?.open_id;
+    const inviteInThread = Boolean(inviteCommand && message?.chat_type === "group" &&
+      allowedChats.has(message.chat_id));
     if (isLighthouseCommand) {
-      const { sender, message } = payload.event || {};
       if (!verificationToken || payload.header?.token !== verificationToken ||
         payload.header?.event_type !== "im.message.receive_v1" ||
-        message?.chat_type !== "p2p" || message.message_type !== "text" ||
+        (message?.chat_type !== "p2p" && !inviteInThread) || message.message_type !== "text" ||
         !message.message_id || sender?.sender_type !== "user" ||
         typeof senderOpenId !== "string" || !senderOpenId.startsWith("ou_")) {
         return { status: 200, body: { ok: true, ignored: "invite_access" } };
@@ -185,7 +187,7 @@ export function createFeishuWebhookProcessor({
             logger.warn?.("Lighthouse invite configuration is unavailable");
           }
         }
-        await replyClient.replyInThread(event.messageId, reply, { replyInThread: false });
+        await replyClient.replyInThread(event.messageId, reply, { replyInThread: inviteInThread });
         return;
       }
 

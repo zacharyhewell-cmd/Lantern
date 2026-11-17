@@ -8,10 +8,10 @@ import {
 } from "../src/feishu/webhook.js";
 import { createLighthouseSetupLink } from "../src/lighthouse/invite.js";
 
-test("issues a Lighthouse setup link to any Feishu user in a verified DM", async () => {
+test("issues Lighthouse invites in verified DMs and threads in Lantern's configured groups", async () => {
   const replies = [];
   const processor = createFeishuWebhookProcessor({
-    allowedChatId: "oc_existing_group",
+    allowedChatIds: ["oc_lantern", "oc_shipping"],
     verificationToken: "verify-token",
     lighthouseInviteHandler: (email) => createLighthouseSetupLink(
       email, "https://lighthouse.example/lighthouse", "example-test-secret-at-least-32-bytes",
@@ -20,14 +20,15 @@ test("issues a Lighthouse setup link to any Feishu user in a verified DM", async
     logger: {},
   });
   const request = ({
-    chatType = "p2p", openId = "ou_first_user", token = "verify-token",
+    chatType = "p2p", chatId = "oc_direct", openId = "ou_first_user", token = "verify-token",
+    senderType = "user",
     content = "Lighthouse invite Dealer@Example.com", messageId = "om_test",
   } = {}) => ({
     header: { event_type: "im.message.receive_v1", token },
     event: {
-      sender: { sender_type: "user", sender_id: { open_id: openId } },
+      sender: { sender_type: senderType, sender_id: { open_id: openId } },
       message: {
-        message_id: messageId, chat_id: "oc_direct", chat_type: chatType, message_type: "text",
+        message_id: messageId, chat_id: chatId, chat_type: chatType, message_type: "text",
         content: JSON.stringify({ text: content }),
       },
     },
@@ -35,6 +36,9 @@ test("issues a Lighthouse setup link to any Feishu user in a verified DM", async
 
   for (const overrides of [
     { chatType: "group" }, { openId: "" }, { token: "" }, { token: "wrong" },
+    { chatType: "group", chatId: "oc_shipping", token: "" },
+    { chatType: "group", chatId: "oc_shipping", senderType: "app" },
+    { chatType: "group", chatId: "oc_lantern", content: "Lighthouse invite-id" },
   ]) {
     const denied = await processor(request(overrides));
     assert.equal(denied.afterResponse, undefined);
@@ -68,6 +72,19 @@ test("issues a Lighthouse setup link to any Feishu user in a verified DM", async
   const staffLink = new URL(replies[1][1].split("\n").at(-1));
   const staffToken = new URLSearchParams(staffLink.hash.slice(1)).get("setup");
   assert.equal(JSON.parse(Buffer.from(staffToken.split(".")[0], "base64url")).email, "staff@velotric.bike");
+
+  for (const chatId of ["oc_lantern", "oc_shipping"]) {
+    const groupEvent = request({ chatType: "group", chatId, messageId: `om_${chatId}` });
+    await (await processor(groupEvent)).afterResponse;
+    const [parentId, reply, options] = replies.at(-1);
+    assert.equal(parentId, `om_${chatId}`);
+    assert.deepEqual(options, { replyInThread: true });
+    const groupLink = new URL(reply.split("\n").at(-1));
+    const groupToken = new URLSearchParams(groupLink.hash.slice(1)).get("setup");
+    assert.equal(JSON.parse(Buffer.from(groupToken.split(".")[0], "base64url")).email, "dealer@example.com");
+    assert.equal((await processor(groupEvent)).body.duplicate, true);
+  }
+  assert.equal(replies.length, 4);
 });
 
 test("responds to Feishu URL verification challenge", () => {

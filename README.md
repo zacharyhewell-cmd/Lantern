@@ -20,7 +20,7 @@ The link is valid for 24 hours and can be used once. Customers choose their own 
 
 To issue links in Feishu, enable `im:message.p2p_msg:readonly` for the Lantern bot if needed and publish the Feishu app update. The bot uses its existing `im.message.receive_v1` webhook, which must have `FEISHU_VERIFICATION_TOKEN` configured. Render supplies the default Lighthouse URL. Set `LIGHTHOUSE_PAGE_URL` to override it with the HTTPS Lighthouse page.
 
-Anyone who can DM the Lantern bot can use `Lighthouse invite dealer@example.com` after verifying the customer's email. The bot replies in the same DM with a single-use setup or password reset link. Share the link privately with the intended recipient.
+After verifying the customer's email, type `Lighthouse invite dealer@example.com` in Lantern or Shipping. The bot uses the same group chat configuration as Lantern's order lookup and replies in a thread with a single-use setup or password reset link. Anyone who can DM the bot can also use the command and receive the link in that DM. Share the link privately with the intended recipient.
 
 Staff use the same Feishu invite and password reset flow. Anyone signed in with an exact `@velotric.bike` address can look up orders under any Shopify email using the order number and shipping postal code. Existing staff accounts qualify with their current credentials.
 
