@@ -158,8 +158,9 @@ function itemLines(items) {
   )).join("\n"));
 }
 
-function renderTracking(container, tracking) {
+function renderTracking(container, tracking, estimate) {
   addDetail(container, "Carrier", tracking.carrier);
+  addDetail(container, "Estimated delivery", estimate);
 
   if (tracking.trackingNumber) {
     if (tracking.trackingUrl) {
@@ -190,18 +191,21 @@ function renderShipment(shipment, index, total) {
   card.append(header);
 
   if (shipment.items.length) addDetail(card, "Items", itemLines(shipment.items));
+  let estimate = null;
   if (shipment.deliveredAt) {
     addDetail(card, "Delivered", formatDate(shipment.deliveredAt, true));
   } else if (shipment.status === "Processing" || shipment.status === "Waiting for pickup") {
-    addDetail(card, "Estimated delivery", "delivery estimate will be calculated once carrier makes pickup");
+    estimate = "delivery estimate will be calculated once carrier makes pickup";
   } else if (shipment.estimatedDeliveryAt || shipment.status === "In Transit") {
-    const estimate = formatDate(shipment.estimatedDeliveryAt) ?? "See tracking for estimated delivery date";
-    addDetail(card, "Estimated delivery", estimate);
+    estimate = formatDate(shipment.estimatedDeliveryAt) ?? "See tracking for estimated delivery date";
   }
 
   if (shipment.tracking.length) {
-    shipment.tracking.forEach((tracking) => renderTracking(card, tracking));
+    shipment.tracking.forEach((tracking, trackingIndex) => {
+      renderTracking(card, tracking, trackingIndex === 0 ? estimate : null);
+    });
   } else {
+    addDetail(card, "Estimated delivery", estimate);
     addDetail(card, "Tracking", "Not available yet");
   }
 
