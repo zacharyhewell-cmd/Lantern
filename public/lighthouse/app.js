@@ -194,8 +194,9 @@ function renderShipment(shipment, index, total) {
     addDetail(card, "Delivered", formatDate(shipment.deliveredAt, true));
   } else if (shipment.status === "Processing" || shipment.status === "Waiting for pickup") {
     addDetail(card, "Estimated delivery", "delivery estimate will be calculated once carrier makes pickup");
-  } else if (shipment.estimatedDeliveryAt) {
-    addDetail(card, "Estimated delivery", formatDate(shipment.estimatedDeliveryAt));
+  } else if (shipment.estimatedDeliveryAt || shipment.status === "In Transit") {
+    const estimate = formatDate(shipment.estimatedDeliveryAt) ?? "See tracking for estimated delivery date";
+    addDetail(card, "Estimated delivery", estimate);
   }
 
   if (shipment.tracking.length) {
